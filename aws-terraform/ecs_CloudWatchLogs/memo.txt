@@ -1,0 +1,3 @@
+
+# cloudwatchlogsのlogを確認するコマンド。もちろんapplyしてから以下を実行。
+aws logs filter-log-events --log-group-name /ecs/example

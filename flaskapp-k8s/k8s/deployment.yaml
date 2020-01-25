@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  selector:
+    matchLabels:
+      app: flask-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: app
+        image: kshina76/uwsgi:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3031
+      - name: web
+        image: kshina76/nginx:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

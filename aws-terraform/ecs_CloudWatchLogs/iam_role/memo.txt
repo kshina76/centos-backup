@@ -1,0 +1,12 @@
+
+・ECSのIAMロールの定義場合のiam moduleの使い方
+identifierはIAMロールを関連付けるサービスの名前で、ec2.amazonaws.comと記述するとec2にIAMロールを紐づけられる。
+policyは別でdataで定義して使う。
+module "ecs_task_execution_role" {
+  source     = "./iam_role"
+  name       = "ecs-task-execution"
+  identifier = "ecs-tasks.amazonaws.com"
+  policy     = data.aws_iam_policy_document.ecs_task_execution.json
+}
+
+・
