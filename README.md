@@ -49,7 +49,7 @@ https://qiita.com/kohga/items/dccf135b0af395f69144
 
 
 ## 3-3.dockerをインストールと起動と自動起動設定  
-
+・インストール  
 ```bash  
 $ sudo yum install -y yum-utils device-mapper-persistent-data lvm2  
 $ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  
@@ -60,6 +60,15 @@ $ docker --version
   
 Docker version 19.03.5, build 633a0ea  
 ```
+  
+・sudo無し実行  
+```bash  
+# exitはしないと設定が反映されないので注意  
+$ sudo groupadd docker  
+$ sudo gpasswd -a $USER docker  
+$ sudo service docker restart  
+$ exit  
+```  
 
 ### 参考文献  
 ・dockerのインストール  

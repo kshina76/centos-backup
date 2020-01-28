@@ -42,3 +42,18 @@ resource "aws_s3_bucket" "emr-log" {
   acl           = "private"
   force_destroy = true
 }
+resource "aws_s3_bucket_object" "emr-log-object" {
+  key = "elasticmapreduce/"
+  bucket = aws_s3_bucket.emr-log.id
+}
+
+# S3 bucket for emr outputs
+resource "aws_s3_bucket" "emr-output" {
+  bucket        = "emr-output-kshina76"
+  acl           = "private"
+  force_destroy = true
+}
+resource "aws_s3_bucket_object" "emr-output-object" {
+  key = "output/"
+  bucket = aws_s3_bucket.emr-output.id
+}

@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+    - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+    - REPO=$(aws ecr describe-repositories --repository-names example --output text --query "repositories[0].repositoryUri")
+    - IMAGE_nginx = $REPO:nginx
+    - IMAGE_uwsgi = $REPO:uwsgi
+    - echo REPO=$REPO >> .env
+  build:
+    commands:
+    - docker-compose build
+    - docker push $IMAGE_nginx
+    - docker push $IMAGE_uwsgi
+  post_build:
+    commands:
+    - printf '[{"name":"example","imageUri":"%s"}]' $IMAGE > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json

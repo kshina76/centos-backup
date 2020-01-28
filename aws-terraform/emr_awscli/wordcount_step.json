@@ -1,0 +1,18 @@
+[
+  {
+     "Name": "WordCount",
+     "Type": "STREAMING",
+     "ActionOnFailure": "CONTINUE",
+     "Args": [
+         "-files",
+         "s3://ap-northeast-1.elasticmapreduce.samples/wordcount/code/wordSplitter.py",
+         "-mapper",
+         "wordSplitter.py",
+         "-reducer",
+         "aggregate",
+         "-input",
+         "s3://ap-northeast-1.elasticmapreduce.samples/wordcount/data/",
+         "-output",
+         "s3://emr-output-kshina76/output/"]
+  }
+]
