@@ -5,14 +5,11 @@ phases:
     commands:
     - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
     - REPO=$(aws ecr describe-repositories --repository-names example --output text --query "repositories[0].repositoryUri")
-    - IMAGE_nginx = $REPO:nginx
-    - IMAGE_uwsgi = $REPO:uwsgi
-    - echo REPO=$REPO >> .env
+    - IMAGE=$REPO:latest
   build:
     commands:
-    - docker-compose build
-    - docker push $IMAGE_nginx
-    - docker push $IMAGE_uwsgi
+    - docker build -t $IMAGE .
+    - docker push $IMAGE
   post_build:
     commands:
     - printf '[{"name":"example","imageUri":"%s"}]' $IMAGE > imagedefinitions.json

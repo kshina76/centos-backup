@@ -55,7 +55,7 @@ resource "aws_ecs_service" "example" {
   # コンテナ定義のjsonに書いた内容を記述する。
   load_balancer {
     target_group_arn = aws_lb_target_group.example.arn
-    container_name   = "example"
+    container_name   = "nginx"
     container_port   = 80
   }
 
