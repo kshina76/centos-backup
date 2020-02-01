@@ -56,7 +56,7 @@ resource "aws_ecs_service" "example" {
   # container_nameはタスク定義に書いたコンテナの中でエンドポイントになるものを選択する
   load_balancer {
     target_group_arn = aws_lb_target_group.example.arn
-    container_name   = "nginx"
+    container_name   = "web"
     container_port   = 80
   }
 

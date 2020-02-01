@@ -1,26 +1,26 @@
 [
   {
-    "name": "uwsgi",
+    "name": "app",
     "image": "kshina76/uwsgi:latest",
     "essential": true,
     "logConfiguration":{
       "logDriver": "awslogs",
       "options": {
         "awslogs-region": "ap-northeast-1",
-        "awslogs-stream-prefix": "uwsgi",
+        "awslogs-stream-prefix": "app",
         "awslogs-group": "/ecs/example"
       }
     }
   },
   {
-    "name": "nginx",
+    "name": "web",
     "image": "kshina76/nginx:latest",
     "essential": true,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
         "awslogs-region": "ap-northeast-1",
-        "awslogs-stream-prefix": "nginx",
+        "awslogs-stream-prefix": "web",
         "awslogs-group": "/ecs/example"
       }
     },
@@ -33,7 +33,7 @@
     ],
     "dependsOn" : [
       {
-        "containerName": "uwsgi",
+        "containerName": "app",
         "condition": "START"
       }
     ]
