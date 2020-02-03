@@ -4,7 +4,23 @@ import warnings
 
 from sklearn.preprocessing import LabelEncoder
 
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
+
+from tqdm import tqdm
+from scipy.stats import ks_2samp
+
+'''
+
+参考文献
+https://qiita.com/TaigoKuriyama/items/8f9286b5c882819adebb
+https://upura.hatenablog.com/entry/2019/03/03/233534
+'''
+
+# warningを表示しない
 warnings.filterwarnings('ignore')
+
+# dataframeを省略しないで表示
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option("display.max_colwidth", 10000)
@@ -46,6 +62,8 @@ def reduce_mem_usage(df):
 
     return df
 
+
+#----------------------------------------------特徴量エンジニアリング(可視化も含む)
 # 色々な情報を表示する関数
 '''以下の情報を表示する
 カラム名 / カラムごとのユニーク値数 / 最も出現頻度の高い値 / 最も出現頻度の高い値の出現回数 /
@@ -126,6 +144,17 @@ def conb_enc(col1, col2, train, test):
     test[new_col] = le.transform(list(test[new_col].astype(str).values)) 
     return train, test
 
+# カテゴリ変数のみLabel Encodingする
+def labeling_only_cat(train, test):
+    for col in train.columns:
+        if train[col].dtype == 'object':
+            le = LabelEncoder()
+            le.fit(list(train[col].astype(str).values) + list(test[col].astype(str).values))
+            train[col] = le.transform(list(train[col].astype(str).values))
+            test[col] = le.transform(list(test[col].astype(str).values))   
+    return train, test
+
+
 # あるカラム群の欠損の数の合計を特徴量にする
 # 例えばAgeとCabinというカラムを選択したときに2つともnanなら2になるし、片方がnanなら1になるし、nanが無ければ0になる
 def sum_cols_nan(train, test, col_list):
@@ -133,22 +162,62 @@ def sum_cols_nan(train, test, col_list):
     test['missing'] = test[col_list].isna().sum(axis=1).astype('int16')
     return train, test
 
+#--------------------------------------------------特徴選択(特徴量エンジニアリングを行った後にやる作業)
+# 以下の不要なカラムを一気に削除する
+'''
+・値が一つしかないカラム
+・nullが多いカラム(9割がnullという閾値)
+・ほとんど同じ値のカラム(9割りが同じ値という閾値)
+'''
+def drop_unuse_cols(train, test):
+    one_value_cols = [col for col in train.columns if train[col].nunique() <= 1]
+    one_value_cols_test = [col for col in test.columns if test[col].nunique() <= 1]
+
+    many_null_cols = [col for col in train.columns if train[col].isnull().sum() / train.shape[0] > 0.9]
+    many_null_cols_test = [col for col in test.columns if test[col].isnull().sum() / test.shape[0] > 0.9]
+
+    big_top_value_cols = [col for col in train.columns if train[col].value_counts(dropna=False, normalize=True).values[0] > 0.9]
+    big_top_value_cols_test = [col for col in test.columns if test[col].value_counts(dropna=False, normalize=True).values[0] > 0.9]
+
+    cols_to_drop = list(set(many_null_cols + many_null_cols_test + big_top_value_cols
+                            + big_top_value_cols_test + one_value_cols+ one_value_cols_test))
+
+    train.drop(cols_to_drop, axis=1, inplace=True)
+    test.drop(cols_to_drop, axis=1, inplace=True)
+
+    return train, test
+
+# object型とNaN(欠損値)はランダムフォレストに使えないので、処理してから行う。
+def recurrent_select_feature(train, test, target):
+    X_train = train.drop(target, axis=1)
+    y_train = train[target]
+    
+    # 必要ならここでobjectをすべてlabel encodingで数値にする
+    # X_train, test = labeling_only_cat(X_train, test)
+
+    select = RFE(RandomForestClassifier(n_estimators=100, random_state=42), n_features_to_select=40)
+    select.fit(X_train, y_train)
+
+    X_train_rfe = select.transform(X_train)
+    X_test_rfe = select.transform(test)
+
+    return X_train_rfe, X_test_rfe
+
+# コルモゴロフースミルノフ検定
+# trainのそれぞれの特徴量とtestのそれぞれの特徴量の分布が違うものをあぶりだす
+# あたりまえだけどtrainとtestの特徴量分布が似ている方がうまくいく可能性が高いから
+# https://upura.hatenablog.com/entry/2019/03/03/233534
+def kol_smi_test(train, test):
+    list_p_value =[]
+    for i in tqdm(train.columns):
+        list_p_value.append(ks_2samp(test[i], train[i])[1])
+    Se = pd.Series(list_p_value, index=train.columns).sort_values() 
+    list_discarded = list(Se[Se < .1].index)
+    return list_discarded
+
 train_x = pd.read_csv('./train.csv')
 test_x = pd.read_csv('./test.csv')
 
+train_x.drop('Survived', axis=1, inplace=True)
 
-show_feature_describe(train_x)
-
-#---------------------------------------------後で加工する
-# カテゴリ変数のみLabel Encodingする
-'''
-for col in train.columns:
-    if train[col].dtype == 'object':
-        le = LabelEncoder()
-        le.fit(list(train[col].astype(str).values) + list(test[col].astype(str).values))
-        train[col] = le.transform(list(train[col].astype(str).values))
-        test[col] = le.transform(list(test[col].astype(str).values))   
-'''
-
-
-
+show_feature_describe(test_x)
