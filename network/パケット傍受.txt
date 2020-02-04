@@ -1,0 +1,46 @@
+サイトのパケット傍受とtcpdump使い方
+
+前提条件
+傍受したいマシンと同じネットワークに繋いでいること(ということはフリーwifiとかは色々な人の通信を見れる)
+
+step1. SSL暗号化されていないサイトは中身を見れる(httpsがSSL暗号化されているので、httpのものを見つける)
+http://www.mlit.go.jp/
+
+step2. nslookupでドメイン部からipアドレスを取得する。
+$ nslookup mlit.go.jp
+nslookupの引数は、URL全体ではなくて、ドメイン部のみを指定すればよい。
+ドメイン部がどの部分なのかは以下のサイトが詳しい
+https://ferret-plus.com/8736
+
+step3. tcpdumpでnslookupしたipのパケットを見る。
+https://qiita.com/tossh/items/4cd33693965ef231bd2a
+https://qiita.com/aosho235/items/d87e0d69e89513d02a3f
+※tcpdumpはsudoで実行しないとエラーになる
+
+☆tcpdump
+・localhostのパケットキャプチャをするには、NICにloを指定しないといけない。tcpdumpはデフォルトで、loを除いた一番最初に表示されるNICでパケットキャプチャをするため。
+$ sudo tcpdump -i lo host localhost
+または
+$ sudo tcpdump -i lo
+
+・送信元ipアドレス指定
+$ sudo tcpdump src host [src ip]
+これは、src ipが送信元になっているパケットだけをキャプチャする。要するに、大量のパケットからフィルタをかけて絞って表示している。
+src ip -> ip のようなパケットだけ
+
+・送信先ipアドレス指定
+$ sudo tcpdump dst host [src ip]
+これは、src ipが送信先になっているパケットだけをキャプチャする。
+ip -> dst ip のようなパケットだけ
+
+・送信元または送信先ipアドレス指定
+$ sudo tcpdump host [ip]
+これはどっち向きのパケットも表示する
+
+☆知ったこと
+・httpはポート80が使われる
+・httpsはポート443が使われる
+・パケットは、同一ネットワークにあるipのパケットしか見れない
+・ホストとは、mano-lab@acd-pcのmano-labの部分。つまり一つのコンピュータ(サーバ)に付けられた名前。要するにサーバ名のこと。
+・ipアドレスは、ホスト毎(サーバ毎)に割り当てられるわけではない。NIC(ネットワークインタフェースカード)毎に割り当てられる。
+・NICとは、lo(loop back address)やeth0やenp5s0のような名前で割り当てられたもの。
