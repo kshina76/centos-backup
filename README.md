@@ -80,35 +80,58 @@ $ cd {自分のリポジトリ}
 $ sudo yum -y install epel-release  
 $ sudo yum install --enablerepo=epel jq  
 $ bash dockcomp_inst.sh  
+```
 
-## 3-5.pyenvのインストール(同時にpipenvも構築したほうがいいので、その時が来たらやる)  
+## 3-5.pyenv+pipenvの環境構築(gitも必要だけど3-2の方法でインストールしているものとする)  
 ```bash  
-$ sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel sqlite sqlite-devel openssl openssl-devel  
+# 必要なライブラリをインストール
+$ sudo yum install -y gcc zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel libffi-devel  
+  
+# pyenvをクローン  
 $ git clone https://github.com/pyenv/pyenv.git ~/.pyenv  
-$ echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bash_profile  
-$ echo 'eval "$(pyenv init -)"' >> ~/.bash_profile  
-$ source ~/.bash_profile  
+  
+# pyenvの環境変数設定  
+$ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile  
+$ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile  
+$ echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile  
+$ exec "$SHELL" -l  
 $ pyenv --version  
-pyenv 1.2.2-6-g694b551  
+  
+# virtualenv のディレクトリ（.venv）をプロジェクト内に作るように設定  
+$ echo 'export PIPENV_VENV_IN_PROJECT=1' >> ~/.bash_profile  
+  
+# python 3.7.4 をインストールしてデフォルトに設定  
+$ pyenv install 3.7.4  
+$ pyenv global 3.7.4  
+  
+# pipenv をインストール  
+$ pip install --upgrade pip  
+$ pip install pipenv    
 ```
-
-・pythonのバージョンのリストを表示。ここから選んでインストールする  
-```bash
-$ pyenv install --list  
-```
-
-・pythonのバージョン切り替え(3.6.4を選択)  
+  
+### pipenvの使いかた  
 ```bash  
-$ pyenv install 3.6.4  
-$ pyenv global 3.6.4  
-$ pyenv rehash  
-$ python --version  
-Python 3.6.4  
+# 作業ディレクトリに移動  
+$ cd hoge  
+  
+# python仮想環境構築  
+$ pipenv install --python 3.6  
+  
+# 試しにxgboostをインストール  
+$ pipenv install xgboost  
+  
+# 仮想環境をアクティベート  
+$ pipenv shell  
+  
+# 仮想環境から抜ける  
+$ exit  
 ```
-
 ### 参考文献  
-・pyenvのインストール  
-https://qiita.com/ksugawara61/items/ba9a51ebfdaf8d1a1b48  
+・pipenvのインストール  
+https://blog.cles.jp/item/11113  
+  
+・pipenvの使い方  
+https://narito.ninja/blog/detail/58/  
 
 ## 3-6.awscliのインストールと設定
 ### awscliの前準備    
