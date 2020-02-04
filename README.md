@@ -205,4 +205,53 @@ $ terraform --version
 https://www.terraform.io/downloads.html  
 ・terraformのインストール  
 https://410gone.click/blog/2018/10/22/linux-terraform%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/  
-
+  
+## 3-9.jupyter notebookのインストールとリモートサーバで起動させてローカルで使用  
+```bash  
+# jupyterをインストール  
+$ pipenv install jupyter  
+  
+# ipythonを起動してjupyterログイン時のパスワードを設定  
+$ ipython  
+In [1]: from notebook.auth import passwd  
+  
+In [2]: passwd()  
+Enter password: [パスワードを入力]  
+Verify password: [パスワードを再度入力]  
+Out[2]: 'sha1: [ハッシュ化されたパスワード]'  
+```
+外部接続環境用の設定ファイルを作成  
+```bash  
+$ mkdir ~/.jupyter  
+$ emacs ~/.jupyter/jupyter_notebook_config.py  
+```
+```python:jupyter_notebook_config.py  
+c = get_config()  
+  
+# Notebook上でplotを表示できるようにする  
+c.IPKernelApp.pylab = 'inline'  
+# 全てのIPから接続を許可  
+c.NotebookApp.ip = '*'  
+# IPython notebookのログインパスワード  
+c.NotebookApp.password = 'sha1:[ハッシュ化されたパスワード]'  
+# 起動時にブラウザを起動させるかの設定  
+c.NotebookApp.open_browser = False  
+# ポート指定  
+c.NotebookApp.port = [接続ポート]  
+  
+接続ポートが8888だとしたらセキュリティグループでtcpを8888で0.0.0.0/0でリッスンする設定を施す  
+  
+```
+jupyter起動  
+```bash  
+$ jupyter notebook  
+```
+表示されたアドレスにブラウザから接続する  
+  
+### 参考文献  
+・jupyterをリモートで起動してローカルで動かす  
+https://qiita.com/syo_cream/items/05553b41277523a131fd  
+https://qiita.com/hiroseabook/items/1da01ea439b01c1eb48c  
+  
+・jupyterの使いかた  
+https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83/jupyter-notebook%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86  
