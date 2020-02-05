@@ -124,7 +124,7 @@ def shift_higher_than_zero(train, test):
             test[col] -= np.float32(min)
     return train, test
 
-# 数値変数の欠損値を-1で埋める
+# 数値変数の欠損値を-1で埋める(これは最小値-2とかでもいい。データによる。)
 def fill_nan_to_nega(train, test):
     for col in train.columns:
         if not ((np.str(train[col].dtype)=='category')|(train[col].dtype=='object')):
@@ -214,6 +214,44 @@ def kol_smi_test(train, test):
     Se = pd.Series(list_p_value, index=train.columns).sort_values() 
     list_discarded = list(Se[Se < .1].index)
     return list_discarded
+
+# PCA(主成分分析)
+# カラムが数値データの場合に適用できる。(カテゴリではなくて)
+# 複数のカラムを指定した個数に縮小する。次元削減手法
+# それぞれのカラムはスケーリング(今回の例だとmin-maxスケーリング)されている必要がある。
+# 主成分分析は相関が高いカラム同士だと、より強い効力を発揮する。なので、ヒートマップで相関を見て、高いところで分けながらPCAをする。
+# fraud-detectionコンペだと、[V]という特徴量が339個あって、そこからヒートマップを見て相関が高い[322-339]でPCA、[281-315]でPCA
+# のように分割してPCAをしていた。
+# https://www.kaggle.com/cdeotte/eda-for-columns-v-and-id
+# https://www.kaggle.com/kabure/extensive-eda-and-modeling-xgb-hyperopt
+def PCA_change(df, cols, n_components, prefix='PCA_', rand_seed=4):
+    pca = PCA(n_components=n_components, random_state=rand_seed)
+    principalComponents = pca.fit_transform(df[cols])
+    principalDf = pd.DataFrame(principalComponents)
+    df.drop(cols, axis=1, inplace=True)
+    principalDf.rename(columns=lambda x: str(prefix)+str(x), inplace=True)
+    df = pd.concat([df, principalDf], axis=1)
+    return df
+'''PCA使用方法
+# heat_mapを確認して相関が高いところを調べる
+sns.heatmap(train_x[0:400].corr(), cmap='RdBu_r', annot=True, center=0.0)
+
+# PCAにかける部分のカラムを抽出(相関が高かったところが55:394だと仮定)
+mas_v = df_train.columns[55:394]
+
+# スケーリングとPCAをインポート
+from sklearn.preprocessing import minmax_scale
+from sklearn.decomposition import PCA
+
+# NaNの処理とmin-maxスケーリング
+for col in mas_v:
+    df[col] = df[col].fillna((df[col].min() - 2))
+    df[col] = (minmax_scale(df[col], feature_range=(0,1)))
+
+# 30個数に次元削減
+df = PCA_change(df, mas_v, prefix='PCA_V_', n_components=30)
+'''
+
 
 train_x = pd.read_csv('./train.csv')
 test_x = pd.read_csv('./test.csv')
