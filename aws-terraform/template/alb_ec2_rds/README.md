@@ -1,6 +1,6 @@
 # 構成  
 webサーバに対してALBで負荷分散を行う。DBは耐障害性を重視して2つ搭載して同期をとっている。  
-
+![maltiaz](https://user-images.githubusercontent.com/53253817/73823868-7ec07080-483c-11ea-8857-8447602b7221.jpg)
 
 
 ## 注意点  
