@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+      python: 3.7      
+  pre_build:
+    commands:
+    - python dockerfiles/pre_build.py
+  build:
+    commands:
+    - python dockerfiles/main_build.py
+  post_build:
+    commands:
+    - python dockerfiles/post_build.py
+artifacts:
+  files: imagedefinitions.json
