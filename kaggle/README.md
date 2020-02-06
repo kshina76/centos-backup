@@ -30,12 +30,19 @@ https://qiita.com/TomoyukiAota/items/fd75c28b802bad9e6632
   
 ## 3.特徴量エンジニアリング  
 ここでは「1」の結果からカラムを一つ一つを深掘りしていき、データから特徴量を作る段階  
+臆することなく間違っていても効くことがあるからいっぱい特徴量を作る  
   
 ### 3-1.groupby系  
 ・カテゴリ変数でgroupbyをしてから数値変数でmeanやstdを取って、その値で何かの数値変数を割る(もしかしたら四則演算もするのかな？？)  
 ・groupbyでなんらかの処理をする  
+・カテゴリ内の平均  
+・
   
 ### 3-2.その他  
+・count,sum,max,min,rollingとかの特徴量作成  
+・is_null,is_zero,is_not_zero,over_0.5とかの特徴量作成  
+・PolynomialFeaturesでクロスフィーチャーを作る  
+・行ごとの統計情報をまとめる(NaNの数,0の数,負の数)  
 ・「.」や「_」で区切って特徴量にする  
 ・行ごとにNaNのカウント  
 ・とりあえず四則演算  
@@ -49,6 +56,10 @@ https://qiita.com/TomoyukiAota/items/fd75c28b802bad9e6632
 https://www.ten-kara-data.com/how-to-outlier/  
 ・clipping  
 0以下の数値がある時はlog変換できないからこっちを使うといいかも。  
+  
+### 3-4.参考文献  
+・クロスフィーチャー  
+http://www.mirandora.com/?p=2505  
   
 ## 4.特徴量削除(次元削除を含む)  
 ### 4-1.自動で次元削除  
@@ -82,6 +93,8 @@ https://www.ten-kara-data.com/how-to-outlier/
   
 ## 8.モデル構築、学習、評価、チューニング  
 主にGBDTを使うことになると思う  
+チューニングはベイズ最適化を行うといいと思う。  
+http://www.mirandora.com/?p=2505  
   
 ## 9.アンサンブル  
 スタッキングやブレンディングなど。  
