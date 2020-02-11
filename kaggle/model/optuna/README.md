@@ -20,6 +20,8 @@
 ## kaggle本筆者のxgboostの最適化パラメータ  
 ```python  
 # ベースラインのパラメータ  
+# optunaで初期値を設定する方法は以下参照  
+# https://qiita.com/tmitani/items/c0acd198788089786e29  
 params = {  
     'booster': 'gbtree',  
     'objective': 'binary:logistic',  
