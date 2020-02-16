@@ -1,0 +1,44 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid":"AWSControlTowerAccountFactoryAccess",
+            "Effect":"Allow",
+            "Action": [
+                "sso:GetProfile",
+                "sso:CreateProfile",
+                "sso:UpdateProfile",
+                "sso:AssociateProfile",
+                "sso:CreateApplicationInstance",
+                "sso:GetSSOStatus",
+                "sso:GetTrust",
+                "sso:CreateTrust",
+                "sso:UpdateTrust",
+                "sso:GetPeregrineStatus",
+                "sso:GetApplicationInstance",
+                "sso:ListDirectoryAssociations",
+                "sso:ListPermissionSets",
+                "sso:GetPermissionSet",
+                "sso:ProvisionApplicationInstanceForAWSAccount",
+                "sso:ProvisionApplicationProfileForAWSAccountInstance",
+                "sso:ProvisionSAMLProvider",
+                "sso:ListProfileAssociations",
+                "sso-directory:ListMembersInGroup",
+                "sso-directory:AddMemberToGroup",
+                "sso-directory:SearchGroups",
+                "sso-directory:SearchGroupsWithGroupName",
+                "sso-directory:SearchUsers",
+                "sso-directory:CreateUser",
+                "sso-directory:DescribeGroups",
+                "sso-directory:DescribeDirectory",
+                "sso-directory:GetUserPoolInfo",
+                "sso:DescribeRegisteredRegions",
+                "controltower:CreateManagedAccount",
+                "controltower:DescribeManagedAccount",
+                "controltower:DeregisterManagedAccount",
+                "s3:GetObject"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
