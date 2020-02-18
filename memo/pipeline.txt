@@ -1,0 +1,9 @@
+・githubとcodepipelineとS3の連携
+https://www.kabegiwablog.com/entry/2019/02/19/100000
+
+・S3->lambda
+lambdaを作成して特にポリシーを作成しなくてもトリガーにS3を追加すると機能するようになっている。
+S3のトリガー設定で、プレフィックスに「accountspec」、トリガーはputだけに反応するようにすればいい。
+putはオブジェクトが置かれた時を示す。
+
+・上記のインフラをterraformでコード化をしたい
