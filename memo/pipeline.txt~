@@ -1,5 +1,0 @@
-・githubとcodepipelineとS3の連携
-https://www.kabegiwablog.com/entry/2019/02/19/100000
-
-・S3->lambda
-lambdaを作成して特にポリシーを作成しなくてもトリガーにS3を追加すると機能するようになっている。
