@@ -1,5 +1,4 @@
 # 構成  
-![codepipeline](https://user-images.githubusercontent.com/53253817/73824566-b7ad1500-483d-11ea-8c9a-85e5bda11362.png)
 
 # 使用方法  
 
