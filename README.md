@@ -137,6 +137,8 @@ https://narito.ninja/blog/detail/58/
 
 ## 3-6.pyenv+anacondaの環境構築(pyenvは3-5でインストールしているものとする)
 - pyenv+anacondaは、機械学習やデータ分析を行う際はこちらの環境を選択するといいと思う
+- pyenvとanacondaは相性が悪く、activateするときにもんだいが起きるので少し工夫が必要(後述)
+- https://qiita.com/y__sama/items/f732bb7bec2bff355b69
 
 ```bash
 # anacondaのバージョン一覧を確認する
@@ -150,6 +152,18 @@ $ pyenv global anaconda3-5.1.0
 
 # anacondaで仮想環境を作る
 $ conda create -n test python=3.6.5
+
+# pyenvでanacondaの環境名を取得する
+$ pyenv versions
+
+# anacondaの仮想環境をactivateする(通常の方法だとできない。上記の参考文献を参照する)
+$ source $PYENV_ROOT/versions/anaconda3-2.5.0/bin/activate <環境名>
+
+# anacondaの仮想環境をdeactivateする
+$ source $PYENV_ROOT/versions/anaconda3-2.5.0/bin/deactivate <環境名>
+
+#パッケージインストール
+$ conda install [パッケージ] or pip install -r requirements.txt など
 
 ```
 
