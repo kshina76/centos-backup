@@ -82,7 +82,9 @@ $ sudo yum install --enablerepo=epel jq
 $ bash dockcomp_inst.sh  
 ```
 
-## 3-5.pyenv+pipenvの環境構築(gitも必要だけど3-2の方法でインストールしているものとする)  
+## 3-5.pyenv+pipenvの環境構築(gitも必要だけど3-2の方法でインストールしているものとする)
+- pyenv+pipenvはアプリ開発やインフラ開発はこちらの環境を選択するといいと思う
+
 ```bash  
 # 必要なライブラリをインストール
 $ sudo yum install -y gcc zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel libffi-devel  
@@ -133,7 +135,26 @@ https://blog.cles.jp/item/11113
 ・pipenvの使い方  
 https://narito.ninja/blog/detail/58/  
 
-## 3-6.awscliのインストールと設定
+## 3-6.pyenv+anacondaの環境構築(pyenvは3-5でインストールしているものとする)
+- pyenv+anacondaは、機械学習やデータ分析を行う際はこちらの環境を選択するといいと思う
+
+```bash
+# anacondaのバージョン一覧を確認する
+$ pyenv install -l | grep anaconda
+
+# 使いたいバージョンをインストールする
+$ pyenv install anaconda3-5.1.0
+
+# インストールしたバージョンに環境を切り替える
+$ pyenv global anaconda3-5.1.0
+
+# anacondaで仮想環境を作る
+$ conda create -n test python=3.6.5
+
+```
+
+
+## 3-7.awscliのインストールと設定
 ### awscliの前準備    
 コンソールでIAMと検索してユーザー、ユーザの追加を選択してURLに沿って設定していく  
 ユーザ名はAdministrator  
@@ -165,7 +186,7 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: json  
 ```
 
-## 3-7.eksとkubectlのインストール  
+## 3-8.eksとkubectlのインストール  
 ### eks  
 ```bash
 $ curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp  
@@ -191,7 +212,7 @@ https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/getting-started-eksctl.ht
 ・kubectlのインストール  
 https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/install-kubectl.html#w159aac27b9b9b3  
 
-## 3-8.terraformのインストール  
+## 3-9.terraformのインストール  
 ```bash
 $ sudo yum -y install unzip  
 $ wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip  
@@ -206,7 +227,7 @@ https://www.terraform.io/downloads.html
 ・terraformのインストール  
 https://410gone.click/blog/2018/10/22/linux-terraform%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/  
   
-## 3-9.jupyter notebookのインストールとリモートサーバで起動させてローカルで使用  
+## 3-10.jupyter notebookのインストールとリモートサーバで起動させてローカルで使用  
 ```bash  
 # jupyterをインストール  
 $ pipenv install jupyter  
