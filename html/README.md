@@ -26,6 +26,8 @@
     - ビューポート(スマホでも読みやすくする)
 10. formを使って入力する部分を作成する
 11. javascriptやpythonを使ってさらに高度なwebページへ
+    - htmlのformを使って入力欄を作った後は、入力内容をPOSTできるような機能をdjangoなどで記述してあげる
+        - https://noumenon-th.net/programming/2019/10/28/django-forms/
 
 # タグ一覧
 ## id, class
