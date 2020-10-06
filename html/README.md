@@ -1,13 +1,14 @@
 # webページの構成例
+- webページはheader, footer, mainのように大きな枠組みに分けて開発していくことになる
+
 ![2020-10-06 22 29のイメージ](https://user-images.githubusercontent.com/53253817/95208343-e98ad700-0823-11eb-8e60-447ac2d40a45.jpeg)
+
 
 - headerにはページのタイトルを配置する。(KOSUKE SHINAGAWA PORTOFOLIO の部分)
 - footerにはサイトの情報を配置する。(コピーライトの部分)
 - navにはサイト内で見たいページに一気に飛べるボタンの配置？ (works, feature, about, skill, contact の部分)
 - mainでページの主要な部分を記述する
 - articleで独立した記事を表す。sectionでセクションを表すことができる。
- 
-- webページはheader, footer, mainのように大きな枠組みに分けて開発していくことになる
 
 # タグ一覧
 ## id, class
@@ -18,7 +19,6 @@
 
 ```html
 <タグ id="id名"> </タグ>
-
 <タグ class="同じclass名"></タグ>
 <タグ class="同じclass名"></タグ>
 ```
