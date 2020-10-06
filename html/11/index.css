@@ -1,0 +1,38 @@
+body{
+   width: 100vw;
+   height: 100vh;
+   margin: 0 auto;
+   background-color: cornflowerblue;
+   background-image: url(title.jpg);
+   background-size: cover;
+}
+#title{
+   width: 100vw;
+   height: 70vh;
+   padding-top: 10vh;
+   margin: 0 auto;
+   color: white;
+   font-family: fantasy;
+   font-size: 3em;
+   text-align: center;
+}
+#enter{
+   width: 5em;
+   margin: 0 auto;
+   color: white;
+   background-color: deeppink;
+   border-radius: 5px;
+   border-width: 1px;
+   font-family: fantasy;
+   font-size: 2em;
+   text-align: center;
+}
+a:link{
+   color: white;
+}
+a:visited{
+   color: white;
+}
+#enter:hover{
+   background-color: pink;
+}

@@ -1,0 +1,16 @@
+h1{
+   width: 100%;
+   background-color: cornflowerblue;
+}
+h2{
+   width: 15em;
+   background-color: limegreen;
+}
+p{
+   width: 80%;
+   background-color: gold;
+}
+.image{
+   width: 60%;
+   background-color: orangered;
+}

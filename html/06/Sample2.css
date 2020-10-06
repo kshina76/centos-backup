@@ -1,0 +1,24 @@
+h1{
+   width: 100%;
+   margin: 0;
+   padding: 3em 0;
+   background-color: cornflowerblue;
+}
+h2{
+   width: 15em;
+   margin: 1em;
+   padding: 0;
+   background-color: limegreen;
+}
+p{
+   width: 80%;
+   margin: 0;
+   padding: 0.5em;
+   background-color: gold;
+}
+.image{
+   width: 60%;
+   margin: 0.5em;
+   padding: 0.5em;
+   background-color: orangered;
+}
