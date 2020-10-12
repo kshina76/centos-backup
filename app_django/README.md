@@ -100,7 +100,12 @@ path('post/new/', views.post_new, name='post_new')
 
 <br></br>
 
-
+- オブジェクト関連マッピング
+    - ORMというdjango独自の記法
+    - djangoの公式チュートリアルのchoice_setの意味
+        - choiceで直接createしてしまうと、questionに結び付けられない。なので、choice_set.createとすることで、questionに関連づいたchoiceを作成できる
+    - https://pyhaya.hatenablog.com/entry/2018/10/30/224851#choice_setとは
+    
 
 ## 静的ファイルとは
 - cssや画像ファイルといった動的な変更がされないファイルのこと
