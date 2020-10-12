@@ -102,10 +102,14 @@ path('post/new/', views.post_new, name='post_new')
 
 - オブジェクト関連マッピング
     - ORMというdjango独自の記法
-    - djangoの公式チュートリアルのchoice_setの意味
+    - djangoの公式チュートリアルのq.choice_setの意味
+        - questionオブジェクトに関連づけられたchoiceオブジェクトのこと
         - choiceで直接createしてしまうと、questionに結び付けられない。なので、choice_set.createとすることで、questionに関連づいたchoiceを作成できる
     - https://pyhaya.hatenablog.com/entry/2018/10/30/224851#choice_setとは
-    
+    - https://docs.djangoproject.com/ja/3.1/ref/models/relations/
+
+- モデルのフィールドはクラス変数みたいに思えばいい
+    - フィールドの値の初期化をしたければ、class_name(引数=1, 引数=2, ...)のように本来のpythonの使い方のように行えばいい。
 
 ## 静的ファイルとは
 - cssや画像ファイルといった動的な変更がされないファイルのこと
