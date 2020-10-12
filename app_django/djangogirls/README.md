@@ -9,6 +9,7 @@
     - urlのpath内に<int:pk>や<int:info_id>を書くと、pkやinfo_idという変数がviewに渡される
         - viewが関数ベースなら引数にpkのように指定しておけば使えるようになる
         - クラスベースなら、get_context_dataのkwargsに格納されている
+    - https://k-mawa.hateblo.jp/entry/2017/10/31/235640
 
 ```python
 # ユーザがpost/2/edit/にアクセスしたらpk=2となってview内の関数(クラス)の引数になる
