@@ -1,4 +1,26 @@
-# 簡単なブログ作成
+# webアプリ開発memo
+
+## djangoでまずやること
+1. djangoアプリのベースを生成
+    - プロジェクトディレクトリを作成して、そこで以下を実行
+
+```bash
+mysiteというプロジェクトを生成
+$ django-admin startproject mysite .
+```
+
+2. サーバを立てられるか確認
+
+```bash
+$ python manage.py runserver 8000
+```
+
+3. アプリケーションを作成
+
+```bash
+pollsというアプリケーションを作成
+$ python manage.py startapp polls
+```
 
 ##  django memo
 - viewは「templateとmodelを繋ぐ架け橋」と「viewを生成する」機能を持つ
@@ -37,6 +59,9 @@ path('post/new/', views.post_new, name='post_new')
     1. タグ名で判別する
     2. classやidで判別する
 - 例えば、bodyタグを指定したら、bodyで囲まれている要素全てにレイアウトを適用することができる。余白とか。
+
+# やったこと
+1. 簡単なブログ作成(django girls)
 
 # 参考文献
 - https://tutorial.djangogirls.org/ja/
