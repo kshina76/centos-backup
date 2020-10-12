@@ -11,7 +11,17 @@
 ```python
 # ユーザがpost/2/edit/にアクセスしたらpk=2となってview内の関数(クラス)の引数になる
 path('post/<int:pk>/edit/', views.post_edit, name='post_edit')
+```
 
+- urlのpathでnameを指定しておくと、htmlのハイパーリンクでurlを待ち受けることができる
+
+```python
+path('post/new/', views.post_new, name='post_new')
+```
+
+```html
+このハイパーリンクがクリックされたら、post_newというnameのviewを使って描画するという意味
+<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 ```
 
 ## 静的ファイルとは
