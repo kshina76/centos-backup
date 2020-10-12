@@ -46,16 +46,23 @@ INSTALLED_APPS = [
 
 6. モデル（データベースの作成）
 
-7. モデルの変更を保存
+7. モデルの変更ファイルを作成
 
 ```bash
 $ python manage.py makemigrations polls
+```
+
+8. モデルの変更を保存
+
+```bash
+$ python manage.py migrate
 ```
 
 
 ##  django memo
 - viewは「templateとmodelを繋ぐ架け橋」と「viewを生成する」機能を持つ
 <br></br>
+
 - 他のurlで何度も登場するhtmlの文はテンプレート拡張を使って、カプセル化みたいなことをする
 <br></br>
 - データベースの各レコードにはプライマリキー(pk)という連番の値が自動で割り当てられている。
@@ -70,6 +77,7 @@ path('post/<int:pk>/edit/', views.post_edit, name='post_edit')
 ```
 
 <br></br>
+
 - urlのpathでnameを指定しておくと、htmlのハイパーリンクでurlを待ち受けることができる
 
 ```python
@@ -80,6 +88,19 @@ path('post/new/', views.post_new, name='post_new')
 このハイパーリンクがクリックされたら、post_newというnameのviewを使って描画するという意味
 <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 ```
+
+<br></br>
+
+- modelの__str__()メソッドの意味
+    - 管理画面で表示される文字列を定義する
+    - このメソッドがないとオブジェクト名で表示されてしまうため、管理しにくくなってしまう
+    - 管理画面で判別しやすいような文字列をreturnするようにする
+    - 例えば、ブログのタイトルをreturnすると、そのブログがどのような内容かパッと見でわかるようになる
+    - https://office54.net/python/django/model-str-self
+
+<br></br>
+
+
 
 ## 静的ファイルとは
 - cssや画像ファイルといった動的な変更がされないファイルのこと
