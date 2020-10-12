@@ -22,6 +22,22 @@ pollsというアプリケーションを作成
 $ python manage.py startapp polls
 ```
 
+4. アプリケーションをdjangoに伝える
+    - ルートディレクトリからの相対パスで指定する
+
+```python
+# pollsディレクトリの中にあるapps.pyにConfigのクラスが作成されているから、それを指定する
+INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+```
+
 ##  django memo
 - viewは「templateとmodelを繋ぐ架け橋」と「viewを生成する」機能を持つ
 <br></br>
