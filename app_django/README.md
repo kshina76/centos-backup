@@ -22,7 +22,13 @@ pollsというアプリケーションを作成
 $ python manage.py startapp polls
 ```
 
-4. アプリケーションをdjangoに伝える
+4. データベースのセットアップ
+
+```bash
+$ python manage.py migrate
+```
+
+5. アプリケーションをdjangoに伝える
     - ルートディレクトリからの相対パスで指定する
 
 ```python
@@ -37,6 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 ```
+
+6. モデル（データベースの作成）
+
+7. モデルの変更を保存
+
+```bash
+$ python manage.py makemigrations polls
+```
+
 
 ##  django memo
 - viewは「templateとmodelを繋ぐ架け橋」と「viewを生成する」機能を持つ
