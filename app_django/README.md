@@ -125,6 +125,12 @@ path('post/new/', views.post_new, name='post_new')
 
 <br></br>
 
+- templates内にそのままhtmlを置いてはいけない理由
+    - 一つのdjangoプロジェクトに複数のアプリケーションが作られる可能性があるから
+    - pollsアプリとblogアプリを作りたかったらtemplates内にpollsディレクトリとblogディレクトリを作るようにする
+
+<br></br>
+
 - テンプレート内にurlをハードコードしない
     - ハードコードしないことによって、開発中にurlを変更したいときにurlファイルをいじれば簡単に変更できるようになる
     - ダメな例は、/polls/{{ question.id }}/ のようにurlがそのまま書かれてしまっている
@@ -174,6 +180,48 @@ urlpatterns = [
 
 //変更後
 {% url 'polls:detail' question.id %}
+```
+
+<br></br>
+
+- djangoにおいてhtml内でforループのカウンターを使う
+    - forloop.counter を使う
+    - 0からカウントさせたかったら、forloop.counter0 を使う
+    - https://opendata-web.site/blog/entry/17/
+
+```html
+{% for list in lists %}
+    {{ forloop.counter }} : {{ list.name }}
+{% endfor %}
+```
+
+```
+  1 : name1
+  2 : name2
+  3 : name3
+```
+
+<br></br>
+
+- formに入力されたものをdjangoで処理する方法
+    - htmlのformのactionタグに記述されたviewは、postされた瞬間に動作する
+    - ラジオボタンのvalueは初期値を入れている。（今回は特に意味はないのかな？？）
+    - 以下の例の動作手順
+        1. actionタグによってurlファイルに書かれているname=voteのviewが参照されて、post待ち状態になる
+        2. ラジオボタンがchoiceの数生成される
+        3. ラジオボタンの横のテキストをlabelによって生成する
+        4. submitボタンを生成する
+        5. submitボタンが押されたらpost待ちのviewが発火する
+
+```html
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Vote">
+</form>
 ```
 
 <br></br>
