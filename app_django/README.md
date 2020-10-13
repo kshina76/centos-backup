@@ -338,5 +338,14 @@ polls_project
 # やったこと
 1. 簡単なブログ作成(django girls)
 
+# やること
+1. 技術ブログを作成
+2. djangoのadminからブログに記事投稿
+3. ユーザ認証やメール送信といった色々な機能を追加
+    - https://docs.djangoproject.com/ja/3.1/topics/
+4. djangoのブログにmarkdown機能を実装
+    - https://blog.narito.ninja/detail/102
+5. dockerやaws連携
+
 # 参考文献
 - https://tutorial.djangogirls.org/ja/
