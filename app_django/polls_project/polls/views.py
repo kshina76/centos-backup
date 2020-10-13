@@ -5,6 +5,8 @@ from django.views import generic
 
 from .models import Choice, Question
 
+from django.utils import timezone
+
 """
 汎用ビューを使ったクラスベース
 """
@@ -13,9 +15,12 @@ class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
+    # get_querysetの返り値は、html内のlatest_question_listに格納される
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
@@ -25,6 +30,13 @@ class DetailView(generic.DetailView):
     # djangoではmodel変数で定義したQuestionを小文字にしてquestionをcontextとして自動的に渡してくれる
     # 自分で名前を決めたいなら以下のようにすると、contextに独自の名前を付けれる
     # context_object_name = 'question'
+
+    # get_querysetの返り値は、html内のquestionに格納される
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):

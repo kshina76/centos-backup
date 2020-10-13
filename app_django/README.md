@@ -232,16 +232,52 @@ urlpatterns = [
 
 <br></br>
 
-- 汎用ビューの主なクラス変数
+- 汎用ビューの主なクラス変数とメソッド
     - model変数
-        - モデル(データベースのクラス)を格納すると、クラス名を小文字にしてcontext変数として使えるようになる
+        - モデル(データベースのクラス)を格納すると、クラス名を小文字にしてqueryset変数としてhtml(template)内で使えるようになる
     - template_name変数
-        - 表示したいtemplateのパスを格納する
-        - model変数で定義したcontext変数が、このtemplate内で使用可能になる
+        - 表示したいhtml(template)のパスを格納する
+        - model変数で定義したqueryset変数が、このhtml(template)内で使用可能になる
     - context_object_name変数
-        - model変数で自動的に登録されたcontext変数に独自の名前をつけることができる
+        - model変数で自動的に登録されたqueryset変数に独自の名前をつけることができる
+    - get_querysetメソッド
+        - model変数を小文字にしたqueryset変数に格納したいオブジェクト(queryset型)をreturnする
 
+<br></br>
 
+- DetailViewとListView
+    - DetailViewでオブジェクトをリスト表示(全件またはページに収まる程度)
+    - ListViewでリスト表示した内の一つを詳細表示する
+    - DetailView->ListView という遷移を開発することになると思う
+    - DetailViewとListViewの違いの一つとして、pkがDetailViewにある。
+        - list表示された内の一つ一つにはpkというidが振られていて、DetailView内の変数に格納されている
+    - https://www.nblog09.com/w/2019/05/04/django-list-detail/
+
+<br></br>
+
+- querysetとcontextの違い
+    - 一言で言うと、持っている情報量が違う
+    - contextは辞書型、querysetはqueryset型(リストみたいな)
+    - querysetはcontextの中にも含まれている
+
+```
+context
+{
+'paginator': None,
+'page_obj': None,
+'is_paginated': False,
+'object_list': <QuerySet [<AppModel: データ1つ目>, <AppModel: データ2つ目>, <AppModel: データ3つ目>]>,
+'appmodel_list': <QuerySet [<AppModel: データ1つ目>, <AppModel: データ2 つ目>, <AppModel: データ3つ目>]>,
+'view': <app.views.AppListView object at 0x7f157824ab00>
+}
+```
+
+```
+queryset
+ <QuerySet [<AppModel: データ1つ目>, <AppModel: データ2つ目>, <AppModel: データ3つ目>]>
+```
+
+<br></br>
 
 ## 静的ファイルとは
 - cssや画像ファイルといった動的な変更がされないファイルのこと
