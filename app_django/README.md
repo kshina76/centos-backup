@@ -108,8 +108,35 @@ path('post/new/', views.post_new, name='post_new')
     - https://pyhaya.hatenablog.com/entry/2018/10/30/224851#choice_setとは
     - https://docs.djangoproject.com/ja/3.1/ref/models/relations/
 
+<br></br>
+
 - モデルのフィールドはクラス変数みたいに思えばいい
     - フィールドの値の初期化をしたければ、class_name(引数=1, 引数=2, ...)のように本来のpythonの使い方のように行えばいい。
+
+<br></br>
+
+- html内でpython構文を用いる際の注意
+    - pythonで関数を呼び出すときall()のように呼び出すが、djangoを使ったhtml内ではallと記述して、()は付けない
+
+<br></br>
+
+- 機能を実装する時は、ヘルパー関数がないか調べる
+    - 例えば404 not foundを実装したい時の例
+
+<br></br>
+
+- テンプレート内にurlをハードコードしない
+    - ダメな例は、/polls/{{ question.id }}/ のようにurlがそのまま書かれてしまっている
+    - 良い例は、{% url 'detail' question.id %} のようにurlファイルに書かれているurlを参照するように処理している
+        - url側で<int: question_id>と書くと、html内でquestion.idでアクセスできる変数となる(ORM記法かな？？)
+
+```html
+//ダメな例
+<li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+
+//良い例
+<li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+```
 
 ## 静的ファイルとは
 - cssや画像ファイルといった動的な変更がされないファイルのこと
