@@ -290,3 +290,27 @@ https://qiita.com/hiroseabook/items/1da01ea439b01c1eb48c
   
 ・jupyterの使いかた  
 https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83/jupyter-notebook%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86  
+
+# 入社までにやること
+- バックエンドエンジニアに必要な技術ロードマップを確認しつつ学んでいく
+    - httpとかの基本的な理解なども含んでいるから、基礎学習の部分から取り組んでみるといいかもしれない
+    - https://qiita.com/fukuda316/items/c6f5e75708033d15db04
+- SPAやRESTやWeb APIの理解と開発
+    - https://qiita.com/kanataxa/items/522efb74421255f0e0a1
+- docker
+    - 環境構築だけではなくて、AWSと連携してデプロイする方法なども含めて
+- AWS
+    - djangoで作ったアプリや研究内容を組み合わせて、インフラなどから考えて構築してみるとか
+    - インフラのパターンとかを学習するといいかもしれない
+- github
+    - gitコマンドでブランチ切って開発したり、そこらへんを手足のように使えるようになる
+- javascript/typescript
+    - djangoでやったことをここらへんの言語を使って実装してみるとか
+- go言語
+    - 最近のwebアプリ開発はgo言語が優れていたりするらしいから、時間があったら学んでみてもいいかも
+- vscodeでのデバッグ方法
+    - デバッグだけではなくて、フレームワークの動作を見るときなどに使いたい
+- vscodeのお気に入りプラグイン
+    - lintとか自動補間とかでお気に入りのプラグインを見つけてメモしておくといいかもしれない
+- テスト方法の学習
+    - unittestとかを用いたテスト方法を学んでおくといいかもしれない

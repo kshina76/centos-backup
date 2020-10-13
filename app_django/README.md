@@ -205,7 +205,8 @@ urlpatterns = [
 
 - formに入力されたものをdjangoで処理する方法
     - htmlのformのactionタグに記述されたviewは、postされた瞬間に動作する
-    - ラジオボタンのvalueは初期値を入れている。（今回は特に意味はないのかな？？）
+    - ラジオボタンのname='choice'はviewでPOSTされた内容にアクセスする際にrequest.POST['choice']とアクセスするために必要
+    - ラジオボタンのvalueは選択されて送信されたときに、request.POST['choice']に格納されるから必要
     - 以下の例の動作手順
         1. actionタグによってurlファイルに書かれているname=voteのviewが参照されて、post待ち状態になる
         2. ラジオボタンがchoiceの数生成される
@@ -225,6 +226,20 @@ urlpatterns = [
 ```
 
 <br></br>
+
+- POSTが成功したあとは、HttpResponseではなくてHttpResponseRedirectを返す必要がある
+    - django固有ではなくて、web開発の基本
+
+<br></br>
+
+- 汎用ビューの主なクラス変数
+    - model変数
+        - モデル(データベースのクラス)を格納すると、クラス名を小文字にしてcontext変数として使えるようになる
+    - template_name変数
+        - 表示したいtemplateのパスを格納する
+        - model変数で定義したcontext変数が、このtemplate内で使用可能になる
+    - context_object_name変数
+        - model変数で自動的に登録されたcontext変数に独自の名前をつけることができる
 
 
 
