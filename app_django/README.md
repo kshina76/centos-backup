@@ -259,6 +259,7 @@ urlpatterns = [
     - 一言で言うと、持っている情報量が違う
     - contextは辞書型、querysetはqueryset型(リストみたいな)
     - querysetはcontextの中にも含まれている
+    - https://codor.co.jp/django/difference-context-and-queryset
 
 ```
 context
@@ -275,6 +276,51 @@ context
 ```
 queryset
  <QuerySet [<AppModel: データ1つ目>, <AppModel: データ2つ目>, <AppModel: データ3つ目>]>
+```
+
+<br></br>
+
+- get_querysetとget_context_dataとgetの使い分け
+    - get_querysetでできなそう->get_context_dataでできなそう->getをカスタマイズ
+    - https://teratail.com/questions/118626
+
+<br></br>
+
+- djangoでのディレクトリ構造の参考
+    - 開発がしやすいように色々と分けたほうがいい
+    - staticやtemplates内でもpollsのようにアプリケーション毎にディレクトリを分ける
+    - 画像はimagesに格納
+
+```
+polls_project
+├── db.sqlite3
+├── manage.py
+├── mysite
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── polls
+    ├── __init__.py
+    ├── admin.py
+    ├── apps.py
+    ├── migrations
+    │   ├── 0001_initial.py
+    │   └── __init__.py
+    ├── models.py
+    ├── static
+    │   └── polls
+    │       ├── images
+    │       └── style.css
+    ├── templates
+    │   └── polls
+    │       ├── detail.html
+    │       ├── index.html
+    │       └── results.html
+    ├── tests.py
+    ├── urls.py
+    └── views.py
 ```
 
 <br></br>
