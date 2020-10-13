@@ -126,16 +126,28 @@ path('post/new/', views.post_new, name='post_new')
 <br></br>
 
 - テンプレート内にurlをハードコードしない
+    - ハードコードしないことによって、開発中にurlを変更したいときにurlファイルをいじれば簡単に変更できるようになる
     - ダメな例は、/polls/{{ question.id }}/ のようにurlがそのまま書かれてしまっている
     - 良い例は、{% url 'detail' question.id %} のようにurlファイルに書かれているurlを参照するように処理している
         - url側で<int: question_id>と書くと、html内でquestion.idでアクセスできる変数となる(ORM記法かな？？)
 
 ```html
+//リンクを複数生成するプログラム(questionの個数分だけリンクが生成される)
+
 //ダメな例
-<li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+{% for question in latest_question_list %}
+    <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+{% endfor %}
 
 //良い例
-<li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+{% for question in latest_question_list %}
+    <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+{% endfor %}
+```
+
+```python
+//urlファイルの設定(name='detail'とすることが重要)
+path('<int:question_id>/', views.detail, name='detail')
 ```
 
 ## 静的ファイルとは
