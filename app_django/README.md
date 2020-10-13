@@ -129,7 +129,6 @@ path('post/new/', views.post_new, name='post_new')
     - ハードコードしないことによって、開発中にurlを変更したいときにurlファイルをいじれば簡単に変更できるようになる
     - ダメな例は、/polls/{{ question.id }}/ のようにurlがそのまま書かれてしまっている
     - 良い例は、{% url 'detail' question.id %} のようにurlファイルに書かれているurlを参照するように処理している
-        - url側で<int: question_id>と書くと、html内でquestion.idでアクセスできる変数となる(ORM記法かな？？)
 
 ```html
 //リンクを複数生成するプログラム(questionの個数分だけリンクが生成される)
@@ -149,6 +148,37 @@ path('post/new/', views.post_new, name='post_new')
 //urlファイルの設定(name='detail'とすることが重要)
 path('<int:question_id>/', views.detail, name='detail')
 ```
+
+<br></br>
+
+- URLの名前空間
+    - 一つのdjangoプロジェクトの中に複数個のアプリケーションが作られることがある場合に必要になる
+    - 例えば、blogアプリとpollsアプリがあって、どちらのアプリにもdetailというviewがあった場合にdjangoがどちらのviewかを認識出来るようにする
+
+```python
+# urlファイルにapp_nameで設定する
+# これによって、pollsのdetailとdjangoが認識できるようになる
+app_name = 'polls'
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('<int:question_id>/', views.detail, name='detail'),
+]
+```
+
+```html
+//テンプレートも変更する
+
+//変更前
+{% url 'detail' question.id %}
+
+//変更後
+{% url 'polls:detail' question.id %}
+```
+
+<br></br>
+
+
 
 ## 静的ファイルとは
 - cssや画像ファイルといった動的な変更がされないファイルのこと
