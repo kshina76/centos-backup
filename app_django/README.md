@@ -336,7 +336,10 @@ polls_project
 - 例えば、bodyタグを指定したら、bodyで囲まれている要素全てにレイアウトを適用することができる。余白とか。
 
 # やったこと
-1. 簡単なブログ作成(django girls)
+1. 勉強手順
+    - https://www.arimakaoru.com/blog/django-beginner-recommendation
+2. 簡単なブログ作成(django girls)
+3. 投票アプリ作成(django公式tutorial)
 
 # やること
 1. 技術ブログを作成(自分のポートフォリオを拡張してもいいかも)
