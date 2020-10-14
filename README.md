@@ -315,6 +315,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - テスト方法の学習
     - unittestとかを用いたテスト方法を学んでおくといいかもしれない
 
-# 入社までに読む書籍
+# 入社までに読む書籍、サイト
 - web開発の基本を網羅
     - https://www.amazon.co.jp/exec/obidos/asin/4797388811/akiyoko0b-22/
+- djangoの学習ロードマップ
+    - https://akiyoko.hatenablog.jp/entry/2018/12/01/133427
