@@ -46,18 +46,19 @@ INSTALLED_APPS = [
 
 6. モデル（データベースの作成）
 
-7. モデルの変更ファイルを作成
+7. モデルの変更ファイルを作成(モデルの変更があるたびに行う)
 
 ```bash
 $ python manage.py makemigrations polls
 ```
 
-8. モデルの変更を保存
+8. モデルの変更を保存(モデルの変更があるたびに行う)
 
 ```bash
 $ python manage.py migrate
 ```
 
+9. urlconfigからアプリケーションディレクトリのurlconfigにincludeする
 
 ##  django memo
 - viewは「templateとmodelを繋ぐ架け橋」と「viewを生成する」機能を持つ
@@ -322,6 +323,27 @@ polls_project
     ├── urls.py
     └── views.py
 ```
+
+<br></br>
+
+- modelにデータを登録する際のobjects.createとobjects.saveの違い
+    - どちらもデータを登録するメソッド
+    - createの方は一行で登録することができる
+    - saveはモデルをインスタンス化してsaveするという二行になる
+    - https://www.366service.com/jp/qa/71aa47b9ef06fb11fd9d963e8aee8966
+
+<br></br>
+
+- settings.pyに書いてあるBASE_DIR
+    - プロジェクトのルートディレクトリを表している
+    - djangoがファイルを探すときには、BASE_DIRからの相対パスでアクセスしている
+        - from importするときもBASE_DIRをルートとして行うのかな？？
+
+## python memo
+- クラスオブジェクトとインスタンスオブジェクトとは
+    - クラスオブジェクトは、クラスの定義が終わると生成されるもの
+    -  インスタンスオブジェクトは、インスタンス化された時に生成されるもの
+    - https://python.ms/instance-and-class/#疑問-インスタンスオブジェクトって具体的に何のこと
 
 <br></br>
 

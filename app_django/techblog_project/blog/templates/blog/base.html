@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Tech Blog</title>
+    </head>
+
+    <body>
+        <header id="header">
+            <h1 class="logo">
+                <div class="logo-title">Kosuke's</div>
+                <div class="logo-desc">Tech Blog</div>
+            </h1>
+        </header>
+        <main id='main-articles'>
+            <div class="row">
+                <div class="col">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
