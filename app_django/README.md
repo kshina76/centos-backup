@@ -253,6 +253,7 @@ urlpatterns = [
     - DetailViewとListViewの違いの一つとして、pkがDetailViewにある。
         - list表示された内の一つ一つにはpkというidが振られていて、DetailView内の変数に格納されている
     - https://www.nblog09.com/w/2019/05/04/django-list-detail/
+    - デフォルトのget_querysetメソッドは、model変数が定義されていると、model変数のobjects.all()を返す挙動。
 
 <br></br>
 
@@ -339,6 +340,44 @@ polls_project
     - djangoがファイルを探すときには、BASE_DIRからの相対パスでアクセスしている
         - from importするときもBASE_DIRをルートとして行うのかな？？
 
+<br></br>
+
+- ページリンクのURLにパラメータをつける
+    - 二種類のやり方を紹介する
+        - htmlだけの場合は、?の後に「変数=値」とするだけ
+        - djangoの場合は、「url urlconfigのpathのname 変数=値」とする
+        - https://forum.samuraiz.co.jp/samu06/01.html
+        - https://qiita.com/tatamyiwathy/items/244d1bf10e585569213c
+
+```html
+//htmlだけで実装する方法
+<a href="detail.cfm?empid=101">社員Ａ</a><br>
+<a href="detail.cfm?empid=102">社員Ｂ</a><br>
+<a href="detail.cfm?empid=103">社員Ｃ</a><br>
+<a href="detail.cfm?empid=104">社員Ｄ</a><br>
+```
+
+```html
+//djangoとhtmlで実装する方法
+<a href={% url 'detail_cfm' empid=101 %}>
+<a href={% url 'detail_cfm' empid=102 %}>
+<a href={% url 'detail_cfm' empid=103 %}>
+<a href={% url 'detail_cfm' empid=104 %}>
+```
+
+```html
+//実際の使用例
+
+//python
+app_name = blog
+urlpatterns = [
+    path('<int:pk>/', views.DetailView.as_view(), name='post_detail'),
+]
+
+//html
+<h2 class="title"><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+```
+
 ## python memo
 - クラスオブジェクトとインスタンスオブジェクトとは
     - クラスオブジェクトは、クラスの定義が終わると生成されるもの
@@ -347,15 +386,33 @@ polls_project
 
 <br></br>
 
-## 静的ファイルとは
-- cssや画像ファイルといった動的な変更がされないファイルのこと
-- どのユーザでも同じものが使われることから静的と呼ばれている
+## その他色々 memo
+- 静的ファイルとは
+    - cssや画像ファイルといった動的な変更がされないファイルのこと
+    - どのユーザでも同じものが使われることから静的と呼ばれている
 
-## CSSセレクタ
-- cssでどの部分にレイアウトを適用するかを選択する時に使われる記法
-    1. タグ名で判別する
-    2. classやidで判別する
-- 例えば、bodyタグを指定したら、bodyで囲まれている要素全てにレイアウトを適用することができる。余白とか。
+<br></br>
+
+- CSSセレクタ
+    - cssでどの部分にレイアウトを適用するかを選択する時に使われる記法
+        1. タグ名で判別する
+        2. classやidで判別する
+    - 例えば、bodyタグを指定したら、bodyで囲まれている要素全てにレイアウトを適用することができる。余白とか。
+
+<br></br>
+
+- webアプリにapiを実装する必要性
+    1. 他のプログラムからwebアプリの機能を使いたい場合
+        - ただ単にサイトにcurlでアクセスしてもhtmlが返ってくるだけ
+            - json形式で機械学習の結果を返したりしたい
+        - apiの例としてgoogleの翻訳アプリを自分のwebアプリに組み込みたい場合にgoogleのapiにアクセスする
+    2. 異なるフレームワーク間の連携
+        - 例として、djangoとreactを連携させるには、django rest frameworkを使う
+            - https://qiita.com/__init__/items/f5a5a64a05541fcda713
+
+<br></br>
+
+- rest api(restful api)とは
 
 # やったこと
 1. 勉強手順

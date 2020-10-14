@@ -25,3 +25,12 @@
 <br></br>
 
 6. ある程度のところでcssでデザイン
+
+## やること
+- 以下のサイトがdjangoでブログを作っていてわかりやすい
+    - https://medium.com/@kjmczk/blogsite-django-747046b453f9
+- サイドバーを実装
+    - search, tag, profile
+- ページネーション実装
+    - 下にある1,2,3,,,100 といったページを遷移できるやつ
+- 

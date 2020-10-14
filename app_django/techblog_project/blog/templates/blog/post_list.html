@@ -4,7 +4,7 @@
     {% for post in latest_blog_list %}
         <div class="post">
             <div class="date">{{ post.created_date }}</div>
-            <h2 class="title">{{ post.title }}</h2>
+            <h2 class="title"><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p class="text">{{ post.text | linebreaksbr }}</p>
         </div>
     {% endfor %}
