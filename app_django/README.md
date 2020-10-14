@@ -343,6 +343,8 @@ polls_project
 
 # やること
 1. 技術ブログを作成(自分のポートフォリオを拡張してもいいかも)
+    - markdown
+    - 目次の自動生成(横に目次をつけてもいいかもしれない)
 2. djangoのadminからブログに記事投稿
 3. ユーザ認証やメール送信といった色々な機能を追加
     - https://docs.djangoproject.com/ja/3.1/topics/
