@@ -16,6 +16,10 @@
 4. htmlを書き始める(cssはhtmlがある程度出来上がってからでいい)
     1. header
         - 一番上のタイトル部分
+            - ホームに飛ばせるようにタイトルにリンクを貼る(index.htmlに飛ばす。indexの実体は、base.htmlを継承したpost_list.html)
+        - nav
+            - ナビゲーション
+                - home, profile, blog というナビゲーションを作成する
     2. main
         - 最近の記事を並べるところ
     3. 
@@ -26,6 +30,33 @@
 
 6. ある程度のところでcssでデザイン
 
+## 気づいたこと
+- ブログのホームに飛ばすときは、indexに飛ばす
+    - htmlの名前はindexである必要はないけど、urlconfigのnameでindexにしておくとわかりやすいかも
+
+<br></br>
+
+- djangoではずっと表示が変わらない部分をbaseにして、表示が変わるページをblockタグでカプセル化していくイメージ
+
+<br></br>
+
+- タイトルの背景色の周りの余白を無くす
+    - headerとbodyのmarginを0にする必要がある
+        - headerだけmarginを0にしてもbodyのmarginが残っているから、完璧には余白を消せない
+
+```css
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.page-title {
+    background-color: #041E32;
+    margin: 0px;
+    padding: 20px;
+}
+```
+
 ## やること
 - 以下のサイトがdjangoでブログを作っていてわかりやすい
     - https://medium.com/@kjmczk/blogsite-django-747046b453f9
@@ -33,4 +64,4 @@
     - search, tag, profile
 - ページネーション実装
     - 下にある1,2,3,,,100 といったページを遷移できるやつ
-- 
+- 詳細なプロフィールページの作成

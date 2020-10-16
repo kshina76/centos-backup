@@ -267,6 +267,35 @@ h1 {
 
 <br></br>
 
+## memo
+- リンクの下線を消す
+    - cssでtext-decorationをnoneに設定
+
+```css
+a {
+    text-decoration: none;
+}
+```
+
+<br></br>
+
+- タイトルの背景色の周りの余白を無くす
+    - headerとbodyのmarginを0にする必要がある
+        - headerだけmarginを0にしてもbodyのmarginが残っているから、完璧には余白を消せない
+
+```css
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.page-title {
+    background-color: #041E32;
+    margin: 0px;
+    padding: 20px;
+}
+```
+
 ## その他
 - webとインターネットとプロトコルの違い
     - インターネットは世界中のコンピュータが相互に通信できるように構築された道路(ネットワーク)のこと

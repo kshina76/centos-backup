@@ -5,7 +5,7 @@ from blog.models import Post
 
 # 全体を表示するためのview
 class IndexView(generic.ListView):
-    model = Post
+    model = Post # def_querysetをオーバーライドしているからあってもなくても変わらない
     template_name = 'blog/post_list.html'
     context_object_name = 'latest_blog_list'
     """

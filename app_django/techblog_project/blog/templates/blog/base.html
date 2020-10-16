@@ -1,14 +1,26 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="ja">
     <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>Tech Blog</title>
     </head>
-
     <body>
-        <header id="header">
-            <h1 class="logo">
-                <div class="logo-title">Kosuke's</div>
-                <div class="logo-desc">Tech Blog</div>
+        <header id="page-header">
+            <h1 class="page-title">
+                <a href="{% url 'blog:index' %}">
+                    Kosuke's Tech Blog
+                </a>
             </h1>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="{% url 'blog:index' %}">Home</a></li>
+                    <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                    <li><a href="{% url 'blog:index' %}">Profile</a></li>
+                </ul>
+            </nav>
         </header>
         <main id='main-articles'>
             <div class="row">
