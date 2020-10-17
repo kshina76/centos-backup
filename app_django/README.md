@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 6. モデル（データベースの作成）
 
-7. モデルの変更ファイルを作成(モデルの変更があるたびに行う)
+7. モデルの変更ファイルを作成
 
 ```bash
 $ python manage.py makemigrations polls
@@ -59,6 +59,16 @@ $ python manage.py migrate
 ```
 
 9. urlconfigからアプリケーションディレクトリのurlconfigにincludeする
+
+10. admin.pyにモデルを登録
+
+11. superuserを作る
+
+```bash
+python manage.py createsuperuser
+```
+
+12. adminサイトでモデルにデータを追加してみる
 
 ##  django memo
 - viewは「templateとmodelを繋ぐ架け橋」と「viewを生成する」機能を持つ

@@ -4,6 +4,6 @@
     <div class="detail-post">
         <div class="date">{{ post.created_date }}</div>
         <h2 class="title">{{ post.title }}</h2>
-        <p class="text">{{ post.text | linebreaksbr }}</p>
+        <p class="text">{{ post.get_text_markdownx | linebreaksbr }}</p>
     </div>
 {% endblock %}
