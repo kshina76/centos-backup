@@ -388,6 +388,19 @@ urlpatterns = [
 <h2 class="title"><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
 ```
 
+<br></br>
+
+- 常に表示させておきたい内容は、blockでカプセル化しないでbaseのhtmlにそのまま書く
+    - 例えば、タイトルとナビゲーションはどこのページにとんでも表示させておきたいからbaseに書く
+    - 分割してしまうと、拡張部分のhtmlが反映されなかった
+        - なぜかというと、テンプレート拡張は、カプセル化したテンプレートにurlディスパッチャでアクセスがないと表示されないから
+
+```html[page_hrader.html]
+<h1 class="page-title">
+    <a href="{% url 'blog:index' %}">Kosuke's Tech Blog</a>
+</h1>
+```
+
 ## python memo
 - クラスオブジェクトとインスタンスオブジェクトとは
     - クラスオブジェクトは、クラスの定義が終わると生成されるもの

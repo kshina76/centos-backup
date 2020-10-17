@@ -9,3 +9,16 @@
         </div>
     {% endfor %}
 {% endblock %}
+
+{% block page_header %}
+    <h1 class="page-title">
+        <a href="{% url 'blog:index' %}">Kosuke's Tech Blog</a>
+    </h1>
+    <nav>
+        <ul class="main-nav">
+            <li><a href="{% url 'blog:index' %}">Home</a></li>
+            <li><a href="{% url 'blog:index' %}">Blog</a></li>
+            <li><a href="{% url 'blog:index' %}">Profile</a></li>
+        </ul>
+    </nav>
+{% endblock %}
