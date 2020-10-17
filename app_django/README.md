@@ -395,7 +395,7 @@ urlpatterns = [
     - 分割してしまうと、拡張部分のhtmlが反映されなかった
         - なぜかというと、テンプレート拡張は、カプセル化したテンプレートにurlディスパッチャでアクセスがないと表示されないから
 
-```html[page_hrader.html]
+```html:page_header.html
 <h1 class="page-title">
     <a href="{% url 'blog:index' %}">Kosuke's Tech Blog</a>
 </h1>
