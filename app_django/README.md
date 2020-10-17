@@ -394,11 +394,27 @@ urlpatterns = [
     - 例えば、タイトルとナビゲーションはどこのページにとんでも表示させておきたいからbaseに書く
     - 分割してしまうと、拡張部分のhtmlが反映されなかった
         - なぜかというと、テンプレート拡張は、カプセル化したテンプレートにurlディスパッチャでアクセスがないと表示されないから
+        - 以下の例だとbase.htmlがurlディスパッチャに設定されていたら、page_header.htmlの内容は表示されない
+        - page_header.htmlがurlディスパッチャに設定されていたら表示される
 
-```html:page_header.html
-<h1 class="page-title">
-    <a href="{% url 'blog:index' %}">Kosuke's Tech Blog</a>
-</h1>
+```html
+//page_header.html
+
+{% extends 'blog/base.html' %}
+{% block page_header %}
+    <h1 class="page-title">
+        <a href="{% url 'blog:index' %}">Kosuke's Tech Blog</a>
+    </h1>
+{% endblock %}
+```
+
+```html
+//base.html
+
+<header>
+    {% block page_header %}
+    {% endblock %}
+</header>
 ```
 
 ## python memo
