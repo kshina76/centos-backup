@@ -70,12 +70,17 @@ body {
 ## やること
 - 以下のサイトがdjangoでブログを作っていてわかりやすい
     - https://medium.com/@kjmczk/blogsite-django-747046b453f9
+- modelの見直し
+    - tag
+    - category
 - サイドバーを実装
-    - search, tag, profile
+    - search, tag, profile, recently
 - ページネーション実装
     - 下にある1,2,3,,,100 といったページを遷移できるやつ
 - 詳細なプロフィールページの作成
 - markdownにメディアファイルを実装
+- post_listでカテゴリとtagの表示（データベースにcatとtagを追加しないとダメ）
+- 記事のリスト表示の時に表示する本文の量に制限をかける
 
 ## やったこと
 - markdown実装

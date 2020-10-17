@@ -17,5 +17,10 @@ class Post(models.Model):
     def get_text_markdownx(self):
         return mark_safe(markdownify(self.text))
 
+    ## 年月日だけにして返す
+    def split_date(self):
+        created_date_str = self.created_date.strftime('%Y-%m-%d %H:%M:%S')
+        return created_date_str.split()[0]
+
     def __str__(self):
         return self.title

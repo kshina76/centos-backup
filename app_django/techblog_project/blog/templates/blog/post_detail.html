@@ -2,8 +2,12 @@
 
 {% block content %}
     <div class="detail-post">
-        <div class="date">{{ post.created_date }}</div>
         <h2 class="title">{{ post.title }}</h2>
-        <p class="text">{{ post.get_text_markdownx | linebreaksbr }}</p>
+        <div class="date">{{ post.split_date }}</div>
+        <div class="text">{{ post.get_text_markdownx | safe }}</div>
     </div>
+{% endblock %}
+
+{% block sidebar %}
+目次
 {% endblock %}

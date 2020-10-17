@@ -3,22 +3,14 @@
 {% block content %}
     {% for post in latest_blog_list %}
         <div class="post">
-            <div class="date">{{ post.created_date }}</div>
             <h2 class="title"><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <p class="text">{{ post.get_text_markdownx | safe }}</p>
+            <div class="date">{{ post.split_date }}</div>
+            <div class="text">{{ post.get_text_markdownx | safe }}</div>
         </div>
     {% endfor %}
 {% endblock %}
 
-{% block page_header %}
-    <h1 class="page-title">
-        <a href="{% url 'blog:index' %}">Kosuke's Tech Blog</a>
-    </h1>
-    <nav>
-        <ul class="main-nav">
-            <li><a href="{% url 'blog:index' %}">Home</a></li>
-            <li><a href="{% url 'blog:index' %}">Blog</a></li>
-            <li><a href="{% url 'blog:index' %}">Profile</a></li>
-        </ul>
-    </nav>
+
+{% block sidebar %}
+search, tag, profile, recently(題名だけを羅列する)
 {% endblock %}

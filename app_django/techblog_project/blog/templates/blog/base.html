@@ -19,13 +19,15 @@
                 </ul>
             </nav>
         </header>
-        <main id='main-articles'>
-            <div class="row">
-                <div class="col">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
+        <main id='main-page'>
+            <article id="page-article">
+                {% block content %}
+                {% endblock %}
+            </article>
+            <aside>
+                {% block sidebar %}
+                {% endblock %}
+            </aside>
         </main>
     </body>
 </html>
