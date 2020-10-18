@@ -1,5 +1,19 @@
 # 1日で基本が身に付く Docker Kubernetes 書籍memo
+- 体系化されたdockerコマンド
 
+```
+                サブコマンド      操作       オプション
+
+docker -------- help
+         |
+         |----- container ----- run ----- --help
+         |                  |-- stop  |-- -d
+         |                  |-- rm    |-- -it(-i + -t)
+         |
+         |----- image --------- pull
+                            |-- rm
+
+```
 
 # docker
 ## わかったこと  
