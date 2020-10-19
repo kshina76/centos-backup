@@ -44,6 +44,51 @@ docker -------- help
 
 <br></br>
 
+- terraformとansibleとdockerの使い分け
+    - クラウドでのベストプラクティス
+        - terraform+docker
+            - terraformでec2やlambdaといったインフラの構築
+            - dockerでアプリケーションに関する設定(nginxやpythonk環境など)
+            - terraform+ansibleでも実現できるが、dockerを使うならansibleは使わないかも
+            - https://y-ohgi.com/introduction-terraform/first/about/
+    - ベアメタルやVMや特にオンプレミスでのベストプラクティス
+        - ansible+docker(要調査)
+            - ansibleでdockerホストの作成やファイアーウォールやosの環境の設定
+            - dockerでnginxやpython環境の設定
+    - terraformとansibleは互いに補完し合う関係なので、一緒に使うのがベストプラクティス
+        - terraformはawsのlambdaやec2やs3といったインフラを構築するのに使う
+        - ansibleはインフラに載せるミドルウェア(nginxとかpython環境とかdockerとか)の構築と設定をするのに使う
+            - ec2にdockerホストを乗せたりといったこと。ec2の立ち上げはterraformが行う
+- 環境別のインフラ構築
+    - 開発環境(ローカル開発環境)
+        - 個人個人の手元にあるPCの環境のこと
+        - vargrant(virtual box)またはdockerでササッと構築
+            - python環境とか
+    - 検証環境(テスト環境)
+        - 個人の環境またはテスト担当者がunittestなどでテストを行うことかな？？
+        - 特に新しくインフラを構築する必要はないかも
+    - ステージング環境
+        - webサーバなどといったインフラの設定を本番と全く同じ状態で構築する環境
+        - クラウドを使うならAWSでterraformとdockerを使うなどして完璧に構築する
+    - 本番環境
+        - 実際に一般ユーザに使ってもらうときのインフラのこと
+
+<br></br>
+
+- dockerネットワークについて
+    - docker network ls というコマンドdockerネットワークの構成を確認できる
+- bridge
+    - ホストとは異なる内部ネットワークを構築する
+    - docker0がNATの役割を果たして、ipマスカレード機能を使ってパブリックipとプライベートipを変換して外部と通信する
+    ![https---qiita-image-store s3 amazonaws com-0-70152-0208a1da-2476-59b6-97e3-c8ec39fcc8f9](https://user-images.githubusercontent.com/53253817/96432026-4a140e00-123f-11eb-9ec2-771f992228bc.png)
+- host
+    - ホストとネットワークを共有する
+    - 共有しているのでホストが80番ポートを使っていたらdocker0は使えないということになる
+    ![https---qiita-image-store s3 amazonaws com-0-70152-f7d14c5d-9023-f55d-3b36-23d8a1b98df7](https://user-images.githubusercontent.com/53253817/96436815-06ba9f00-1241-11eb-8f11-1902d2d20860.png)
+- none
+    - 外部とのネットワークの繋がりは無いし、ホストのネットワークとの繋がりもない
+    ![https---qiita-image-store s3 amazonaws com-0-70152-0783261c-c34e-9192-3dd1-4ebb7cb5dff9](https://user-images.githubusercontent.com/53253817/96437792-46818680-1241-11eb-9b1d-1ae803a67f7d.png)
+
 
 # docker
 ## コマンド集
@@ -149,7 +194,10 @@ docker -------- help
 
 <br></br>
 
-- 
+- dockerネットワークの構成を確認する
+    - docker network ls
+    - bridgeとhostとnoneというネットワークのipなどが表示されると思う
+
 
 ## わかったこと  
 - ホストマシンとdockerコンテナのlocalhostは違う
