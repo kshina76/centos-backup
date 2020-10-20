@@ -320,3 +320,32 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - https://www.amazon.co.jp/exec/obidos/asin/4797388811/akiyoko0b-22/
 - djangoの学習ロードマップ
     - https://akiyoko.hatenablog.jp/entry/2018/12/01/133427
+- docker
+    - 読んでいる途中
+- html css
+    - 基本的な本は読んだ
+- django
+    - 現場で使える教科書の基礎編を読んでいる
+- SQL構文、DB設計
+    - https://qiita.com/maaaaaaaa/items/4e1d84cb40c83004575f
+- CircleCI
+- git
+- オブジェクト指向
+    - オブジェクト指向でなぜ作るのか
+        - kindleに入ってる
+- リーダブルコード
+    - さらに深い内容が知りたかったら
+        - https://www.amazon.co.jp/gp/product/4048676881/ref=as_li_tf_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4048676881&linkCode=as2&tag=hirokidaichi-22
+- webアプリを開発するときにやること(クラス図、DB設計とか)
+    - https://note.com/promitsu/n/n463792216407
+    - https://qiita.com/Saku731/items/741fcf0f40dd989ee4f8
+- デザインパターン
+    - https://techacademy.jp/magazine/9195
+- 参考文献
+    - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
+
+
+# わかったこと
+- クラウドサービス開発ってどのようなところの開発をするのか？
+    - ロボットやiosアプリやandroidアプリの頭脳に当たる部分
+        - ロボットやスマホアプリにデータの保存やデータの解析のバックエンドの処理を入れてしまうと、ロボット自体のコストや大規模な演算を行うことができなくなってしまう。なので、ロボットやスマホアプリはデータを収集することに重きを置いて、実際の演算はクラウドサービス側(社内に置かれているサーバ)で行う。なので社内のサーバで行う処理の開発を行うのだと思う。
