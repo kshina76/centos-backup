@@ -1,4 +1,6 @@
 # 1日で基本が身に付く Docker Kubernetes 書籍memo
+
+# docker
 - 体系化されたdockerコマンド
     - 以下のようにコマンドが区別されているからわかりやすい
     - docker <操作グループ> <操作種類>
@@ -188,6 +190,7 @@ CMD ["/bin/start_appserver"]
         - 例えば一行目で公式イメージをpullしたら、コンテナを作成して入って、自分が作りたい構成を手動で作って見てから必要な手順をDockerfileに落とし込むということをする
     - 余分な差分イメージを減らす
         - 例えば、パッケージインストールを一行で全て終わらせるとか
+            - ただし、容量が大きいパッケージは独立させないと、コマンド変更時にキャッシュが効かなくなるから非効率
 
         ```
         RUN yum update ¥
@@ -201,10 +204,42 @@ CMD ["/bin/start_appserver"]
 
 <br></br>
 
-- 
+- アプリをPID1(プロセスID 1)で動かす
+    - コンテナでないlinuxなどのOSはシャットダウンすることでPID1が終了してコンピュータが停止するが、コンテナのPID1はCMDで実行されたものがPID1になる
+        - 例えばコンテナ起動時にbash端末に入ったら、PID1がbash(シェル)になるので、bashをexitしたらコンテナ(コンピュータ)が停止するという挙動
+        - bash端末に入ってからnginxを起動してしまうとPID1がbashでPID2以降が子プロセスとしてnginxが起動されてしまう
+        - これだと、nginxとは関係ないところで問題が起きたら終了してしまうからwebサーバのコンテナならnginxをPID1にするのが望ましい
+    1. コンテナ作成時にexecコマンドでnginxを起動する
+    2. Dockerfile内のCMDでカンマ区切りで記述する
+        - カンマ区切りの記述方法でないとシェルがPID1になってしまう
 
-# docker
-## コマンド集
+- 終了シグナルをハンドルしてアプリを安全に停止する
+    - webサーバ
+        1. アプリをPID1で動かす
+            - docker container stopは、PID1にSIGTERMという終了シグナルが送られるから
+            - SIGTERMに対する処理が適切に書かれていないと、SIGKILLという強制終了シグナルが送られる
+                - 状態を持つデータベースなどがコンテナで起動している場合に問題になる可能性があるので、SIGTERMでハンドルするようにする
+        2. trapコマンドでSIGTERMをハンドル
+            - handleの中にアプリに応じた終了処理を実装する
+
+        ```bash
+        #!/bin/sh
+        handle(){
+            echo 'handle sigterm/sigint'
+            exit 0
+        }
+        trap handle TERM INT
+
+        nginx -g "daemon off;" &
+        wait
+        ```
+
+    - アプリサーバ
+        - STOPSIGNALをDockerfileで書いて、flask側などでハンドラを実装する
+
+<br></br>
+
+## dockerコマンド集
 - コンテナ起動
     - docker container run nginx
         - --it bash
@@ -339,8 +374,6 @@ CMD ["/bin/start_appserver"]
 
 <br></br>
 
-- 
-
 ## Dockerfileの命令集
 
 - From
@@ -377,9 +410,94 @@ CMD ["/bin/start_appserver"]
     - RUNでcdコマンドを実行するのは好ましくないからWORKDIRで移動するのが良いv
     - WORKDIR /
 
+# Docker Compose
+
+## Docker composeのコマンド集
+- docker-compose up -d
+    - コンテナを展開する(作成)
+    - -d
+        - バックグラウンド実行
+- docker-compose ps
+    - 実行状況を確認
+- docker-compose stop
+    - コンテナを停止
+- docker-compose down
+    - コンテナを停止かつ破棄
+- docker-compose start
+    - 停止中のコンテナを再起動
 
 
-## わかったこと  
+## Docker Composeの命令集
+- version
+    - docker composeのバージョンを記述する
+- services
+    - コンテナ郡を表す部分
+    - 直下に識別名を記述して詳細を定義(名前はcontainer_nameで定義)
+    - 複数のコンテナをここにまとめて記述する
+- image
+    - ベースイメージを定義
+- restart
+    - コンテナが以上停止した場合の対処
+    - unless-stopped
+        - コンテナ再起動
+    - none
+        - 何もしない
+- networks
+    - 属するdockerネットワーク
+    - 属するネットワークが同じコンテナ同士は、ip通信と名前解決ができる
+- volumes(services内)
+    - 利用するvolumeを定義
+- volumes(一番下)
+    - 利用するvolumeの詳細設定
+- enviroment
+    - 環境変数の定義
+- depend_on
+    - 起動順序の定義
+
+
+```yaml
+version: '3.7'
+services:
+    mysql:
+        image: mysql:5.7.28
+        restart: unless-stopped
+        networks: 
+        - wp_net
+        volumes:
+        - mysql_volume:/vat/lib/mysql
+        enviroment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: password
+    
+    wordpress:
+        image: wordpress:5.2.3-php7.3-apache
+        restart: unless-stopped
+        depend_on:
+        - mysql
+        networks:
+        - wp_net
+        ports:
+        - 8080:80
+        enviroment:
+            WORDPRESS_DB_HOST: mysql:3306
+            WORDPRESS_DB_NAME: wordpress
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: password
+networks:
+    wp_net:
+        driver: bridge
+volumes:
+    mysql_volume:
+        driver: local
+```
+
+
+
+
+
+## dockerでわかったこと  
 - ホストマシンとdockerコンテナのlocalhostは違う
     - なぜかというと、dockerコンテナを生成するとコンテナ毎に違うNICが割り当てられるから。以下のURLの図がわかりやすい  
         - http://tkyshm.hatenablog.com/entry/2014/08/11/155627  
@@ -393,14 +511,13 @@ CMD ["/bin/start_appserver"]
         - 解決策としてはflaskで0.0.0.0でLISTENするか、nginxをプロキシにするかのどちらか  
             - https://qiita.com/amuyikam/items/01a8c16e3ddbcc734a46  
 
-# サーバ
-## わかったこと
+## サーバに関してわかったこと
 - uWSGIはwebサーバとpythonフレームワークをつなぐためだけのものなので、サーバ機能はない  
 - IP制御とLISTENでのIPアドレスの違い  
     - flaskの「host=192.168.99.100」のようにサーバでLISTENの動作を書くのはIP制御をかけているわけではない。「flaskが動いているホストマシンの192.168.99.100というNICで待ち受け(LISTEN)する」という意味。
         - IP制御をかけたいならファイアーウォールなどで制御する。  
   
-# docker-compose  
+## docker-composeに関してわかったこと
 - ポートマッピングの動作  
     - 「127.0.0.1:80:8080」 : ホストマシンのlocalhostの80番に向けて来たリクエストをコンテナの8080番ポートにフォワードする  
     - 「192.168.99.100:80:8080」 : ホストマシンの192.168.99.100の80番に向けて来たリクエストをコンテナの8080番ポートにフォワードする  
@@ -411,6 +528,25 @@ CMD ["/bin/start_appserver"]
 - makeコマンド一発のflaskのuWSGIのポートマッピングは不要  
     - docker-composeのuWSGIに3031:3031のポートマッピングが書かれていたが、ホストマシンからつなぐわけではないのでいらない気がする。
     - ポートマッピングはポートを開けている動作ではないので注意。
+
+# 気づいたこと
+- いろいろな構成の使い分け
+    - 超小規模な開発
+        - docker+ansible
+            - 一つのコンテナで済むアプリだけはこの構成
+            - 二つ以上の場合はdocker-composeを使うかk8sを使うか
+    - 小規模な開発
+        - docker-compose+ansible
+            - docker-composeはホストが一つの時限定で使うから
+    - 大規模な開発
+        - k8s+ansible
+            - k8sはdocker-composeの大規模向け(ホストが二つ以上)
+            - ホスト(コンピュータ)が一つで収まらない場合の構成
+
+<br></br>
+
+- コンテナオーケストレーションとは
+    - 複数のコンテナをまとめて管理すること
 
 # 気になること
 - nginxをリバースプロキシとキャッシュサーバとして使うというのはどういうことなのか？
