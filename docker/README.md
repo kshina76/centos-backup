@@ -161,6 +161,47 @@ docker -------- help
     - COPY命令でディレクトリごとコピーしたいときに、コンテナに含めたくないファイルは.dockerignoreに記述する
     - Dockerfileが存在するディレクトリに置いておく
 
+<br></br>
+
+- マルチステージビルド(ステージングビルド)
+    - ビルド環境と実行環境を分けてコンテナサイズを小さくする
+    - ソースコードをビルドする環境とビルドし終わったバイナリファイルを実行する環境に分けてDockerfileを書いている
+        - ビルドし終わったらバイナリファイルを実行環境にCOPYすることで、実行環境ではビルド環境分のイメージがいらないことから、コンテナサイズが小さくなる
+    - as builderで踏み台のイメージにbuilderという名前をつけている
+
+```
+From golang:1.13.4-alpine3.10 as builder
+WORKDIR /src
+COPY ./main.go /src
+RUN go build -o start_appserver main.go
+
+From alpine:3.10.3
+COPY --from=builder /src/start_appserver /bin/start_appserver
+CMD ["/bin/start_appserver"]
+```
+
+<br></br>
+
+- Dockerfileを作るコツ
+    - 先に手動で手順を確認する
+        - Dockerfileを一行一行追加して実行してというのを繰り返すといい
+        - 例えば一行目で公式イメージをpullしたら、コンテナを作成して入って、自分が作りたい構成を手動で作って見てから必要な手順をDockerfileに落とし込むということをする
+    - 余分な差分イメージを減らす
+        - 例えば、パッケージインストールを一行で全て終わらせるとか
+
+        ```
+        RUN yum update ¥
+            && yum install -y ¥
+                package-bar ¥
+                package-baz ¥
+                package-foo ¥
+            && rm -rf /var/cache/yum/* ¥
+            && yum clean all
+        ```
+
+<br></br>
+
+- 
 
 # docker
 ## コマンド集
@@ -333,7 +374,7 @@ docker -------- help
     - イメージのデフォルト実行コマンドを強く定義
 - WORKDIR
     - 作業ディレクトリを変更する際に使用
-    - RUNでcdコマンドを実行するのは好ましくないからWORKDIRで移動するのが良い
+    - RUNでcdコマンドを実行するのは好ましくないからWORKDIRで移動するのが良いv
     - WORKDIR /
 
 
