@@ -316,6 +316,11 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - unittestとかを用いたテスト方法を学んでおくといいかもしれない
 
 # 入社までに読む書籍、サイト
+- go言語
+    - 標準ライブラリを使わずにwebアプリを開発
+    - https://qiita.com/yoskeoka/items/d07b60f755e8a9b30ccf
+    - https://www.amazon.co.jp/Goプログラミング実践入門-標準ライブラリでゼロからWebアプリを作る-impress-top-gear/dp/4295000965/ref=asc_df_4295000965/?tag=jpgo-22&linkCode=df0&hvadid=295678107984&hvpos=&hvnetw=g&hvrand=2676410751002637998&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009330&hvtargid=pla-524668153614&psc=1&th=1&psc=1
+    - 
 - web開発の基本を網羅
     - https://www.amazon.co.jp/exec/obidos/asin/4797388811/akiyoko0b-22/
 - djangoの学習ロードマップ
