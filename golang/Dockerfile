@@ -5,4 +5,4 @@ RUN mkdir /go/src/work
 # コンテナログイン時のディレクトリ指定
 WORKDIR /go/src/work
 # ホストのファイルをコンテナの作業ディレクトリに移行
-COPY ./go_grammer /go/src/work
+COPY ./first_app /go/src/work

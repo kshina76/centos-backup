@@ -3,5 +3,7 @@ services:
   app: # service名
     build: . # ビルドに使用するDockerfileがあるディレクトリ指定
     tty: true # コンテナの起動永続化
+    ports:
+      - "8080:8080"
     volumes:
-      - ./go_grammer:/go/src/work # マウントディレクトリ指定
+      - ./first_app:/go/src/work # マウントディレクトリ指定
