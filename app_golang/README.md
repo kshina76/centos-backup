@@ -181,6 +181,7 @@
             - なぜかというと、リクエストに対して「ハンドラに振り分ける」という具体的な処理だから
     - クライアントから送られてきたHTTPリクエストを受け付け、処理する
     - HTMLを生成するためにテンプレートエンジンを呼び出す
+    - https://qiita.com/huji0327/items/c85affaf5b9dbf84c11e
 
 - マルチプレクサ
     - ハンドラの一種
@@ -254,7 +255,13 @@ func calc(atai1 int, atai2 int) (add int, sub int) {
 
 <br></br>
 
+- ここは書き直す。以下を参考に
+    - https://qiita.com/tenntenn/items/45c568d43e950292bc31
+    - https://qiita.com/tikidunpon/items/2d9598f33817a6e99860
+
 - レシーバとは
+    - メソッドを呼び出される対象のこと
+        - pythonやjavaでいうクラスのインスタンスみたいなものかな？(golangにはクラスはないけど)
 ```
   p := Person{Name: "Taro"}
   p.Greet("Hi")
@@ -267,23 +274,50 @@ func calc(atai1 int, atai2 int) (add int, sub int) {
         - フィールド
             - 「<フィールド名> <型>」で定義
         - メソッド
-            - func (レシーバ値 レシーバ型) 関数名
+            - 値レシーバとポインタレシーバがある
+            - 「func (レシーバ値 レシーバ型) 関数名」で定義
+    - https://skatsuta.github.io/2015/12/29/value-receiver-pointer-receiver/
 
 ```go
-//構造体の定義
-type User struct {
-    Name string
+/*
+値レシーバ
+*/
+
+//メソッドは、構造体でなくてもintといった変数にも定義できる
+type Person struct{ 
+    Name string 
 }
 
-// メソッド（ポインタレシーバ）
-func (u *User)setName() {
-    u.Name = "gopher"
+// Person 型に対してGreetメソッドを定義する
+func (p Person) Greet(msg string) {
+    fmt.Printf("%s, I'm %s.\n", msg, p.Name)
 }
 
 func main() {
-    u := new(User)  
-    u.setName()
-    fmt.Println(u.Name) //=> gopherが出力される。
+    pp := &Person{Name: "Taro"} // ポインタ型の変数を用意する
+    (*pp).Greet("Hi")           //=> Hi, I'm Taro. | 当然呼び出せる
+    pp.Greet("Hi")              //=> Hi, I'm Taro. | コンパイラが上のコードに変換してくれる
+}
+```
+
+```go
+/*
+ポインタレシーバ
+*/
+
+type Person struct{
+    Name string
+}
+
+// *Person 型に対してメソッドを定義する
+func (pp *Person) Shout(msg string) {
+    fmt.Printf("%s!!!\n", msg)
+}
+
+func main() {
+    p := Person{Name: "Taro"} // 値型の変数を用意する
+    (&p).Shout("OH MY GOD")   //=> OH MY GOD!!! | 当然呼び出せる
+    p.Shout("OH MY GOD")      //=> OH MY GOD!!! | コンパイラが上のコードに変換してくれる
 }
 ```
 
@@ -298,3 +332,10 @@ func main() {
 - マルチプレクサとは？
 - セッションとは？
 - cookieとは？
+- なぜListenAndServerの第二引数でハンドラを指定しないといけないのに、デフォルトがDefaultServeMuxというマルチプレクサなのか?
+    - ServerMuxは構造体Handlerのインスタンス
+    - ServerHTTPはServerMuxのメソッド
+    - DefaultServerMuxはServerMuxのインスタンス
+    - つまりDefaultServerMuxは元を辿ればHandlerから来ているからハンドラで指定している
+    - go言語においてはServerHTTPがメソッドのものはハンドラ
+    - https://qiita.com/gonza_kato_atsushi/items/5ae6fd9e977bbbffd6cd
