@@ -53,13 +53,33 @@
     - 以下の行で構成される(以下の4行以上で一つのリクエスト)
         1. リクエスト行
             - 「リクエストメソッド、URI、HTTPのバージョン」　この順番
+                - リクエストメソッドはGETとかPOST
+                - URIはクライアントからサーバに対するリクエスト対象のリソース（サーバ内に保管されているリソース）
+                    - URIはURLとURNの総称だが、使われるのはURLがほとんど
+                        - URLの一般形
+                            - scheme://[userinfo@]host/path/[?query][#fragment]
+                            - scheme:opaque[?opaque][#fragment]
+            - go言語での取得方法
+                - リクエストメソッド
+                    - requestの中にMethodで定義されている
+                - URL
+                    - requestの中にurl.URL型で定義されている
+                        - url.URLは構造体なので、フィールドとして「Scheme, Opaque, User, Host, Path, Rawquery, Fragment」が定義されている
+                - HTTPのバージョン
+                    - ドキュメントみないとわからん
         2. リクエストヘッダ(0行以上)
             - 「<名前>: <値>」で表される
             - HOSTはサーバ側のこと
             - User-Agentはクライアント側のこと(今回はブラウザ)
+            - go言語だとrequestの中にHeader型で定義されている
+            - djangoだとrequest.METAのなかに入っている
         3. 空行
-        4. メッセージ本体(省略可)
-            - 多分htmlで書かれている
+        4. メッセージ本体(body)
+            - GETでは空
+            - POSTでformに入力された値やcurlの引数などが入ってくる
+            - htmlではないと思う。「変数=値」といった情報が送られて、レスポンスでhtmlに変数が埋め込まれて返ってくるのだと思う
+            - goではリクエスト、レスポンス共にrequestの中のBodyに定義されている
+
     - https://wa3.i-3-i.info/word1845.html
     ```
     リクエスト例
@@ -377,6 +397,58 @@ func main() {
     - ルートURLである「/」がマルチプレクサに登録されていたら、URL一致しなかった場合ルートURLが呼び出されるようになっている
     - 以下の例だと、/hello/there にアクセスがきても一致しないので、/ が呼び出される
     ![2020-10-22 18 27のイメージ](https://user-images.githubusercontent.com/53253817/96852603-4b8a4400-1494-11eb-943f-bfc61bd5292f.jpeg)
+    - DefaultServerMuxはServerMuxのインスタンス
+    - ServerMuxは変数を使ったパターンマッチングが出来ないのが不満なので、HttpRouterというサードパーティのライブラリが使われる
+
+---
+
+- httpsはデフォルトでhttp/2 を使うので余計な処理が必要
+
+---
+
+- HTMLフォームとgo言語
+    - HTMLフォームに入力されてサーバに送信されたデータは**リクエストのボディ部**に置かれる
+        - 送信されるデータは常に「名前と値のペア」で送信される
+            - htmlのformのenctype(コンテンツタイプ)
+                - 「名前と値のペア」をボディ部にどのような形式で置くかを指定する
+                - html5からtext/plainを指定することもできる
+                - 以下は、生のbody部。
+                ```
+                送信するデータ
+                curl -id "first_name=sausheong&last_name=chang" 172.0.0.1:8080/body/
+
+
+                enctype="application/x-www-form-urlencoded" が指定された場合は長いクエリ文字列としてbody部に配置する
+                first_name=sausheong&last_name=chang
+
+
+                enctype="multipart/form_data" が指定された場合は以下のようになる(わからん)
+                ---WebKitFormBoundaryMPNjKpeO9cLiocMw
+                ContentDisposition:formdat;name="first_name"sausheong---WebKitFormBoundaryMPNjKpeO9cLiocMwContentDisposition:formdata; name="last_name"chang---WebKitFormBoundaryMPNjKpeO9cLiocMw
+                ```
+
+- httpリクエストのbodyからgoでデータを取得する
+    - 生のやり方
+        - request.Body.Readで読み込む
+            - このやり方はやられない
+    - Requestのメソッドを使ったやり方
+        1. ParseFormまたはParseMultipartFormを呼び出して、リクエストを解析する
+        2. 以下から目的に応じたフィールドを呼び出す
+            - Form
+                - URLからデータ(クエリ)を取得
+            - PostForm
+                - ボディからデータを取得
+            - MultiPartForm
+                - URLとボディの両方
+    ![2020-10-23 0 19のイメージ](https://user-images.githubusercontent.com/53253817/96893234-7640c080-14c5-11eb-84d4-b847f97fd311.jpeg)
+
+
+
+- htmlのformのenctypeによってformに入力された値をどのように扱うか変わる
+
+- formでファイルをアップアップロードする
+    - enctype="multipart/formdata" をhtmlのformで指定する
+
 
 
 # go言語の文法
