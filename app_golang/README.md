@@ -228,6 +228,156 @@
 
 ---
 
+- ハンドラを登録する
+    - 一つ目のコード
+        - handler引数にマルチプレクサを指定しないで、自作のハンドラを指定する
+        - マルチプレクサがないので、どんなURLにアクセスされても単一の処理を返すようになっている
+    - 二つ目のコード
+        - handler引数に何も指定しないことで、デフォルトのマルチプレクサのDefaultServeMuxが指定される
+        - ハンドラを直接作ってマルチプレクサに登録している
+    - 三つ目のコード
+        - handler引数に何も指定しないことで、デフォルトのマルチプレクサのDefaultServeMuxが指定される
+        - ハンドラ関数を作って、マルチプレクサに登録している
+            - 三つ目のコードと違う点は、ハンドラのように振舞う関数を登録していること。それをハンドラ関数としている
+        - 通常、この三つ目の方法を使う
+
+```go
+type MyHandler struct{}
+
+func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello World!")
+}
+
+func main() {
+	handler := MyHandler{} // handlerはハンドラ。
+	server := http.Server{
+		Addr:    "127.0.0.1:8080",
+		Handler: &handler,
+	}
+	server.ListenAndServe()
+}
+```
+
+```go
+type HelloHandler struct{}
+
+func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello!")
+}
+
+type WorldHandler struct{}
+
+func (h *WorldHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "World!")
+}
+
+func main() {
+	hello := HelloHandler{} // helloはハンドラ（http.Handler）。ServeHTTPを持っているので
+	world := WorldHandler{}
+
+	server := http.Server{
+		Addr: "127.0.0.1:8080",
+		// Handlerは指定しない -> DefaultServeMuxをハンドラとして利用
+	}
+
+	http.Handle("/hello", &hello) // ハンドラhelloをDefaultServeMuxに登録
+	http.Handle("/world", &world)
+
+	server.ListenAndServe()
+}
+```
+
+```go
+func hello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello!")
+}
+
+func world(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "World!")
+}
+
+func main() {
+	server := http.Server{
+		Addr: "127.0.0.1:8080",
+		// Handlerは指定しない -> DefaultServeMuxをハンドラとして利用
+	}
+	http.HandleFunc("/hello", hello) // 関数をハンドラに変換して、DefaultServeMuxに登録
+	http.HandleFunc("/world", world)
+
+	server.ListenAndServe()
+}
+```
+
+---
+
+- ハンドラとハンドラ関数のチェイン
+    - ハンドラはリクエストを処理することだけを記述して簡潔にしたいが、実際はlogを取る処理やエラー処理などいろいろな処理を書かなければいけない
+        - 色々と処理を盛り込んでしまうと、記述が複雑になって何をするハンドラなのかわからなくなってしまう。
+            - 関数を分けてチェインさせると独立した関数として関数の責務がわかりやすくなる
+    - 呼び出すときに「protect(log(hello))」のように連なる形で呼び出すからチェインと言われている
+    - 多くのフレームワークの裏側でユーザが意識しないでログが使えるようになっているのは、これのおかげだったりする
+    - チェインを何個もつなげることをパイプライン処理という
+
+```go
+func hello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello!")
+}
+
+func log(h http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		name := runtime.FuncForPC(reflect.ValueOf(h).Pointer()).Name()
+		fmt.Println("ハンドラ関数が呼び出されました - " + name)
+		h(w, r)
+	}
+}
+
+func main() {
+	server := http.Server{
+		Addr: "127.0.0.1:8080",
+	}
+	http.HandleFunc("/hello", log(hello))
+	server.ListenAndServe()
+}
+```
+
+```go
+type HelloHandler struct{}
+
+func (h HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello!")
+}
+
+func log(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Printf("ハンドラが呼び出されました - %T\n", h)
+		h.ServeHTTP(w, r)
+	})
+}
+
+func protect(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// some code to make sure the user is authorized
+		h.ServeHTTP(w, r)
+	})
+}
+
+func main() {
+	server := http.Server{
+		Addr: "127.0.0.1:8080",
+	}
+	hello := HelloHandler{}
+	http.Handle("/hello", protect(log(hello)))
+	server.ListenAndServe()
+}
+```
+
+---
+
+- ServerMuxとDefaultServerMux
+    - ルートURLである「/」がマルチプレクサに登録されていたら、URL一致しなかった場合ルートURLが呼び出されるようになっている
+    - 以下の例だと、/hello/there にアクセスがきても一致しないので、/ が呼び出される
+    ![2020-10-22 18 27のイメージ](https://user-images.githubusercontent.com/53253817/96852603-4b8a4400-1494-11eb-943f-bfc61bd5292f.jpeg)
+
 
 # go言語の文法
 - 関数
