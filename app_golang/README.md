@@ -440,6 +440,7 @@ func main() {
                 - ボディからデータを取得
             - MultiPartForm
                 - URLとボディの両方
+
 ![2020-10-23 0 19のイメージ](https://user-images.githubusercontent.com/53253817/96893234-7640c080-14c5-11eb-84d4-b847f97fd311.jpeg)
 
 
