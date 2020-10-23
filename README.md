@@ -317,35 +317,90 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
 # 入社までに読む書籍、サイト
 - go言語
-    - 標準ライブラリを使わずにwebアプリを開発
-    - https://qiita.com/yoskeoka/items/d07b60f755e8a9b30ccf
-    - https://www.amazon.co.jp/Goプログラミング実践入門-標準ライブラリでゼロからWebアプリを作る-impress-top-gear/dp/4295000965/ref=asc_df_4295000965/?tag=jpgo-22&linkCode=df0&hvadid=295678107984&hvpos=&hvnetw=g&hvrand=2676410751002637998&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009330&hvtargid=pla-524668153614&psc=1&th=1&psc=1
-    - 
-- web開発の基本を網羅
-    - https://www.amazon.co.jp/exec/obidos/asin/4797388811/akiyoko0b-22/
-- djangoの学習ロードマップ
-    - https://akiyoko.hatenablog.jp/entry/2018/12/01/133427
-- docker
-    - 読んでいる途中
-- html css
-    - 基本的な本は読んだ
-- django
-    - 現場で使える教科書の基礎編を読んでいる
+    1. Goプログラミング実践入門(書籍)
+        - 標準ライブラリを使わずにwebアプリを開発
+    
+    2. a tour of go(サイト)
+
+    3. スターティングGo言語(書籍)
+        - Goの基本的な文法やライブラリなど
+    - 参考文献
+        - https://qiita.com/yoskeoka/items/d07b60f755e8a9b30ccf
+
+- TCP/IP 4階層モデル
+    1. マスタリングTCP/IP(書籍)
+        - 以下の「TCP/IP 階層」の説明を網羅している
+            - ネットワークインタフェース層
+                - Ethernet
+            - ネットワーク層
+                - IP,ARP,RARP,ICMP
+            - トランスポート層
+                - TCP,UDP
+            - ルーティングプロトコル
+                - RIP,OSPF,BGP
+            - アプリケーション層
+                - DNS,www,telnet,ftp,http
+            - https://www.infraexpert.com/study/tcpip.html
+
+- web技術、web開発の基本を網羅
+    1. Web技術の基本(書籍)
+        - 持ってる
+        - 読み物として
+        - https://www.amazon.co.jp/exec/obidos/asin/4797388811/akiyoko0b-22/
+    2. プロになるためのWeb技術入門(書籍)
+    3. Webを支える技術(書籍)
+
 - SQL構文、DB設計
     - https://qiita.com/maaaaaaaa/items/4e1d84cb40c83004575f
-- CircleCI
+
+
+- django
+    1. djangogirls
+        - ミニブログを作るチュートリアル
+        - 終わった
+    2. 公式チュートリアル
+        - 投票アプリを作るチュートリアル
+        - 終わった
+    3. 現場で使えるdjangoの教科書 基礎編
+        - 読んでる途中
+    4. 現場で使えるdjangoの教科書 応用編
+        - 持っていない
+
+    - djangoの学習ロードマップ
+        - https://akiyoko.hatenablog.jp/entry/2018/12/01/133427
+
+- docker
+    - 読んでいる途中
+
+- html css
+    - 基本的な本は読んだ
+
+- AWS
+    1. 実践terraform
+        - 読んだけど、復習したほうがいい
+
+- テスト
+    - CircleCI
+
 - git
+
 - オブジェクト指向
     - オブジェクト指向でなぜ作るのか
         - kindleに入ってる
-- リーダブルコード
-    - さらに深い内容が知りたかったら
-        - https://www.amazon.co.jp/gp/product/4048676881/ref=as_li_tf_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4048676881&linkCode=as2&tag=hirokidaichi-22
+
+- いいコードを書くためのノウハウ
+    - リーダブルコード(書籍)
+        - 持ってる
+        - さらに深い内容が知りたかったら
+            - https://www.amazon.co.jp/gp/product/4048676881/ref=as_li_tf_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4048676881&linkCode=as2&tag=hirokidaichi-22
+
 - webアプリを開発するときにやること(クラス図、DB設計とか)
     - https://note.com/promitsu/n/n463792216407
     - https://qiita.com/Saku731/items/741fcf0f40dd989ee4f8
+
 - デザインパターン
     - https://techacademy.jp/magazine/9195
+
 - 参考文献
     - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
 

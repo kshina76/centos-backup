@@ -406,9 +406,9 @@ func main() {
 
 ---
 
-- HTMLフォームとgo言語
+- HTMLフォーム(名前=値 の形)とgo言語
     - HTMLフォームに入力されてサーバに送信されたデータは**リクエストのボディ部**に置かれる
-        - 送信されるデータは常に「名前と値のペア」で送信される
+        - HTMLフォームにおいて、送信されるデータは常に「名前と値のペア」で送信される
             - htmlのformのenctype(コンテンツタイプ)
                 - 「名前と値のペア」をボディ部にどのような形式で置くかを指定する
                 - html5からtext/plainを指定することもできる
@@ -446,11 +446,129 @@ func main() {
 
 
 - htmlのformのenctypeによってformに入力された値をどのように扱うか変わる
+    - 多分enctypeの値がリクエストヘッダのcontent-typeに入るのだと思う
 
 - formでファイルをアップアップロードする
     - enctype="multipart/formdata" をhtmlのformで指定する
+    - go言語からはFormFileを使う
 
+- JSON形式のボディを持ったPOSTリクエストの処理
+    - jQueryやAngularといったフレームワークからのhttpリクエストがJSON形式のボディ
+        - HTTPリクエストはHTMLフォームだけから来るわけではない
+        - 「名前=値」はHTMLフォームから送られてきたもの
+    - jQueryはapplication/x-www-form-urlencoded　でエンコードするからgoではParseFormで取り出せる
+        - jQueryはリクエストヘッダのcontent-typeをapplication/x-www-form-urlencodedに設定してリクエストを投げてくる
+    - Angularはapplication/json でエンコードするからParseFormでは取り出せない
 
+---
+
+- ユーザにレスポンスを送信する方法
+    - ResponseWrite
+        - 使用するメソッド
+            - Write
+                - バイト配列を受け取ってレスポンスのボディに書き込む
+                - リクエストのヘッダにcontent-typeが設定されていない場合は、先頭512バイトで判別する
+            - WriteHeader
+                - HTTPレスポンスのステータスコードを引数に受け取り、レスポンスにステータスコードを設定して返す
+                    - 例えば404のエラー処理を実装したかったら404をWriteHeaderに渡す
+            - Header
+                - 変更可能なヘッダのマップを返すメソッド
+                    - ヘッダに設定をしたい時などに使う
+                    - 例1、リダイレクトの実装をしたかったら、Headerメソッドを使って、ヘッダのlocationにリダイレクト先のURLを設定する
+                        - ちなみにリダイレクトのステータスコードは302
+                    - 例2、ボディにjsonを書き込んだときにヘッダの設定でcontent-typeにapplication/jsonを設定する
+        - まとめ
+            - Writeがボディ部、WriteHeaderがステータス行、Headerがヘッダ部 の書き込みに使われる
+    
+```go
+type Post struct {
+	User    string
+	Threads []string
+}
+
+func writeExample(w http.ResponseWriter, r *http.Request) {
+	str := `<html>
+<head><title>Go Web Programming</title></head>
+<body><h1>Hello World</h1></body>
+</html>`
+	w.Write([]byte(str))
+}
+
+func writeHeaderExample(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(501)
+	fmt.Fprintln(w, "そのようなサービスはありません。ほかを当たってください")
+}
+
+func headerExample(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Location", "http://google.com")
+	w.WriteHeader(302)
+}
+
+func jsonExample(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	post := &Post{
+		User:    "Sau Sheong",
+		Threads: []string{"1番目", "2番目", "3番目"},
+	}
+	json, _ := json.Marshal(post)
+	w.Write(json)
+}
+
+func main() {
+	server := http.Server{
+		Addr: "127.0.0.1:8080",
+	}
+	http.HandleFunc("/write", writeExample)
+	http.HandleFunc("/writeheader", writeHeaderExample)
+	http.HandleFunc("/redirect", headerExample)
+	http.HandleFunc("/json", jsonExample)
+	server.ListenAndServe()
+}
+```
+
+---
+
+- cookie
+    - セッションクッキーと永続性クッキー
+        - go言語でクッキーのExpiresフィールドが設定されていないとセッションクッキー
+            - セッションクッキーはブラウザが閉じると削除される
+            - 設定されていると永続性クッキー
+        - 有効期限はgo言語のクッキーのExpiresかMaxAgeで設定できる
+- ブラウザへのクッキー送信
+    - レスポンスのヘッダのSet-Cookieに設定すると送信できる
+        - ヘッダに直接指定してもいいけど、go言語だとnet/httpにSetCookieメソッドが提供されている
+- ブラウザからクッキー取得
+    - ヘッダーから直接読み取る
+        - requestのHeaderフィールドにアクセスしてとる
+    - Cookie, Cookiesメソッド
+        - 単一のクッキーを取得したい場合はCookie、複数のクッキーを取得したい場合はCookiesを使用する
+        - requestに実装されている
+- クッキーを利用したフラッシュメッセージ
+    - cokkieの構造体のValueにメッセージを入れてレスポンスを送信すればいいのだと思う
+
+---
+
+- テンプレートエンジン
+
+```
+goにおけるcookieの構造体
+
+type Cookie struct {
+    Name string
+    Value string
+    Path string
+    Domain string
+    Expires time.Time
+    RawExpires string
+    MaxAge int
+    Secure bool
+    HttpOnly bool
+    Raw string
+    Unparsed []string
+}
+```
+
+---
 
 # go言語の文法
 - 関数
@@ -583,6 +701,24 @@ func main() {
 - マルチプレクサとは？
 - セッションとは？
 - cookieとは？
+    - Cookieとは、Webサーバーがクライアント（PC等）に預けておく極小さなファイルのことをさす
+    - 初めてそのwebサイトにアクセスするとwebサーバがクライアントに、そのサイト専用のcookieファイルを作成する
+    - webサーバからhttpレスポンスに設定してクライアントに送られてくる
+        - さらにクライアントからwebサーバにもhttpリクエストを通して送られる
+    - cookieがhttpがステートレスであることを克服するために設計された
+        - 状態を持つことができるようになった
+    - https://www.soumu.go.jp/main_sosiki/joho_tsusin/security_previous/kiso/k01_cookie.htm
+    - 使用用途
+        1. ショッピングサイトでは一時的に商品を保存する「買い物かご」の役割
+        2. Cookie(session)による認証方式
+            - クライアントがWebサーバーに初めて接続（Login）した際に、Webサーバーがクライアントに対してCookieファイル（SessionID）を発行し、HTTPレスポンスのヘッダを利用して送ります。その際に発行されたSession情報（SessionID）にはログイン情報が含まれます。
+            - 次回以降、クライアントがWebサーバーへアクセスした際は、リクエストヘッダに含まれるCookie（SessionId）をサーバーが参照し、実際にサーバーに保存されているSession情報と合致した際に認証されたとみなされます。
+            - https://magazine.techcareer.jp/technology/skill/11273/
+        3. フラッシュメッセージを表示する
+- フラッシュメッセージとは
+    - ユーザのアクションが成功したかどうかを一時的に表示する機能
+    - 例えば、お問い合わせフォームで入力された内容が送信されたら「問い合わせは正常に送信されました」といったメッセージを表示する
+        - https://www.soumu.go.jp/main_sosiki/joho_tsusin/security_previous/kiso/k01_cookie.htm
 - なぜListenAndServerの第二引数でハンドラを指定しないといけないのに、デフォルトがDefaultServeMuxというマルチプレクサなのか?
     - ServerMuxは構造体Handlerのインスタンス
     - ServerHTTPはServerMuxのメソッド
