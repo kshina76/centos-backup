@@ -318,8 +318,10 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 # 入社までに読む書籍、サイト
 - go言語
     1. a tour of go(サイト)
+        - goの文法を網羅
 
     2. effective go(サイト)
+        - goの命名規則やgoらしい書き方など、一歩踏み込んだ内容
         - 英語
             - https://golang.org/doc/effective_go.html
         - 日本語
@@ -330,6 +332,7 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
     4. Goプログラミング実践入門(書籍)
         - 標準ライブラリを使わずにwebアプリを開発
+        - プロトコルを作るわけではないので、通信方式などはライブラリに頼る
         - 読み終わったけど、goの勉強をした後にまた戻ってくる
 
     - 参考文献
