@@ -317,19 +317,35 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
 # 入社までに読む書籍、サイト
 - go言語
-    1. Goプログラミング実践入門(書籍)
-        - 標準ライブラリを使わずにwebアプリを開発
-        - 読み終わったけど、goの勉強をした後にまた戻ってくる
+    1. a tour of go(サイト)
 
-    2. a tour of go(サイト)
+    2. effective go(サイト)
+        - 英語
+            - https://golang.org/doc/effective_go.html
+        - 日本語
+            - http://golang.jp/effective_go
 
     3. スターティングGo言語(書籍)
         - Goの基本的な文法やライブラリなど
+
+    4. Goプログラミング実践入門(書籍)
+        - 標準ライブラリを使わずにwebアプリを開発
+        - 読み終わったけど、goの勉強をした後にまた戻ってくる
+
     - 参考文献
         - https://qiita.com/yoskeoka/items/d07b60f755e8a9b30ccf
 
 - TCP/IP 4階層モデル
-    1. マスタリングTCP/IP(書籍)
+    1. TCP/IPの要点
+        - データがいろいろな層を経由して送信側から受信側に渡されていく流れが掴める
+            - アプリケーション同士(例えばブラウザとwebアプリケーション)が通信する際には4つの層を経由していることがわかる
+                - アプリケーションを作るエンジニアはHTTPとTCPの規約に沿っていれば問題ないが、さらに裏側を知るのは重要
+            - 送信側からルータを経由しながら送信先に送られる手順
+
+            ![2020-10-26 22 06のイメージ](https://user-images.githubusercontent.com/53253817/97182102-70a5ec00-17df-11eb-9473-b4a5fbac7d54.jpeg)
+
+        - https://qiita.com/genre/items/05186691fbf8c10a4a48
+    2. マスタリングTCP/IP(書籍)
         - 以下の「TCP/IP 階層」の説明を網羅している
             - ネットワークインタフェース層
                 - Ethernet
@@ -342,6 +358,10 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
             - アプリケーション層
                 - DNS,www,telnet,ftp,http
             - https://www.infraexpert.com/study/tcpip.html
+    3. TCP/IP プロトコルスタック自作
+        - ルーター自作でわかるパケットの流れ(書籍)
+        - go言語でEthernetやARPを実装している
+            - https://terassyi.net/posts/2020/03/29/ethernet.html
 
 - web技術、web開発の基本を網羅
     1. Web技術の基本(書籍)
@@ -350,6 +370,11 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - https://www.amazon.co.jp/exec/obidos/asin/4797388811/akiyoko0b-22/
     2. プロになるためのWeb技術入門(書籍)
     3. Webを支える技術(書籍)
+
+- エンジニアの三代嗜み
+    - 自作OS
+    - 自作コンパイラ、インタプリタ(自作言語)
+    - 自作プロトコルスタック
 
 - SQL構文、DB設計
     - https://qiita.com/maaaaaaaa/items/4e1d84cb40c83004575f
