@@ -319,7 +319,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - go言語
     1. Goプログラミング実践入門(書籍)
         - 標準ライブラリを使わずにwebアプリを開発
-    
+        - 読み終わったけど、goの勉強をした後にまた戻ってくる
+
     2. a tour of go(サイト)
 
     3. スターティングGo言語(書籍)

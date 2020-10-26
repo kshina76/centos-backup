@@ -2,18 +2,35 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 )
 
-func handler(writer http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(writer, "Hello world, %s", request.URL.Path[1:])
+type Printer interface {
+	PrintVal()
+	PrintStr()
+}
+
+type Literal struct {
+	val int
+	str string
+}
+
+func (l *Literal) PrintVal() {
+	fmt.Println(l.val)
+}
+
+func (l *Literal) PrintStr() {
+	fmt.Println(l.str)
 }
 
 func main() {
-	//djangoでいうURLディスパッチャみたいなもの。
-	//http://localhost:8080/にアクセスがあったら、handlerという名前の関数のハンドラに処理をさせる(リダイレクト)という意味
-	http.HandleFunc("/", handler)
-	
-	//第一引数にListenするポートを指定、第二引数にハンドラを指定(nilにするとデフォルトのDefaultServeMuxが使われる)
-	http.ListenAndServe(":8080", nil)
+	//Printer型(interface型)の変数を定義
+	var p Printer
+
+	l := Literal{3, "hello"}
+	l.PrintVal()
+
+	//PrintStrとPrintValの両方を実装していないとエラーになる
+	p = &l
+
+
 }
