@@ -341,10 +341,18 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
             - アプリケーション同士(例えばブラウザとwebアプリケーション)が通信する際には4つの層を経由していることがわかる
                 - アプリケーションを作るエンジニアはHTTPとTCPの規約に沿っていれば問題ないが、さらに裏側を知るのは重要
             - 送信側からルータを経由しながら送信先に送られる手順
+                - https://zenn.dev/naoki_mochizuki/articles/68748997ae1f4d6a5fd7
 
             ![2020-10-26 22 06のイメージ](https://user-images.githubusercontent.com/53253817/97182102-70a5ec00-17df-11eb-9473-b4a5fbac7d54.jpeg)
 
+            - ソケット通信
+                - HTTPが下位のレイヤーを使うときにソケット通信を使っている
+                    - アプリケーション層からトランスポート層のプロトコルを利用する時に使う 
+                        - トランスポート層からインターネット層はどのように通信しているのかな？
+                - 例えばブラウザを使用したHTTP通信で、サーバのTCPポート80番に対してソケットを使ったプロセス間通信を行う
+
         - https://qiita.com/genre/items/05186691fbf8c10a4a48
+        - http://www.al.cs.kobe-u.ac.jp/~ohta/old_public_html/lecture/info_comm_eng/2002/slide/networkprogramming.pdf
     2. マスタリングTCP/IP(書籍)
         - 以下の「TCP/IP 階層」の説明を網羅している
             - ネットワークインタフェース層
@@ -361,7 +369,9 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     3. TCP/IP プロトコルスタック自作
         - ルーター自作でわかるパケットの流れ(書籍)
         - go言語でEthernetやARPを実装している
+            - 標準ライブラリを使わないで、作成しているのだと思う
             - https://terassyi.net/posts/2020/03/29/ethernet.html
+            - https://github.com/terassyi/proto
 
 - web技術、web開発の基本を網羅
     1. Web技術の基本(書籍)
