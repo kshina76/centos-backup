@@ -374,6 +374,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
     4. TCP/IP プロトコルスタック自作
         - ルーター自作でわかるパケットの流れ(書籍)
+        - go言語を使ったプロトコルスタック
+            - https://github.com/pandax381/lectcp
         - go言語でEthernetやARPを実装している
             - 標準ライブラリを使わないで、作成しているのだと思う
             - https://terassyi.net/posts/2020/03/29/ethernet.html
