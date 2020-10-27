@@ -356,7 +356,7 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
         - https://qiita.com/genre/items/05186691fbf8c10a4a48
         - http://www.al.cs.kobe-u.ac.jp/~ohta/old_public_html/lecture/info_comm_eng/2002/slide/networkprogramming.pdf
-    2. マスタリングTCP/IP(書籍)
+    2. マスタリングTCP/IP入門編(書籍)
         - 以下の「TCP/IP 階層」の説明を網羅している
             - ネットワークインタフェース層
                 - Ethernet
@@ -369,7 +369,10 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
             - アプリケーション層
                 - DNS,www,telnet,ftp,http
             - https://www.infraexpert.com/study/tcpip.html
-    3. TCP/IP プロトコルスタック自作
+    3. マスタリングTCP/IP シリーズ全巻
+        - https://www.ohmsha.co.jp/tbc/text_series_0201.htm
+
+    4. TCP/IP プロトコルスタック自作
         - ルーター自作でわかるパケットの流れ(書籍)
         - go言語でEthernetやARPを実装している
             - 標準ライブラリを使わないで、作成しているのだと思う

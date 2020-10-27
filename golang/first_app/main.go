@@ -1,36 +1,29 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 )
 
-type Printer interface {
-	PrintVal()
-	PrintStr()
-}
-
-type Literal struct {
-	val int
-	str string
-}
-
-func (l *Literal) PrintVal() {
-	fmt.Println(l.val)
-}
-
-func (l *Literal) PrintStr() {
-	fmt.Println(l.str)
-}
-
 func main() {
-	//Printer型(interface型)の変数を定義
-	var p Printer
 
-	l := Literal{3, "hello"}
-	l.PrintVal()
+	/*静的コンテンツ
+	- StripPrefixはリクエストURLの先頭から指定された文字列を削除する
+		- http://localhost/static/css/style.css にアクセスが来たら、「<アプリケーションルート>/css/style.css」のファイルを探す
+			- 今回は/publicがアプリケーションルート
+	*/
+	mux := http.NewServeMux()
+	files := http.FileServer(http.Dir("/public"))
+	mux.Handle("/static/", http.StripPrefix("/static/", files))
 
-	//PrintStrとPrintValの両方を実装していないとエラーになる
-	p = &l
+	//URLルーティング
+	mux.HandleFunc("/", index)
 
+	//サーバの設定
+	server := &http.Server() {
+		Addr: "0.0.0.0:8000", 
+		Handler: mux
+	}
 
+	//サーバを立てる
+	server.ListenAndServe()
 }
