@@ -311,7 +311,7 @@
 
 ![https---qiita-image-store s3 amazonaws com-0-186009-9654e297-7ffc-7064-f76b-e91537b94441](https://user-images.githubusercontent.com/53253817/97452173-ce6d3c00-1977-11eb-8109-afc7e361579e.png)
 
-- 構成の使い分け
+- 構成の使い分け(P161~164を見てまとめる。画像はスキャンして載せる)
     - 開発環境や小規模なWebサービス
         - Webサーバ一つでWebサーバとAPサーバの機能を使う
             - ApacheといったWebサーバの機能を使わないでAPサーバに同梱している最低限のWebサーバの機能で済ませるということ
