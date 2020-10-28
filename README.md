@@ -316,6 +316,41 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - unittestとかを用いたテスト方法を学んでおくといいかもしれない
 
 # 入社までに読む書籍、サイト
+- Webエンジニアが学ぶべき書籍をいっぱい紹介している
+    - https://qiita.com/JunyaShibato/items/3aa5f7f3fc991de17f3f
+
+- git
+    - GitHub実践入門 ~Pull Requestによる開発の変革
+
+- Linux
+    1. Linux標準教科書(無料配布)
+        - https://linuc.org/textbooks/linux/
+    2. Linuxコマンドポケットリファレンス
+        - 確か似たようなの持ってた
+    3. Linuxサーバ構築標準教科書
+        - https://linuc.org/textbooks/server/
+    4. シェルスクリプトの何かしらの本
+    5. Linuxシステム管理標準教科書
+        - https://linuc.org/textbooks/admin/
+
+- いいコードを書くためのノウハウ
+    - リーダブルコード(書籍)
+        - 持ってる
+        - さらに深い内容が知りたかったら
+            - https://www.amazon.co.jp/gp/product/4048676881/ref=as_li_tf_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4048676881&linkCode=as2&tag=hirokidaichi-22
+
+- オブジェクト指向
+    - オブジェクト指向でなぜ作るのか
+        - kindleに入ってる
+
+- データベース
+    1. 達人に学ぶSQL徹底指南書
+    2. 達人に学ぶDB設計徹底指南書
+    3. 基礎からのMySQL
+    4. SQLアンチパターン
+
+- HTML/CSS
+
 - go言語
     1. a tour of go(サイト)
         - goの文法を網羅
@@ -363,7 +398,9 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
         - https://qiita.com/genre/items/05186691fbf8c10a4a48
         - http://www.al.cs.kobe-u.ac.jp/~ohta/old_public_html/lecture/info_comm_eng/2002/slide/networkprogramming.pdf
-    2. マスタリングTCP/IP入門編(書籍)
+    2. ネットワークはなぜ繋がるのか
+        - 「ブラウザにURLを入力〜webページが表示されるまで」をLANや光ファイバのレベルまで掘り下げて説明している
+    3. マスタリングTCP/IP入門編(書籍)
         - 以下の「TCP/IP 階層」の説明を網羅している
             - ネットワークインタフェース層
                 - Ethernet
@@ -376,10 +413,10 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
             - アプリケーション層
                 - DNS,www,telnet,ftp,http
             - https://www.infraexpert.com/study/tcpip.html
-    3. マスタリングTCP/IP シリーズ全巻
+    4. マスタリングTCP/IP シリーズ全巻
         - https://www.ohmsha.co.jp/tbc/text_series_0201.htm
 
-    4. TCP/IP プロトコルスタック自作
+    5. TCP/IP プロトコルスタック自作
         - ルーター自作でわかるパケットの流れ(書籍)
         - go言語を使ったプロトコルスタック
             - https://github.com/pandax381/lectcp
@@ -393,10 +430,37 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - 持ってる
         - 読み物として
         - https://www.amazon.co.jp/exec/obidos/asin/4797388811/akiyoko0b-22/
+
     2. プロになるためのWeb技術入門(書籍)
         - 芝浦で借りた
+    
     3. Webを支える技術(書籍)
         - もう少し踏み込んだ内容
+
+    4. 体系的に学ぶ 安全なWebアプリケーションの作り方 第2版 脆弱性が生まれる原理と対策
+        - 攻撃手法などわかりやすく解説しながら、安全なものを作るための説明
+
+- インフラ
+    1. インフラエンジニアの教科書
+        - インフラの基礎知識
+    2. インフラエンジニアの教科書2
+        - インフラの幅広い知識から障害対応まで
+    3. 絵で見てわかるITインフラの仕組み
+        - 冗長化とかキャッシュとか色々な知識
+    4. 絵で見てわかるOS/ストレージ/ネットワーク
+    5. インフラ設計のセオリー
+        - 要求定義から設計、運用保守といった工程を順序立てて説明している
+    6. 入門監視
+        - システムをどのように監視するべきかを解説している
+    7. Infratructure as code(オライリー)
+        - 特定のツールに縛られないでIaCを説明している
+    - 参考文献
+        - https://dev.classmethod.jp/articles/11-technical-books-summary/
+
+- AWS
+    1. Amazon Web Services 基礎からのネットワーク&サーバー構築
+    2. 実践terraform
+        - 読んだけど、復習したほうがいい
 
 - OS
     - ロードマップに書いてあるlinuxコマンド
@@ -417,6 +481,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - Unicodeとは何かなど
 
 - セキュリティ
+    - 図解まるわかり セキュリティの仕組み
+        - セキュリティの基礎知識、攻撃、対策手法について幅広く解説
     - プロフェッショナルSSL/TLS
         - 全部読むのはオーバーかもなので、ハンドシェイクや暗号化httpsの基礎くらいは知っておくのはいいかも
 
@@ -450,24 +516,9 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - html css
     - 基本的な本は読んだ
 
-- AWS
-    1. 実践terraform
-        - 読んだけど、復習したほうがいい
-
 - テスト
     - CircleCI
 
-- git
-
-- オブジェクト指向
-    - オブジェクト指向でなぜ作るのか
-        - kindleに入ってる
-
-- いいコードを書くためのノウハウ
-    - リーダブルコード(書籍)
-        - 持ってる
-        - さらに深い内容が知りたかったら
-            - https://www.amazon.co.jp/gp/product/4048676881/ref=as_li_tf_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4048676881&linkCode=as2&tag=hirokidaichi-22
 
 - webアプリを開発するときにやること(クラス図、DB設計とか)
     - https://note.com/promitsu/n/n463792216407
