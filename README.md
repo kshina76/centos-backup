@@ -396,9 +396,29 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     2. プロになるためのWeb技術入門(書籍)
         - 芝浦で借りた
     3. Webを支える技術(書籍)
+        - もう少し踏み込んだ内容
 
-- OSの基本
+- OS
+    - ロードマップに書いてあるlinuxコマンド
+    - Linuxの仕組み〜実験と図解で学ぶ〜
+        - Linuxの美味しいところを解説している
+    - はじめてのOSコードリーディング
+        - 小さいUnixのOSを用いて解説している
+    - コンピュータシステムの理論と実装
+    - 30日でできる! OS自作入門
+        - アセンブリを書くから、その知識がないときついかも
 
+- コンピュータ
+    - コンピュータの構成と設計
+        - 上下巻見たけど忘れてるかも
+
+- 文字コード
+    - プログラマのための文字コード技術入門
+        - Unicodeとは何かなど
+
+- セキュリティ
+    - プロフェッショナルSSL/TLS
+        - 全部読むのはオーバーかもなので、ハンドシェイクや暗号化httpsの基礎くらいは知っておくのはいいかも
 
 - エンジニアの三代嗜み
     - 自作OS
@@ -457,6 +477,9 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - https://techacademy.jp/magazine/9195
 
 - 参考文献
+    - 低レイヤーの書籍まとめ
+        - https://qiita.com/hareku/items/3383be7aee616e04b80f
+
     - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
 
 
@@ -497,3 +520,5 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
     - フロントでもバックエンドでもどんな技術でも共通していることが、Expressを使う前にNode.jsを使って実装してみるとか、Node.jsを使う前に生のjavascriptで書いてみるとか。基礎的なところが重要になってくると思う
     - test
+
+- ライブラリにもチュートリアルがあるから勉強する時は見たほうがいい
