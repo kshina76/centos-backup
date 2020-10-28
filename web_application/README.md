@@ -293,17 +293,34 @@
 - WebサーバとAPサーバの分担
     - 静的コンテンツはWebサーバ
         - ApacheとかNginxとか
+        - 一つあたりのリクエストの処理は軽い
+        - リクエストが来る回数は多い
+            - 一つの静的コンテンツの中にも画像やHTMLなどといった、一回のリクエストでは終わることができないことがわかる
     - 動的コンテンツを生成するためのWebアプリケーションはAPサーバ
+        - 一つあたりのリクエストの処理は重い
+        - リクエストが来る回数は少ない
 
 - URLによってリクエストを振り分ける
     1. URLでindex.htmlが指定されていたら、APサーバには送らないでWebサーバでリクエストを処理する
     2. URLでindex.html以外が指定されていたら、APサーバにリクエストを流す
-        - ここでAPサーバを複数用意した場合、URLごとに違うAPサーバにリクエストを流すといったこともできると思う
+        - ここでAPサーバを複数用意した場合、URLごとに違うAPサーバにリクエストを流すといったこともできる
             - ロードバランサ的な
+            - 大抵どのwebサーバのアプリケーションの設定も同じような設定だと思う
 
 ![https---qiita-image-store s3 amazonaws com-0-186009-7bb864f8-802e-b813-bff0-edc08fbeffb9](https://user-images.githubusercontent.com/53253817/97452153-ca411e80-1977-11eb-88cd-ef96b4b6644d.png)
 
 ![https---qiita-image-store s3 amazonaws com-0-186009-9654e297-7ffc-7064-f76b-e91537b94441](https://user-images.githubusercontent.com/53253817/97452173-ce6d3c00-1977-11eb-8109-afc7e361579e.png)
+
+- 構成の使い分け
+    - 開発環境や小規模なWebサービス
+        - Webサーバ一つでWebサーバとAPサーバの機能を使う
+            - ApacheといったWebサーバの機能を使わないでAPサーバに同梱している最低限のWebサーバの機能で済ませるということ
+    
+    - 中規模以上のWebサービスの本番運用
+        - WebサーバにApacheやNginxを使う
+            - APサーバに同梱しているWebサーバの機能だけだと非力
+        
+        ![https---qiita-image-store s3 amazonaws com-0-186009-9654e297-7ffc-7064-f76b-e91537b94441](https://user-images.githubusercontent.com/53253817/97454339-feb5da00-1979-11eb-807c-9d9720140c04.png)
 
 
 ---
