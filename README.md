@@ -325,11 +325,15 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - Linux
     1. Linux標準教科書(無料配布)
         - https://linuc.org/textbooks/linux/
+    
     2. Linuxコマンドポケットリファレンス
         - 確か似たようなの持ってた
+    
     3. Linuxサーバ構築標準教科書
         - https://linuc.org/textbooks/server/
+    
     4. シェルスクリプトの何かしらの本
+    
     5. Linuxシステム管理標準教科書
         - https://linuc.org/textbooks/admin/
 
@@ -345,8 +349,11 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
 - データベース
     1. 達人に学ぶSQL徹底指南書
+
     2. 達人に学ぶDB設計徹底指南書
+    
     3. 基礎からのMySQL
+    
     4. SQLアンチパターン
 
 - HTML/CSS
@@ -398,8 +405,10 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
         - https://qiita.com/genre/items/05186691fbf8c10a4a48
         - http://www.al.cs.kobe-u.ac.jp/~ohta/old_public_html/lecture/info_comm_eng/2002/slide/networkprogramming.pdf
+    
     2. ネットワークはなぜ繋がるのか
         - 「ブラウザにURLを入力〜webページが表示されるまで」をLANや光ファイバのレベルまで掘り下げて説明している
+    
     3. マスタリングTCP/IP入門編(書籍)
         - 以下の「TCP/IP 階層」の説明を網羅している
             - ネットワークインタフェース層
@@ -413,6 +422,7 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
             - アプリケーション層
                 - DNS,www,telnet,ftp,http
             - https://www.infraexpert.com/study/tcpip.html
+    
     4. マスタリングTCP/IP シリーズ全巻
         - https://www.ohmsha.co.jp/tbc/text_series_0201.htm
 

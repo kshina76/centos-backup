@@ -325,10 +325,33 @@
 
 ---
 
-- 
+- リダイレクトとフォワードの違い
+    - リダイレクト
+        - 複数のリクエストとレスポンスが行われるから速度が遅い
+        - URLが変わる
+        - サーバ移転した時やログイン後の画面遷移とか？
 
+        ![redirect](https://user-images.githubusercontent.com/53253817/97532332-79720a00-19f9-11eb-9932-9a023a95ae09.png)
 
+    - フォワード
+        - 一回のリクエストとレスポンスで行われるから速度が速い
+        - URLが変わらない
 
+        ![forward](https://user-images.githubusercontent.com/53253817/97532340-7d059100-19f9-11eb-9958-ab5092a88688.png)
+
+    - 例
+        - http://myite.com/hoge へのリクエストが来た時にhttp://mysite.com/fuga へ遷移させるのがリダイレクト
+        - http://myite.com/hoge へのリクエストが来た時にhttp://mysite.com/fuga の情報を返すけど、URLは変わらずにhogeにするのがフォワード
+        - http://mysite.com/fuga へのリクエストが来た時にそのままhttp://mysite.com/fuga の情報を返すのはどちらでもなくただのレンダリング
+        - https://k-sasaking.net/programing/redirect-forwad/
+
+- リクエストスコープ
+    - フォワード元とフォワード先で情報を共有する仕組み
+    - 一つのHTTPリクエストを処理する間だけ有効なので、リダイレクトのような複数のリクエストにまたがると共有できない
+
+---
+
+-
 
 
 
@@ -435,3 +458,6 @@
 
 - https://thinkit.co.jp/article/11837
     - webサーバ,APサーバ,DBサーバの違い
+
+- ログイン処理のアンチパターン
+    - http://en.yummy.stripper.jp/?eid=987602
