@@ -430,6 +430,7 @@
 ---
 
 - パケットの流れ
+
     ![main-qimg-c3470ce51cd2c4b23af771a296b291d9](https://user-images.githubusercontent.com/53253817/97712476-d527ba80-1b01-11eb-90ba-bf262a5a4d14.png "パケットの流れ")
 
     - TCP/IPプロトコルスタックがどこに実装されているか
@@ -441,6 +442,7 @@
                 - https://stackoverflow.com/questions/9809348/tcp-where-is-the-3way-handshake-implemented
         - ルーティングテーブル、MACテーブル、ARPテーブル、キャッシュなども全部カーネルに実装されている
             - ホストコンピュータもルータも中身にはOSがあることに注意。実質コンピュータもルータも同じということ
+
         ![2020-10-30 22 42のイメージ](https://user-images.githubusercontent.com/53253817/97712537-ea044e00-1b01-11eb-9444-0b27299589f6.jpeg "TCPI/IPプロトコルスタックがどこに実装されているか")
 
 ---
