@@ -369,10 +369,10 @@
             - HTTPヘッダなどはアプリケーションプログラムが行っている
         - インターネット層,トランスポート層: OSのカーネルに実装されている
             - つまり、TCPヘッダやIPヘッダの付与はOSのカーネルが行っている
-        ![main-qimg-c3470ce51cd2c4b23af771a296b291d9](https://user-images.githubusercontent.com/53253817/97712476-d527ba80-1b01-11eb-90ba-bf262a5a4d14.png パケットの流れ)
+        ![main-qimg-c3470ce51cd2c4b23af771a296b291d9](https://user-images.githubusercontent.com/53253817/97712476-d527ba80-1b01-11eb-90ba-bf262a5a4d14.png "パケットの流れ")
 
 
-        ![2020-10-30 22 42のイメージ](https://user-images.githubusercontent.com/53253817/97712537-ea044e00-1b01-11eb-9444-0b27299589f6.jpeg TCPI/IPプロトコルスタックがどこに実装されているか)
+        ![2020-10-30 22 42のイメージ](https://user-images.githubusercontent.com/53253817/97712537-ea044e00-1b01-11eb-9444-0b27299589f6.jpeg "TCPI/IPプロトコルスタックがどこに実装されているか")
 
 
 
