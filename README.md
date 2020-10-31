@@ -662,4 +662,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - issueでも調べる
         - discussionsでも調べる
             - Q&A機能としても使える
-        
+
+- 便利な翻訳MACアプリ
+    - DeepL
+    - https://www.youtube.com/watch?v=MhXVh1pn1KE
+
