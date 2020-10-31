@@ -484,6 +484,9 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - コンピュータシステムの理論と実装
     - 30日でできる! OS自作入門
         - アセンブリを書くから、その知識がないときついかも
+    - Goで覗くシステムプログラミングの世界
+        - OSの機能をgoで覗いている
+        - https://ascii.jp/elem/000/001/234/1234843/
 
 - コンピュータアーキテクチャ
     - 最新図解でわかるPCアーキテクチャのすべて
@@ -559,6 +562,39 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - https://qiita.com/hareku/items/3383be7aee616e04b80f
 
     - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
+
+# 優先してやるべきこと
+- IntelliJとかvscodeのデバッガ機能の使い方
+    - デバッガでプログラムの裏側の動きを追えるように訓練する
+
+- Gitの使い方
+    - これがないと生きていけない
+
+- オブジェクト指向
+
+- go言語のREADMEを完成させる
+
+- 自動コールグラフ作成
+    - 関数の呼び出し関係をグラフィカルに表示してくれるツール
+    - go言語ならgo-callvisというライブラリがある
+        - https://qiita.com/mnuma/items/fa25886c39fe991ecdfd
+    - PythonならPyCallGraphというものがある
+        - 実行時間がかかりすぎた関数を赤く表示するなど、チューニングに使えそうな機能もある
+        - https://kazuhira-r.hatenablog.com/entry/2019/04/13/191053
+
+- 今学んできたWeb開発の知識を使ってプログラミングをする
+    1. ブログにユーザ認証をつけて、有料記事機能を作成する
+        - セッションやクッキーや認証方式など色々な知識を使うから勉強になると思う
+        - GoggleAPIを積極的に使ってみる(検索とか)
+        - セキュリティの意識とかもする
+    2. text to speechのapiを使って実況用ボイスの提供サイト作成
+        - goggleのttsのapi
+            - https://blog.apar.jp/web/9893/#toc10
+        - サイトのレイアウトの例
+            - https://www.yukumo.net/#/
+
+- javascript/typescriptをやる
+    - まずはjqueryとか低レイヤーのところからやるといいかもしれない
 
 # 取る資格
 
