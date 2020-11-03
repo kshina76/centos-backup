@@ -2,20 +2,23 @@ package main
 
 import (
 	"net/http"
+	"time"
 )
 
 func main() {
+	p("ChitChat", version(), "started at", config.Address)
 
-	/*静的コンテンツ
-	- StripPrefixはリクエストURLの先頭から指定された文字列を削除する
-		- http://localhost/static/css/style.css にアクセスが来たら、「<アプリケーションルート>/css/style.css」のファイルを探す
-			- 今回は/publicがアプリケーションルート
-	*/
+	// handle static assets
 	mux := http.NewServeMux()
-	files := http.FileServer(http.Dir("/public"))
+	files := http.FileServer(http.Dir(config.Static))
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 
-	//URLルーティング
+	//
+	// all route patterns matched here
+	// route handler functions defined in other files
+	//
+
+	// index
 	mux.HandleFunc("/", index)
 	// error
 	mux.HandleFunc("/err", err)
@@ -33,12 +36,13 @@ func main() {
 	mux.HandleFunc("/thread/post", postThread)
 	mux.HandleFunc("/thread/read", readThread)
 
-	//サーバの設定
-	server := &http.Server() {
-		Addr: "0.0.0.0:8000", 
-		Handler: mux
+	// starting up the server
+	server := &http.Server{
+		Addr:           config.Address,
+		Handler:        mux,
+		ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
+		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
+		MaxHeaderBytes: 1 << 20,
 	}
-
-	//サーバを立てる
 	server.ListenAndServe()
 }
