@@ -8,7 +8,12 @@ import (
 func main() {
 	p("ChitChat", version(), "started at", config.Address)
 
-	// handle static assets
+	/*
+	# 静的コンテンツ
+	- StripPrefixはリクエストURLの先頭から指定された文字列を削除する
+	- http://localhost/static/css/style.css にアクセスが来たら、「<アプリケーションルート>/css/style.css」のファイルを探す
+	- 今回は/publicがアプリケーションルート
+	*/
 	mux := http.NewServeMux()
 	files := http.FileServer(http.Dir(config.Static))
 	mux.Handle("/static/", http.StripPrefix("/static/", files))

@@ -19,3 +19,69 @@
 3. psql -f data/setup.sql -d chitchat
 4. go build
 5. ./chitchat
+
+---
+
+# 書籍メモ
+- フォーム認証の手順
+    1. 事前準備
+        - userのデータベースを作成する
+            - userの登録されている認証情報などを格納する
+            - 「ID、セッションID、name、email、password」ここら辺は必須だと思う
+        - セッションのデータベースを作成する
+            - セッションが作成されたときに格納するデータベース
+            - 「ID、セッションID、email、userID」ここら辺は必須だと思う
+        - HTMLフォームを作成しておく
+    2. POSTリクエストからemailの値を取得して判定
+        - フォームに入力されて来るのでPOSTリクエストが来る
+        - if文で存在するユーザか確認
+        - 存在するユーザだった場合、次にパスワード認証する
+    3. POSTリクエストからpasswordの値を取得して判定
+        - 「データベースに保存された暗号化されたパスワード」と「POSTリクエストで来た暗号化されたパスワード」が同じか判定
+    4. セッションを作成する
+        - 認証されたらセッションを作成してデータベースに登録する
+    5. Cookieを作成する
+        - セッションIDをCookieに入れて送る
+        - この際にHTTPまたはHTTPSからしかCookieにアクセスできないようにする
+        - Cookieを作成したらレスポンスヘッダにCookieを設定する
+    6. リクエストが来たページにリダイレクトする
+        - ホームページに飛ばすのでもいいけど、ユーザがリクエストしてきた会員ページに飛ばす方がUI的にはいいと思う
+    7. セッション関数を作成して認証をし続ける
+        - 会員しか行えない動作や会員にしか開示されないページを表示する前に、セッション関数を呼び出すことでログインされているかを判定する
+        - セッション関数の処理内容
+            1. HTTPリクエストにCookieが存在するかどうか判定
+                - ない場合はloginページにリダイレクト
+            2. 「HTTPリクエストのCookie内のセッションID」が「データベース内のセッションID」に該当するものがあるか判定
+                - ない場合はloginページにリダイレクト
+                - ある場合はセッション情報をreturnする
+                    - セッション情報をreturnする理由は、セッションの情報を使いまわせるから
+                    - 例えば、会員と非会員で同じwebページを表示するけど、ナビゲーションバーだけ変更したい場合は、ifでセッションを確認すると簡単に実装できる
+
+- URLルーティングされているハンドラ関数から直接データベースにアクセスするコードは書いてはいけない
+    - 必ず他の関数やメソッドにデータベースにアクセスする記述を書いて、その関数やメソッドを呼び出すようにするといい
+
+- ハンドラ関数のチェイン
+    - ログなどをとる関数やメソッドをスッキリと分断する方法
+
+```go
+func hello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello!")
+}
+
+func log(h http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		name := runtime.FuncForPC(reflect.ValueOf(h).Pointer()).Name()
+		fmt.Println("ハンドラ関数が呼び出されました - " + name)
+		h(w, r)
+	}
+}
+
+func main() {
+	server := http.Server{
+		Addr: "127.0.0.1:8080",
+	}
+	http.HandleFunc("/hello", log(hello))
+	server.ListenAndServe()
+}
+```
+

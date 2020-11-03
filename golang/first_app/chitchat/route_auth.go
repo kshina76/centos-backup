@@ -40,11 +40,18 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 // POST /authenticate
 // Authenticate the user given the email and password
 func authenticate(writer http.ResponseWriter, request *http.Request) {
+
+	//postの値を取得する(request構造体に保存される)
 	err := request.ParseForm()
+
+	//emailでユーザが存在するかを確認
 	user, err := data.UserByEmail(request.PostFormValue("email"))
 	if err != nil {
 		danger(err, "Cannot find user")
 	}
+
+	//ユーザが存在していた場合、渡されたパスワードがデータベース内にあるパスワードと一致するか確認
+	//パスワードが一致したらセッションを作成してセッションIDを発行してcookieに保存
 	if user.Password == data.Encrypt(request.PostFormValue("password")) {
 		session, err := user.CreateSession()
 		if err != nil {
