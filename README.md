@@ -604,6 +604,11 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - セキュリティ
     - 認証
 
+- go言語でweb開発のいろいろな手法を蓄積する
+    - https://qiita.com/wsuzume/items/75d5c0cd2dd5a1963b9e
+    - https://blog.k-bushi.com/post/tech/programming/golang/build-web-application-with-golang-14/
+    - https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/09.3.html
+
 # 取る資格
 
 - 基本情報技術者試験
