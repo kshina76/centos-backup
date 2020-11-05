@@ -11,9 +11,14 @@ import (
 
 var Db *sql.DB
 
+/*
+host : docker-composeのcontainer_nameで設定
+port : docker-composeのportで設定(ポートフォワード)
+user,password,dbname : docker-composeの環境変数のPOSTGRES_USER,POSTGRES_PASSWORD,POSTGRES_DBでそれぞれ設定
+*/
 func init() {
 	var err error
-	Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
+	Db, err = sql.Open("postgres", "host=postgres port=5432 user=app_user password=password dbname=app_db sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
