@@ -609,8 +609,33 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - https://blog.k-bushi.com/post/tech/programming/golang/build-web-application-with-golang-14/
     - https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/09.3.html
 
-# 取る資格
 
+# 絶対に読んだ方がいい記事、書籍
+- エンジニアの情報収集先
+    - https://qiita.com/nesheep5/items/e7196ba496e59bb2aa28
+- 基本的なシステム構成図を理解するためのAWS基礎をまとめてみた
+    - https://qiita.com/goldayushi/items/0e0f34d19813b8fdc2b8
+- ドメイン駆動開発をわかりやすく解説している
+    - 簡単なCRUDサービスならMVCでもいいけど、大規模なサービスになって複雑になってしまった場合はドメイン駆動が必要になってくる
+    - https://qiita.com/tmknom/items/08b69594e32a92bccee5
+    - https://qiita.com/little_hand_s/items/ebb4284afeea0e8cc752
+    - https://tech.willgate.co.jp/entry/2020/02/11/183000
+- 技術選定や設計前に確認しておくこと、決めておくことなど
+    - 筆者が設計する際の順番に並んでいる
+    - https://qiita.com/tmknom/items/08b69594e32a92bccee5
+- webエンジニア1年目に読んだ方がいい本、記事(副業など多岐に渡って書かれている)
+    - https://qiita.com/virtual_techX/items/35034d28cdb9255367ba
+- WebAPI設計
+    - https://qiita.com/mserizawa/items/b833e407d89abd21ee72
+    - https://www.virtual-surfer.com/entry/1
+- オブジェクト指向
+    - オブジェクト指向でなぜ作るのか(書籍)
+    - 増補改訂版Java言語で学ぶデザインパターン入門(書籍)
+- RedisとElastiChache
+    - https://qiita.com/gold-kou/items/966d9a0332f4e110c4f8
+---
+
+# 取る資格
 - 基本情報技術者試験
     - テクノロジ(自分の技術力をあげるついでに勉強する)
         - ソフトウェア、ハードウェア
