@@ -846,3 +846,61 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - 一番大事なのはAPIリファレンス
     - 「メソッド、引数、返り値」が一番大事
         - 解説を見なくても、メソッド名と引数と返り値を見るだけでわかるレベルにならないといけない
+
+<br></br>
+
+## 直近のto doリスト
+
+- webアプリ開発のフローを使って設計しながら開発してみる
+    - https://note.com/promitsu/n/n463792216407
+
+- 以下の題材で開発をしてみる
+    - 「vanilla-js + Node.js + Go言語(API)」でSPA
+        - vanilla-jsではjqueryを使わずにDOM操作
+            - https://wemo.tech/2101#index_id65
+            - https://qiita.com/shshimamo/items/ba3a57a81d9780030969
+        - Node.jsはHTML,CSS,JSを配信（レンダリングはブラウザで行う）
+        - Go言語はAPIとしての役割
+        - 例(以下にAPIを搭載して拡張するのでもいいかも)
+            - https://vanillawebprojects.com
+            - https://github.com/bradtraversy/vanillawebprojects
+        - なぜやるか？
+            - vanilla-jsで開発することでフロントエンドの基礎がわかる
+            - APIの設計を学ぶ
+            - SPAを学ぶ
+            - JSとGoでオブジェクト指向を学ぶ
+    - techblog
+    - 以下のサービスを拡張(または参考にして新しいオリジナルのwebアプリを作成する)
+        - 例(以下にAPIを搭載して拡張するのでもいいかも)
+        - https://vanillawebprojects.com
+        - https://github.com/bradtraversy/vanillawebprojects
+
+- 以下の書籍やサイトで学んだことを使ってリファクタリングをしていく
+    - オブジェクト指向
+        - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
+        - https://qiita.com/hirokidaichi/items/591ad96ab12938878fe1
+        - https://qiita.com/hirokidaichi/items/0de5ca336de862cc91bd
+        - https://qiita.com/hirokidaichi/items/d6c473d8011bd9330e63
+        - アジャイルソフトウェア開発の奥義 第2版 オブジェクト指向開発の神髄と匠の技
+            - https://www.amazon.co.jp/gp/product/4797347783/ref=as_li_tf_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4797347783&linkCode=as2&tag=hirokidaichi-22
+
+    - クラス設計
+        - オブジェクト指向設計実践ガイド
+            - https://www.amazon.co.jp/dp/B01L8SEVYI/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1
+
+    - デザインパターン
+        - 増補改訂版 Java言語で学ぶデザインパターン入門
+            - https://www.amazon.co.jp/増補改訂版-Java言語で学ぶデザインパターン入門-結城-浩-ebook/dp/B00I8ATHGW/ref=sr_1_1?__mk_ja_JP=カタカナ&keywords=GoF本&qid=1563517192&s=digital-text&sr=1-1
+
+    - UML（設計）
+        - 簡単UML入門
+            - https://www.amazon.co.jp/dp/B073NX8K1L/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1
+        - UMLモデリング入門
+            - https://www.amazon.co.jp/UMLモデリング入門-児玉-公信-ebook/dp/B00EH93MR8/ref=bmx_1/356-7197418-1133737?_encoding=UTF8&pd_rd_i=B00EH93MR8&pd_rd_r=8e8b68f5-a2bc-4690-9cea-3a144a1e9756&pd_rd_w=KbLBh&pd_rd_wg=KgoTp&pf_rd_p=6ad035f2-0f1c-4b9e-a763-5321d5c2cd6e&pf_rd_r=8C9CY6J1110CRR67YSPT&psc=1&refRID=8C9CY6J1110CRR67YSPT
+        - UMLモデリングレッスン
+            - https://www.amazon.co.jp/UMLモデリングレッスン-平澤-章-ebook/dp/B00EH93MNW/ref=bmx_2/356-7197418-1133737?_encoding=UTF8&pd_rd_i=B00EH93MNW&pd_rd_r=5f26ae74-61a9-48ba-bf38-2620d54770c2&pd_rd_w=QJCiG&pd_rd_wg=vr3Qg&pf_rd_p=6ad035f2-0f1c-4b9e-a763-5321d5c2cd6e&pf_rd_r=9DTRJS4CPSB7DXBQSC5J&psc=1&refRID=9DTRJS4CPSB7DXBQSC5J
+
+
+- 参考文献
+    - https://qiita.com/hikey/items/b049b9057fb765e40788
+    - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
