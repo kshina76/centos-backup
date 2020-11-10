@@ -475,6 +475,16 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     2. 実践terraform
         - 読んだけど、復習したほうがいい
 
+- スクレイピング
+    1. サーバサイドで動的生成しているサイトをスクレイピング(requests+BeautifulSoup)
+        - https://www.youtube.com/watch?v=bXBa-88BiYA
+    2. クライアントサイド(ブラウザ)で動的生成しているサイトをスクレイピング(requests-html)
+        - 最近のwebアプリはクライアントサイドレンダリングやSPAが多い
+        - https://gammasoft.jp/blog/how-to-download-web-page-created-javascript/
+    3. それでもスクレイピングできなかったら以下を参照(SPAとかのスクレイピング)
+        - https://qiita.com/Azunyan1111/items/b161b998790b1db2ff7a
+        - https://qiita.com/devneko/items/9ac978965717d5513aa5
+
 - OS
     - ロードマップに書いてあるlinuxコマンド
     - Linuxの仕組み〜実験と図解で学ぶ〜
@@ -581,6 +591,14 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - PythonならPyCallGraphというものがある
         - 実行時間がかかりすぎた関数を赤く表示するなど、チューニングに使えそうな機能もある
         - https://kazuhira-r.hatenablog.com/entry/2019/04/13/191053
+
+- 自動でクラス図、パッケージ図を作成する
+    - グラフィカルに表示してくれるツール
+    - pythonならPyreverseというライブラリがある
+        - https://qiita.com/kenichi-hamaguchi/items/c0b947ed15725bfdfb5a
+
+- 要求定義から設計、コーディングという手順で開発を進めてみる
+    - https://tkmt-hrkz.hatenablog.com/entry/2020/09/15/【開発プロセス】個人開発の流れ
 
 - 今学んできたWeb開発の知識を使ってプログラミングをする
     1. ブログにユーザ認証をつけて、有料記事機能を作成する
