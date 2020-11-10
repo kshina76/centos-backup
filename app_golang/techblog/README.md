@@ -57,17 +57,76 @@
 
 <br></br>
 
+- SSR(サーバサイドレンダリング)とCSR(クライアントサイドレンダリング)の違いの概要
+    - 要は、完成されたHTMLが返されるのがSSRで、未完成のHTML(レンダリングされていない)が返されるのがCSR
+
+    ![https---qiita-image-store s3 ap-northeast-1 amazonaws com-0-227791-9dd75e20-2a0c-eee9-0a5c-ab5f84f6eab4](https://user-images.githubusercontent.com/53253817/98690091-eb5e3200-23af-11eb-9d89-bba5889f237a.jpeg)
+
+
 - 従来のWebアプリケーション(サーバサイドレンダリング)
     - サーバ側で生成したHTMLをクライアントに返す
         - djangoでtemplateタグを使って一般的な方法で書かれたものは、この従来の方式になっている
         - 要は、サーバ側で完全なHTMLを生成してクライアントに返す方式
     - スクレイピングするのが簡単
+    - SEO的に有利
+
+    ![2020-11-10 23 22のイメージ](https://user-images.githubusercontent.com/53253817/98687119-b6041500-23ac-11eb-9d59-f9734d44d248.jpeg)
 
 - 近年のWebアプリケーション(SPAやクライアントサイドレンダリング)
-    - サーバ側はAPIを提供して必要最低限のデータをクライアントに返して、HTMLの生成(書き換え)はクライアント側が行う
-        - React+Django(Rest-Framework)
-        - Vue+Django(Rest-Framework)
-        - React+Express(Node.js)
+    - ブラウザからリクエストされると、サーバーは、JS のビルドされたファイルと必要最小限のHTML要素しか含まれないHTMLファイルを返却する。HTMLファイルの中身はほぼないので、初期表示は何も表示されない。それから、ブラウザ上でAPIなどを使い、初期データを取得して、HTML 要素をレンダリングする。
+    
+    - 実現方法1(S3に置いて実現)
+        1. AWS-S3にjs(reactとか),css,htmlを置く
+            - webpackで複数のjavascriptを一つにまとめる
+            - 同時にbabelを使ってトランスコンパイルをしておく(webpackを使うと勝手にされる？)
+        2. バックエンドはAPIとして構築する
+        3. ブラウザからS3にHTTPリクエストが来る
+        4. 指定されたHTMLファイルがレスポンスとしてブラウザに返ってくる
+        5. HTMLファイルのレンダリングが開始する
+            - HTMLに書かれているjsファイルとcssを取得するために、自動的にリクエストがS3に飛ばされる
+            - 返ってきたjsやcssがブラウザ上で実行される。jsのなかにバックエンドのAPIにリクエストする文が書かれていたらリクエストをバックエンドのサーバに送る
+            - 以下繰り返し
+    
+    - 実現方法2(node.jsやexpressでwebサーバを構築) <- これが普通のやり方
+        1. Webサーバ(node.js)にHTML,CSS,JS(Reactなど)を置く
+            - フロントエンド
+        2. APIサーバはGoとかPython(Django)で提供する
+            - バックエンド
+        3. ブラウザからWebサーバにリクエストが来る
+        4. Webサーバは未完成のHTMLを送る
+        5. あとは1と同じ
+
+        ![2020-11-10 23 19のイメージ](https://user-images.githubusercontent.com/53253817/98685832-36297b00-23ab-11eb-8abd-12e091ffe24f.jpeg)
+        
+        ```html
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>test</title>
+        </head>
+        <body>
+        <div id="content"></div>
+        <script src="https://unpkg.com/react@15/dist/react.js"></script>
+        <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.2/react-redux.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.19.0/babel.min.js"></script>
+        <script type="text/babel">
+            // コンポーネントの定義
+            //ここは本来、jsファイルとして他で定義して、HTMLから呼び出すようにする
+            var helloReact = <div>Hello! React!</div>;
+            var content = document.getElementById('content');
+            ReactDOM.render(helloReact, content);
+        </script>
+        </body>
+        </html>
+        ```
+
+    - 実現例
+        - React(S3に置く？)+Django(RestAPI-Framework)
+        - Vue(S3に置く？)+Django(RestAPI-Framework)
+        - vanilla-js(S3に置く？)+go(API)
         - etc...
     - ブラウザで動作するのはJavaScriptのみなので、フロントエンドにJavaScriptベースのフレームワークを使う
         - Djangoだけで書かれているものはブラウザで動作しないので、従来のアプリケーションに分類される
@@ -77,6 +136,18 @@
         - https://gammasoft.jp/blog/how-to-download-web-page-created-javascript/
 
 ![2020-11-10 15 26のイメージ](https://user-images.githubusercontent.com/53253817/98635931-2a1cc980-2369-11eb-9c6f-14e88a4dc78f.jpeg)
+
+- ブラウザに搭載されている機能
+
+    ![2020-11-11 0 03のイメージ](https://user-images.githubusercontent.com/53253817/98691358-4cd2d080-23b1-11eb-878a-54cb77264630.jpeg)
+
+- HTMLにJSを読み込ませるためのscriptタグはどこに書いてもいいのか!
+    - なぜかと言うと、JSファイル内でDOM操作が行われたり、ルーティングが行われているから、要素をjsファイルが自動で見つけてきてくれる
+
+- 参考文献
+    - https://qiita.com/Michinosuke/items/a70a349b447f16001f87#step3---webpackを使う
+    - https://serip39.hatenablog.com/entry/2020/08/23/225000
+
 
 <br></br>
 
