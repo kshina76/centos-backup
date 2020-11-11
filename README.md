@@ -854,7 +854,36 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - webアプリ開発のフローを使って設計しながら開発してみる
     - https://note.com/promitsu/n/n463792216407
 
-- 以下の題材で開発をしてみる
+- 一つ目の題材で開発をしてみる
+    - Go言語でtechblogを完成させる
+    - アプリケーションアーキテクチャ
+        - レイヤー構成
+            - 3層(小規模なので、データアクセス層はいらないので実質2層)
+        - プレゼンテーション層
+            - MVC
+            - コントローラー
+                - マルチプレクサとURLディスパッチャが二つでコントローラとして機能する
+                - main.goがURLディスパッチャ
+            - モデル
+                - データベース自体の定義
+                - データベースへの処理はここが担当する
+                - CRUDとかビューにデータを返したり
+                - ハンドラ関数はここに定義しない
+                - dataディレクトリにまとめる
+            - ビュー
+                - ハンドラ関数が定義されたgoファイルが複数
+                - データとテンプレートを混ぜて表示する処理を担当
+                - リダイレクトなども行う
+                - 必要に応じてモデルにアクセスする
+                    - データの取得
+                    - 受け取ったデータをモデルに渡してCRUD操作をしてもらう
+        - ビジネスロジック層
+            - ドメインモデル
+                - モデルにCRUDなどの振る舞いを実装するという意味でこの言葉を使っている
+    - 
+
+
+- 二つ目の題材で開発をしてみる(API設計の本を読んでから)
     - 「vanilla-js + Node.js + Go言語(API)」でSPA
         - vanilla-jsではjqueryを使わずにDOM操作
             - https://wemo.tech/2101#index_id65
@@ -875,6 +904,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - https://vanillawebprojects.com
         - https://github.com/bradtraversy/vanillawebprojects
 
+<br></br>
+
 - 以下の書籍やサイトで学んだことを使ってリファクタリングをしていく
     - オブジェクト指向
         - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
@@ -891,6 +922,13 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - デザインパターン
         - 増補改訂版 Java言語で学ぶデザインパターン入門
             - https://www.amazon.co.jp/増補改訂版-Java言語で学ぶデザインパターン入門-結城-浩-ebook/dp/B00I8ATHGW/ref=sr_1_1?__mk_ja_JP=カタカナ&keywords=GoF本&qid=1563517192&s=digital-text&sr=1-1
+
+    - ドメイン駆動設計
+        - ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本
+            - https://www.amazon.co.jp/ドメイン駆動設計入門-ボトムアップでわかる！ドメイン駆動設計の基本-成瀬-允宣-ebook/dp/B082WXZVPC
+        - MVCモデルのモデル肥大化への対処(MVCのレイヤ化)
+            - https://qiita.com/tentom/items/653d46ded6e292630a6c
+        - 別途READMEを見る
 
     - UML（設計）
         - 簡単UML入門
