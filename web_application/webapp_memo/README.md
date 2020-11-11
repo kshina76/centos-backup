@@ -32,16 +32,7 @@
     ![https---qiita-image-store s3 ap-northeast-1 amazonaws com-0-227791-9dd75e20-2a0c-eee9-0a5c-ab5f84f6eab4](https://user-images.githubusercontent.com/53253817/98690091-eb5e3200-23af-11eb-9d89-bba5889f237a.jpeg)
 
 
-- 従来のWebアプリケーション(サーバサイドレンダリング)
-    - サーバ側で生成したHTMLをクライアントに返す
-        - djangoでtemplateタグを使って一般的な方法で書かれたものは、この従来の方式になっている
-        - 要は、サーバ側で完全なHTMLを生成してクライアントに返す方式
-    - スクレイピングするのが簡単
-    - SEO的に有利
-
-    ![2020-11-10 23 22のイメージ](https://user-images.githubusercontent.com/53253817/98687119-b6041500-23ac-11eb-9d59-f9734d44d248.jpeg)
-
-- 近年のWebアプリケーション(SPAやクライアントサイドレンダリング)
+- 従来のWebアプリケーション(クライアントサイドレンダリング)
     - ブラウザからリクエストされると、サーバーは、JS のビルドされたファイルと必要最小限のHTML要素しか含まれないHTMLファイルを返却する。HTMLファイルの中身はほぼないので、初期表示は何も表示されない。それから、ブラウザ上でAPIなどを使い、初期データを取得して、HTML 要素をレンダリングする。
     
     - 実現方法1(S3に置いて実現)
@@ -104,8 +95,22 @@
     - このようなサイトをスクレイピングするのには工夫が必要
         - https://gammasoft.jp/blog/how-to-download-web-page-created-javascript/
 
-![2020-11-10 15 26のイメージ](https://user-images.githubusercontent.com/53253817/98635931-2a1cc980-2369-11eb-9c6f-14e88a4dc78f.jpeg)
+    ![2020-11-10 15 26のイメージ](https://user-images.githubusercontent.com/53253817/98635931-2a1cc980-2369-11eb-9c6f-14e88a4dc78f.jpeg)
 
+- 近年のWebアプリケーション(サーバサイドレンダリング)
+    - サーバ側で生成したHTMLをクライアントに返す
+        - djangoでtemplateタグを使って一般的な方法で書かれたものは、この従来の方式になっている
+        - 要は、サーバ側で完全なHTMLを生成してクライアントに返す方式
+    - スクレイピングするのが簡単
+    - SEO的に有利
+
+    ![2020-11-10 23 22のイメージ](https://user-images.githubusercontent.com/53253817/98687119-b6041500-23ac-11eb-9d59-f9734d44d248.jpeg)
+
+- 流行りのWebアプリケーションSPA(Single Page Application)
+    - 最初の読み込みをサーバサードレンダリング(クライアントサイドでもどっちでもいいのかな？)で行って、そのあとは差分だけをjsonで受け取って、クライアントサイドレンダリングを行う方式(多分そうだと思う)
+    - ReactだとReactJSというモジュールが差分レンダリングを行える
+    - AJAXという技術がSPAを可能にしているのかな？？
+    
 - ブラウザに搭載されている機能
 
     ![2020-11-11 0 03のイメージ](https://user-images.githubusercontent.com/53253817/98691358-4cd2d080-23b1-11eb-878a-54cb77264630.jpeg)
@@ -116,6 +121,8 @@
 - 参考文献
     - https://qiita.com/Michinosuke/items/a70a349b447f16001f87#step3---webpackを使う
     - https://serip39.hatenablog.com/entry/2020/08/23/225000
+    - https://qiita.com/amakawa_/items/e7d0720e1ab8632769bf
+    - 
 
 
 <br></br>

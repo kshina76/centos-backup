@@ -319,8 +319,22 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - Webエンジニアが学ぶべき書籍をいっぱい紹介している
     - https://qiita.com/JunyaShibato/items/3aa5f7f3fc991de17f3f
 
+- 面白そうな本
+    - 論理学
+        - 論理トレーニング101題
+        - 論理学(野矢茂樹)
+    - 統計学
+        - 統計はこうしてウソをつく―だまされないための統計学入門
+
+- エンジニアのためのドローイングツール
+    - https://dev.classmethod.jp/articles/drawing_tools/
+
 - git
     - GitHub実践入門 ~Pull Requestによる開発の変革
+
+- vim
+    1. vimをインストールしたら、「vimtutor」というコマンドを打ってチュートリアルをやってみる
+    2. 「実践vim」という書籍でtipsを学ぶ。画面分割とかいきなりやると、「こいつできるんじゃね？」ってなる
 
 - Linux
     1. Linux標準教科書(無料配布)
@@ -474,6 +488,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     1. Amazon Web Services 基礎からのネットワーク&サーバー構築
     2. 実践terraform
         - 読んだけど、復習したほうがいい
+    3. IAMの基本、設計
+        - https://booth.pm/ja/items/1563844
 
 - スクレイピング
     1. サーバサイドで動的生成しているサイトをスクレイピング(requests+BeautifulSoup)
@@ -896,7 +912,6 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - ビジネスロジック層
             - ドメインモデル
                 - モデルにCRUDなどの振る舞いを実装するという意味でこの言葉を使っている
-    - 
 
 
 - 二つ目の題材で開発をしてみる(API設計の本を読んでから)
@@ -919,6 +934,9 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
         - 例(以下にAPIを搭載して拡張するのでもいいかも)
         - https://vanillawebprojects.com
         - https://github.com/bradtraversy/vanillawebprojects
+
+- 三つ目の題材で開発をしてみる
+    - Qiitaみたいに自分のブログサイトを持てる仕組み
 
 <br></br>
 
