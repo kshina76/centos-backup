@@ -956,6 +956,8 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - デザインパターン
         - 増補改訂版 Java言語で学ぶデザインパターン入門
             - https://www.amazon.co.jp/増補改訂版-Java言語で学ぶデザインパターン入門-結城-浩-ebook/dp/B00I8ATHGW/ref=sr_1_1?__mk_ja_JP=カタカナ&keywords=GoF本&qid=1563517192&s=digital-text&sr=1-1
+        - GoF以外のデザインパターン
+            - https://www.hyuki.com/dp/dpinfo.html#AbstractClass
 
     - ドメイン駆動設計
         - ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本

@@ -101,7 +101,7 @@
     
 
 - ポリモーフィズムの2種類の実現方法
-    1. 継承を使った方法
+    1. 抽象クラスを使った方法(Abstract Classパターンと言われている)
         ```Java
         public abstract class CharacterBase {
             public virtual string Attack() {
@@ -150,7 +150,7 @@
         }
         ```
 
-    2. インタフェースを使った方法(推奨)
+    2. インタフェースを使った方法
         ```Java
         interface CharacterBase {
             string Attack();
@@ -198,9 +198,18 @@
         ```
 
 
-    - 2の方法で行うようにする
-        - 継承を使わなくて済むから
-            - 継承は慎重に使わないといけないから
+    - 実現方法の使い分け
+        - 方法1
+            - Template Methodパターンを実現したい場合に自然と使うことになる
+                - 抽象クラスを使うから
+                    - 「実装されたメソッド」と「抽象メソッド」を混在させて実現するのがTemplate Methodだから
+        - 方法2
+            - Template Methodパターンではない場合
+                - できるだけ継承を使いたくないから、特に必要がないならinterfaceで行うのがいい
+                    - 継承は慎重に行うものだから
+
+    - 参考文献
+        - https://www.hyuki.com/dp/dpinfo.html#AbstractClass
 
 <br></br>
 
@@ -230,14 +239,18 @@
 
 - 継承を使っていい場面
     1. is-aの関係が完璧に満たされている時
+        - 子に親と同じ役割が期待される場合、親と同様に振る舞えるようになる継承を使うのが良い
+            - これをリスコフの置換原則という
         - スーパークラスの一部の機能を使って拡張したいときは委譲(コンポジション)を使う
+
     2. フレームワーク(djangoとか)のような洗練されているものを継承するとき
         - ただし、多段で継承するのはよくない。多重継承はいいのかな？
+        - オーバーライドをして良いことがドキュメントに記されているならオーバーライドする
 
 
 - インスタンスの生成(new)はメインクラスかファクトリ機能のクラス以外でnewすることは無い。他のクラスの機能を使いたかったらコンポジションを使うことが推奨される。
     
-![2020-11-09 15 48のイメージ](https://user-images.githubusercontent.com/53253817/98508618-1eff6600-22a3-11eb-95c0-81fb5e8ec6d1.jpeg)
+    ![2020-11-09 15 48のイメージ](https://user-images.githubusercontent.com/53253817/98508618-1eff6600-22a3-11eb-95c0-81fb5e8ec6d1.jpeg)
 
 - 継承は扱いが難しいことからGoやRustでは採用されていない
 
@@ -252,6 +265,60 @@
     - https://www.furomuda.com/entry/20081026/p1
 
 <br></br>
+
+- 抽象クラスとinterfaceの違い
+    - 抽象クラス
+        - 「実装されたメソッドの定義」と「抽象メソッドの定義」の両方を行える
+        - 共通の処理をまとめたりする中で使う人のため。だからprotectedかpublicを選べる
+    - interface
+        - 「抽象メソッドの定義」のみ、多重継承も許されている
+        - 詳細は見せず出来ることを定義し、外から使う人のため。だからpublic
+    
+    - 参考文献
+        - https://qiita.com/yoshinori_hisakawa/items/cc094bef1caa011cb739
+
+    ![2020-11-12 17 06のイメージ](https://user-images.githubusercontent.com/53253817/98912432-76067480-2509-11eb-9dc0-cdc8a1be0e7e.jpeg)
+
+- 抽象クラスとinterfaceの使い分け
+    - https://qiita.com/igayamaguchi/items/e1d35db0a14a84bda452
+
+- ポリモーフィズムの色々なパターン
+
+- Abstract Classパターンとは？
+    - Template Methodパターンを実装しようとすると自然に使っていると思う
+    - https://www.hyuki.com/dp/dpinfo.html#AbstractClass
+
+- Template Methodパターンとは？
+    - スーパークラスで「処理の流れの定義」と「流れの中で使うメソッドを抽象メソッドとして定義」を行うこと
+        - https://thinkit.co.jp/article/13182
+    
+    - 以下の例はTemplate Methodではなくてポリモーフィズムだと思う。実装メソッドが無いスーパークラスを使ってポリモーフィズムを行うなら抽象クラスではなくてinterfaceを使えばいいのでは？
+        - https://qiita.com/aiko_han/items/e8ddce85188970fd77da
+
+
+<br></br>
+
+- 継承を使うべきかを判定する手順
+    1. Template Methodまたはインタフェースでの継承か？
+        - この場合は継承をしていい。
+        - それ以外の場合は2に進む
+
+    2. 継承でなくて委譲では実現できないか？
+        - サブクラスからスーパークラスの機能を少し使いたい程度であれば委譲を選択するべき
+        - コードの共通化を目的としているなら、継承は使ってはいけない。委譲を使うべき
+            - https://www.ikemo3.com/dic/commonize/
+        - 機能追加、機能変更の継承はダメ。委譲を使う
+            - https://qiita.com/tonluqclml/items/c0110098722763caa556
+        - 委譲はサブクラスのメンバ(フィールドに)にスーパークラスのオブジェクトを持たせることでできる
+    
+    3. リスコフの置換原則を満たしているか？
+        - サブクラスをスーパークラスに置き換えたときに、問題なく振舞うか？
+        - 「問題なく振舞うか」というのは想定していない振る舞いをしないかということ
+            - 以下にpythonを使った例がわかりやすい
+                - https://gside.org/blog/2019/11/17/
+        - 特にオーバーライドをした時に想定していない振る舞いが起きたりするので、そこをしっかり確認する
+            - 抽象メソッドをオーバーライドするのは問題ない。実装されているメソッドをオーバーライドするときに気を付ける
+            - 確かに、djangoのget_context_dataはオーバーライドしてもスーパーとサブで同じ振る舞いをする
 
 - 継承の使い所
     - ElectoricCarはスーパークラスのCarの機能を全て満たす
@@ -344,7 +411,7 @@ class UserRepository {
 
 - まとめ
 
-![2020-11-09 15 51のイメージ](https://user-images.githubusercontent.com/53253817/98508783-6dad0000-22a3-11eb-9f85-17e97c4d9230.jpeg)
+    ![2020-11-09 15 51のイメージ](https://user-images.githubusercontent.com/53253817/98508783-6dad0000-22a3-11eb-9f85-17e97c4d9230.jpeg)
 
 
 ---
