@@ -266,6 +266,10 @@
 
 <br></br>
 
+---
+
+## 抽象クラス、interface
+
 - 抽象クラスとinterfaceの違い
     - 抽象クラス
         - 「実装されたメソッドの定義」と「抽象メソッドの定義」の両方を行える
@@ -297,6 +301,10 @@
 
 
 <br></br>
+
+---
+
+## 継承なのか委譲なのか
 
 - 継承を使うべきかを判定する手順
     1. Template Methodまたはインタフェースでの継承か？
@@ -454,13 +462,13 @@ class UserRepository {
 
 - ガベージコレクションの対象となるもの
 
-![2020-11-09 21 34のイメージ](https://user-images.githubusercontent.com/53253817/98541828-600f6e80-22d3-11eb-85cf-d9dd3cfc69e7.jpeg)
+    ![2020-11-09 21 34のイメージ](https://user-images.githubusercontent.com/53253817/98541828-600f6e80-22d3-11eb-85cf-d9dd3cfc69e7.jpeg)
 
 <br></br>
 
 - まとめ
 
-![2020-11-09 16 57のイメージ](https://user-images.githubusercontent.com/53253817/98514403-bc12cc80-22ac-11eb-9f31-34d070e1aee1.jpeg)
+    ![2020-11-09 16 57のイメージ](https://user-images.githubusercontent.com/53253817/98514403-bc12cc80-22ac-11eb-9f31-34d070e1aee1.jpeg)
 
 ---
 
