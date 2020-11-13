@@ -960,10 +960,16 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
             - https://www.hyuki.com/dp/dpinfo.html#AbstractClass
 
     - ドメイン駆動設計
+        - DDDに関してめちゃくちゃわかりやすそうな本と記事
+            - https://qiita.com/little_hand_s/items/2040fba15d90b93fc124
+            - https://little-hands.booth.pm/items/1835632
         - ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本
             - https://www.amazon.co.jp/ドメイン駆動設計入門-ボトムアップでわかる！ドメイン駆動設計の基本-成瀬-允宣-ebook/dp/B082WXZVPC
         - MVCモデルのモデル肥大化への対処(MVCのレイヤ化)
             - https://qiita.com/tentom/items/653d46ded6e292630a6c
+        - 実際にドメイン駆動設計で開発をしている
+            - https://qiita.com/tono-maron/items/345c433b86f74d314c8d
+            - https://qiita.com/APPLE4869/items/d210ddc2cb1bfeea9338
         - 別途READMEを見る
 
     - UML（設計）
