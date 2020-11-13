@@ -1,5 +1,9 @@
 # アプリケーションーアーキテクチャのメモ
 
+## 正しいMVCアーキテクチャの理解
+- https://at-grandpa.hatenablog.jp/entry/2013/11/01/072636
+- https://www.slideshare.net/MugeSo/mvc-14469802
+
 ## 3層アーキテクチャと層の詳細
 - 3層アーキテクチャ
     - データアクセス
@@ -134,7 +138,7 @@
 
 ---
 
-## Modelの設計(MVCとかMVPとかのM)
+## Modelの設計パターン(MVCとかMVPとかのMの部分、DDDにおいてはDomainの部分)
 - ActiveRecordパターン
     - ORMを使ってModelを設計すること
         - ActiveRecordはrailsの用語だが、djangoのORMに置き換えて考えて問題ない
@@ -162,7 +166,118 @@
         - ユースケースに対応する手続きをそのメソッドに書いていく
             - 複数のModelを使って処理の流れを作成するということ
 
+- Layered Architectureで行う(ARもTSも使っていないと思う)
+    - 「Presentation -> ApplicationService -> DomainModel <- Infrastructure」の構成
+        - Presentation(interface層、プレゼンテーション層)
+            - goで例える
+                - ルーティングはmainが行うので、Presentation層ではない。
+                - ルーティングされるハンドラ関数はPresentation層で定義する
+                - ハンドラ関数の中でユースケース(ApplicationServiceに定義されている)を呼び出す
+                    - 一つのハンドラ関数に対してユースケースは一つ。なぜかと言うと、処理の流れはユースケースの中に書かれているから
+                - ユースケースから返ってきた値を出力する
+            - 処理の例
+                - HTTPを受け取り、それに対応したユースケース(ApplicationServiceに属している)を呼び出す
+                    - リクエストデータをユースケースの引数に渡して呼び出す
+                - 一つのユースケースが実行される
+                - ユースケースから何らかの値が返ってくるから、返ってきた値を出力する(webアプリなら画面出力)
+        - ApplicationService(アプリケーション層、ユースケース層)
+            - ユースケースを満たすために処理の流れを記述するところ
+            - ユースケースを満たすために複数のビジネスロジック(DomainModelに定義されている)のメソッドが実行されて一つのユースケースを作りだす
+            - ハンドラ関数から呼び出される。一つのハンドラ関数につき一つのユースケースが存在する
+            - 処理の例
+                - ビジネスロジックAでユーザの一覧を受け取る
+                - ユーザの一覧をビジネスロジックBの引数に渡して男のユーザ一覧だけを受け取る
+        - DomainModel(ドメイン層)
+            - ビジネスロジックを定義するところ
+            - ここがModelにあたる
+            - 定義する二種類のビジネスロジック
+                - コアなルール系
+                    - ジャンケンの勝敗判定
+                - 処理の流れ系
+                    - コンピュータとじゃんけんをして、その結果をどこかに保存する処理を呼び出す、一連の流れ
+                        - この場合は、「コンピュータとジャンケンした結果を返すメソッド」と「保存するメソッド」に分けて、ユースケースでその流れを定義したほうがいい気がする。
+                            - 注意する点は「保存するメソッド」の際に、実際にSQLを発行する処理はInfrastructure層に書くこと。
+                            - そして、Applicationserviceから、そのSQLを発行するメソッドをジャンケン結果を引数にして呼び出す
+        - Infrastructure(データアクセス層)
+            - DBアクセスとか(SQL発行)
+            - APIへのアクセスとかもだと思う
+            - 直接handler、usecaseから呼ばれることもあるが、基本的にdomainのインターフェースによって抽象化される
+                - DDDではDIP(依存関係逆転の原則)を用いてInfrastructure層がDomainModelにしか依存していないことから、ApplicationServiceやPresentationから呼び出されることがある
+    - 恩恵
+        - 責務が分散された
+        - 複雑なTransactionScriptはテストが大変
+        - テストがしやすくなった
+        - DomainModelはDBなしでテストできる
 
+- Clean Architecture(クリーンアーキテクチャ)
+
+- わかったこと
+    - DDDで「ユースケース図」を作る理由は、ApplicationService(ユースケース層)を作成するために必要な設計
+        - もっと知りたかったら、「モデルベース要件定義テクニック(RDRA)」を読む
+    - DDDで「コンテキストモデル図、要求モデル図、ドメインモデル図」を作る理由は、DomainModel層(ドメイン層)を作成するために必要な設計
+        - もっと知りたかったら、「ユースケース駆動開発実践ガイド(ICONIX)」を読む
+    - DDDでもサブディレクトリ（サブパッケージ）は積極的に使っていい。例えば、Infrastructure層に書くもので、DBとFrameWorkの二つが出てきたら、DBというディレクトリとFrameWorkをというディレクトリをInfrastructureディレクトリのサブディレクトリとして作成していい
+    - 不安定なものは安定しているものに依存しないといけないということがわかった
+        - DomainModelは滅多に変更されない「安定したもの」
+        - Infrastructureは頻繁に変更される「不安定なもの」
+            - APIの内容が変更になったりするから
+
+- 参考文献
+    - https://speakerdeck.com/shinpeim/afalseri-jian-ta-m-v-whateverfalse-modelwopu-tatiha-madazhi-ranai?slide=65
+    - https://mintaku-blog.net/go-ddd/
+    - https://qiita.com/APPLE4869/items/d210ddc2cb1bfeea9338
+
+
+---
+
+## クリーンアーキテクチャの成り立ち
+- https://qiita.com/kz_12/items/bc79102247b86626fc72
+
+
+
+---
+
+
+## アーキテクチャの選択
+- MVCの問題点
+    - Modelの定義が曖昧だから責務が集中してしまってFatModelになってしまうことが多い
+
+- 小規模なアプリケーションならMVCとかでいいと思う
+    - 割とAPIを作成する際などは現場でもMVCは選択されるみたい？？
+
+- マイクロサービスとかなら、一つ一つのアプリケーションを小さくすればMVCので済むのではないか？
+    - 一つ一つのアプリケーションが大規模ならクリーンアーキテクチャなど採用しないといけないかもしれないが
+
+- クリーンアーキテクチャを採用するときは、クラス数が増大するからメモリの問題を加味してマシンスペックを考えないといけない
+
+---
+
+## ドメイン駆動設計を勉強する手順
+1. まず基礎知識を頭に入れる
+    - https://www.slideshare.net/TakuyaKitamura1/ddd-29003356
+    - https://logmi.jp/tech/articles/310424
+
+2. 体系的に学習する
+    - https://nrslib.com/bottomup-ddd/
+    - https://nrslib.com/bottomup-ddd-2/
+    - ドメイン駆動設計入門 ボトムアップでわかる! ドメイン駆動設計の基本
+        - 上の２つの記事を書籍化したもの
+
+3. 実践的な書籍を読む
+    - ドメイン駆動設計 モデリング/実装ガイド
+        - https://little-hands.booth.pm/items/1835632
+
+4. ドメインモデルとユースケースに絞った書籍を読む
+    - モデルベース要件定義テクニック(RDRA)
+    - ユースケース駆動開発実践ガイド(ICONIX)
+
+5. とりあえず簡単なプログラムを作ってみる
+    - https://qiita.com/APPLE4869/items/d210ddc2cb1bfeea9338
+    - https://qiita.com/hirotakan/items/698c1f5773a3cca6193e
+
+6. 最後の仕上げに難しめな本を読む
+    - エリック・エヴァンスのドメイン駆動設計
+    - 実践ドメイン駆動設計
 
 ---
 
