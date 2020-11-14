@@ -56,6 +56,20 @@
 
 ---
 
+## WebAPIを勉強する手順
+1. 基礎知識
+    - https://qiita.com/NagaokaKenichi/items/df4c8455ab527aeacf02
+    - https://www.slideshare.net/tmasao/web-api-49080729
+2. WebAPIの活用を学ぶ(作りたいものが浮かぶかも)
+    - http://www.soumu.go.jp/ict_skill/pdf/ict_skill_1_5.pdf
+    - https://paiza.hatenablog.com/entry/2016/06/21/面倒な手続き不要！「Web_API」の超お手軽活用術をJavaScript
+3. WebAPIを実装する
+    - https://github.com/yosriady/api-development-tools
+4. あとは以下の通り
+    - https://kirohi.com/web_api_resources
+
+---
+
 ## ドメイン駆動設計を勉強する手順
 1. まず基礎知識を頭に入れる
     - https://www.slideshare.net/TakuyaKitamura1/ddd-29003356
