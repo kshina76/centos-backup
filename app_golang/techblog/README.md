@@ -122,7 +122,7 @@
         - password
         - created_date
     - articles
-        - article_id
+        - id
         - author(外部キー)
         - title
         - eyecatch_img
@@ -133,19 +133,26 @@
         - public(公開、非公開、bool)
         - relation(関連記事)
     - author
-        - author_id
+        - id
         - name
         - author_img
     - tags
-        - tag_id(いらない？)
+        - id(いらない？)
         - tag
         - count(タグの大きさを変更するため)
     - categories
-        - cat_id(いらない？)
+        - id(いらない？)
         - category
         - count(カテゴリ内の数を示すため)
 
 - アーキテクチャ設計、クラス設計
+    - クラス設計（とりあえずプロパティはDBと同じ）
+        - Users
+        - Session
+        - Articles
+    - アーキテクチャ
+        - MVCアーキテクチャ
+        
 
 - システム構成設計
 
