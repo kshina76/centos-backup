@@ -1,0 +1,15 @@
+{{ define "content" }}
+{{ range . }}
+  <div class="article">
+    <div class="wrapper">
+      <h2>TitleTitleTitleasnkanrgaendigfnsnidfanindsak</h2>
+      <div class="author">{{ .Name }} |2020.11.11</div>
+      <div class="tag"><img src="/static/icon/ei-tag.jpeg" width="12" height="12"> tag1 tag2</div>
+      <div class="category"><img src="/static/icon/ei-folder.jpeg" width="12" height="12"> category</div>
+    </div>
+    <div class="eye-catch"><img src="/static/icon/ei-tag.jpeg"></div>
+    <div class="text">{{ .Text }}</div>
+
+  </div>
+{{ end }}
+{{ end }}

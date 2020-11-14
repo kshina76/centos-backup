@@ -4,13 +4,15 @@
 - 作るもの
     - techblog
 
-- 使用技術
+- 使用技術・ツール
     - HTML/CSS
     - JavaScript
         - 一部をスクロールさせたり、目次をクリックしたら飛んでいく動作をさせたりするため
         - staticファイルの中にjsを作成して、htmlからはscriptタグで読み出す
     - Go言語
     - Go言語標準ライブラリ
+    - figma
+    - NotePM
 
 - アプリケーションアーキテクチャの構成
     - レイヤー構成
@@ -168,6 +170,8 @@
             1. クラスの抽出は他の方法でしておく
             2. とりあえずDBのカラムを全部クラスのプロパティに持たせておく
             3. メソッドを書いていく中で使わないプロパティが出てきたら削除する
+    - HTMLのh1,h2などの見出しタグの使い方
+        - https://html-css-wordpress.com/heading-tag-navigation/
 
 - 使用ツール
     - 画面遷移設計とデザイン...figma
@@ -205,6 +209,8 @@
     - URL設計も忘れずに
 2. MVCアーキテクチャで実装してみる(app_architecutureのREADME参照)
 3. レイヤードアーキテクチャにリファクタリングしてみる(app_architecutureのREADME参照)
+4. CSS設計を学ぶ
+    - CSS設計完全ガイド　～詳細解説＋実践的モジュール集
 
 ---
 
@@ -262,6 +268,9 @@
 
 - Execute(書き込む場所, テンプレートに渡す引数)
     - ExecuteTemplateの方を使えばいいと思う
+
+- template内に値を渡す方法
+    - https://qiita.com/tetsuzawa/items/0d043ad76b9705cdbb79
 
 ---
 

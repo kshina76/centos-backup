@@ -1,0 +1,97 @@
+/*メインタイトルの色*/
+body .page-header {
+  position: absolute;
+  width: 1440px;
+  height: 88px;
+  left: 0px;
+  top: 0px;
+  background: #080647;
+}
+
+/*メインタイトルの設定*/
+body .page-header h1 a{
+  position: absolute;
+  width: 384px;
+  height: 51px;
+  left: 31px;
+  top: 17px;
+
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 52px;
+
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/*サイドバー*/
+body .sidebar {
+  position: absolute;
+  width: 370px;
+  height: 982px;
+  left: 1070px;
+  top: 110px;
+
+  border-left: 1.5px solid rgb(211, 209, 209);
+  padding-left: 20px;
+}
+.sidebar h4 {
+  border-bottom: 1.5px solid rgb(211, 209, 209);
+  margin-right: 100px;
+
+  color: #777171;
+}
+
+/*記事*/
+.main .article {
+  position: relative;
+  border-bottom: 1.5px solid rgb(211, 209, 209);
+  top: 100px;
+  margin-right: 400px;
+  margin-left: 100px;
+  padding-bottom: 280px;
+}
+.main .article .wrapper h2 {
+    font-size: 28px;
+    line-height: 0.4;
+  }
+.main .article .wrapper {
+  position: absolute;
+  bottom: 150px;
+}
+.main .article .author {
+  font-size: 13px;
+}
+.main .article .text {
+  position: absolute;
+  top: 130px;
+  left: 200px;
+}
+.main .article .tag {
+  font-size: 13px;
+}
+.main .article .category {
+  font-size: 13px;
+}
+.main .article .eye-catch img{
+  position: absolute;
+  top: 150px;
+  width: 100px;
+  height: 100px;
+}
+
+/*footer*/
+/*
+body {
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 0px;
+    box-sizing: border-box;
+}
+*/
+.footer h4 {
+    position: absolute;
+    bottom: 0;
+}

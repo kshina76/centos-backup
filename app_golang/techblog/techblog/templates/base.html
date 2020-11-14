@@ -1,13 +1,23 @@
 {{ define "base" }}
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+  <head>
     <title>techblog</title>
-</head>
-
-<body>
-    {{ template "content" }}
-</body>
-
+    <link href="/static/css/test.css" rel="stylesheet">
+  </head>
+  <body>
+    <header class="page-header">
+      <h1><a href="/">Kosuke's TechBlog</a></h1>
+    </header>
+    <aside class="sidebar">
+      {{ template "sidebar"}}
+    </aside>
+    <main class="main">
+      {{ template "content" . }}
+    </main>
+    <footer class="footer">
+      <h4>TechBlog &copy; Kosuke Shinagawa</h4>
+    </footer>
+  </body>
 </html>
 {{ end }}

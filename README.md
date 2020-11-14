@@ -575,7 +575,6 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - テスト
     - CircleCI
 
-
 - webアプリを開発するときにやること(クラス図、DB設計とか)
     - https://note.com/promitsu/n/n463792216407
     - https://qiita.com/Saku731/items/741fcf0f40dd989ee4f8
@@ -642,6 +641,9 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - https://qiita.com/wsuzume/items/75d5c0cd2dd5a1963b9e
     - https://blog.k-bushi.com/post/tech/programming/golang/build-web-application-with-golang-14/
     - https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/09.3.html
+
+- CSS設計を学ぶ
+    - CSS設計完全ガイド　～詳細解説＋実践的モジュール集
 
 - 研究テーマを考える
     1. go言語の非同期処理を行うことで、現在のバックエンドの処理を高速化する
