@@ -1,0 +1,31 @@
+.header {
+  background: #080647;
+  width: 100%; }
+  .header__main-title {
+    align-items: center;
+    color: #FFFFFF;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    height: 100px;
+    text-decoration: none;
+    vertical-align: middle; }
+
+.wrapper-two-column {
+  display: flex;
+  justify-content: space-between; }
+  .wrapper-two-column .main-page {
+    width: 1%;
+    margin-left: 100px; }
+  .wrapper-two-column .sidebar {
+    border-left: 1.5px solid #d3d1d1;
+    padding-left: 20px;
+    width: 28%; }
+    .wrapper-two-column .sidebar .categories__list {
+      color: #777171; }
+    .wrapper-two-column .sidebar .tags__list {
+      color: #777171; }
+    .wrapper-two-column .sidebar .profile__list {
+      color: #777171; }
+
+/*# sourceMappingURL=te.css.map */

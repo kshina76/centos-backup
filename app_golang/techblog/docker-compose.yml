@@ -1,7 +1,5 @@
 version: '3' # composeファイルのバーション指定
-
 services:
-
   postgres:
     container_name: postgres # 名前解決できるようになる(多分)
     build:
@@ -14,7 +12,6 @@ services:
       POSTGRES_USER: app_user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: app_db
-    
 
   app: # service名
     container_name: app
@@ -28,3 +25,10 @@ services:
       - "8080:8080"
     volumes:
       - ./techblog:/go/src/techblog # マウントディレクトリ指定
+  
+#  ruby-sass:
+#    container_name: ruby-sass
+#    build: 
+#      context: .
+#     dockerfile: ./docker/ruby_sass/Dockerfile
+#    tty: true

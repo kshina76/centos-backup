@@ -56,6 +56,33 @@
 
 ---
 
+## 有用な記事、動画
+### HTML/CSS
+- CSSの効率的な書き方、tabUIの開発、便利なショートカットキー
+    - https://www.youtube.com/watch?v=OSQ1LnU9SCw
+- Googleが推奨するHTML/CSSのコーディング規則
+    - http://detarame.moo.jp/2012/08/07/googleが推薦するhtmlとcssのコーディング方法/
+- CSSのpx, em, rem, %, vw単位の違いと使い分け
+    - https://note.com/takamoso/n/nde1275183086
+
+- BEMとは
+    - https://pikawaka.com/html-css/bem#BEMと親和性の高いSassを使用する
+- SCSS/SASSの使い方
+    - https://pikawaka.com/html-css/sass
+- SASSを用いてBEMでCSSを設計
+    - https://qiita.com/Takuan_Oishii/items/0f0d2c5dc33a9b2d9cb1
+
+- HTMLからCSSセレクタを自動生成
+    - https://css.miugle.info
+- HTMLを省略記法で記述するツール
+    - Emmet
+
+### Python
+- Pythonにおいての参照渡しはCの参照渡しとは違う
+    - https://qiita.com/ponnhide/items/cda0f3f7ac88262eb31e
+
+---
+
 ## WebAPIを勉強する手順
 1. 基礎知識
     - https://qiita.com/NagaokaKenichi/items/df4c8455ab527aeacf02
@@ -68,6 +95,8 @@
 4. あとは以下の通り
     - https://kirohi.com/web_api_resources
 
+- 自分のREADMEに色々書いてある
+    - https://github.com/kshina76/centos-backup/tree/master/web_api
 ---
 
 ## ドメイン駆動設計を勉強する手順
@@ -122,14 +151,101 @@
 1. コーディング
     1. テンプレートタグとかを使うなら、テンプレートのパースと簡易サーバの部分のコーディングは作っておく
     2. HTMLを全てコーディングする(HTML設計)
-        - タグ付けはデザインを作った時のFrameを参考にすると良い
-        - 後のCSSのことを考えながらタグづけを行っていく
+        - タグ付けはBEMという設計方法に従う(後々のCSSデザインに関わる)
+            - 具体的に付ける場所はデザインを作った時のFrameを参考にすると良い
     3. CSSでデザインをする
+        - まず以下のURLのreset.cssを読み込む
+            - http://html5doctor.com/html-5-reset-stylesheet/
+        - googleフォントを使う
+            - https://fonts.google.com/?sort=popularity
+        - Sass記法を使って、BEMにしたがってデザインしていく
         - HTMLのコーディングが終わったらデザインをする作業に入っていく
         - 簡単なところはfigmaのcssをコピペ
     4. バックエンドのロジックを考えていく
         - アーキテクチャの型(MVCとか)に当てはめながらコーディングを進めるとスラスラ書ける
 2. インフラ構築
+
+---
+
+## HTML/CSS
+
+### メモ
+- reset.cssを活用
+    - marginの初期値などを消すために最初に読み込んでおくもの
+        - https://pegaro.site/reset-css/
+        - http://html5doctor.com/html-5-reset-stylesheet/
+
+- 文字においてのline-heightとpaddingの使い分け
+    - line-height...行間の余白の調整に使う
+    - padding...段落の余白の調整に使う
+
+- インライン要素とブロック要素
+    - HTMLタグのほとんどはインライン要素とブロック要素に分類できる
+    - インライン要素にはCSSでpaddingやmarginの上下が効かないので注意する
+        - CSSから「display: inline-block」を指定するとインラインとブロック要素の中間としてみなしてくれるからpaddingなどが使えるようになる
+        - なぜblockではダメなのかわからん
+
+- paddingとmarginの違い
+    - marginは外に余白をとるから、外に影響を及ぼすってことでいいのか？
+
+- px, em, rem, %
+    - px...ブラウザから文字サイズを変更しても一切変わらなくなる
+    - em...自分の要素から親要素に向かって遡って、font-sizeを見つけたら、「そのfont-size*rem値」がpxの値となる
+        - paddingでもmarginでもなんでもfont-sizeを基準に算出される
+    - rem...「htmlのfont-size*rem値」がpxの値となる。親要素にどのようなfont-sizeが設定されていても影響を受けないでhtmlを参照する
+    - %...emのfont-sizeじゃなくてなんでもいいバージョン。widthなら親要素のwidthを参照するといった感じ
+    - 使い分け
+        - メディアクエリ...em
+        - font-size...em/rem
+        - borderなど見た目が変わらない...px
+        - それ以外...em/rem
+    - 使い分け(remとem)
+        - rem...親のfont-sizeに影響されたくなかったらこれ
+        - em...それ以外
+
+- ヘッダーのロゴを縦方向に中央揃える
+    - https://haniwaman.com/vertical-align/
+    - https://note.com/tell_me/n/n2a7fda543500
+
+- reset.cssでfont-sizeが100%に設定されている理由
+    - ブラウザのデフォルトの16pxやユーザが設定したfont-sizeを正しく表示できるから
+
+- ブログで、記事の部分とサイドバーをきれいに分けるにはflexboxを使って横で2カラムに分ける
+
+- widthとheightとpaddingとmarginの位置関係(絶対意識しながら実装したほうがいい)
+
+    ![4-1024x793](https://user-images.githubusercontent.com/53253817/99183768-9ccee000-2781-11eb-8396-fa75c98118f5.png)
+
+
+
+### HTML/CSSコーディング規約
+
+- CSSはclassにのみ適用する
+    - HTMLタグをCSSセレクタで指定してはいけないということ
+
+- CSSプロパティはアルファベット順に書く
+    
+    ```css
+    .block {
+        background-color: #FFF;
+        color: red;
+        margin: 80px;
+        width: 800px;
+    }
+    ```
+
+- CSSプロパティはまとめて書く
+    - padding-bottomとかpadding-rightとかまとめられるなら、まとめて書く
+
+    ```css
+    .cell {
+        margin: 112px 39px 0 0;
+        padding: 26px 0 84px;
+    }
+    ```
+
+- そのほかの規約は以下から
+    - https://qiita.com/pugiemonn/items/964203782e1fcb3d02c3
 
 ---
 

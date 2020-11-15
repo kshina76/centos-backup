@@ -3,18 +3,23 @@
 <html lang="ja">
   <head>
     <title>techblog</title>
-    <link href="/static/css/test.css" rel="stylesheet">
-  </head>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="/static/css/reset.css" rel="stylesheet">
+    <link href="/static/css/te.css" rel="stylesheet">
+</head>
   <body>
-    <header class="page-header">
-      <h1><a href="/">Kosuke's TechBlog</a></h1>
+    <header class="header">
+      <h1><a class="header__main-title" href="/">Kosuke's TechBlog</a></h1>
     </header>
-    <aside class="sidebar">
-      {{ template "sidebar"}}
-    </aside>
-    <main class="main">
-      {{ template "content" . }}
-    </main>
+    <div class="wrapper-two-column">
+      <main class="main-page">
+        {{ template "content" . }}
+      </main>
+      <aside class="sidebar">
+        {{ template "sidebar"}}
+      </aside>
+    </div>
     <footer class="footer">
       <h4>TechBlog &copy; Kosuke Shinagawa</h4>
     </footer>

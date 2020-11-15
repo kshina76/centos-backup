@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+//header
+.header {
+    background: #080647;
+    width: 100%;
+
+    &__main-title {
+        align-items: center;
+        color: #FFFFFF;
+        display: flex;
+        font-family: 'Roboto', sans-serif;
+        font-size: 36px;
+        height: 100px;
+        text-decoration: none;
+        vertical-align: middle;
+    }
+}
+
+//2-column page
+.wrapper-two-column {
+    display: flex;
+    justify-content: space-between;
+    
+    //main-page(blog)
+    .main-page {
+        width: 72%;
+        margin-left: 100px;
+    }
+
+    //sidebar
+    .sidebar {
+        border-left: 1.5px solid rgb(211, 209, 209);  //枠線の太さはpxにして変化させない
+        padding-left: 20px;
+        width: 28%;
+
+        .categories {
+            &__list {
+                color: #777171;
+            }
+        }
+
+        .tags {
+            &__list {
+                color: #777171;
+            }
+        }
+
+        .profile {
+            &__list {
+                color: #777171;
+            }
+        }
+    }
+
+}
+
+
