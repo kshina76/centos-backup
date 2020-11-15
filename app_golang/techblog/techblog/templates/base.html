@@ -12,11 +12,11 @@
     <header class="header">
       <h1><a class="header__main-title" href="/">Kosuke's TechBlog</a></h1>
     </header>
-    <div class="wrapper-two-column">
-      <main class="main-page">
+    <div class="main-page">
+      <article class="main-page__articles">
         {{ template "content" . }}
-      </main>
-      <aside class="sidebar">
+      </article>
+      <aside class="main-page__sidebar">
         {{ template "sidebar"}}
       </aside>
     </div>

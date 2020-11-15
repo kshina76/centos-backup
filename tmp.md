@@ -216,7 +216,20 @@
 
     ![4-1024x793](https://user-images.githubusercontent.com/53253817/99183768-9ccee000-2781-11eb-8396-fa75c98118f5.png)
 
+- widthプロパティはデフォルトだとauto(横幅いっぱい)に設定されている
+    - つまり子要素のwidthプロパティでパーセント指定した場合、親要素のwidthに何も指定していない場合はauto(横幅いっぱい)に伸ばした値のパーセントをとることになる
 
+- 余白はpxまたは%で指定できる
+    - %で指定すると、便利や理由
+        - https://ferret-plus.com/12506
+
+- BEMでblockの中のblockの命名規則
+    - こっちの方法でこれからはやっていく
+        - https://qiita.com/Takuan_Oishii/items/0f0d2c5dc33a9b2d9cb1#blockにはmarginを指定しない
+    - 今回はこっちでやってしまった
+        - https://stackoverflow.com/questions/40265932/bem-blocks-inside-blocks
+
+- flexboxで縦並びを実現するには、「flex-direction: column」を指定する
 
 ### HTML/CSSコーディング規約
 
