@@ -203,6 +203,12 @@
         - rem...親のfont-sizeに影響されたくなかったらこれ
         - em...それ以外
 
+- px, em, rem, %の使い分けを詳しく
+    - 最有力
+        - https://daib-log.com/unit/
+    - https://ferret-plus.com/12506
+    - https://note.com/takamoso/n/nde1275183086
+
 - ヘッダーのロゴを縦方向に中央揃える
     - https://haniwaman.com/vertical-align/
     - https://note.com/tell_me/n/n2a7fda543500
@@ -219,15 +225,18 @@
 - widthプロパティはデフォルトだとauto(横幅いっぱい)に設定されている
     - つまり子要素のwidthプロパティでパーセント指定した場合、親要素のwidthに何も指定していない場合はauto(横幅いっぱい)に伸ばした値のパーセントをとることになる
 
-- 余白はpxまたは%で指定できる
-    - %で指定すると、便利や理由
-        - https://ferret-plus.com/12506
-
 - BEMでblockの中のblockの命名規則
     - こっちの方法でこれからはやっていく
         - https://qiita.com/Takuan_Oishii/items/0f0d2c5dc33a9b2d9cb1#blockにはmarginを指定しない
     - 今回はこっちでやってしまった
         - https://stackoverflow.com/questions/40265932/bem-blocks-inside-blocks
+    - 個人的な理解
+        - 「block__block」にはならない。なぜならblockは一つのファイルに一つだから。「block」と「block」にわけてネストすればいい
+        - 「block__element」この場合はオッケー
+        - BEMにおいてclass名は被ってはだめ。BEMに沿って命名していれば、被らないはず
+
+- BEMでファイルを分けてコンパイルする方法
+    - https://www.i-ryo.com/entry/2020/05/22/185144#importでパーシャルファイルをインポート
 
 - flexboxで縦並びを実現するには、「flex-direction: column」を指定する
 
