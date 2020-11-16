@@ -182,35 +182,12 @@
     - terraform
 
 
-### 開発の時に見ながら進めるとスラスラ書ける図
-- デスクトップアプリにおけるMVC(MVC1)
-    - Model...DBアクセス、構造体格納（クラス変数の代わりにパッケージ変数で定義することで状態を表現）、ビジネスロジック(状態加工)
-        - クラス変数を使うことでクラスに状態を持たせることができる
-    - View...Modelの状態(クラス変数)を見てtemplateと混ぜて表示する処理、レンダリング
-    - Controller...Modelのビジネスロジックの操作、Viewの操作
-    - https://at-grandpa.hatenablog.jp/entry/2013/11/01/072636
+### 開発の時に見ながら進めるとスラスラ書けるリンク
+- Push-MVC、MVPなどアーキテクチャに関する詳しい説明と手順
+    - https://github.com/kshina76/centos-backup/tree/master/app_architecture
+    - https://light11.hatenadiary.com/entry/2019/01/23/231828
+    - https://maku.blog/p/5wu6fbv/
 
-    ![2020-11-16 3 20のイメージ](https://user-images.githubusercontent.com/53253817/99193194-bb050200-27ba-11eb-8efb-f122ebeb7ba5.jpeg)
-
-- WebアプリにおけるMVC(MVC2)
-    - Model
-        - DBアクセス、DBに保存、ビジネスロジック(コアなルール)
-    - Controller
-        - Viewからの入力値の整形とバリデーション
-        - Viewからの入力値のセキュリティチェック
-        - その他、CSRF対策などのセキュリティチェック
-        - Modelを使ってユースケース層としての役割
-            - 複数モデルにまたがる処理
-            - 通知などを伴う処理
-        - 外部API呼び出し
-        - Viewへ渡すデータの整形
-        - 状態に応じたリダイレクトの処理(Viewの何かを呼び出すだけだと思う)
-    - fat controller対策
-        1. ビジネスロジックをModelに定義
-        2. controllerはModelに命じるのみ(ユースケース層的な役割？)
-            - golangでtemplate methodパターンできるの？
-    - MVCそれぞれの責務がわかりやすい
-        - https://qiita.com/MasashiFujiike/items/5c1c3e92c0289812a952
 
 - フロントでMVC、バック(API)でMVCとそれぞれ別のMVCとして構築するといいかも
     - https://qiita.com/ffggss/items/15943c6c3908a6f25cb5
