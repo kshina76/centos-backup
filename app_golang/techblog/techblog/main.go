@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	//"html/template"
-	"techblog/view"
+	"techblog/presentation"
 )
 
 func main() {
@@ -14,16 +13,14 @@ func main() {
 	files := http.FileServer(http.Dir("static"))
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 
-	mux.HandleFunc("/", view.Index)
-	mux.HandleFunc("/login", view.Login)
+	//ルーティング
+	mux.HandleFunc("/", presentation.Index)
+	mux.HandleFunc("/login", presentation.Login)
 
+	//サーバ起動
 	server := &http.Server {
 		Addr: "0.0.0.0:8080",
 		Handler: mux,
 	}
 	server.ListenAndServe()
-}
-
-func index(writer http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(writer, "Hello")
 }
