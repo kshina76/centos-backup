@@ -1,8 +1,99 @@
 # アプリケーションーアーキテクチャのメモ
 
 ## 正しいMVCアーキテクチャの理解
+- MVCアーキテクチャの種類(MoldelとViewの繋ぎ方で分類)
+    - Controller(Presenter)が仲介パターン
+        1. Push-MVC(Web)、MVC2(Web)
+            - Model
+                - データとビジネスロジックを定義
+                - DB接続(SQL発行)
+                - API接続
+            - View
+                - HTMLやTempalteの定義
+                    - Template.Execute(テンプレートエンジン)自体の実装はViewが行っているが、ライブラリを使っている。呼び出しはControllerから。
+            - Controller
+                - ユーザ入力の窓口
+                - go言語でいうハンドラ関数が行う部分
+                - Modelに実装されているビジネスロジックの呼び出し
+                    - 複数モデルにまたがる処理(ユースケース層的な役割もあるということかな？)
+                - Viewを呼び出す処理
+                    - go言語において、Template.Executeを呼び出すこと
+                    - Modelから返ってきたデータをTemplateエンジン(View)に渡す
+            - URLルーティングはMVCではなくてmainの外の処理が行うことだから混同しないように注意する
+            - データをViewにpushすることからこのような名前がついている
+
+        2. MVP-Passive-View(Web)
+            - Model
+                - ViewとPresenter以外
+                - API接続
+                - DB接続(SQL発行)
+                - データとビジネスロジック(プレゼンテーションロジックはPresenterで定義)
+                - ViewとPresenterには依存しない
+                    - ModelからPresenterとViewを参照することはないということ
+            - View
+                - ユーザ入力の窓口
+                - UIのレイアウトを定義
+                    - HTMLとかTempalteとか
+                - ユーザアクション(イベント)、ユーザ入力をPresenterに通知(ボタン押されたから処理しといてーとかを入力データと一緒に渡す)
+                    - ViewにOnClickメソッドが実装されていて、実行するけど、中身はPresenterに委譲するだけしか書かれていない
+                        - 委譲というのはViewでPresenterのクラスの変数を持っていて、その変数からPresenterのOnClickを呼び出すこと
+                            - デリゲート(委譲)とは「Presenterに処理をしてもらう」という意味
+            - Presenter
+                - ViewとModelを仲介する
+                    - User->View->Presenter->Model->Presenter->View->User
+                    - User->View->Presenter->View->User
+                - Viewから受け取ったユーザアクションに対するハンドラ(イベントハンドラ)を実装、実行
+                    - プレゼンテーションロジック(UIのビジネスロジック)という
+                    - PresenterのハンドラからViewのインタフェースを経由してViewのメソッドを呼び出してUIの更新処理をする
+                        - Viewのメソッド内にTemplateのExecuteとかが実装されているから、それを呼び出して更新するということ
+            
+            ![MVP](https://user-images.githubusercontent.com/53253817/99233802-12e14e80-2837-11eb-957f-6301ad3be3e5.png)
+
+            - URLルーティングはMVCではなくてmainの外の処理が行うことだから混同しないように注意する
+
+            - MVPのメリット・デメリット
+                - ModelとViewが別れているからテストがしやすい
+                - Presenterが膨れる傾向にある
+
+            - MVPにおけるオブジェクトの生成過程
+                1. アプリを起動すると View が生成される。
+                2. View は自分自身を制御してもらうための Presenter を生成する。Presenter に自分自身の参照を渡しておく。
+                3. Presenter はビジネスロジックを実行するための Model を生成する。
+                - https://light11.hatenadiary.com/entry/2019/01/23/231828
+            
+            - MVPにおける処理の例
+                - "Save"Buttonクリック→ViewのイベントハンドラはPresenterにデリゲートされているので、Presenterで"OnSave"が呼び出される→セーブが終わったら、PresenterからInterfaceを通してViewにセーブされたよって表示する。
+
+        3. MVP(GUI)
+            - 
+    
+    - ViewがModelを参照パターン
+        1. Pull-MVC(Web),MVC1(GUI)
+            - ViewがModelを参照してデータを取得するパターン
+            - Webではあまり普及していない。HTML5を使ったSynthというフレームワークが存在する
+            - 「やはりお前らのMVCは間違っている」で紹介されているGUIにおける古典的なMVC
+        2. MVP-Supervising-Controller(Web)
+
+    - 参考文献
+        - MVPの実装がわかりやすかった
+            - https://light11.hatenadiary.com/entry/2019/01/23/231828
+        - MVPの際のシーケンス図がわかりやすかった
+            - https://maku.blog/p/5wu6fbv/
+
+- WebにおいてどのMVCアーキテクチャがいいのか
+    - Push-MVCを選択するべき
+
+- Pull-MVCをWebで実現するのは大変
+    - HTTPはステートレスであるという点が、ViewがどのModelに関連付けられていたのか、という情報を失わせる。これを回避するため、セッションにViewとModelを関連づける情報を保持する必要がある。そのため、Pull-MVCのフレームワークは実装が難しく、あまりメリットがないので、少ないのが現状
+    - HTML5においては可能。Synthというフレームワークが存在する
+
+- わかったこと
+    - 上記のMVPの図でクラスの機能を使いたい時には継承ではなく委譲を使っていることがわかる
+        - OOPで別クラスの機能を用いたい時は、委譲を使って「インスタンス変数としてクラスを持ち、メソッドでそのクラスのインスタンス化をする」
+
 - https://at-grandpa.hatenablog.jp/entry/2013/11/01/072636
 - https://www.slideshare.net/MugeSo/mvc-14469802
+- https://qiita.com/MasashiFujiike/items/5c1c3e92c0289812a952
 
 ## 3層アーキテクチャと層の詳細
 - 3層アーキテクチャ
