@@ -20,26 +20,56 @@
 # PostgreSQL
 
 ## Centosなどに直接インストールして使う場合
+
+- 以下を参考にして進める
+    - https://qiita.com/ibara1454/items/40ce2d82926f48cf02bc
+
 - postgresqlを起動
     - 設定ファイルなど色々作成されるらしい
 
-```bash
-$ /etc/rc.d/init.d/postgresql start
-```
+    ```bash
+    $ /etc/rc.d/init.d/postgresql start
+    または
+    $ postgres -D /usr/local/var/postgres
+    ```
+
+- postgresqlの初期状態
+    - スーパーユーザの名前はpostgresで生成される
+    - postgresユーザ(ロール)にpostgresというDBが関連づけられている
+
 
 - 初期設定
-    - スーパーユーザの名前はpostgresで生成される
-    - postgresユーザのパスワードを変更する
-    - データベースを作成する
-    - テーブルの定義などが書かれたsqlファイルを実行する
+    1. postgresユーザのパスワードを変更する
 
-```bash
-//postgresユーザのパスワードを変更する
+        ```bash
+        //postgresユーザのパスワードを変更する
 
-$ passwd postgres
->New password
->Retype password
-```
+        $ passwd postgres
+        >New password
+        >Retype password
+        ```
+    2. postgresロールでログインする
+
+        ```bash
+        $ psql -U postgres -d postgres
+        ```
+
+    3. 新たなロールを作成する
+        - postgresはスーパーユーザなので、このまま運用していくのはセキュリティ上よくないから
+        - postgresターミナルを起動してからcreate roleコマンドを使って作成する
+        - LOGIN, CREATEDB, PASSWORDといった属性を付与することでロールに権限を与えることができる
+            - 色々な権限があるので、適宜調べる
+
+        ```bash
+        $ CREATE ROLE hellopsql LOGIN CREATEDB PASSWORD 'hello';
+        ```
+
+    4. データベースを作成する
+        - 作成したロールにはなんのDBも関連づけられていないので、作成する
+        - CREATE DATABASEのコマンドを使えば作成できる
+
+    5. テーブルの定義などが書かれたsqlファイルを実行する
+
 
 ```bash
 //データベースを作成する。今回はapp_dbという名前で
