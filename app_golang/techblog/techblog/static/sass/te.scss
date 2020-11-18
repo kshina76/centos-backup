@@ -17,6 +17,18 @@
     }
 }
 
+//admin
+.edit-article {
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    justify-content: space-between;
+    flex-direction: column;
+
+    &__body {
+        height: 600px;
+    }
+}
+
 //2-column page
 .main-page {
     display: flex;
@@ -71,7 +83,6 @@
                     margin-left: 100px;
                 }
             }
-
         }
     }
 

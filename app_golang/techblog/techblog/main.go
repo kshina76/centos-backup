@@ -13,9 +13,18 @@ func main() {
 	files := http.FileServer(http.Dir("static"))
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 
-	//ルーティング
+	//トップページ
 	mux.HandleFunc("/", presentation.Index)
+
+	//アカウント作成
+	mux.HandleFunc("/signup", presentation.Signup)
+	mux.HandleFunc("/signup-account", presentation.SignupAccount)
+
+	//ログイン
 	mux.HandleFunc("/login", presentation.Login)
+	mux.HandleFunc("/authenticate", presentation.Authenticate)
+
+	mux.HandleFunc("/admin", presentation.Admin)
 
 	//サーバ起動
 	server := &http.Server {

@@ -164,7 +164,6 @@
 
 - わかったこと
     - 画面遷移の設計はユースケース図を確認しながら設計する。漏れがないように
-    - 画面遷移の設計時に考えることとしては、figmaを使いながらHTMLのタグ付けの設計を考えることが重要
     - URL設計はユースケース図と画面遷移を参考にしながら設計すればいい
     - DBとクラスのプロパティは同じになるのかという疑問に関しては、DBは色々な情報を持っているがクラスのプロパティは処理に必要な最低限の情報しかない気がする（あっているかは知らない）
         - なので、クラスのプロパティを抽出するやり方としては(あっているかは知らない)
@@ -173,6 +172,76 @@
             3. メソッドを書いていく中で使わないプロパティが出てきたら削除する
     - HTMLのh1,h2などの見出しタグの使い方
         - https://html-css-wordpress.com/heading-tag-navigation/
+    - go言語でWeb開発でのエラーハンドリングの仕方
+        - log.fatalを使うと、エラーが起きた時にterminalに表示してくれる
+        - fatalを使うとプログラムを強制終了するから、開発中はfmt.PrintとかPrintlnでいい
+        - 実運用ではmain以外で発生したエラーはmainまで伝搬させるようにする
+            - web開発においては、mainはルーティングなので、プレゼンテーション層でエラーハンドリングする
+        - めちゃくちゃいい記事
+            - https://waman.hatenablog.com/entry/2017/09/29/011614
+            - https://qiita.com/nayuneko/items/3c0b3c0de9e8b27c9548
+    - go言語ではerrの返り値は最後の返り値で返すことが暗黙のルール
+        - どのライブラリも返り値の最後はerr(errorインタフェース)が返ってくるということ
+            - この性質とlog.fatalで脳死でエラーハンドリングできる！！
+    - go言語でのエラーハンドリングで、返り値にerrしかない場合はifの中に定義してしまおう!
+        - 使用したい値も返ってるなら後者の書き方で
+
+        ```go
+	    if err := user.Create() != nil {
+		    log.Fatal(err)
+	    }
+        ```
+
+        ```go
+	    id, err := user.Create()
+	    if err != nil {
+		    log.Fatal(err)
+	    }
+        ```
+
+    - go言語で関数の返り値を事前定義するところの変数は関数内でゴニョゴニョできる
+        - 当たり前だけど宣言がされているから、関数内で再定義はしてはだめ
+            - 「:=」において、複数の返り値がある時に定義されていないものがある時には、再定義のような形で書いても問題ない
+
+        ```go
+        type Session struct {
+        	Id        int
+	        Uuid      string
+	        Email     string
+	        UserId    int
+	        CreatedAt time.Time
+        }
+        func test() (err error, session Session) {
+            //err := hoge()  errを再定義してしまっているのはダメ
+            stmt, err := hogehoge()  //「:=」は定義されていないものが並んでいる時は、定義されているものも一緒に書いていい
+	        session.Id = 1  //返り値の宣言で変数は定義できているから代入できる
+	        return
+        }
+        ```
+
+- ハマったところ
+    - postgresqlを永続化すると以下のエラーが発生する
+        - docker-composeで永続化を解除したら出なくなったが、このエラーは出ても問題なさそうだから永続化したほうがいい気はする
+
+        ```
+        could not open statistics file "pg_stat_tmp/global.stat": Operation not permitted
+        ```
+
+    - dockerで起動しているpostgresqlにgolangから接続できない
+        - 以下のように色々明示してあげると接続できる
+        - 特にhostの部分は、localhostではなくて、dockerコンテナのipを指定することに注意する
+
+        ```go
+        Db, err = sql.Open("postgres", "host=postgres user=app_user dbname=app_db password=password sslmode=disable")
+        ```
+
+    - データが挿入されているかpostgresqlのターミナルからselect文を打って確認しても何も表示されない
+        - SQL構文の末尾には必ず「;」を入れないとだめ
+
+        ```sql
+        ---usersテーブルから全てのデータを取得する
+        select * from users;
+        ```
 
 - 使用ツール
     - 画面遷移設計とデザイン...figma
@@ -251,7 +320,7 @@
 
 ---
 
-# go言語のメソッドなどの使い方
+# go言語のメソッドやライブラリの使い方
 ## template系
 - template.ParseFiles(htmlfiles...)
     - htmlテンプレートを解析するメソッド
@@ -272,6 +341,138 @@
 
 - template内に値を渡す方法
     - https://qiita.com/tetsuzawa/items/0d043ad76b9705cdbb79
+
+## database.sql
+- SELECT系
+    - 複数件検索
+        - Queryメソッド
+        - 取得する系のクエリの実行に使う
+        - SELECTとか
+        - 複数件取得したそれぞれの行にアクセスするには、Nextメソッドをfor文で回して一つ一つアクセスする
+
+    - 一件検索
+        - QueryRowメソッド
+        - 一行だけ取得する時に使われる
+
+- INSERT系
+    - 一件追加
+        - Execメソッド
+        - 行を一切返却しないクエリの実行に使う
+        - INSERTとか
+
+        ```go
+        //resultには最終挿入行のIDや変更行数が入る
+        result, err := db.Exec("INSERT INTO users (name, age) VALUES ($1, $2)","gopher",27,)
+        ```
+
+    - 一件追加かつ追加したデータを取得
+        - QueryRowメソッド
+            - PostgreSQLの場合は、更新系のクエリの時にもQueryRowが使われることがある。それが今回の場合。
+            - QueryRowはinsertした後に結果セットを返す。insert後の値が結果セットの中に含まれているので、Scanメソッドで変数に書き込むことで取得
+            - クエリ内でreturning句を使うことで結果を返してくれる
+            - それ以外はExecでいいと思う
+
+    - PreparedStatementを使用した複数件取得
+        - PreparedStatementでQueryRowまたはExecを用意して、for文で回してinsetする
+        - 普通にQueryRowやExecをfor文で回してもいいらしいが、何回もアクセスする場合はPreparedStatementを使用したほうがいい
+
+- UPDATE系
+    - 1件または複数件の更新
+        - Execメソッド
+            - INSERTと違って処理結果を取得することが少ないからExecでいい
+        
+        ```go
+        query := "update table1 set display_name=$1, sex=$2, birthday=$3, age=$4, married=$5, rate=$6, salary=$7 "
+        query += "where id=$8 returning id"
+        result, err := db.Exec(query, nil, 0, nil, nil, nil, nil, nil, id)
+        if err != nil {
+            t.Fatalf("クエリーの実行に失敗しました。: %v", err)
+        }
+        if c, err := result.LastInsertId(); err != nil {
+            t.Logf("LastInsertIdを取得できません。: %v", err)
+        } else {
+            t.Logf("LastInsertId: %v", c)
+        }
+        if c, err := result.RowsAffected(); err != nil {
+            t.Errorf("RowsAffectedを取得できません。: %v", err)
+        } else {
+            t.Logf("RowsAffected: %v", c)
+        }
+        ```
+    
+    - PreparedStatementを使用した複数件の更新
+
+        ```go
+        stmt, err := db.Prepare(query)
+        if err != nil {
+            t.Fatalf("Prepareに失敗しました。: ", err)
+        }
+        for i := 0; i < 5; i++ {
+            result, err := stmt.Exec(nil, 0, nil, nil, nil, nil, nil, id - i)
+            // 省略
+        }
+        stmt.Close()
+        ```
+
+- DELETE系
+    - 1件または複数件の削除
+
+        ```go
+        query := "delete from table1 where id=$1"
+        result, err := db.Exec(query, id)
+        if err != nil {
+            t.Fatalf("クエリーの実行に失敗しました。: %v", err)
+        }
+        if c, err := result.LastInsertId(); err != nil {
+            t.Logf("LastInsertIdを取得できません。: %v", err)
+        } else {
+            t.Logf("LastInsertId: %v", c)
+        }
+        if c, err := result.RowsAffected(); err != nil {
+            t.Errorf("RowsAffectedを取得できません。: %v", err)
+        } else {
+            t.Logf("RowsAffected: %v", c)
+        }
+        ```
+
+    - PreparedStatementを使用した複数件の削除
+
+        ```go
+        stmt, err := db.Prepare(query)
+        if err != nil {
+            t.Fatalf("Prepareに失敗しました。: ", err)
+        }
+        for i := 0; i < 5; i++ {
+            result, err := stmt.Exec(id - i)
+            // 省略
+        }
+        stmt.Close()
+        ```
+
+- トランザクション
+
+    ```go
+    tx, err := db.Begin()
+    if err != nil {
+        t.Fatalf("トランザクションの取得に失敗しました。: %v", err)
+    }
+    query := "insert into table1 (display_name, sex, birthday, age, married, rate, salary) "
+    query += "values ($1, $2, $3, $4, $5, $6, $7) returning id"
+    var r = createRecord()
+    var newId int
+    err := tx.QueryRow(query, r.displayName, r.sex, r.birthday, r.age, r.married, r.rate, r.salary).Scan(&newId)
+    // 本来ならerrの内容を確認してcommitまたはrollbackを決める必要がある
+    err = tx.Commit()
+    // err = tx.Rollback()
+    if err != nil {
+        t.Fatalf("トランザクションのコミットに失敗しました。: %v", err)
+    } else {
+        t.Logf("トランザクションをコミットしました。")
+    }
+    ```
+
+- 参考文献
+    - https://taknb2nch.hatenablog.com/entry/20131123/1385222792
 
 ---
 

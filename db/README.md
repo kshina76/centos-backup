@@ -36,7 +36,8 @@
 - postgresqlの初期状態
     - スーパーユーザの名前はpostgresで生成される
     - postgresユーザ(ロール)にpostgresというDBが関連づけられている
-
+    - postgres, template0, template1というdbが作られている
+        - 必要なdbなので絶対消してはいけない
 
 - 初期設定
     1. postgresユーザのパスワードを変更する
@@ -60,41 +61,40 @@
         - LOGIN, CREATEDB, PASSWORDといった属性を付与することでロールに権限を与えることができる
             - 色々な権限があるので、適宜調べる
 
-        ```bash
-        $ CREATE ROLE hellopsql LOGIN CREATEDB PASSWORD 'hello';
+        ```sql
+        CREATE ROLE hellopsql LOGIN CREATEDB PASSWORD 'hello';
         ```
 
     4. データベースを作成する
         - 作成したロールにはなんのDBも関連づけられていないので、作成する
         - CREATE DATABASEのコマンドを使えば作成できる
 
+        ```sql
+        ---データベースを作成する。今回はapp_dbという名前で
+        CREATEDB app_db;
+        ```
+
     5. テーブルの定義などが書かれたsqlファイルを実行する
+        - ロールを切り替えるコマンドなどもsqlファイルに含める
 
+      ```bash
+      //ファイルを指定して、テーブルなどを作成する(さっき作ったapp_dbデータベースを指定している)
 
-```bash
-//データベースを作成する。今回はapp_dbという名前で
+      $ psql -f setup.sql -d app_db
+      ```
 
-$ createdb app_db
-```
-
-```bash
-//ファイルを指定して、テーブルなどを作成する(さっき作ったapp_dbデータベースを指定している)
-
-$ psql -f setup.sql -d app_db
-```
-
-```sql
---setup.sqlの中身
-drop table users;
-create table users (
-  id         serial primary key,
-  uuid       varchar(64) not null unique,
-  name       varchar(255),
-  email      varchar(255) not null unique,
-  password   varchar(255) not null,
-  created_at timestamp not null   
-);
-```
+      ```sql
+      --setup.sqlの中身
+      drop table users;
+      create table users (
+        id         serial primary key,
+        uuid       varchar(64) not null unique,
+        name       varchar(255),
+        email      varchar(255) not null unique,
+        password   varchar(255) not null,
+        created_at timestamp not null   
+      );
+      ```
 
 ## Dockerを使って構築した場合(go+postgresqlで構築している)
 
@@ -134,9 +134,7 @@ RUN go get github.com/lib/pq
 
 ```yaml
 version: '3' # composeファイルのバーション指定
-
 services:
-
   postgres:
     container_name: postgres # 名前解決できるようになる(多分)
     build:
@@ -149,8 +147,9 @@ services:
       POSTGRES_USER: app_user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: app_db
+    volumes:
+      - ./techblog/data/db_data:/var/lib/postgresql/data  # DBの永続化(docker-compose downやrmiをしてもデータが残る)
     
-
   app: # service名
     container_name: app
     depends_on:

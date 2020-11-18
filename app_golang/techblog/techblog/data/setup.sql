@@ -18,6 +18,8 @@ create table sessions (
 create table posts (
   id         serial primary key,
   uuid       varchar(64) not null unique,
+  name       varchar(255),
+  title      varchar(255),
   body       text,
   user_id    integer references users(id),
   created_at timestamp not null  
