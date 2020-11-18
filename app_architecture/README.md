@@ -1,5 +1,9 @@
 # アプリケーションーアーキテクチャのメモ
 
+## 
+
+<script async class="speakerdeck-embed" data-id="2d817e4dd14d46418c7183cbb7097972" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
 ## webアプリケーションに置いてMVC、MVP、MVVMとかアーキテクチャとかよく分からなくなった時に読んで欲しいこと
 
 - まず必ず読んだ方がいい記事

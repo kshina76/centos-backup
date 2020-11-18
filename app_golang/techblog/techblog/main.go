@@ -25,6 +25,7 @@ func main() {
 	mux.HandleFunc("/authenticate", presentation.Authenticate)
 
 	mux.HandleFunc("/admin", presentation.Admin)
+	mux.HandleFunc("/post-article", presentation.PostArticle)
 
 	//サーバ起動
 	server := &http.Server {

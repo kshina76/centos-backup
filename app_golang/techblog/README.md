@@ -172,6 +172,7 @@
             3. メソッドを書いていく中で使わないプロパティが出てきたら削除する
     - HTMLのh1,h2などの見出しタグの使い方
         - https://html-css-wordpress.com/heading-tag-navigation/
+    - ログインしている時の操作を実装するメソッドの先頭には必ず、ログインされていてセッションを持っているかを確認をする処理を書く
     - go言語でWeb開発でのエラーハンドリングの仕方
         - log.fatalを使うと、エラーが起きた時にterminalに表示してくれる
         - fatalを使うとプログラムを強制終了するから、開発中はfmt.PrintとかPrintlnでいい
@@ -369,7 +370,7 @@
         - QueryRowメソッド
             - PostgreSQLの場合は、更新系のクエリの時にもQueryRowが使われることがある。それが今回の場合。
             - QueryRowはinsertした後に結果セットを返す。insert後の値が結果セットの中に含まれているので、Scanメソッドで変数に書き込むことで取得
-            - クエリ内でreturning句を使うことで結果を返してくれる
+            - クエリ内でreturning句で返したい値を指定することで結果を返してくれる
             - それ以外はExecでいいと思う
 
     - PreparedStatementを使用した複数件取得

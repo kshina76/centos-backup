@@ -60,6 +60,13 @@ func (session *Session) Check() (valid bool, err error) {
 	return
 }
 
+func (session *Session) User() (user User, err error) {
+	user = User{}
+	err = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = $1", session.UserId).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	return
+}
+
 //Emailを参照してユーザのデータを取得
 func UserByEmail(email string) (user User, err error) {
 	user = User{}

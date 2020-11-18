@@ -1,8 +1,8 @@
 {{ define "content" }}
-<form class="edit-article" action="/signup-account" method="POST">
+<form class="edit-article" action="/post-article" method="POST">
   name:<input class="edit-article__name" type="text" name="name">
-  title:<input class="edit-article__title" type="text" name="email">
-  body:<input class="edit-article__body" type="text" name="password">
+  title:<input class="edit-article__title" type="text" name="title">
+  body:<input class="edit-article__body" type="text" name="body">
   <input class="edit-article__submit" type="submit" value="submit">
 </form>
 {{ end }}
