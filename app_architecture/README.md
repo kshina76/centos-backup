@@ -2,7 +2,8 @@
 
 ## 
 
-<script async class="speakerdeck-embed" data-id="2d817e4dd14d46418c7183cbb7097972" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+[10分で振り返る_ソフトウェアアーキテクチャの歴史2017_v1.1.pdf](https://github.com/kshina76/centos-backup/files/5560641/10._.2017_v1.1.pdf)
+
 
 ## webアプリケーションに置いてMVC、MVP、MVVMとかアーキテクチャとかよく分からなくなった時に読んで欲しいこと
 
