@@ -1,0 +1,13 @@
+{{ define "content" }}
+<form class="todo" method="POST" action="#"><!--todo-->
+    <div class="todo__content">内容: <input type="text" size="50" name="text"></div>
+    <div class="todo__status">状態: 
+      <select name="状態">
+        <option value="none">未実施</option>
+        <option value="ing">実施</option>
+        <option value="done">終了</option>
+      </select>
+    </div>
+    <input class="todo__submit" type="submit" value="submit">
+</form>
+{{ end }}

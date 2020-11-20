@@ -1,0 +1,21 @@
+.header {
+  background: #080647;
+  width: 100%; }
+  .header__main-title {
+    align-items: center;
+    color: #FFFFFF;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    height: 50px;
+    text-decoration: none;
+    vertical-align: middle; }
+
+.todo__content {
+  margin-top: 10px; }
+.todo__status {
+  margin-top: 10px; }
+.todo__submit {
+  margin-top: 10px; }
+
+/*# sourceMappingURL=te.css.map */
