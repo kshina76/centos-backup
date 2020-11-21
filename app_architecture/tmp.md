@@ -1,6 +1,100 @@
 # アプリケーションアーキテクチャ
 - アプリケーションアーキテクチャを実践に取り入れるときに考えることをまとめた
 
+## アプリケーションアーキテクチャまとめ
+
+- アーキテクチャの変遷
+    1. Viewだけ
+        - Viewにロジックなど何でも突っ込む構築
+        - FatViewに陥る
+    2. PDS(MVC)+2層
+        - Presentation層
+            - View
+                - UIに関すること。templateエンジン、HTML、CSS、JS
+            - Controller
+                - ユースケースを実行する場合はファサードを呼び出して、簡単なCRUDならそのままModelを呼び出す感じかな？
+                - WebアプリケーションではHTTP処理を行うレイヤ
+                - リクエストを受けてテンプレートへレンダリング(Viewを呼び出すこと)、レスポンスを返す一連の流れを実装
+                - 処理的なとこは、Get、Postパラメータの取得、リダイレクト処理などHTTP関連を扱う
+                - ビジネスロジックはこのレイヤーでは定義せずHTTPの処理の流れのみがシンプルに確認できるようにする
+        - BusinessLogic層
+            - サービスレイヤ
+                - ファサード(facade)というデザインパターンを適用するための関数を定義してユースケースの役割を担わせる
+                - ファサードは複数のビジネスロジックを順番に実行する関数
+                - サービスレイヤはModelと同じpackageだけど、Modelのクラス内には定義しない(多分)。外部に関数として定義
+            - Model
+                - ビジネスロジック(データと振る舞い)を定義する
+        - FatViewを解決するために考案
+        - プレゼンテーション層とドメイン層を分離することが目的(詳しくはPDSの自分の解説)
+        - MVCフレームワーク+ORMに沿って開発すると、このPDS(2層)を実現することになる
+        - MVCフレームワークはVCとMの間にinterfaceを使うことで疎結合にしていると思われる(たぶん。推測。)
+    3. PDS(MVC)+3層
+        - Presentation層
+            - View
+                - UIに関すること。templateエンジン、HTML、CSS、JS
+            - Controller
+                - ユースケースを実行する場合はファサードを呼び出して、簡単なCRUDならそのままModelを呼び出す感じかな？
+                - WebアプリケーションではHTTP処理を行うレイヤ
+                - リクエストを受けてテンプレートへレンダリング(Viewを呼び出すこと)、レスポンスを返す一連の流れを実装
+                - 処理的なとこは、Get、Postパラメータの取得、リダイレクト処理などHTTP関連を扱う
+                - ビジネスロジックはこのレイヤーでは定義せずHTTPの処理の流れのみがシンプルに確認できるようにする
+        - BusinessLogic層
+            - サービスレイヤ
+                - ControllerとModelの密結合を回避するためのレイヤ(ユースケースを満たす役割)
+                - ファサード(facade)というデザインパターンを適用するための関数を定義してユースケースの役割を担わせる
+                - ファサードは複数のビジネスロジックを順番に実行する関数
+                - サービスレイヤはModelと同じpackageだけど、Modelのクラス内には定義しない(多分)。外部に関数として定義
+            - Model
+                - ビジネスロジック(データと振る舞い)を定義する
+        - DataAccess層
+            - 2の概念にデータアクセス層が加わることで、生のSQLや外部APIを扱うことを容易にする
+    4. PDS+4層
+        - Presentation層
+            - View
+                - UIに関すること。templateエンジン、HTML、CSS、JS
+            - Controller
+                - ロジックはusecase層を呼び出すことで取得
+                - WebアプリケーションではHTTP処理を行うレイヤ
+                - リクエストを受けてテンプレートへレンダリング(Viewを呼び出すこと)、レスポンスを返す一連の流れを実装
+                - 処理的なとこは、Get、Postパラメータの取得、リダイレクト処理などHTTP関連を扱う
+                - ビジネスロジックはこのレイヤーでは定義せずHTTPの処理の流れのみがシンプルに確認できるようにする
+        - Usecase層
+            - 3のファサードを改めてここのusecase層に分離している
+        - Domain層
+            - ビジネスロジック(データと振る舞い)を定義する
+        - DataAccess層
+            - 生のSQLや外部APIを扱うことを容易にする
+        - 3のBusinessLogicのサービスレイヤをusecase層として定義するアーキテクチャ
+            - つまり、BusinessLogic層をUsecase層とDomain層に分割するということ
+    5. PDS+DDD(3,4層)
+        - DIPを使って依存関係を逆にする
+    6. PDS+DDD(クリーンアーキテクチャ)
+        - まだわかっていない
+    7. DDD+CQRS
+        - https://www.slideshare.net/mobile/dcubeio/ddd-cqrs-orm
+    8. マイクロサービスアーキテクチャ
+    9. その他のアーキテクチャなど
+        - 40ページ目に色々載っている
+            - https://www.slideshare.net/mobile/AtsuoAoki/ddd-201811
+        - POSAに載っている色々なアーキテクチャ
+            - https://qiita.com/y_ujitoko/items/aa82d3b49850e0bbca32
+    - 注意点
+        - レイヤードアーキテクチャは同一層同士は参照できる。だからMVCのVとC同士は参照できる
+        - プロジェクトの規模によって選定して、やり過ぎたアーキテクチャを選定しないようにする
+    - 参考文献
+        - MVCのベストプラクティス
+            - https://rabbitfoot141.hatenablog.com/entry/2018/10/16/194555
+        - FatController撲滅運動
+            - https://www.slideshare.net/OhasiYuki/ss-52193845
+        - webアプリケーションの設計パターン
+            - http://blog.fujimisakari.com/web_application_architecture_pattern/
+
+<br></br>
+
+- アーキテクチャの変遷(条件を緩めたver)
+    - リラックスレイヤシステム
+        - http://yusuke-ujitoko.hatenablog.com/entry/2016/11/15/230224
+
 ## 実際に開発するときに見ること
 
 - アーキテクチャの選択

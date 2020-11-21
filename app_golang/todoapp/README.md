@@ -1,5 +1,5 @@
 # toapp開発
-- go言語でMVC、クリーンアーキテクチャのtodoアプリを作成する
+- go言語でMVC、3層、DIP無しのtodoアプリを作成する
 - 参考文献
     - https://qiita.com/ogady/items/34aae1b2af3080e0fec4#作ったもの
     - https://eng-blog.iij.ad.jp/archives/2442
