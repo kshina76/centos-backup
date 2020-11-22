@@ -2,11 +2,26 @@ package main
 
 import (
 	"net/http"
-	//"html/template"
 	"project/handler"
+	"project/usecase"
+	"project/infra"
 )
 
+/*
+type TestStruct struct {
+	Id int
+	name string
+}
+*/
+
 func main() {
+	//DI
+	sh := infra.NewSqlHandler()
+	ti := infra.NewTodoInfra(sh)
+	tu := usecase.NewTodoUsecase(ti)
+	th := handler.NewTodoHandler(tu)
+
+	//マルチプレクサの定義
 	mux := http.NewServeMux()
 
 	//静的ファイルの設定
@@ -14,7 +29,8 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 
 	//トップページ
-	mux.HandleFunc("/", handler.Index)
+	mux.HandleFunc("/todo", th.Todo)
+	//mux.HandleFunc("/")
 
 	//サーバ起動
 	server := &http.Server {
@@ -22,4 +38,6 @@ func main() {
 		Handler: mux,
 	}
 	server.ListenAndServe()
+	
+
 }

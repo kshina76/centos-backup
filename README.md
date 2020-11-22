@@ -323,8 +323,18 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
     - 論理学
         - 論理トレーニング101題
         - 論理学(野矢茂樹)
+        - 論理学入門
+            - https://abelard.flet.keio.ac.jp/person/mitsu/pdf/nyumon_logic.pdf
     - 統計学
         - 統計はこうしてウソをつく―だまされないための統計学入門
+    
+    - 行動経済学
+        - https://note.com/jyaga0716/n/ned4043dd60c0
+        - https://note.com/going_steady/n/n10cf25e50589
+    
+    - ロジカルシンキング
+        - https://note.com/ippikisan/n/nca129558df9f
+        - 結論->根拠(3つ以上)->事実(実例)
 
 - エンジニアのためのドローイングツール
     - https://dev.classmethod.jp/articles/drawing_tools/

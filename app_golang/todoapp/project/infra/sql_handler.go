@@ -3,6 +3,7 @@ package infra
 import (
 	"database/sql"
 	"log"
+	_ "github.com/lib/pq"
 )
 
 type SqlHandler struct {
