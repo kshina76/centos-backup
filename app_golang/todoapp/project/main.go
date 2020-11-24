@@ -5,6 +5,7 @@ import (
 	"project/handler"
 	"project/usecase"
 	"project/infra"
+	"github.com/gorilla/mux"
 )
 
 /*
@@ -22,20 +23,22 @@ func main() {
 	th := handler.NewTodoHandler(tu)
 
 	//マルチプレクサの定義
-	mux := http.NewServeMux()
+	//mux := http.NewServeMux()
+	r := mux.NewRouter()
 
 	//静的ファイルの設定
 	files := http.FileServer(http.Dir("static"))
-	mux.Handle("/static/", http.StripPrefix("/static/", files))
+	r.Handle("/static/", http.StripPrefix("/static/", files))
 
 	//トップページ
-	mux.HandleFunc("/todo", th.Todo)
-	//mux.HandleFunc("/")
+	r.HandleFunc("/todo", th.Todo)
+	r.HandleFunc("/edit/{id:[0-9]+}", th.Edit)
+	r.HandleFunc("/delete/{id:[0-9]+}", th.Delete)
 
 	//サーバ起動
 	server := &http.Server {
 		Addr: "0.0.0.0:8080",
-		Handler: mux,
+		Handler: r,
 	}
 	server.ListenAndServe()
 	

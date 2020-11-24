@@ -8,6 +8,7 @@ WORKDIR /go/src/project
 #COPY ./techblog /go/src/techblog
 # golangでdbを操作するためのパッケージ
 RUN go get github.com/lib/pq
+RUN go get github.com/gorilla/mux
 
 # rubyをインストール(sassを使うために必要)
 # ruby-devはgemでのエラー回避

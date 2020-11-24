@@ -13,9 +13,10 @@ type TodoModelDTO struct {
 
 type TodoInfra interface {
 	FindAll() ([]*TodoModelDTO, error)
-	//Find
-	Insert(todo *TodoModelDTO) (*TodoModelDTO, error)  //引数でmodel.TodoModelを渡しておくと、DBに保存するときにプロパティの値をそのまま使える
-	//Delete()
+	//FindByID(int) (*TodoModelDTO, error)
+	Insert(*TodoModelDTO) (*TodoModelDTO, error)  //引数でmodel.TodoModelを渡しておくと、DBに保存するときにプロパティの値をそのまま使える
+	Update(*TodoModelDTO) (error)
+	Delete(*TodoModelDTO) error
 	//Putは、DeleteとInsertを組み合わせればいいかな？
 }
 
@@ -59,3 +60,15 @@ func (ti *todoInfra) FindAll() (todos []*TodoModelDTO, err error) {
 	return
 }
 
+func (ti *todoInfra) Update(todoModel *TodoModelDTO) error {
+	query := "update todos set title=$1, Status=$2, Date=$3 "
+	query += "where id=$4 returning id"
+	_, err := ti.sqlHandler.Conn.Exec(query, todoModel.Title, todoModel.Status, todoModel.Date, todoModel.Id)
+	return err
+}
+
+func (ti *todoInfra) Delete(todoModel *TodoModelDTO) error {
+	query := "delete from todos where id=$1"
+	_, err := ti.sqlHandler.Conn.Exec(query, todoModel.Id)
+	return err
+}

@@ -1,5 +1,5 @@
 {{ define "content" }}
-<form class="edit" method="POST" action="/todo"><!--todo-->
+<form class="edit" method="POST" action="/edit/{{.}}">
     <div class="edit__content">内容: <input type="text" size="50" name="title"></div>
     <div class="edit__status">状態: 
       <select name="status">

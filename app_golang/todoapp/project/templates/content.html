@@ -10,4 +10,13 @@
     </div>
     <input class="todo__submit" type="submit" value="submit">
 </form>
+{{ range . }}
+<div class="display">
+  <div class="display__content">
+    内容:{{.Title}}、状態:{{.Status}}、日付:{{.Date}}、Id:{{.Id}}
+    <a class="display__edit" href="/edit/{{.Id}}">編集</a>
+    <a class="display__delete" href="/delete/{{.Id}}">削除</a>
+  </div>
+</div>
+{{ end }}
 {{ end }}

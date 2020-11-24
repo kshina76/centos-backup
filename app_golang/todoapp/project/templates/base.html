@@ -12,15 +12,9 @@
     <header class="header">
       <h1><a class="header__main-title" href="/">Todo app</a></h1>
     </header>
-
     <main class="main">
-      {{ template "content" }}
+      {{ template "content" . }}
     </main>
-    <!--
-    <footer class="footer">
-      <h4>Todo_app &copy; Kosuke Shinagawa</h4>
-    </footer>
-    -->
   </body>
 </html>
 {{ end }}
