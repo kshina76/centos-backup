@@ -559,4 +559,3 @@
     - go言語でレイヤードアーキテクチャ+DDD
         - https://qiita.com/tono-maron/items/345c433b86f74d314c8d
 ---
-
