@@ -1,0 +1,28 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>techblog</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="/static/css/reset.css" rel="stylesheet">
+    <link href="/static/css/te.css" rel="stylesheet">
+</head>
+  <body>
+    <header class="header">
+      <h1><a class="header__main-title" href="/">Kosuke's TechBlog</a></h1>
+    </header>
+    <div class="main-page">
+      <article class="main-page__articles">
+        {{ template "content" . }}
+      </article>
+      <aside class="main-page__sidebar">
+        {{ template "sidebar"}}
+      </aside>
+    </div>
+    <footer class="footer">
+      <h4>TechBlog &copy; Kosuke Shinagawa</h4>
+    </footer>
+  </body>
+</html>
+{{ end }}

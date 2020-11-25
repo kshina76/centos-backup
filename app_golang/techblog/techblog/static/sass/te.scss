@@ -17,6 +17,7 @@
     }
 }
 
+
 //admin
 .edit-article {
     display: flex;
@@ -29,121 +30,149 @@
     }
 }
 
+
 //2-column page
 .main-page {
     display: flex;
     font-family: 'Roboto', sans-serif;
     justify-content: space-between;
     margin-top: 5%;
-    
-    //main-page(blog)
-    &__articles {
-        padding-left: 10%;
-        padding-right: 10%;
-        width: 72%;
+}
 
-        .wrapper-article {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            margin-bottom: 50px;
-            border-bottom: 1.5px solid rgb(211, 209, 209);
-            
-            &__title {
-                font-size: 1.5rem;
-                margin: 3px;
-            }
+.article {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    border-bottom: 1.5px solid rgb(211, 209, 209);
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 72%;
 
-            &__author {
-                font-size: 0.8rem;
-                margin: 3px;
-            }
-
-            &__tag {
-                font-size: 0.8rem;
-                margin: 3px;
-            }
-
-            &__category {
-                font-size: 0.8rem;
-                margin: 3px;
-            }
-
-            &__img-text {
-                display: flex;
-                margin-top: 20px;
-
-                .eye-catch {
-                    width: 15%;
-                    height: 15%;
-                }
-                
-                .text {
-                    font-size: 1rem;
-                    margin-left: 100px;
-                }
-            }
-        }
+    &__title {
+        font-size: 1.5rem;
+        margin: 3px;
     }
 
-    //sidebar
-    &__sidebar {
-        border-left: 1.5px solid rgb(211, 209, 209);  //枠線の太さはpxにして変化させない
+    &__author {
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+
+    &__tag {
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+
+    &__category {
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+
+    &__img-text {
         display: flex;
-        flex-direction: column;
-        padding-left: 20px;
-        width: 28%;
-        
-        .categories {
-            margin-bottom: 30px;
+        margin-top: 20px;
 
-            &__list {
-                border-bottom: 1.5px solid rgb(211, 209, 209);
-                color: #777171;
-                margin-right: 100px;
-            }
-
-            &__item {
-                text-decoration: none;
-                color: black;
-                display: inline-block;
-                margin-top: 10px;
-            }
+        .eye-catch {
+            width: 15%;
+            height: 15%;
         }
 
-        .tags {
-            margin-bottom: 30px;
-
-            &__list {
-                border-bottom: 1.5px solid rgb(211, 209, 209);
-                color: #777171;
-                margin-right: 100px;
-            }
-
-            &__item {
-                text-decoration: none;
-                color: black;
-                display: inline-block;
-                margin-top: 10px;
-            }
-        }
-
-        .profile {
-            margin-bottom: 30px;
-
-            &__list {
-                border-bottom: 1.5px solid rgb(211, 209, 209);
-                color: #777171;
-                margin-right: 100px;
-            }
-
-            &__item {
-                text-decoration: none;
-                color: black;
-                margin-top: 10px;
-            }
+        .text {
+            font-size: 1rem;
+            margin-left: 100px;
         }
     }
 }
 
 
+//sidebar
+.sidebar {
+    border-left: 1.5px solid rgb(211, 209, 209);  //枠線の太さはpxにして変化させない
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    width: 28%;
+}
+.categories {
+    margin-bottom: 30px;
+
+    &__list {
+        border-bottom: 1.5px solid rgb(211, 209, 209);
+        color: #777171;
+        margin-right: 100px;
+    }
+
+    &__item {
+        text-decoration: none;
+        color: black;
+        display: inline-block;
+        margin-top: 10px;
+    }
+}
+.tags {
+    margin-bottom: 30px;
+
+    &__list {
+        border-bottom: 1.5px solid rgb(211, 209, 209);
+        color: #777171;
+        margin-right: 100px;
+    }
+
+    &__item {
+        text-decoration: none;
+        color: black;
+        display: inline-block;
+        margin-top: 10px;
+    }
+}
+.profile {
+    margin-bottom: 30px;
+
+    &__list {
+        border-bottom: 1.5px solid rgb(211, 209, 209);
+        color: #777171;
+        margin-right: 100px;
+    }
+
+    &__item {
+        text-decoration: none;
+        color: black;
+        margin-top: 10px;
+    }
+}
+
+
+//detail page
+.detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 20%;
+    padding-right: 10%;
+    width: 220%;
+
+    &__title {
+        font-size: 1.5rem;
+        margin: 3px;
+    }
+
+    &__author {
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+
+    &__tag {
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+
+    &__category {
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+    &__text {
+        margin-top: 10px;
+        font-size: 1rem;
+    }
+}

@@ -16,19 +16,16 @@ func main() {
 	//トップページ
 	mux.HandleFunc("/", presentation.Index)
 
-	//詳細ページ
-	mux.HandleFunc("/detail", presentation.Detail)
-
 	//アカウント作成
-	//mux.HandleFunc("/signup", presentation.Signup)
-	//mux.HandleFunc("/signup-account", presentation.SignupAccount)
+	mux.HandleFunc("/signup", presentation.Signup)
+	mux.HandleFunc("/signup-account", presentation.SignupAccount)
 
 	//ログイン
-	//mux.HandleFunc("/login", presentation.Login)
-	//mux.HandleFunc("/authenticate", presentation.Authenticate)
+	mux.HandleFunc("/login", presentation.Login)
+	mux.HandleFunc("/authenticate", presentation.Authenticate)
 
-	//mux.HandleFunc("/admin", presentation.Admin)
-	//mux.HandleFunc("/post-article", presentation.PostArticle)
+	mux.HandleFunc("/admin", presentation.Admin)
+	mux.HandleFunc("/post-article", presentation.PostArticle)
 
 	//サーバ起動
 	server := &http.Server {

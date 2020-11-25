@@ -1,0 +1,11 @@
+{{ define "content" }}
+<div class="detail">
+  <h2 class="detail__title">{{ .Title }}</h2>
+  <div class="detail__author">{{ .Name }} |{{ .CreatedAt }}</div>
+  <div class="detail__tag"><img src="/static/icon/ei-tag.jpeg" width="12" height="12">
+    {{range .Tag}} {{.}} {{end}}
+  </div>
+  <div class="detail__category"><img src="/static/icon/ei-folder.jpeg" width="12" height="12"> {{ .Category }}</div>
+  <div class="detail__text">{{ .Text }}</div>
+</div>
+{{ end }}
