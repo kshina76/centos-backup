@@ -72,7 +72,7 @@ func (th *todoHandler) Edit(writer http.ResponseWriter, request *http.Request) {
 		t.ExecuteTemplate(writer, "base", vars["id"])
 	case "POST":
 		data := new(usecase.TodoModel)
-		data.Id, _ = strconv.Atoi(vars["id"]) 
+		data.Id, _ = strconv.Atoi(vars["id"])
 		data.Title = request.FormValue("title")
 		data.Status = request.FormValue("status")
 		err := th.todoUsecase.UpdateTodo(data)

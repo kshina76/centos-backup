@@ -848,6 +848,46 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 
 <br></br>
 
+## 伸びるプログラマの特徴5つ
+- https://www.bunkei-programmer.net/entry/2014/04/24/002059
+
+- 思考がトップダウン
+    1. こういう事がしたいです。
+    2. こうやってみました。
+    3. こういうエラーが起きました。
+    4. どう直せばいいですか？
+
+- プログラムの読み方(トップダウン思考)
+    1. 対象のクラスをざっと見る。メソッドを潜らない。
+        - 引数と返り値とメソッドの名前から処理を推測する
+        - コールグラフで俯瞰的に見ることもいいかも
+        - ソースからクラス図を自動生成するものを使うのもいいかも
+    2. 全部見終わって、何をしているかの概要が把握できた。
+    3. 気になるメソッドを個別に少し潜る。
+    4. なんか複雑な事してるメソッドだ。これは調べないで後で聞こう。
+    5. ここで時間切れ。全部読めた。細かい部分は都度読み込もう。
+    - https://boukenki.info/sorce-code-oikata-yomikata-houhou-kotu-matome/
+    - https://donachikiblog.com/how-to-read-source-code/
+
+- プログラミングの手順
+    1. 作ろうとするプログラムの仕様を把握して理解する
+    2. どう確認すれば良いか考える（テストコードまで書ければベスト）
+    3. プログラムの流れ（ロジック）を考える（日本語でも良い）
+        - まず考えてからプログラミングをすることが重要
+        - 実務では、少しずつ動かしながら拡張していくのがいい
+    4. ロジックをプログラミング言語に従ってコーディングする
+    5. 動作確認をした後にコードを読みやすくリファクタリングする
+    - https://kuranuki.sonicgarden.jp/2017/02/programming-brain.html
+
+- 理解していないコピペはしない
+    - 理解しないでコピペするとバグを増殖させる
+    - スキルアップにつながらない
+
+- 理解をした上で手順が生きる
+    - コマンドを叩く時に一つ一つのコマンドの意味をしっかり考えながら行う
+
+<br></br>
+
 ## 公式ドキュメントの読み方
 
 - そもそも読むクセをつける
@@ -996,3 +1036,38 @@ https://pythondatascience.plavox.info/python%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0
 - 参考文献
     - https://qiita.com/hikey/items/b049b9057fb765e40788
     - https://qiita.com/hirokidaichi/items/d30714f0698dcff1200f
+
+
+---
+
+- バックアップ
+{
+    "go.useLanguageServer": true,
+    "go.alternateTools": {
+        "go-langserver": "gopls"
+    },
+    "go.languageServerExperimentalFeatures": {
+        "format": true,
+        "autoComplete": true,
+        "rename": true,
+        "goToDefinition": true,
+        "hover": true,
+        "signatureHelp": true,
+        "goToTypeDefinition": true,
+        "goToImplementation": true,
+        "documentSymbols": true,
+        "workspaceSymbols": true,
+        "findReferences": true,
+        "diagnostics": true
+    },
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+    },
+    "gopls": {
+        "usePlaceholders": false
+    }
+}

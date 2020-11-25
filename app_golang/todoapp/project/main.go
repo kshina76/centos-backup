@@ -21,7 +21,6 @@ func main() {
 	ti := infra.NewTodoInfra(sh)
 	tu := usecase.NewTodoUsecase(ti)
 	th := handler.NewTodoHandler(tu)
-
 	//マルチプレクサの定義
 	//mux := http.NewServeMux()
 	r := mux.NewRouter()
@@ -41,6 +40,6 @@ func main() {
 		Handler: r,
 	}
 	server.ListenAndServe()
-	
+
 
 }
