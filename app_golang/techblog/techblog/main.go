@@ -4,20 +4,33 @@ import (
 	"net/http"
 	//"html/template"
 	"techblog/presentation"
+	"techblog/infra"
+	"techblog/usecase"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	mux := http.NewServeMux()
+	//DI
+	dh := infra.NewDbHandler()
+	tbu := usecase.NewTechblogUsecase(dh)
+	tp := presentation.NewTechblogPresentation(tbu)
+
+	r := mux.NewRouter()
+	//r := http.NewServeMux()
 
 	//静的ファイルの設定
-	files := http.FileServer(http.Dir("static"))
-	mux.Handle("/static/", http.StripPrefix("/static/", files))
+	files := http.FileServer(http.Dir("./static/"))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", files))
+	//r.Handle("/static/", http.StripPrefix("/static/", files))
 
 	//トップページ
-	mux.HandleFunc("/", presentation.ListPosts)
+	r.HandleFunc("/", tp.ListPosts)
 
 	//詳細ページ
-	mux.HandleFunc("/detail", presentation.DetailPost)
+	r.HandleFunc("/detail/{id:[0-9]+}", tp.DetailPost)
+
+	//記事作成
+	r.HandleFunc("/create", tp.CreatePosts)
 
 	//アカウント作成
 	//mux.HandleFunc("/signup", presentation.Signup)
@@ -33,7 +46,7 @@ func main() {
 	//サーバ起動
 	server := &http.Server {
 		Addr: "0.0.0.0:8080",
-		Handler: mux,
+		Handler: r,
 	}
 	server.ListenAndServe()
 }

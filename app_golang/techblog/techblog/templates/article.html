@@ -1,7 +1,7 @@
 {{ define "content" }}
 {{ range . }}
 <div class="article">
-  <a class="article__title" href="/detail">{{ .Title }}</a>
+  <a class="article__title" href="/detail/{{.Id}}">{{ .Title }} {{.Id}}</a>
   <div class="article__author">{{ .Name }} |{{ .CreatedAt }}</div>
   <div class="article__tag"><img src="/static/icon/ei-tag.jpeg" width="12" height="12">
     {{range .Tag}} {{.}} {{end}}

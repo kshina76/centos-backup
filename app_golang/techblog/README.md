@@ -1,5 +1,12 @@
 # techblog開発memo
 
+- todo
+    - sessionクラスの作成と設計
+    - superuserの作成
+    - tagクラスの設計と作成
+    - categoryクラスの設計と作成
+
+
 ## 大まかな構成
 - 作るもの
     - techblog
@@ -228,6 +235,21 @@
         - 下位層から上位層に向かって実装する
         - 層は一つ一つ増やしながら実装していく。一気に4層すべてのinterfaceをつなげて実装とかしない。
             - 例えば、infra層の実装をしているなら、CRUDのCreateだけ作って、mainまたはpresentation層から呼び出してみて動くか確認をする
+            - CRUDの一つのCreateができたら、interfaceで層を繋げてしまって問題ないと思う。ここからは、機能を追加していくイメージで開発していく
+    - go言語でSQLのパッケージを使用するときにOpenした後はPingを使って疎通確認をするべき。そうしないと、あたかも繋がっているように見せかけてつながっていないということが起こる
+
+        ```go
+        var err error
+	    Db, err = sql.Open("postgres", "host=postgres user=app_user dbname=app_db password=password sslmode=disable")
+	    if err != nil {
+		    log.Fatal(err)
+	    }
+	    err = Db.Ping()  //ここで疎通確認をする
+	    if err != nil {
+		    log.Fatal(err)
+	    }
+	    return
+        ```
 
 - ハマったところ
     - postgresqlを永続化すると以下のエラーが発生する
@@ -252,6 +274,21 @@
         ---usersテーブルから全てのデータを取得する
         select * from users;
         ```
+
+    - gorilla muxにした瞬間staticファイルが読み込まれなくなった
+
+        ```go
+    	r := mux.NewRouter()
+	    //r := http.NewServeMux()
+
+    	//静的ファイルの設定
+	    files := http.FileServer(http.Dir("./static/"))
+	    r.PathPrefix("/static").Handler(http.StripPrefix("/static/", files))  //これだといけた
+        //r.Handle("/static/", http.StripPrefix("/static/", files))  //これだとだめだった
+        ```
+    
+    - 構造体の初期化を忘れずに
+        - 特に、返り値で宣言している時に初期化を忘れてプロパティに値を入れてしまっている場合があり予期せぬエラーが発生していることがあるから注意する
 
 - 使用ツール
     - 画面遷移設計とデザイン...figma

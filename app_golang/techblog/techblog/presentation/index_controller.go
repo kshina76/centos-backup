@@ -5,12 +5,16 @@ import(
 	"html/template"
 	"time"
 	//test
-	"techblog/infra"
+	//"techblog/infra"
+	"techblog/usecase"
+	"github.com/gorilla/mux"
 	"fmt"
+	"strconv"
 )
 
 //Posts struct is exposed, this is mock data
 type Posts struct {
+	Id			int
 	Title		string
 	Name		string
 	Text		string
@@ -19,40 +23,50 @@ type Posts struct {
 	CreatedAt	time.Time
 }
 
-//Test is used by infra-layer test
-//type Test struct {}
+//TechblogPresentation is used by main
+type TechblogPresentation interface {
+	ListPosts(http.ResponseWriter, *http.Request)
+	DetailPost(http.ResponseWriter, *http.Request)
+	CreatePosts(http.ResponseWriter, *http.Request)
+}
+
+type techblogPresentation struct {
+	techblogUsecase usecase.TechblogUsecase
+}
+
+//NewTechblogPresentation is used by constracta
+func NewTechblogPresentation(techblogUsecase usecase.TechblogUsecase) TechblogPresentation{
+	techblogPresentation := new(techblogPresentation)
+	techblogPresentation.techblogUsecase = techblogUsecase
+	return techblogPresentation
+}
 
 //ListPosts function is exposed
-func ListPosts(writer http.ResponseWriter, request *http.Request) {
-	//mock data
-	post1 := Posts{
-		Title:		"mock title1",
-		Name:		"Kosuke",
-		Text:		"this is test comment part1.",
-		Tag:		[]string{"tag1", "tag2"},
-		Category:	"python",
-		CreatedAt:	time.Now(),
+func (tbp *techblogPresentation) ListPosts(writer http.ResponseWriter, request *http.Request) {
+	posts, err := tbp.techblogUsecase.DisplayPosts()
+	if err != nil {
+		fmt.Println(err)
 	}
-	post2 := Posts{
-		Title:		"mock title2",
-		Name:		"Peyonjun",
-		Text:		"this is test comment part2, anyohaseyo.",
-		Tag:		[]string{"tag1", "tag2", "tag3"},
-		Category:	"go",
-		CreatedAt:	time.Now(),
-	}
-	var posts = []Posts{}
-	posts = append(posts, post1)
-	posts = append(posts, post2)
-
 	t := template.Must(template.ParseFiles("templates/base.html", "templates/article.html", "templates/sidebar.html"))
 	t.ExecuteTemplate(writer, "base", posts)
 }
 
 //DetailPost function is exposed
-func DetailPost(writer http.ResponseWriter, request *http.Request) {
-	//mock data(user input)
-	post1 := Posts{
+func (tbp *techblogPresentation) DetailPost(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+	err := request.ParseForm()
+	if err != nil {
+		fmt.Println("cannot parse form")
+	}
+	articleID, _ := strconv.Atoi(vars["id"])
+	post, err := tbp.techblogUsecase.DisplayDetailPosts(articleID)
+	t := template.Must(template.ParseFiles("templates/base.html", "templates/detail.html", "templates/sidebar.html"))
+	t.ExecuteTemplate(writer, "base", post)
+}
+
+//CreatePosts is used by main.go
+func (tbp *techblogPresentation) CreatePosts(writer http.ResponseWriter, request *http.Request) {
+	post1 := &usecase.Posts {
 		Title:		"mock title1",
 		Name:		"Kosuke",
 		Text:		"this is test comment part1.",
@@ -60,26 +74,8 @@ func DetailPost(writer http.ResponseWriter, request *http.Request) {
 		Category:	"python",
 		CreatedAt:	time.Now(),
 	}
-
-	//mock data for db_handler
-	postsdto := &infra.PostsDTO{
-		Title:		post1.Title,
-		Name:		post1.Name,
-		Text:		post1.Text,
-		Tag:		post1.Tag,
-		Category:	post1.Category,
-		CreatedAt:	post1.CreatedAt,
-	}
-
-	//infra-layer test
-	create := infra.DbHandler{}
-
-	err := create.Create(postsdto)  //ここ
-
+	err := tbp.techblogUsecase.CreatePosts(post1)
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	t := template.Must(template.ParseFiles("templates/base.html", "templates/detail.html", "templates/sidebar.html"))
-	t.ExecuteTemplate(writer, "base", post1)
 }
