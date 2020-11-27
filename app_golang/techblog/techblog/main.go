@@ -14,10 +14,10 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 
 	//トップページ
-	mux.HandleFunc("/", presentation.Index)
+	mux.HandleFunc("/", presentation.ListPosts)
 
 	//詳細ページ
-	mux.HandleFunc("/detail", presentation.Detail)
+	mux.HandleFunc("/detail", presentation.DetailPost)
 
 	//アカウント作成
 	//mux.HandleFunc("/signup", presentation.Signup)

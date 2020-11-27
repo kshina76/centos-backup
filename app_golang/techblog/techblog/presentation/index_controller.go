@@ -4,6 +4,9 @@ import(
 	"net/http"
 	"html/template"
 	"time"
+	//test
+	"techblog/infra"
+	"fmt"
 )
 
 //Posts struct is exposed, this is mock data
@@ -16,8 +19,11 @@ type Posts struct {
 	CreatedAt	time.Time
 }
 
-//Index function is exposed
-func Index(writer http.ResponseWriter, request *http.Request) {
+//Test is used by infra-layer test
+//type Test struct {}
+
+//ListPosts function is exposed
+func ListPosts(writer http.ResponseWriter, request *http.Request) {
 	//mock data
 	post1 := Posts{
 		Title:		"mock title1",
@@ -43,9 +49,9 @@ func Index(writer http.ResponseWriter, request *http.Request) {
 	t.ExecuteTemplate(writer, "base", posts)
 }
 
-//Detail function is exposed
-func Detail(writer http.ResponseWriter, request *http.Request) {
-	//mock data
+//DetailPost function is exposed
+func DetailPost(writer http.ResponseWriter, request *http.Request) {
+	//mock data(user input)
 	post1 := Posts{
 		Title:		"mock title1",
 		Name:		"Kosuke",
@@ -53,6 +59,25 @@ func Detail(writer http.ResponseWriter, request *http.Request) {
 		Tag:		[]string{"tag1", "tag2"},
 		Category:	"python",
 		CreatedAt:	time.Now(),
+	}
+
+	//mock data for db_handler
+	postsdto := &infra.PostsDTO{
+		Title:		post1.Title,
+		Name:		post1.Name,
+		Text:		post1.Text,
+		Tag:		post1.Tag,
+		Category:	post1.Category,
+		CreatedAt:	post1.CreatedAt,
+	}
+
+	//infra-layer test
+	create := infra.DbHandler{}
+
+	err := create.Create(postsdto)  //ここ
+
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	t := template.Must(template.ParseFiles("templates/base.html", "templates/detail.html", "templates/sidebar.html"))
