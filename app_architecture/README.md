@@ -1,5 +1,62 @@
 # アプリケーションアーキテクチャ
 
+- todo
+  - CQRSについてまとめる
+
+  - SOLID原則をまとめる
+    - https://qiita.com/shunp/items/646c86bb3cc149f7cff9
+
+  - YAGNI原則をまとめる
+    - https://qiita.com/sesame525/items/fb2cfb23d0d7ef593014
+
+  - DRY原則をまとめる
+    - DRYを鵜呑みにして、なんでも共通化してはいけない
+    - 用法容量を守って使わないとだめということ
+    - https://qiita.com/yatmsu/items/b4a84c4ae78fd67a364c
+
+<br></br>
+
+## アーキテクチャパターン
+### モノリシックアプリケーション
+- 一枚岩でシステムを構築すること
+- システム全体を一つのレイヤードアーキテクチャで構成した場合などがこれにあたる
+- アプリケーションアーキテクチャの一番基礎の部分
+
+### マイクロサービス・サービス指向アーキテクチャ(SOA)
+- マイクロサービスとSOAの違いは「複雑度」
+  - マイクロサービスはREST APIで連携させる
+  - SOAはSOAP(XML)やWSDLやESBといった複雑な連携をしている
+- https://news.mynavi.jp/itsearch/article/devsoft/1598
+
+
+### CQRSとEventSourcing
+- CQRSとはSQLを更新系(コマンド)と参照系(クエリ)に分けて、domain層を更新系のmodelと参照系のmodelに分けて実装する
+  - https://www.slideshare.net/koichiromatsuoka/ddd-x-cqrs-orm
+
+- CQRSはDDDのdomain層をさらにSQLの種類によって分割したもの
+  - https://little-hands.hatenablog.com/entry/2019/12/02/cqrs
+
+- CQRSのパターン(一番わかりやすい)
+  - よくある誤解なども話している
+  - CQRSを3段階に分けて、要件に対してどの段階まで取り込むかといった説明
+  - https://little-hands.hatenablog.com/entry/2019/12/02/cqrs
+
+- CQRSでDBを分割した場合にDBを反映させる方法はRDBに搭載されているレプリケーションを使うのが一般的
+
+- CQSとCQRSの違い
+  - https://qiita.com/hirodragon/items/6281df80661401f48731
+
+- CQSのいろいろな例
+  - https://qiita.com/pakkun/items/7dc5a9b6bc57225a3673
+
+- 参考文献
+  - https://speakerdeck.com/hirodragon112/ddddao-ru-nita-miqie-renaifang-hezeng-ru-2ceng-plus-cqs-akitekutiya-flyweight-ddd
+  - https://hiroronn.hatenablog.jp/entry/20171106/1509972382
+  - https://postd.cc/using-cqrs-with-event-sourcing/
+
+
+### サーバレス
+
 <br></br>
 
 ## アプリケーションの種類と開発パターン
@@ -122,7 +179,7 @@
     - データベースアクセスのためのSQL発行
       - ORMの場合は隠蔽される
 
-- トランザクションスクリプトパターンを使う場合
+- トランザクションスクリプトパターンを使う場合(トランザクションスクリプトを使う場合は、4層はない気がしてきた)
   - 3層とあまり変わらない
   - Usecase層が、「通知処理」といったものを担当してくれるくらいかな
 

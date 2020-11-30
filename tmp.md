@@ -102,6 +102,10 @@
 - デリファレンス(&をつけることでポインタ型を生成することになる)
     - https://qiita.com/Sekky0905/items/447efa04a95e3fec217f
 
+## プログラミング全般
+- コンピュータサイエンスを学ぶ重要性
+    - https://www.goethekyodai.xyz/entry/programming-field_
+    - https://note.com/erukiti/n/n8c87e4f3f94d
 
 ---
 
