@@ -7,8 +7,13 @@ WORKDIR /go/src/techblog
 # ホストのファイルをコンテナの作業ディレクトリに移行
 #COPY ./techblog /go/src/techblog
 # golangでdbを操作するためのパッケージ
-RUN go get github.com/lib/pq
-RUN go get github.com/gorilla/mux
+RUN go get github.com/lib/pq \
+           github.com/gorilla/mux
+
+# golangのvscodeのパッケージ依存
+RUN go get github.com/mdempsky/gocode \
+           github.com/ramya-rao-a/go-outline \
+           github.com/uudashr/gopkgs/v2/cmd/gopkgs
 
 # rubyをインストール(sassを使うために必要)
 # ruby-devはgemでのエラー回避

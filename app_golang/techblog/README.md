@@ -1,11 +1,26 @@
 # techblog開発memo
 
 - todo
-    - sessionクラスの作成と設計
+    - サインアップ、ログイン機能
+        - infra層にsignup,login,sessionのクラスとファイル
+        - userがログインしたらloginクラスでselectをしてuserがあるかどうか確認
+        - userがあったら、セッションidを生成してcookie格納、sessionを呼び出してuserとセッションidを紐付けて格納
+        - ログアウトしたらsessionからdeleteを呼びだす
     - superuserの作成
     - tagクラスの設計と作成
     - categoryクラスの設計と作成
     - 記事の折り畳み
+
+- todo（techblogが終わったらやること）
+    - https://qiita.com/Sekky0905/items/3b7554d23a1a2cbc5cd7
+        - チャットアプリを題材にgoでレイヤードアーキテクチャをかなり高いレベルで実践している
+        - gomockを使ったテストも書いてある
+    - https://speakerdeck.com/tondol/tiisakushi-merureiyadoakitekutiya?slide=9
+        - 小さく始めるレイヤードアーキテクチャ
+
+- 知りたいこと
+    - ユーザが消えたら自動でログアウトさせるのはどうするのか？
+        - セキュリティの本に書いてあった気がする
 
 
 ## 大まかな構成

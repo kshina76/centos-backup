@@ -33,7 +33,7 @@ func main() {
 	r.HandleFunc("/create", tp.CreatePosts)
 
 	//アカウント作成
-	mux.HandleFunc("/signup", presentation.SignUp)
+	mux.HandleFunc("/signup", presentation.signUp)
 	//mux.HandleFunc("/signup-account", presentation.SignupAccount)
 
 	//ログイン

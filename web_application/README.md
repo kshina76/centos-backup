@@ -4,6 +4,11 @@
 - https://note.com/erukiti/n/nec8e3dbe4a53
 - https://note.com/promitsu/n/n463792216407
 
+## URLをブラウザに入れてから戻るまでの仕組み
+
+![How-The-Web-Works jfif](https://user-images.githubusercontent.com/53253817/100647584-1a4e3f00-3383-11eb-9d81-aad2fb6c7d60.jpeg)
+
+
 ## 開発をするときの鉄則
 1. ある一つの作業をする時に複数のことをやらない
   - 人間は複数のことを行おうとすると混乱してしまう
@@ -13,6 +18,8 @@
 ## 前準備
 1. 技術選定
     - LGTMがいっぱいついていた記事があった気がする
+
+<br></br>
 
 ## 設計
 1. ユースケース図(箇条書きでも可)
@@ -42,6 +49,8 @@
       - https://github.com/kshina76/centos-backup/tree/master/OOP/oop_design
 7. システム構成設計
   - インフラとか
+
+<br></br>
 
 ## 開発
 ### 1. 開発環境構築
