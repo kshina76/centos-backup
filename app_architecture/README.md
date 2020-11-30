@@ -56,6 +56,7 @@
 
 
 ### サーバレス
+- AWS Lambdaなどを活用したもの
 
 <br></br>
 
@@ -201,3 +202,42 @@
 ### クリーンアーキテクチャ
 
 <br></br>
+
+## システムアーキテクチャを採用したときのディレクトリ構成例
+
+### 3層レイヤードアーキテクチャ
+- トランザクションスクリプトを使ったパターン
+  - account_xxx.goやindex_xxx.goにそれぞれの層のinterfaceが定義される
+  - DTOは全体の層から共通に使用されるようにproject直下のディレクトリにDTOディレクトリを配置してdtoパッケージにしてしまってもいいかも
+
+```
+project
+├── DI
+│   └── di.go
+├── infra
+│   ├── DTO
+│   │   ├── postsDTO.go
+│   │   ├── sessionDTO.go
+│   │   └── userDTO.go
+│   ├── account_infra.go
+│   └── index_infra.go
+├── main.go
+├── presentation
+│   ├── DTO
+│   │   ├── postsDTO.go
+│   │   ├── sessionDTO.go
+│   │   └── userDTO.go
+│   ├── account_controller.go
+│   └── index_controller.go
+└── usecase
+    ├── DTO
+    │   ├── postsDTO.go
+    │   ├── sessionDTO.go
+    │   └── userDTO.go
+    ├── account_usecase.go
+    └── index_usecase.go
+```
+
+- ドメインモデルを使ったパターン
+
+  ![2020-11-30 17 26のイメージ](https://user-images.githubusercontent.com/53253817/100585662-44771100-3331-11eb-8c9b-3774ad14741d.jpeg)
