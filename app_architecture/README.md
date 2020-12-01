@@ -121,6 +121,7 @@
 
 ## システムアーキテクチャ
 ### MVCアーキテクチャ+ORM...レイヤードアーキテクチャの2層のようなもの
+- ORMを使うので、infra層が隠蔽されるような形になる。外部API参照などがあるならinfra層を定義しなくてはいけないが。
 
 ### 純粋な3層レイヤードアーキテクチャ
 - ドメインモデルパターンを使う場合
@@ -209,6 +210,9 @@
 - トランザクションスクリプトを使ったパターン
   - account_xxx.goやindex_xxx.goにそれぞれの層のinterfaceが定義される
   - DTOは全体の層から共通に使用されるようにproject直下のディレクトリにDTOディレクトリを配置してdtoパッケージにしてしまってもいいかも
+    - https://speakerdeck.com/tondol/tiisakushi-merureiyadoakitekutiya?slide=9
+      - domainとinfraのmodelを共通化することで、DTOの変換コードを無くしている
+        - このようにロジックに関係ないコードをボイラープレートコードという
 
 ```
 project

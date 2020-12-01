@@ -17,6 +17,8 @@
         - gomockを使ったテストも書いてある
     - https://speakerdeck.com/tondol/tiisakushi-merureiyadoakitekutiya?slide=9
         - 小さく始めるレイヤードアーキテクチャ
+        - domainとinfraのmodelを共通化することで、DTOの変換コードを無くしている
+            - このようにロジックに関係ないコードをボイラープレートコードという
 
 - 知りたいこと
     - ユーザが消えたら自動でログアウトさせるのはどうするのか？
