@@ -34,7 +34,10 @@
 - pythonのmockは簡単すぎてすごい、、
   - モックにしたいところにMagicMockを代入するだけという、、
   - https://note.crohaco.net/2015/python-mock/
-
+- スタブとモックの違い
+  - テストの仕方や用途も書かれていて良記事
+  - https://qiita.com/k5trismegistus/items/10ce381d29ab62ca0ea6
+  
 <br></br>
 
 ## 1.テストのピラミッド
