@@ -8,12 +8,32 @@
     - interfaceでなく、実際の実装だった場合は本番の構造体とtest構造体を切り替えれない
     - interfaceであることで、interfaceを満たしているものは何が実装されていようとも受け取れる
 
+- 「外界をinterfaceで定義する」という考え方
+  - 外部APIを使いたい場合やDBを使いたい場合に、依存する窓口をinterfaceにするという考え方
+  - この考え方はテストがしやすくするためのもの。これをレイヤーとして捉えて積み重ねたものがレイヤードアーキテクチャ
+
+- CI/CDツールが行うこと
+  - APIテストは統合テストのこと
+  - 単体テストがユニットテストのこと
+  - 用意したテストを自動で実行して、デプロイまで行ってくれるツールのこと
+  - CircleCIとかJenkinsとか
+  - https://qiita.com/gold-kou/items/4c7e62434af455e977c2
+
+  ![automation-test](https://user-images.githubusercontent.com/53253817/100777311-fd7c3f00-3448-11eb-8c31-b52098e2442b.png)
+
+- DBを含めたユニットテストを実現する方法
+  1. dockerでDBを用意する
+  2. mockを使う
+
 ## 有用な記事
 - golangでinterfaceを使ったテスト(mock)
   - https://deeeet.com/writing/2016/10/25/go-interface-testing/
   - http://haya14busa.com/golang-how-to-write-mock-of-interface-for-testing/
 - golangでテスト入門
   - https://future-architect.github.io/articles/20200601/
+- pythonのmockは簡単すぎてすごい、、
+  - モックにしたいところにMagicMockを代入するだけという、、
+  - https://note.crohaco.net/2015/python-mock/
 
 <br></br>
 

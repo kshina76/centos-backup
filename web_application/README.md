@@ -16,8 +16,17 @@
   - トラブルシューティングがしやすい
 
 ## 前準備
-1. 技術選定
-    - LGTMがいっぱいついていた記事があった気がする
+### 技術選定
+- Python
+  - 小規模、中規模ならflask
+    - 中規模になったらblueprintでディレクトリ分割
+    - https://qiita.com/gold-kou/items/00e265aadc2112b0f56a
+  - 大規模ならDjango
+- Golang
+  - Echo, Gin, Gormなどといったフレームワークを組み合わせる
+    - routingはGinでORMにGormとか
+  - フレームワーク一覧
+    - https://qiita.com/yumin/items/5de33b068ead564ebcbf
 
 <br></br>
 
