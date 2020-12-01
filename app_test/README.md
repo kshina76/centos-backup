@@ -93,6 +93,136 @@
 ### 3-1~2.UIテストを適用するステップ
 1. URLが意図している画面に遷移するかを確認する
   - URLを叩いた先のHTMLをprintとかで取得して、テストした画面に行けるかを目視する
-2. 正しいCSSセレクタを見つける(どちらかの方法で)
-  - 「ソースを表示してHTMLから自力でタグを探して、IDかclassが付与されていなかったら付与する」
-  - 「デベロッパーツールを使って、CSSセレクタを取得して、IDかclassが付与されていなかったら付与する」
+2. 正しいCSSセレクタを見つける(3の方法が良さそうかな)...あるページのテストに使うセレクタは全て取得しておく
+  1. ソースを表示してHTMLから自力でタグを探して、IDかclassが付与されていなかったら付与する
+  2. デベロッパーツールを使って、CSSセレクタを取得して、IDかclassが付与されていなかったら付与する
+  3. デベロッパーツールのコンソールにCSSセレクタを打ち込んで欲しい箇所が取得できるか確認して、確認できたらそのCSSセレクタを使用する
+3. ダミーデータを作成する
+4. アサーションを追加する(サインアップを例にする)
+  - 有効な認証情報を入力したユーザがサインアップできる
+  - 無効な認証情報を入力したユーザがサインアップできない
+
+### UIテストを適用する時のポイント
+- テストは緩く書くこと
+  - 例えば、「success」という文字列の照合をするのではなくて、successが表示されるところに文字列が存在するかどうかで判定するとか
+
+<br></br>
+
+## 4.統合テストで点と点を結ぶ
+
+### 4-2~4-4.Webの仕組み
+- URLを叩いてからレスポンスが返ってくるまでの仕組み
+
+  ![How-The-Web-Works jfif](https://user-images.githubusercontent.com/53253817/100647584-1a4e3f00-3383-11eb-9d81-aad2fb6c7d60.jpeg)
+
+- UIが無くてもWebの仕組みに則って統合テストを行える
+  - 全てはHTTPリクエストに変換されるから
+  - フォームに入力された情報もボタンを押した情報も全てHTTPリクエストに変換して送信されている
+  - UIがない場合というのは、WebAPIのようなものをテストするときのこと
+
+- HTTPリクエストとレスポンスを覗く
+  - デベロッパーツールのnetworkタブでリクエストとレスポンスの流れと、中身を見ることができる
+  - これを統合テストを書くときの材料にできるので覚えておく
+
+- 統合テストはURLを軸にしてテストを駆動させる
+
+<br></br>
+
+## 5. RESTfulなWebサービスの統合テスト
+
+### 5-2.HTTP GETのテスト
+- GETを最も簡単にテストする方法
+  - ブラウザにURLを入力してエンター
+
+- GETをコードでテストする
+  - GETした結果のデータとステータスコードをテストする(200okとか302リダイレクトとか)
+
+  ```ruby
+  def setup
+    @permit = permits(:saskatoon) #テストデータを作成
+  end
+
+  test 'HTTP GET' do
+    get permit_path(:id => @permit.id, :format => :json)  #GETを生成してURLに送信する
+    assert response.body.to_s.include? 'Saskatoon'  #レスポンスにSaskatoonという文字は含まれているか確認
+    assert_response :success #200 ok ステータスコードの確認
+  ```
+
+### 5-3.HTTP POSTのテスト
+- 自然言語で記述してみる
+  - 適当な属性を作って既存の許可情報を検索する
+  - 対象が存在しないことを確認する
+  - 新しい許可情報を作成する
+  - 再度検索を行う
+  - 対象の許可情報が作成されていることを確認する
+
+- コードに変換する
+
+  ```ruby
+  test 'HTTP POST' do
+    # 既存の許可情報を検索する
+    permit = Permit.find_by_location('Moose Jaw')
+
+    # 対象が存在しないことを確認する
+    assert_nil permit
+
+    # 新しい許可情報を作成する
+    post permits_path, permit: (location: 'Moose Jaw')
+
+    # 再度検索を行う
+    permit = Permit.find_by_location('Moose Jaw')
+
+    # 対象の許可情報が作成されていることを確認する
+    assert_not_nil permit
+
+    # ステータスコードが302であることを確認する
+    assert_response :redirect
+  ```
+
+### 5-4.HTTP PUTのテスト
+- POSTに似た動作
+
+```ruby
+test 'HTTP PUT' do
+  # 既存の許可情報を検索する
+  permit = Permit.find_by_location('Moose Jaw')
+
+  # 対象が存在しないことを確認する
+  assert_nil permit
+
+  # 情報を更新する
+  put permit_path(@permit), permit: {location: 'Medicine Hat'}
+
+  # 再度検索を行う
+  permit = Permit.find_by_location('Medicine Hat')
+
+  # 対象の許可情報が存在することを確認する
+  assert_not_nil permit
+
+  # レスポンスのステータスコードを確認する
+  assert_response :redirect
+end
+```
+
+### 5-5.HTTP DELETEのテスト
+- 削除したい許可情報のIDと一緒にDELETEのリクエストを送るだけ
+
+```ruby
+test 'HTTP DELETE' do
+  delete permit_path(@permit)
+  assert_response :redirect
+
+  assert_raises(ActiveRecord::RecordNotFound) do
+    get permit_path(@permit)
+  end
+end
+```
+
+### 5-6.まとめ
+- RESTfulなサービスをテストするには、正しいURLを生成して、適切なHTTPメソッドとデータを送信する
+- HTTPのステータスコードをテストに活用する
+- ブラウザのデベロッパーツールのnetworkタブなどでHTTPメソッドの種類や中身のデータを確認してテストに活用する
+
+<br></br>
+
+## ユニットテストで基礎を固める
