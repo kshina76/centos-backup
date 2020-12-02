@@ -115,4 +115,7 @@ GraphQLパターンの場合は必要に応じてREST APIを追加できるの�
 - デプロイ容易度
   - functionsパターンはどうしてもSAM/ServerlessFrameworkの設定ファイルが煩雑になりやすいことがネックになります。WebFrameworkパターンはプロクシパスに、GraphQLパターンは単一エンドポイントにまとまるため、設定ファイルをシンプルに保つことが可能です。
 
+### 参考文献
+- https://qiita.com/yuno_miyako/items/3fe75bf53fe0ae43e274
+
 <br></br>

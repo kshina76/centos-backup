@@ -1,5 +1,39 @@
 # 重要な事柄をかき集めてきたもの
 
+## 入社までに作っておくアセット
+### 言語ごとのvscodeプラグイン、コマンド集(.devcontainerファイルを言語ごとに用意すればいいかも)
+- Golang
+    - コマンド
+        - Fill Struct
+            - 空の構造体にフィールドをセット
+        - Generate tests
+            - テストコードをある程度自動生成
+        - Add Tags To Struct Fields
+            - 構造体に自動で構造体タグ（json:"name"みたいなの）を付与
+        - Generate interface stubs
+            - interfaceからスタブを自動生成
+        - Go: Restart Language Server
+            - 保管とかlintが効かなくなったときに使う
+    - プラグイン
+    - 参考文献
+        - https://qiita.com/yagi_eng/items/9e599913605625809d9c
+
+- Python
+
+### macの有用なアプリ
+- Alfred
+    - ランチャー
+
+- Dash5
+    - リファレンスをすぐに検索するためのもの
+    - さらに、Alfredと連携してリファレンスを一瞬で検索することができる(有料)
+    - https://qiita.com/imk2o/items/3f7e507c1ea857c8f225
+
+- mac開発環境
+    - https://qiita.com/papi_tokei/items/6734a814406a787c5997
+
+---
+
 ## 絶対読む書籍、サイト
 - go言語
     - 委譲とかコンストラクタとか色々なデザインパターンを紹介している

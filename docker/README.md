@@ -1,5 +1,9 @@
 # 1日で基本が身に付く Docker Kubernetes 書籍memo
 
+# dockerのベストプラクティス
+- https://qiita.com/ao_log/items/f615e0e82164ad854792
+- https://qiita.com/yassun-youtube/items/f6e17a28bce9e7707d0c
+
 # docker
 - 体系化されたdockerコマンド
     - 以下のようにコマンドが区別されているからわかりやすい

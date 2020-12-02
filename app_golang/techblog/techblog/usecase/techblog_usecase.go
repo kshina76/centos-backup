@@ -3,7 +3,7 @@ package usecase
 import (
 	"techblog/infra"
 	"time"
-	//"fmt"
+	"fmt"
 )
 
 type Posts struct {
