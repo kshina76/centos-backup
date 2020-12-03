@@ -306,6 +306,25 @@ end
 
 ### 2-6.ログインとOAuth2.0
 - P49-57とqiitaとかを参考にして載せる
+  - oauthにも色々な種類がある？あとで本からまとめる
+
+#### WebAPI認証方式パターン
+1. 標準化されたHTTP認証方式
+
+2. APIキー認証
+
+3. Form認証、アクセストークン認証
+
+- OAuthの間違いやすい点
+  - OAuthは認可をする仕組み
+  - Bearerは認証をする仕組み
+  - OAuthで認可をしてトークンを受け取り、Bearerでそのトークンを使って認証をする
+  - AWS Cogniteは認可サーバの役割を担う
+
+- 参考文献
+  - https://architecting.hateblo.jp/entry/2020/03/27/033758
+
+#### OAuthの説明
 
 ![https---qiita-image-store s3 amazonaws com-0-106044-d9119f21-736d-d5ed-964d-3068af0fcde9](https://user-images.githubusercontent.com/53253817/101063729-7eb50c80-35d6-11eb-8199-76d16868daab.png)
 
