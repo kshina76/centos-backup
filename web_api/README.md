@@ -307,10 +307,14 @@ end
 ### 2-6.ログインとOAuth2.0
 - P49-57とqiitaとかを参考にして載せる
 
+![https---qiita-image-store s3 amazonaws com-0-106044-d9119f21-736d-d5ed-964d-3068af0fcde9](https://user-images.githubusercontent.com/53253817/101063729-7eb50c80-35d6-11eb-8199-76d16868daab.png)
+
 ![https---qiita-image-store s3 amazonaws com-0-106044-f8dc0cca-15c1-569d-c6e4-2055ea8c97cb](https://user-images.githubusercontent.com/53253817/101062668-45c86800-35d5-11eb-8606-857e616ed3d5.png)
 
 ![https---qiita-image-store s3 amazonaws com-0-106044-319dd4e8-72b7-1af2-8bed-645120196b47](https://user-images.githubusercontent.com/53253817/101062672-46f99500-35d5-11eb-8f11-11282b19d5ae.png)
 
+- 参考文献
+  - https://qiita.com/TakahikoKawasaki/items/e37caf50776e00e733be
 
 ### 2-7.適切なホスト名
 - api.example.com
