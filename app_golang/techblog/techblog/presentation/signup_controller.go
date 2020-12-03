@@ -16,6 +16,9 @@ import (
 type SignupPresentation interface {
 	Signup(http.ResponseWriter, *http.Request)
 	SignupView(http.ResponseWriter, *http.Request)
+	Login(http.ResponseWriter, *http.Request)
+	LoginView(http.ResponseWriter, *http.Request)
+	AdminView(http.ResponseWriter, *http.Request)
 }
 
 type signupPresentation struct {
@@ -30,6 +33,16 @@ func NewSignupPresentation(signupUsecase usecase.SignupUsecase) SignupPresentati
 
 func (sp *signupPresentation) SignupView(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("templates/base.html", "templates/signup.html", "templates/sidebar.html"))
+	t.ExecuteTemplate(writer, "base", nil)
+}
+
+func (sp *signupPresentation) LoginView(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("templates/base.html", "templates/login.html", "templates/sidebar.html"))
+	t.ExecuteTemplate(writer, "base", nil)
+}
+
+func (sp *signupPresentation) AdminView(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("templates/base.html", "templates/admin.html", "templates/sidebar.html"))
 	t.ExecuteTemplate(writer, "base", nil)
 }
 
@@ -50,6 +63,27 @@ func (sp *signupPresentation) Signup(writer http.ResponseWriter, request *http.R
 		fmt.Println(err)
 	}
 	http.Redirect(writer, request, "/", 301)
+}
+
+func (sp *signupPresentation) Login(writer http.ResponseWriter, request *http.Request) {
+	user := &usecase.Users{
+		Uuid:		createUUID(),
+		Email:		request.PostFormValue("email"),
+		Password:	request.PostFormValue("password"),
+		CreatedAt:	time.Now(),
+	}
+	uuid, err := sp.signupUsecase.LoginUser(user)
+	if err != nil {
+		fmt.Println(err)
+		http.Redirect(writer, request, "/login", 301)
+	}
+	cookie := http.Cookie{
+		Name:		"_cookie",
+		Value:		uuid,
+		HttpOnly:	true,
+	}
+	http.SetCookie(writer, &cookie)
+	http.Redirect(writer, request, "/admin", 301)
 }
 
 //util func

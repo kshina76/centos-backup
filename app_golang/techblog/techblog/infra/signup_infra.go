@@ -6,14 +6,6 @@ import (
 	//"fmt"
 )
 
-//SessionDTO is exposed
-type SessionDTO struct {
-	Id			int
-	Uuid		string
-	Email		string
-	CreatedAt	time.Time
-}
-
 //UserDTO is exposed
 type UserDTO struct {
 	Id			int

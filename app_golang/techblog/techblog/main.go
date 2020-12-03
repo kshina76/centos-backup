@@ -17,8 +17,10 @@ func main() {
 
 	//DI signup
 	si := infra.NewSignupInfra()
-	su := usecase.NewSignupUsecase(si)
+	ses := infra.NewSessionInfra()
+	su := usecase.NewSignupUsecase(si, ses)
 	sp := presentation.NewSignupPresentation(su)
+
 
 	r := mux.NewRouter()
 	//r := http.NewServeMux()
@@ -42,10 +44,10 @@ func main() {
 	r.HandleFunc("/signup-account", sp.Signup)
 
 	//ログイン
-	//mux.HandleFunc("/login", presentation.Login)
-	//mux.HandleFunc("/authenticate", presentation.Authenticate)
+	r.HandleFunc("/login", sp.LoginView)
+	r.HandleFunc("/authenticate", sp.Login)
 
-	//mux.HandleFunc("/admin", presentation.Admin)
+	r.HandleFunc("/admin", sp.AdminView)
 	//mux.HandleFunc("/post-article", presentation.PostArticle)
 
 	//サーバ起動
