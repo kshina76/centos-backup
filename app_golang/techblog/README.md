@@ -269,6 +269,16 @@
 	    return
         ```
 
+    - routerはginかgorillaを使ったほうがいい
+        - 標準ライブラリではきつい
+    - sqlはsqlxまたはgormまたはgorpを使ったほうがいい
+        - 標準ライブラリではきつい
+        - https://blog.p1ass.com/posts/go-database-sql-wrapper/
+    - golangでsqlをテストする方法
+        - https://qiita.com/gold-kou/items/cb174690397f651e2d7f
+    - sqlドライバをグローバルに宣言してしまうと、テスト時にモック化できない
+        - https://ameblo.jp/principia-ca/entry-12130127314.html
+
 - ハマったところ
     - postgresqlを永続化すると以下のエラーが発生する
         - docker-composeで永続化を解除したら出なくなったが、このエラーは出ても問題なさそうだから永続化したほうがいい気はする

@@ -19,9 +19,11 @@
 ### 技術選定
 - Python
   - 小規模、中規模ならflask
+    - APIとか簡単にサクッと開発できる
     - 中規模になったらblueprintでディレクトリ分割
     - https://qiita.com/gold-kou/items/00e265aadc2112b0f56a
   - 大規模ならDjango
+    - https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
 - Golang
   - Echo, Gin, Gormなどといったフレームワークを組み合わせる
     - routingはGinでORMにGormとか

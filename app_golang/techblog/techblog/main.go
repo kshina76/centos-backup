@@ -10,10 +10,15 @@ import (
 )
 
 func main() {
-	//DI
+	//DI index
 	dh := infra.NewDbHandler()
 	tbu := usecase.NewTechblogUsecase(dh)
 	tp := presentation.NewTechblogPresentation(tbu)
+
+	//DI signup
+	si := infra.NewSignupInfra()
+	su := usecase.NewSignupUsecase(si)
+	sp := presentation.NewSignupPresentation(su)
 
 	r := mux.NewRouter()
 	//r := http.NewServeMux()
@@ -33,8 +38,8 @@ func main() {
 	r.HandleFunc("/create", tp.CreatePosts)
 
 	//アカウント作成
-	mux.HandleFunc("/signup", presentation.signUp)
-	//mux.HandleFunc("/signup-account", presentation.SignupAccount)
+	r.HandleFunc("/signup", sp.SignupView)
+	r.HandleFunc("/signup-account", sp.Signup)
 
 	//ログイン
 	//mux.HandleFunc("/login", presentation.Login)
