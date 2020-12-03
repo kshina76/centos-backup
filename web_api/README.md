@@ -248,11 +248,69 @@ http://api.linkedin.com/v1/people-search?first-name=Clair
 http://api.instagram.com/v1/users/search?q=jack
 ```
 
-#### 3.クエリパラメータとパスの使い分け
-- どっかのqiitaにのってたから、それと照らし合わせて理解する
+#### 3.クエリパラメータとパスの使い分け(リクエスト)
+1. クエリストリングに含める
+  - 何らかのリソースのフィルタリング、ソート、ページングを実現したいときに使う
+
+```bash
+# 検索
+curl localhost:3000/items?name=hoge
+# ソート
+curl localhost:3000/items?sort_by=price&order=asc
+# ページング
+curl localhost:3000/items?page=3&limit=50
+```
+
+2. リクエストボディに含める
+  - リソースの作成や更新で必要な情報はここに入れる
+  - ユーザーの入力値とか
+
+```bash
+# 作成
+curl -X POST localhost:3000/items -d '{"name": "hoge", "price": 200}'
+# 更新
+curl -X PUT localhost:3000/items/1 -d '{"name": "fuga", "price": 400}'
+curl -X PATCH localhost:3000/items/1 -d '{"price": 500}'
+```
+
+3. パスに含める
+  - 一意にリソースを特定できる識別子は必ずパスに含める
+  - IDとか商品コードとか注文番号とか
+  - 逆に複数リソースが該当する可能性がある場合は含めるべきではない
+
+```bash
+# 商品コードABC-123の商品の情報を取得する
+curl localhost:3000/items/ABC-123
+# 注文番号O-1239の注文のステータスを更新する
+curl -X PATCH localhost:3000/orders/O-1239 -d '{"status": "delivered"}'
+```
+
+4. まとめると
+
+```ruby
+if param == "一意にリソースを特定できるユニークな識別子である"
+  # => パス
+elsif param == "リソースを作成または更新する際の、リソースの情報/状態を表す値である"
+  # => リクエストボディ
+elsif param == "リソースのフィルタリング/ソート/ページングを表す"
+  # => クエリストリング
+elsif param == "認証情報である"
+  # => クエリストリング または ヘッダー
+elsif param == "コンテンツのデータには直接関係しないメタ情報である"
+  # => ヘッダー
+end
+```
+
+- 参考文献
+  - https://qiita.com/sakuraya/items/6f1030279a747bcce648
 
 ### 2-6.ログインとOAuth2.0
 - P49-57とqiitaとかを参考にして載せる
+
+![https---qiita-image-store s3 amazonaws com-0-106044-f8dc0cca-15c1-569d-c6e4-2055ea8c97cb](https://user-images.githubusercontent.com/53253817/101062668-45c86800-35d5-11eb-8606-857e616ed3d5.png)
+
+![https---qiita-image-store s3 amazonaws com-0-106044-319dd4e8-72b7-1af2-8bed-645120196b47](https://user-images.githubusercontent.com/53253817/101062672-46f99500-35d5-11eb-8f11-11282b19d5ae.png)
+
 
 ### 2-7.適切なホスト名
 - api.example.com
