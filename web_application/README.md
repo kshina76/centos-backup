@@ -8,6 +8,8 @@
 
 ![How-The-Web-Works jfif](https://user-images.githubusercontent.com/53253817/100647584-1a4e3f00-3383-11eb-9d81-aad2fb6c7d60.jpeg)
 
+## システムデザイン
+- https://github.com/donnemartin/system-design-primer
 
 ## 開発をするときの鉄則
 1. ある一つの作業をする時に複数のことをやらない
@@ -22,6 +24,8 @@
     - APIとか簡単にサクッと開発できる
     - 中規模になったらblueprintでディレクトリ分割
     - https://qiita.com/gold-kou/items/00e265aadc2112b0f56a
+  - 綺麗なドキュメントも生成できるFastAPI
+    - https://note.com/navitime_tech/n/nc0381517d067?magazine_key=mdafce2b0ebe1
   - 大規模ならDjango
     - https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
 - Golang
@@ -53,6 +57,8 @@
 6. アーキテクチャ設計
   - 全体のレイヤー構成は、2層、3層、4層、クリーンアーキテクチャなどから選択する
   - プレゼンテーション層は、MVC、MVP、MVVMから選択する
+  - フラットかレイヤー分割か
+    - https://note.com/timakin/n/n02f6be6aa0bf?magazine_key=mdafce2b0ebe1
 7. クラス設計
   1. ユースケース図とシーケンス図を参考にしてイベントフローやシナリオを文章で書き出す
   2. 固有名詞とかを抜き出してクラスにする

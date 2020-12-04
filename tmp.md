@@ -1,5 +1,10 @@
 # 重要な事柄をかき集めてきたもの
 
+## 副業
+- https://note.com/jumos5/n/na3c0f7c46a43?magazine_key=mdafce2b0ebe1
+
+---
+
 ## 入社までに作っておくアセット
 ### 言語ごとのvscodeプラグイン、コマンド集(.devcontainerファイルを言語ごとに用意すればいいかも)
 - Golang
@@ -130,6 +135,10 @@
     - https://css.miugle.info
 - HTMLを省略記法で記述するツール
     - Emmet
+- エンジニア系記事まとめ
+    - https://note.com/notemag/m/mdafce2b0ebe1
+- google体験記
+    - https://note.com/grouse324/n/n1f329de5ee50
 
 ### Python
 - Pythonにおいての参照渡しはCの参照渡しとは違う

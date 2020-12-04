@@ -17,7 +17,18 @@
 
 ## tips
 ### 変数を固定して、エッジパターンを調べてみる
+
+### とにかく図に表してみる
+- 選んでくる系のものとか、簡単な例を使ってどのように選んでくるかを図示すると法則性が見えてくる
+
 ### 二値で表せるかを考える(0,1で)
+
+<br></br>
+
+## わかったこと
+### Go言語でLIFO(スタック)
+- deferはスタックと同じ動作をする
+- deferを使うとその関数がreturnする直前にスタックからpopしていく
 
 ### 多次元スライスの宣言と初期化
 
@@ -42,10 +53,7 @@ fmt.Scanf("%d", &n)
 fmt.Scanf("%d%d%d%d", &b, &f, &r, &v)
 ```
 
-## わかったこと
-### Go言語でLIFO(スタック)
-- deferはスタックと同じ動作をする
-- deferを使うとその関数がreturnする直前にスタックからpopしていく
+<br></br>
 
 ## 参考
 - Goで標準出力から標準入力
@@ -53,4 +61,6 @@ fmt.Scanf("%d%d%d%d", &b, &f, &r, &v)
 - print系のまとめ
   - https://qiita.com/taji-taji/items/77845ef744da7c88a6fe
 - いろいろ入出力
+  - https://qiita.com/sun_bacon/items/1370b2364fb808024ab4
+- 競技プログラミングで使うGo言語基礎
   - https://qiita.com/sun_bacon/items/1370b2364fb808024ab4

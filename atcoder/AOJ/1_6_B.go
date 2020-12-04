@@ -38,5 +38,31 @@ func nextLine() string {
 func main() {
 	sc.Split(bufio.ScanWords) //スペース区切りの時に使う
 
+	var result []int
+	count := 0
+	sum := 0
 
+	for {
+		n := nextInt()
+		x := nextInt()
+		if n == 0 && x == 0 {
+			break
+		}
+		for i := 0; i < n - 2; i++ {
+			for j := i + 1; j < n - 1; j++ {
+				for k := j + 1; k < n; k++ {
+					sum = i + j + k + 3
+					if sum == x {
+						count += 1
+					}
+				}
+			}
+		}
+		result = append(result, count)
+		count = 0
+	}
+
+	for _, i := range result {
+		fmt.Println(i)
+	}
 }
