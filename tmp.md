@@ -44,6 +44,9 @@
     - 委譲とかコンストラクタとか色々なデザインパターンを紹介している
         - https://blog.monochromegane.com/blog/2014/03/23/struct-implementaion-patterns-in-golang/
 
+- Python
+    - https://qiita.com/kaitolucifer/items/926ed9bc08426ad8e835
+
 - git
     - GitHub実践入門 ~Pull Requestによる開発の変革
 
