@@ -53,6 +53,25 @@ fmt.Scanf("%d", &n)
 fmt.Scanf("%d%d%d%d", &b, &f, &r, &v)
 ```
 
+### 行列の掛け算
+
+```go
+// [i,k] = [i,j]*[j,k] となるところがポイントで、覚えておけばすぐに出てくる
+for k := 0; k < l; k++{
+		for i := 0; i < n; i++ {
+			for j := 0; j < m; j++ {
+				result[i][k] += A[i][j]*B[j][k]
+			}
+		}
+	}
+```
+
+<br></br>
+
+## もう一度やる問題
+- http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_7_C
+
+
 <br></br>
 
 ## 参考
@@ -64,3 +83,9 @@ fmt.Scanf("%d%d%d%d", &b, &f, &r, &v)
   - https://qiita.com/sun_bacon/items/1370b2364fb808024ab4
 - 競技プログラミングで使うGo言語基礎
   - https://qiita.com/sun_bacon/items/1370b2364fb808024ab4
+- 文字列操作まとめ
+  - https://qiita.com/tchnkmr/items/b3d0b884db8d7d91fb1b
+- 正規表現
+  - https://ashitani.jp/golangtips/tips_regexp.html
+- go言語のrune型
+  - https://qiita.com/seihmd/items/4a878e7fa340d7963fee
