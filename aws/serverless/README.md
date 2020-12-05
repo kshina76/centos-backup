@@ -119,3 +119,8 @@ GraphQLパターンの場合は必要に応じてREST APIを追加できるの�
 - https://qiita.com/yuno_miyako/items/3fe75bf53fe0ae43e274
 
 <br></br>
+
+## AWS Lambdaの公式パターン集(APIだけじゃないよ)
+- 以下を読んでまとめる
+  - https://dev.classmethod.jp/articles/introduction-serverless-pattern/
+  - https://aws.amazon.com/jp/serverless/patterns/pattern-design-examples/
