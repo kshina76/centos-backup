@@ -41,11 +41,14 @@
 
 ## 絶対読む書籍、サイト
 - go言語
+    - AOJとかatcoderで基本操作、文字列処理、配列処理などに慣れる
     - 委譲とかコンストラクタとか色々なデザインパターンを紹介している
         - https://blog.monochromegane.com/blog/2014/03/23/struct-implementaion-patterns-in-golang/
 
 - Python
-    - https://qiita.com/kaitolucifer/items/926ed9bc08426ad8e835
+    - AOJとかatcoderで基本操作、文字列処理、配列処理などに慣れる
+    - Pythonでオブジェクト指向
+        - https://qiita.com/kaitolucifer/items/926ed9bc08426ad8e835
 
 - git
     - GitHub実践入門 ~Pull Requestによる開発の変革

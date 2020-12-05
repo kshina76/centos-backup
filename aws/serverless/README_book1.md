@@ -54,6 +54,9 @@
 - 慣習的に「機能名_handler」という名前が付けられる
 - 入力はS3やSESなどのイベントが、「event」に格納される
 - 割り当てられているメモリや実行環境の情報は、「context」に格納される
+- Lambdaからの出力はreturnで行う(書式は連携するイベントによって異なる)
+- 標準出力は全てCloud Watch Logsに書き込まれる
+  - Lambda内でprintした内容など全て
 
   ![2020-12-05 13 48のイメージ](https://user-images.githubusercontent.com/53253817/101234176-938dbf00-3700-11eb-8507-761a3bea09ce.jpeg)
 
@@ -74,3 +77,21 @@ def myfunc_handler(event, context):
 event["x"]は10
 event["y"]は5
 ```
+
+### Lambdaの利用に必要なアクセス権
+#### IAMグループ、IAMユーザ、IAMロール、ポリシーの違い
+- IAMグループはユーザの集まりに同一の権限を一括で与える
+- IAMユーザは一つのユーザが行える権限
+  - 例えば、Lambdaを作ったりEC2を作ったり、といった権限
+- IAMロールはLambdaなどのリソースの権限
+  - 例えば、Lambdaが他のリソースにアクセスするための権限のこと
+- ポリシーはグループやユーザやロールに与える権限の細かい詳細
+  - カスタムポリシーは権限を実作するできるもの
+  - 管理ポリシーはAWSが作成して管理したもの
+  - インラインポリシーはIAMに直接埋め込まれたもの
+
+![awsaccount-IAMuser-IAMgroup-IAMRole-hikaku-image](https://user-images.githubusercontent.com/53253817/101234414-67733d80-3702-11eb-860a-6f9173f1527c.png)
+
+#### 開発者用のIAMユーザ
+
+#### 
