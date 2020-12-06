@@ -1,40 +1,5 @@
 # pythonでatcoder
 
-## to do
-### pythonのwebアプリケーション開発環境を整える
-- dockerで整える
-### pythonのファイル分割を学ぶ
-### pythonの各種ライブラリ
-- https://qiita.com/ynakayama/items/2cc0b1d3cf1a2da612e4
-- https://qiita.com/hoto17296/items/0ca1569d6fa54c7c4732
-- https://www.sukerou.com/2019/04/sqlalchemysqlsql.html
-- https://qiita.com/kotamatsuoka/items/a95faf6655c0e775ee22
-### pythonでレイヤードアーキテクチャをやってみる(各種ライブラリの使い方は学びながら。techblogでいいかな)
-- https://qiita.com/yu-sa/items/e0033ae312669256cd8a
-- 疑問点
-  - DIはどこで行う？
-    - if mainのところで行う
-  - golangでいうハンドラ関数はどこで定義するの？
-    - pythonだとflaskでURLルーティングと一緒に書くことになる
-  - interfaceはどうするの？
-    - ABCなんたらでできる
-- プレゼンテーション層
-  - View(テンプレートエンジン)...jinja2
-  - Controller(urlルーティンングとハンドラ)...flask
-- ユースケース層
-- インフラ層
-  - SQL...psycopg2
-    - https://qiita.com/hoto17296/items/0ca1569d6fa54c7c4732
-  - ORM...flask-SQLAlchemy
-    - ORMでも生のSQLでもどっちでもかけるらしい
-    - https://www.sukerou.com/2019/04/sqlalchemysqlsql.html
-  - 簡易なORM...dataset
-    - https://dev.classmethod.jp/articles/python-orm-dataset/
-
-
-
-### SQLをブラウザ上でサクッとテスト
-- http://sqlfiddle.com
 
 ## pythonを使う理由
 - 業務で使うから

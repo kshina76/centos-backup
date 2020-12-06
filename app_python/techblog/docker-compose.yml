@@ -1,0 +1,29 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: ./docker/postgresql/Dockerfile
+    tty: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app_db
+    volumes:
+      - ./project/data/db_data:/var/lib/postgresql/data  # DBの永続化(docker-compose downやrmiをしてもデータが残る)
+
+  app: # service名
+    container_name: app
+    depends_on:
+      - postgres
+    build:
+      context: . # どこをカレントディレクトリとしてみるかということ。Dockerfileの中のパスの書き方も変わるから注意
+      dockerfile: ./docker/python/Dockerfile # ビルドに使用するDockerfileがあるディレクトリ指定
+    tty: true # コンテナの起動永続化
+    ports:
+      - "8080:8080" # ホストコンピュータとコンテナをポートフォワードするので、localhost:8080で接続できるようになる
+    volumes:
+      - ./project:/usr/src/app # マウントディレクトリ指定
