@@ -2,7 +2,7 @@
 
 ## 開発環境
 - https://ameblo.jp/kazusa-g/entry-12592477686.html
-### docker
+### 1.docker
 #### Dockerfile動作確認
 - pythonコンテナ
 
@@ -29,7 +29,7 @@ ENV LANG en_US.UTF-8
 COPY ./project/data/*.sql /docker-entrypoint-initdb.d/
 ```
 
-### python
+### 2.python
 #### pythonバージョン
 - python3.9.0
 #### 今時のpythonの書き方
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 - urlルーティングを分散させる感じかな？djangoにも似たようなのが標準で搭載されていた
 - https://qiita.com/shimajiri/items/fb7d1d58de0b0d171c88
 
-### vscode
+### 3.vscode
 - blackとflake8を有効化、pylintを無効化、一行あたりの最大値をflake8の88行に合わせる
   - 以下を.devcontainer.jsonのsettingに書く
 
