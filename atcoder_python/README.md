@@ -3,8 +3,6 @@
 ## to do
 ### atcoderのpythonバージョンと使えるライブラリとバージョンで環境構築する
 - 調べながら(公式とかに書いてあるのかな)
-### Lambdaの記事をサッとまとめる
-- とりあえずバイト先で読んだところまででいいかな
 ### pythonのwebアプリケーション開発環境を整える
 - dockerで整える
 ### pythonのファイル分割を学ぶ
@@ -59,10 +57,43 @@
   - https://qiita.com/Kentaro_okumura/items/5b95b767a2e691cd5482
 - 競技プロを勉強する手順
   - https://maspypy.com/atcoder-橙2400になりました
+- pythonとPyPyどっち
+  - https://qiita.com/OKCH3COOH/items/f0c5c4681bc30dddf7f4
+- PyPyでnumpyがダメな理由(pypyでのnumpyは追加ライブラリなので、atcoderだと使えない)
+  - https://qiita.com/ponnhide/items/c919f3bc549d1228c800
+- Pythonでatcoderをするときに見るといい
+  - https://nagiss.hateblo.jp/entry/2019/03/12/012944
+
+## atcoderルール
+- WA(Wrong Answer)をしてしまうと一回につき5分のペナルティがつくのでローカルでテストする環境が必要
+  - 計算量を見積もる能力が必要な理由は多分これ。(TLEはペナルティつくんだっけ？)
 
 ## 環境構築
-- dockerだと色々面倒だから、ローカルの環境を使っていいと思う。バージョン管理ライブラリとかは使うように。
-- atocoderと同じバージョンで環境構築する
+1. pyenvのインストール
+  - atcoderは標準ライブラリだけだからpipenvはいらないと思うが、後にWeb開発をすることを考えてインストールしておいていいと思う
+  - dockerだと環境の切り替えで時間がかかるから
+2. pypy3.6-7.3.0をpyenvでインストール
+  - pypyを使う場合、atcoderが7.3.0なので
+  - pypyはJITコンパイラで、普通のpythonより速く動作することが期待できる(モノによるが)
+
+  ```bash
+  # インストール
+  $ pyenv install pypy3.6-7.3.0
+
+  # 環境に適用
+  $ cd <開発するディレクトリ>
+  $ pyenv local pypy3.6-7.3.0
+  ```
+
+3. Python3.8.2をpyenvでインストール
+  - atcoderの環境では3.8.2が使われているため
+  - scipyとかnumpyとかを書いたプログラムを使いたいならPyPyは使えないのでこっちの環境を使う
+
+4. vscodeでテストを自動化する設定
+  - https://qiita.com/chokoryu/items/4b31ffb89dbc8cb86971
+
+5. 入出力のテンプレを用意しておく
+  - https://nagiss.hateblo.jp/entry/2019/03/12/012944
 
 ## 勉強する手順
 1. AOJのintroductionで言語に慣れる
