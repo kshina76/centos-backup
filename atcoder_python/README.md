@@ -1,8 +1,6 @@
 # pythonでatcoder
 
 ## to do
-### atcoderのpythonバージョンと使えるライブラリとバージョンで環境構築する
-- 調べながら(公式とかに書いてあるのかな)
 ### pythonのwebアプリケーション開発環境を整える
 - dockerで整える
 ### pythonのファイル分割を学ぶ
@@ -92,8 +90,14 @@
 4. vscodeでテストを自動化する設定
   - https://qiita.com/chokoryu/items/4b31ffb89dbc8cb86971
 
-5. 入出力のテンプレを用意しておく
+5. vscodeでpythonの拡張機能を入れる
+  - pythonとかで検索すればmicrosoftのやつが出てくる
+
+6. 入出力のテンプレを用意しておく
   - https://nagiss.hateblo.jp/entry/2019/03/12/012944
+
+7. Pythonで競プロを行うときのtipsに目を通して使うべき標準ライブラリと使わないほうがいいものを認識する
+  - https://medium.com/finatext/lets-do-competitive-programming-with-python-9c8b834769f6
 
 ## 勉強する手順
 1. AOJのintroductionで言語に慣れる
@@ -108,7 +112,72 @@
   - atcoderで使いそうなimport文をコメントアウトして溜めていく
 3. 「レッドコーダーが教える」に沿って学習していく
   - https://qiita.com/e869120/items/f1c6f98364d1443148b3#1-5-茶色コーダーで要求される-4-つのこと
+- pythonだからといってライブラリばかり使うのではなく、自分で実装してみてから、ライブラリを学ぶようにする
 
 ## 解き方
-1. 実装に入る前に書いて数学的考察を進める
-2. 式を導けたり、使えそうなアルゴリズムが思いついたらライブラリを使って解く
+- 実装に入る前に書いて数学的考察を進める
+- 式を導けたり、使えそうなアルゴリズムが思いついたらライブラリを使って解く
+- まずは全探索で解けるかを考える
+  - https://qiita.com/e869120/items/25cb52ba47be0fd418d6#2-すべての基本全探索
+---
+
+## pythonメモ
+### 内包記法
+- [counter for counter in iterator]と記述する
+
+```python
+# Lに0,1...Nが格納される
+L = [i for i in range(N)]
+
+# int(input())がN回繰り返されて、Lに格納される
+# iはカウンタとして使っているだけで、格納はされない
+L = [int(input()) for i in range(N)]
+
+# 123がinputだったら[1, 2, 3]というリストに変換する
+x = [int(c) for c in str(input())]
+```
+
+### mapの使い方
+
+### アルファベットだけ抽出
+- ^a-zA-Z_ はアルファベット以外を表す
+
+```python
+def re_compile(pattern):
+    repattern = re.compile(pattern)
+    return repattern
+# アルファベット以外を空文字にしてから、小文字に変換
+text = re_compile('[^a-zA-Z_]').sub('', str(input()))
+```
+
+### 文字列の出現回数カウント
+- collectionsのCounterを使うと楽にできる
+
+```python
+# ライブラリを使わない場合
+def str_count(text):
+    dic = {}
+    for i in text:
+        dic[i] = text.count(i)
+    return sorted(dic.items())  # keyでソートして返す. valueでソートしたい場合はlambdaで.
+```
+
+```python
+# ライブラリを使う場合
+import collections
+dic = collections.Counter(text)
+print(sorted(dic.items()))
+```
+
+### 文字列の比較は辞書順で大小が決まる
+
+```python
+>>> 'python' == 'python'
+True
+>>> 'Python' == 'python'
+False
+>>> 'aka' < 'ao'
+True
+>>> 'yellow' < 'blue'
+False 
+```
