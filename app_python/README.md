@@ -103,6 +103,8 @@ if __name__ == "__main__":
 
 
 ## to do
+### まず日課の競プロ
+### flaskでアプリを書いてみる(HTMLは流用するが、templateエンジンが変わっているから注意)
 ### pythonのファイル分割を学ぶ
 ### pythonの各種ライブラリ
 - https://qiita.com/ynakayama/items/2cc0b1d3cf1a2da612e4
