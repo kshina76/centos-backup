@@ -8,6 +8,11 @@
 ### pythonのwebアプリケーション開発環境を整える
 - dockerで整える
 ### pythonのファイル分割を学ぶ
+### pythonの各種ライブラリ
+- https://qiita.com/ynakayama/items/2cc0b1d3cf1a2da612e4
+- https://qiita.com/hoto17296/items/0ca1569d6fa54c7c4732
+- https://www.sukerou.com/2019/04/sqlalchemysqlsql.html
+- https://qiita.com/kotamatsuoka/items/a95faf6655c0e775ee22
 ### pythonでレイヤードアーキテクチャをやってみる(各種ライブラリの使い方は学びながら。techblogでいいかな)
 - https://qiita.com/yu-sa/items/e0033ae312669256cd8a
 - 疑問点
