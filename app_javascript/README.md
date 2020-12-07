@@ -225,3 +225,38 @@ fetch('api.json', {
 - https://qiita.com/kiyodori/items/da434d169755cbb20447
 - https://qiita.com/toshihirock/items/e49b66f8685a8510bd76
 - http://beck23.hatenablog.com/entry/2014/11/08/022842
+
+---
+
+<br></br>
+
+## 4.コンセプトの理解
+### 4-1.Hoisting
+- https://qiita.com/jkr_2255/items/9f9a25987dfaa81472fa
+
+<br></br>
+
+### 4-2.Event Bubbling
+- https://qiita.com/hosomichi/items/49500fea5fdf43f59c58
+
+<br></br>
+
+### 4-3.Scope
+- https://app.codegrid.net/entry/2017-js-scope-1
+
+<br></br>
+
+### 4-4.Prototype
+- https://www.yunabe.jp/docs/javascript_class_in_google.html
+
+<br></br>
+
+### 4-5.Shadow DOM
+- https://app.codegrid.net/entry/shadow-dom-concepts
+
+<br></br>
+
+### 4-6.Strict
+- https://analogic.jp/use-strict/
+
+<br></br>
