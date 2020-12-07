@@ -1,6 +1,6 @@
 # JavaScriptメモ
 
-## JavaScriptを学ぶ順序
+## 1.JavaScriptを学ぶ順序
 1. 生のJavaScriptでDOM操作を学ぶ
   - 文法は開発しながら学んでいけばいい
   - タブUIといった部品を作りながら学ぶ
@@ -25,9 +25,9 @@
 
 <br></br>
 
-## Ajax、XMLHttpRequest、jQuery、FetchAPI、SPAまとめ
+## 2.Ajax、XMLHttpRequest、jQuery、FetchAPI、SPAまとめ
 
-### 従来のアプリケーション(静的コンテンツ)
+### 2-1.従来のアプリケーション(静的コンテンツ)
 - 従来のwebアプリケーションは全て同期的に行っていた
   - go言語だけやpythonだけで作ったアプリケーションはこの従来のアプリケーション
 
@@ -35,15 +35,15 @@
 
 <br></br>
 
-### Ajax
-#### Ajaxとは
+### 2-2.Ajax
+#### 2-2-1.Ajaxとは
 - JavaScriptとXMLを使って非同期にサーバとの間の通信を行うこと
 - Ajaxは一つの機能ではなくて、複数の技術を用いてAjaxという概念を実現しているイメージ
 - ブラウザの挙動に頼らない（リンクを押したらリクエストして描画するとか）
   - クリックとかキー入力の挙動をJSで制御する
 - 必要なデータはJSで取得しに行く
 - 取得したデータをもとに、クライアント側の現在の状態を利用して今表示されている画面を変更する
-#### Ajaxを実現するための技術
+#### 2-2-2.Ajaxを実現するための技術
 - XMLHttpRequest
   - ブラウザ上でサーバーとHTTP通信を行うためのAPI
   - URLを指定してバックエンドのサーバと通信する
@@ -54,7 +54,7 @@
   - ツリー構造とは、データ構造の一つで、一つの要素(ノード)が複数の子要素を持ち、一つの子要素が複数の孫要素を持ち、という形で階層が深くなるほど枝分かれしていく構造のこと
 - XML(JSON)
   - 文書やデータの意味や構造を記述するためのマークアップ言語の一つ
-#### Ajaxの流れのまとめ
+#### 2-2-3.Ajaxの流れのまとめ
 - Ajaxをフルスクラッチで実装するのは大変なので、後述するjQueryといったライブラリが誕生した
 
 ![2020-12-07 23 23のイメージ](https://user-images.githubusercontent.com/53253817/101362264-3b62e280-38e3-11eb-9868-ee345a7f4b96.jpeg)
@@ -64,11 +64,11 @@
 
 <br></br>
 
-### jQuery
+### 2-3.jQuery
 - VueやAngularやReactを使うとDOMの直接操作は推奨されないので、jQueryはAjaxのためだけに使うことが多くなる
-#### jQueryがなぜ誕生したのか 
+#### 2-3-1.jQueryがなぜ誕生したのか 
 - 一番はAjaxのAPIを提供して、Ajaxを簡潔かつわかりやすく書けるようにしたこと
-#### jQueryの功績
+#### 2-3-2.jQueryの功績
 - 各ブラウザが提供しているDOMなどのAPIを一つのメソッドにまとめ、ブラウザ間の差異をなくした
 - Web上でのアニメーションを簡単に記述できるようにした
 - 現在のJavaScriptの非同期処理に欠かせないPromiseと似たDeferredという機能を取り入れた
@@ -82,15 +82,15 @@
 
 <br></br>
 
-### FetchAPI
-#### FetchAPIとは
+### 2-4.FetchAPI
+#### 2-4-1.FetchAPIとは
 - JavaScript標準でjQueryのAjaxAPIのようにわかりやすいコードで直感的に非同期通信を利用できるように策定されたのがFetchAPI
 - 要はライブラリに頼らないで、標準でAjaxをわかりやすく実現しようということ
 #### 参考文献
 - https://launchcart.jp/blog/xmlhttprequestajaxとfetch-apiの使い方を比較してみる/
 <br></br>
 
-### XMLHttpRequestとFetchAPIのコード比較
+### 2-5.XMLHttpRequestとFetchAPIのコード比較
 - 上がXMLHttpRequestで、下がFetchAPI
 - FetchAPIの方がまとまっていてわかりやすいかも
 
@@ -142,10 +142,10 @@ fetch('api.json', {
 
 <br></br>
 
-### 脱jQuery
+### 2-6.脱jQuery
 - AngularJSやVue.jsでは、DOMの直接操作は推奨されないからjQueryはAjaxでしか使わなくなるので、AjaxはAjax専用のライブラリにまかせてしまって、jQuery依存を外したくなる
 - HTTP通信のためだけにjQueryは嫌だ
-#### Ajax専用ライブラリ
+#### 2-6-1.Ajax専用ライブラリ
 - axios
   - 一番簡潔に記述できるライブラリ
 - SuperAgent
@@ -158,7 +158,7 @@ fetch('api.json', {
 - https://qiita.com/hashrock/items/3113690bb3de5bba639b
 <br></br>
 
-### SPA
+### 2-6-2.SPA
 - webページの画面更新を全て非同期行うように作ったものがSPA
 - jQueryだけで構築するのは技術的にはできるけど、大変すぎて現実的ではないからReactなどの仮想DOMという技術が使われる
 - https://qiita.com/takanorip/items/82f0c70ebc81e9246c7a
@@ -171,12 +171,12 @@ fetch('api.json', {
 
 <br></br>
 
-## JavaScriptの同期・非同期まとめ
-### どれが同期処理でどれが非同期処理なのか
+## 3.JavaScriptの同期・非同期まとめ
+### 3-1.どれが同期処理でどれが非同期処理なのか
 - JavaScriptは提供されているオブジェクトによって同期だったり非同期だったりする
   - goとかだとgo routineで明示的に行うけど、JavaScriptだと暗黙的なんだな
 - 基本的に時間がかかる処理や、外部と連携する処理は非同期で実装されている
-#### 非同期処理のカテゴリ
+#### 3-1-1.非同期処理のカテゴリ
 - HTTPリクエスト系 (XHR, fetch, ajax)
 - アニメーション系
 - イベント系 (DOM Events)
@@ -186,15 +186,15 @@ fetch('api.json', {
 
 <br></br>
 
-### JavaScriptには3+1つの非同期処理がある
-#### コールバック
+### 3-2.JavaScriptには3+1つの非同期処理がある
+#### 3-2-1.コールバック
 - 処理が終わったら指定した関数が呼ばれる、原始的な方法
 - 複数のコールバック関数の処理が走ったら、先に終わったほうが実行される
 - コールバックの問題点
   - 複数の非同期処理を順に実行する場合、ネストされまくってコールバック地獄に陥る
   - 複数の非同期処理を並列に実行して完了を待ち合わせるのは難しい
   - コールバック関数は呼び出し元の関数が終了してから実行されるため、コールバック内から例外を投げても呼び出し元の関数では捕捉できない
-#### Promise
+#### 3-2-2.Promise
 - コールバックの3つの問題点を解決するためにできた仕様
 - Promise.all()
   - promiseにまとめた非同期処理全てが完了された段階でコールバックされる仕組み
@@ -213,11 +213,11 @@ fetch('api.json', {
   - 基本は全てPromiseでくるむ。
   - 並列処理はPromise.allでまとめて処理できる。
   - 直列処理はPromiseをさらにGeneratorとcoで包むと、すっきり書ける。
-#### async/await
+#### 3-2-3.async/await
 - Promiseをさらに簡単に書けるようにしたシンタックスシュガー
   - シンタックスシュガーとは、長かったり複雑だったりする構文をわかりやすい構文に置き換えること
 - https://qiita.com/SotaSuzuki/items/f23199e864cba47455ce
-#### deferred(番外編)
+#### 3-2-4.deferred(番外編)
 - jQueryを使ってPromiseのような動作をさせるものがdeferred
 #### 参考文献
 - https://knowledge.sakura.ad.jp/24888/
