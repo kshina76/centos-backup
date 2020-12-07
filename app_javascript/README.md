@@ -166,9 +166,10 @@ fetch('api.json', {
 #### 参考文献
 - https://qiita.com/sho0211/items/28faafcd1840c5948107
 
-<br></br>
 
 ---
+
+<br></br>
 
 ## JavaScriptの同期・非同期まとめ
 ### どれが同期処理でどれが非同期処理なのか
