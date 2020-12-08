@@ -7,6 +7,10 @@
   - https://www.slideshare.net/kazeburo/isucon-yapcasia-tokyo-2015
 - ISUCON予選突破を支えたオペレーション技術
   - https://blog.yuuk.io/entry/web-operations-isucon
+- ベンチマークの取り方
+  - https://tagomoris.hatenablog.com/entry/2018/10/26/150228
+- Webサービスのパフォーマンスに関する考え方まとめ
+  - https://qiita.com/kenjiszk/items/b33d0900e9cbf9fa60c0
 
 ## 手法一時待避所
 ### ディスクI/O
@@ -14,19 +18,203 @@
 2. ディスクI/Oが高かったら「メモリの無駄な使用」や「ミドルウェアがデータをメモリに載せる制限をかけている」や「単にメモリ不足」
 3. 例えば、RDBMSの初期設定でバッファプールが小さい場合は大きくすることで、データを多くキャッシュしてくれるようになったり、クエリを改善したり
 - https://dev.classmethod.jp/articles/dentry-cache/
+### RDB
+- indexを張る
+- queryを置き換える
+- Redisへキャッシュする
+### static file配信
+- nginxなどでwebサーバから配信
+### network I/O
+- request処理のconcurrency向上
+  - golangならgoroutine
+### network帯域
+- Cache-Control Headerで外部でキャッシュ
+  - browserとかで
 
-### AWS Lambdaのパフォーマンスチューニング
+## AWS Lambdaのパフォーマンスチューニング
 - Lambdaはメモリサイズに比例してCPUパワーも割り当てられます。ですので、メモリ消費が少ないからとメモリサイズを下げますと、CPUパワーも下がってしまうところがLambdaのパフォーマンスチューニングの難しいところ
 - https://dev.classmethod.jp/articles/reinvent-2019-svs224/
 - https://dev.classmethod.jp/articles/lambda-performance-tuning/
+
+## 計測ツールまとめ
+### netdata
+- cpu, memory, network I/OなどOSのリソース使用量を計測
+- https://blog.adachin.me/archives/3446
+### kataribe
+- nginxなどのWebサーバのログを整形して表示
+  - ログは所定のフォーマットにしておく
+- URLごとのlatency、throughputを表示
+  - countが全体におけるimpact
+### pt-query-digest
+- MySQLのslow logやtcpdump経由で分析するツール
+### 参考文献
+- https://speakerdeck.com/south37/new-grad-isucon-for-learning?slide=15
+
+## 可視化ツールまとめ
+### td-agent
+### fluentd
+### kibana
+### elasticsearch
+
+---
+
 <br></br>
 
 ## なぜWebアプリケーションのパフォーマンスが重要か
 ### UX: ちょっとでも待たせるとユーザは離れる
 ### KPI: Googleはスピード見てる､1秒遅れると
-### インフラコスト
-- AWS EC2の例
-(クラウド時代ではちょっとした改善がそのままお金になる｡｡｡)
+### インフラコストの提言
+- 必要なサーバ台数の減少
+- 高負荷サーバ現象
+  - メンテナンスの手間が現象
+- AWSのようなクラウド時代ではちょっとした改善がそのままお金になる
+
+---
+
+<br></br>
+
+## サーバの種類と行うチューニング概要
+### 1. Webサーバ
+#### 1-1. 種類
+- Apache httpd, Nginx, h2o ...
+#### 1-2. 用途
+- 静的コンテンツの提供
+  - html, css/js, jpg/png, ...
+- 動的コンテンツのために、リバースプロキシとして使用
+  - セッションコントロール
+  - ロードバランシング
+  - Authentication(認証)
+  - Caching(キャッシュ)
+#### 1-3. チューニング
+- そもそもサーバを変更する
+  - Apache httpd -> Nginx など 
+- パラメータの変更
+  - プロセス・スレッド数設定、最大コネクション数設定
+- レスポンス処理方法の変更
+  - 静的ファイル(js, css, 変化しないhtml)をWebサーバから返す
+
+<br></br>
+
+### 2. Applicationサーバ
+#### 2-1. 用途
+- アプリケーションコードの実行
+  - HTML, HTTP API endpoint
+- Viewの生成
+- SQLの呼び出し
+- 外部APIの呼び出し
+- キャッシュの参照
+#### 2-2. チューニング
+- プロセス数・スレッド数の変更 
+- ソフトウェアの変更 
+  - Unicorn -> Rhebok, Starman -> Starlet, などなど
+
+<br></br>
+
+### 3. Databaseサーバ
+#### 3-1. 種類
+- MySQL, PostgreSQL, Oracle DB, MS SQLServer, MongoDB, Cassandra, Redis
+#### 3-2. 用途
+- データの格納
+- データへのCRUD
+#### 3-3. チューニング
+- クエリ単位のもの
+  - インデックスの追加
+- サーバ単位のもの
+  - バッファ設定変更
+  - コネクション単位の設定変更
+
+<br></br>
+
+### 4. Cacheサーバ
+#### 4-1. 種類
+- Memcached, Redis, Varnish cache, Squid, Apache httpd(mod_cache), Nginx
+#### 4-2. 用途
+- ページ全体のキャッシング(HTML) 
+- ページのパーツのキャッシング(HTML)
+- caching query results(objects)
+- ...
+- cache everything w/ high costs
+
+<br></br>
+
+### 5. OS
+#### 5-1. チューニング
+- SELinuxを切る! (石川さんごめんなさい ※業界の慣習)
+- ほか、だいたい途中で必要になる系
+  - ソケット再利用間隔の設定など sysctl系
+  - プロセスがopenできるディスクリプタ数など limits.conf系
+
+<br></br>
+
+### 6. アプリケーション
+#### 5-1. チューニング1
+- 複数サーバをきちんとうまく使う
+  - CPU、メモリ、Disk I/O、ネットワーク帯域
+- データの正規化/非正規化により計算量を減らす
+- 無駄なデータベース問合せを減らす
+- レスポンスを待たせてもいいリクエストのハンドラに処理をまとめる
+#### 5-2. チューニング2
+- キャッシュ
+- 処理の非同期化
+- 画像・動画・CSS/JSファイルなどデータの最適化
+- レスポンス変更によるHTTPリクエストの削減
+#### 5-3. チューニング3(適切な分散処理構成の設計とデプロイ)
+- ネットワーク帯域を稼ぐ(Webサーバを分散する)
+- 分散できるCPU処理をできるだけ分散する
+- 分散できない処理は適度にまとめる
+- キャッシュしたコンテンツを即座に返す
+- 表裏のネットワークがあるなら活用する
+- 何度も返すコンテンツは確実にキャッシュする
+- Failにならない程度にデータに手を入れる
+- HTTPのプロトコルを知る
+  - keepalive, redirect, cookie, cache-control, ...
+
+<br></br>
+
+### 参考文献
+- https://www.slideshare.net/tagomoris/isucon20151
+- https://www.slideshare.net/tagomoris/isucon20152
+
+---
+
+<br></br>
+
+## サーバのリソースの種類
+### CPU
+- 計算する人。脳みそ。
+- 無駄にループが走っていて計算回数が多かったりするとここがネックになる。
+- 基本的には、CPUが最終的なネックになって来る。
+- ハード的にはコア数がどんどん増えているのでマルチコアを考慮した使い方をしていく事が大事。
+### Memory
+- プログラムをロードしておくところ。机の広さに例えられる。
+- 一つのプロセスを立ち上げるのに大量にメモリを使ったりするとコスト効率が悪くなる。
+- また、出来るだけプロセス間でメモリを共有出来るようにすると多くのプロセスが立ち上げられるようになる。
+- CPUにネックが無い場合、プロセス数の上限は大抵メモリで決まり、どのくらいリクエストがさばけるのかはプロセス数で決まるのでそこの見積もりは重要。
+### Disk IO
+- Diskの読み取り速度。
+- メモリに乗らない情報はDiskに書き出したり読み出したりするがそこの速度差は比較にならないほどDiskに書く方が遅いため、大量のIOが発生する様な処理を行うとそこで処理が詰まったりする。
+### Network
+- NetworkもDisk IOと同じ一面があり、Networkで詰まった結果、全体の処理が詰まったりする。
+- また、無駄に転送量が多い場合にはそこでも余計なコストが発生する。
+
+---
+
+<br></br>
+
+## ボトルネック一覧(一部)
+- HTTPD? connections? cpu? memory? 
+- Application? connections? cpu? memory? 
+- RDBMS? read? write? 
+- Network? data size? latency? 
+- ボトルネックは解決するたびに移っていく
+
+## プログラマが知るべき全レイテンシ一覧
+- レイテンシが短いところをチューニングし続けても効果は低い
+
+![Us34eGovK2mazpAtfrCuzk](https://user-images.githubusercontent.com/53253817/101480066-7ffb8600-3996-11eb-922b-cbf7458a9da0.png)
+
+### 参考文献
+- https://logmi.jp/tech/articles/323295
 
 ---
 
@@ -34,9 +222,12 @@
 
 ## Webアプリケーションのチューニングで行うこと
 ### レスポンスタイムが小さい
+- レスポンスタイムとは
+  - 「1リクエスト -> 1レスポンス」の時間
 - リトルの法則により、安定した系において、レスポンスタイムが小さくなればスループットは向上するため、レスポンスタイムとスループットは相関
 ### スループット (req/s) が大きい
-- 一秒あたりにどれだけのリクエストを捌けるか
+- 1秒に返せるレスポンスの数
+- 短いレスポンスタイム + 高いスループット = 良いパフォーマンス
 ### CPUやメモリなどリソース消費量が小さい
 - リソース消費量の改善は、レスポンスタイムに寄与するというよりは、サーバ管理にまつわる人的または金銭的なコストを下げる
 - そういった無駄を省くことで、アプリケーションの処理効率がよくなり、結果としてレスポンスタイムが良くなることはある
@@ -51,6 +242,11 @@
 ### デプロイの自動化のスクリプトを書いておく
 - CI/CDとかを使うという話ではなくて、チューニングする際に設定変更した後にDBやnginxを全てrestartして、繋ぎ直すから
 - restartはバックエンドから行う
+### チートシートの準備
+- middlewareの設定項目など
+- https://gist.github.com/south37/d4a5a8158f49e067237c17d13ecab12a
+### 使うツールの選定
+- 業務だとAmazon X-Rayを使うことが多いらしい
 
 ---
 
@@ -58,6 +254,7 @@
 
 ## オペレーション
 ### 0. チューニングの大まかな方針
+- **「計測 -> 改善」のサイクルを回し続けるのが重要**
 - とりあえずベンチマークを動かしてから深掘りしていく
 - ベンチマークはnginxとかapacheでリクエストを大量送れるのでそういったものを使う
 ### 0-1. ボトルネック解析
@@ -346,12 +543,21 @@ SELECT table_name, engine, table_rows, avg_row_length, floor((data_length+index_
 ### 4. MySQLスロークエリログの解析
 - 実行時間が閾値以上のクエリのログを吐いてくれるというもの
 - long_query_time = 0 にして、全クエリのログをとる
+  - 回数が多いクエリを見つけることが可能
 - pt-query-digestで集計するのが便利
 - 本番のベンチマークではオフにするのを忘れずに
+- レスポンスタイムが悪いクエリから順番に対策をしていく
+- レスポンスは悪くないけど、回数が多いクエリの対策
+- アプリケーションそもそものデータの参照回数を減らす
+  - キャッシュを活用してMySQLへのクエリ回数を抑える
 
 <br></br>
 
 ### 5. アプリケーションのプロファイリング
+- 実際に遅いリクエストが特定出来た場合に詳細を追う為のツール
+- go言語のpprofというプロファイリングツールが便利
+  - https://medium.com/eureka-engineering/go言語のプロファイリングツール-pprofのweb-uiがめちゃくちゃ便利なので紹介する-6a34a489c9ee
+
 
 <br></br>
 
@@ -537,6 +743,10 @@ typedef int __kernel_mqd_t;
 
 #endif /* _LINUX_POSIX_TYPES_H */
 ```
+
+#### 7-11. Nginxのチューニングをさらに極限まで引き上げる方法
+- https://qiita.com/iwai/items/1e29adbdd269380167d2
+- https://lincolnloop.com/blog/tracking-application-response-time-nginx/
 
 #### 参考文献
 - http://raichel.hatenablog.com/entry/2015/11/23/Nginxのパフォーマンステストの方法とチューニング

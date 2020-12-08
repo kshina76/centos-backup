@@ -21,24 +21,14 @@
   - netdataとか
   - https://blog.adachin.me/archives/3446
 - 色々な監視ツールをdockerにまとめて作っておくといいかも
-- ISUCONチートシート
+- ISUCONチートシートをまとめる
   - https://gist.github.com/south37/d4a5a8158f49e067237c17d13ecab12a
 - 学習ロードマップにあるlinuxのコマンドを学習する(nmapとか色々あった)
-- チューニングのやることの手順をまとめておく
 - 以下の動画を見てまとめる
   - https://www.youtube.com/watch?v=vl1mYTq1ZYI&t=1604s
   - https://www.slideshare.net/kazeburo/isucon-yapcasia-tokyo-2015
-- 以下のリンクをまとめる
-  - https://wiki.infra-workshop.tech/event/ISUCON8/良さげなページのリンク集
 - 各プログラミング言語のプロファイリングツールをまとめる
-- go言語のpprofというプロファイリングツールが便利
-  - https://medium.com/eureka-engineering/go言語のプロファイリングツール-pprofのweb-uiがめちゃくちゃ便利なので紹介する-6a34a489c9ee
 - goで学ぶISUCONの書籍をまとめる
-- https://speakerdeck.com/south37/new-grad-isucon-for-learning?slide=15
-- https://www.slideshare.net/do7be/jikoryu-isucon-best-practice
-- https://tagomoris.hatenablog.com/entry/2018/10/26/150228
-- https://qiita.com/kenjiszk/items/b33d0900e9cbf9fa60c0
-- https://logmi.jp/tech/articles/323295
 - ISUCONで有効だった方法を学ぶ(調べれば出る)
 
 ## 書籍
