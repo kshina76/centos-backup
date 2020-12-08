@@ -97,6 +97,25 @@
         - 冗長化とかキャッシュとか色々な知識
     4. 絵で見てわかるOS/ストレージ/ネットワーク
 
+- コンピュータアーキテクチャ
+    1. CODE: コードから見たコンピュータのからくり
+    2. プログラムはなぜ動くのか　第２版　知っておきたいプログラムの基礎知識
+
+- アルゴリズム
+    - 世界でもっとも強力な9のアルゴリズム
+    - AOJ、atcoder
+
+- 技術書典
+    - https://booth.pm/ja/items/1318735
+    - https://booth.pm/ja/items/1883927
+    - https://booth.pm/ja/items/1835632
+    - https://booth.pm/ja/items/1045782
+    - https://booth.pm/ja/items/1578182
+    - https://booth.pm/ja/items/2412005
+    - https://booth.pm/ja/items/2357642
+    - https://booth.pm/ja/items/812516
+    - https://booth.pm/ja/items/1834443
+
 - AWS
     1. Amazon Web Services 基礎からのネットワーク&サーバー構築
     2. 実践terraform
