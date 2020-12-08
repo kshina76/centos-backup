@@ -86,9 +86,89 @@
 - プロセスごとのCPU利用率やメモリ使用量をみることができるから`pstree`より`ps`
 
 ```bash
-ps auxf
+$ ps auxf
 ```
 
+#### 1-1-4. NICやIPアドレスの確認 (ip)
+- IPアドレスの構成はどのようになっているのか
+- プライマリIPだけでなくセカンダリIPがついているのかなど
+
+```bash
+$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    link/ether 00:16:3e:7d:0d:f9 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.10/22 brd z.z.z.z scope global eth0
+       valid_lft forever preferred_lft forever
+    inet 10.0.0.20/22 scope global secondary eth0
+       valid_lft forever preferred_lft forever
+```
+
+#### 1-1-5. ファイルシステムの確認（df）
+- `-T`をつけるとファイルシステムの種別を確認できる
+- `-h` をつけると、サイズ表記が人間に読みやすいフォーマットになる
+- dfコマンドにより、ディスク容量以外にも、いくつかわかる
+  - MySQLのようなデータをもつストレージサーバは、本体とは別の専用のディスクデバイスをマウントして使っていることがわかる（EC2のEBSボリュームやFusion-IOの ioDriveなど）
+    - ストレージ専用のサーバをマウントすることで、IOを高速化できるから
+  - 上記の出力例の場合、/data/redis に着目します。前述の「プロセスツリーをみる」により、Redisが動いていることもわかるので、RedisのRDBやAOFのファイルが配置されていると想像できる
+
+```
+$ df -Th
+Filesystem                                             Type      Size  Used Avail Use% Mounted on
+rootfs                                                 rootfs     20G  2.4G   17G  13% /
+udev                                                   devtmpfs   10M     0   10M   0% /dev
+tmpfs                                                  tmpfs     3.0G  176K  3.0G   1% /run
+/dev/disk/by-uuid/2dbe52e8-a50b-45d9-a2ee-2c240ab21adb ext4       20G  2.4G   17G  13% /
+tmpfs                                                  tmpfs     5.0M     0  5.0M   0% /run/lock
+tmpfs                                                  tmpfs     6.0G     0  6.0G   0% /run/shm
+/dev/xvdf                                              ext4     100G   31G    69G   4% /data/redis
+```
+
+### 1-2. 負荷状況確認
+- 秒単位での負荷の変化やCPUコアごと、プロセスごとの負荷状況など、可視化ツールで取得していない詳細な情報がほしい時に使う
+- Mackerelである程度あたりをつけて、サーバにログインしてみてコマンドを使って様子をみるというフローが一番多い
+#### 1-2-1. top
+- `top -c` をよく使う。 -c をつけると、プロセスリスト欄に表示されるプロセス名が引数の情報も入る
+- さらに重要なのが、top 画面に遷移してから、 キーの`1`をタイプすることです。`1`をタイプすると、各CPUコアの利用率を個別にみることができる
+
+```bash
+top - 16:00:24 up 22:11,  1 user,  load average: 1.58, 1.43, 1.38
+Tasks: 131 total,   2 running, 129 sleeping,   0 stopped,   0 zombie
+%Cpu0  : 39.7 us,  4.1 sy,  0.0 ni, 48.6 id,  0.3 wa,  0.0 hi,  6.9 si,  0.3 st
+%Cpu1  : 24.4 us,  1.7 sy,  0.0 ni, 73.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu2  : 14.7 us,  1.7 sy,  0.0 ni, 83.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu3  :  0.0 us,  2.0 sy, 98.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu4  :  3.3 us,  0.7 sy,  0.0 ni, 96.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu5  :  2.0 us,  0.3 sy,  0.0 ni, 97.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu6  :  2.3 us,  0.3 sy,  0.0 ni, 97.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu7  :  0.7 us,  0.3 sy,  0.0 ni, 99.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem:   7199160 total,  5764884 used,  1434276 free,   172496 buffers
+KiB Swap:        0 total,        0 used,        0 free,  5161520 cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S  %CPU %MEM    TIME+  COMMAND
+16659 root      39  19  8612  632  440 R 100.3  0.0   0:12.94 /bin/gzip
+ 2343 nginx     20   0 60976  14m 1952 S  23.2  0.2 112:48.51 nginx: worker process
+ 2328 nginx     20   0 61940  15m 1952 S  19.9  0.2 111:49.12 nginx: worker process
+ 2322 nginx     20   0 61888  15m 1952 S  19.3  0.2 113:44.95 nginx: worker process
+ 2324 nginx     20   0 61384  14m 1952 S  16.6  0.2 113:30.52 nginx: worker process
+ 2340 nginx     20   0 61528  14m 1952 S  11.0  0.2 114:02.36 nginx: worker process
+ ...
+```
+
+- この情報からわかること
+  - 下のプロセスリストをみると、`/bin/gzip`がCPU 100%使いきっている。これはlogrotateがアクセスログを圧縮している様子を表している。
+  - 上段のCPU利用率欄をみると、Cpu3 が 0.0 idとなっている。`id`は`idle`の略であり、`id`が`0%`ということはCpu3を使いきっているということ。
+  - これらの状況から gzip プロセスが Cpu3 を使いきっているということが推測できます。
+
+- CPU利用率欄には他にも、us, sy、ni、wa、hi、si、stがある。これらは、CPU利用率の内訳を示しています。よくみるのは、us、sy、waの3つ
+  - us(user): OSのユーザランドにおいて消費されたCPU利用の割合。userが高いということは、アプリケーション（上記の場合nginx）の通常の処理にCPU処理時間を要していることです。
+  - sy(system): OSのカーネルランドにおいて消費されたCPU利用の割合。systemが高い場合は、OSのリソース（ファイルディスクリプタやポートなど）を使いきっている可能性があります。カーネルのパラメータチューニングにより、負荷を下げることができるかもしれません。fork 回数が多いなど、負荷の高いシステムコールをアプリケーションが高頻度で発行している可能性があります。straceでより詳細に調査できます。
+  - wa(iowait): ディスクI/Oに消費されたCPU利用の割合。iowaitが高い場合は、次の iostat でディスクI/O状況をみましょう。
+
+- **基本は各CPUコアの`idle`をざっと眺めて、`idle`が`0`に近いコアがないかを確認し、次に`iowait`をみてディスクI/Oが支配的でないかを確認し、`user`や`system`を見る**
 
 <br></br>
 
