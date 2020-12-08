@@ -21,12 +21,8 @@
   - netdataとか
   - https://blog.adachin.me/archives/3446
 - 色々な監視ツールをdockerにまとめて作っておくといいかも
-- ISUCONの勝ち方
-  - https://wiki.infra-workshop.tech/event/ISUCON8/ISUCON/ISUCONの勝ち方動画メモ
-- 絶対読む
-  - https://blog.yuuk.io/entry/web-operations-isucon
-  - https://blog.yuuk.io/entry/linux-server-operations
-  - ISUCONチートシート
+- ISUCONチートシート
+  - https://gist.github.com/south37/d4a5a8158f49e067237c17d13ecab12a
 - 学習ロードマップにあるlinuxのコマンドを学習する(nmapとか色々あった)
 - チューニングのやることの手順をまとめておく
 - 以下の動画を見てまとめる

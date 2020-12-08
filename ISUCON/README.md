@@ -1,5 +1,13 @@
 # ISUCONやパフォーマンスチューニングまとめ
 
+## 全体の参考文献一覧
+- ISUCONの勝ち方
+  - https://www.youtube.com/watch?v=vl1mYTq1ZYI&t=1604s
+  - https://wiki.infra-workshop.tech/event/ISUCON8/ISUCON/ISUCONの勝ち方動画メモ
+  - https://www.slideshare.net/kazeburo/isucon-yapcasia-tokyo-2015
+- ISUCON予選突破を支えたオペレーション技術
+  - https://blog.yuuk.io/entry/web-operations-isucon
+
 ## 手法一時待避所
 ### ディスクI/O
 1. CPU、メモリ、ディスクI/O、ネットワーク帯域などのハードウェアリソースを見る
@@ -32,6 +40,8 @@
 ### CPUやメモリなどリソース消費量が小さい
 - リソース消費量の改善は、レスポンスタイムに寄与するというよりは、サーバ管理にまつわる人的または金銭的なコストを下げる
 - そういった無駄を省くことで、アプリケーションの処理効率がよくなり、結果としてレスポンスタイムが良くなることはある
+### 頻度とレスポンス時間
+- ｢重たいところが優先｣とは限らない
 
 ---
 
@@ -48,23 +58,40 @@
 
 ## オペレーション
 ### 0. チューニングの大まかな方針
+- とりあえずベンチマークを動かしてから深掘りしていく
 - ベンチマークはnginxとかapacheでリクエストを大量送れるのでそういったものを使う
 ### 0-1. ボトルネック解析
+#### 0-1-1. リソース利用率の把握とログの確認
 - nginxでアクセスログを解析
   - URLごとに解析するために行う
-- MySQLでスロークエリログ
-  - SQLの発行状況を見てN+1問題などが起きていないか解析する
-  - pt-query-digestを使う
+- サーバの負荷確認なども
+#### 0-1-2. MySQLでスロークエリログ
+- SQLの発行状況を見てN+1問題などが起きていないか解析する
+- pt-query-digestを使う
+#### 0-1-3. アプリケーションのプロファイリング
 - プロファイラでコードレベルの実行時間解析
   - コードレベルでボトルネックになっているところはないかを解析する
   - golangならpprofが便利
-### 0-2. Opsチューニング
+### 0-2. サーバ構成の確認
+### 0-3. Opsチューニング
 - OS
 - MySQL
 - nginx
 - memcached
 - redis
 - アプリケーションのwebまわり
+### 0-4. Webサーバの選択
+- Apache v. Nginx
+- Nginx v. h2o
+  - Nginx: プロセス､設定は色々できる
+  - h2o: スレッド､コンテキストスイッチが有利
+### 0-5. Webアプリケーションのチューニング
+- わかりやすい重い処理をチューニングする
+  - 外部プロセス起動
+  - HTMLテンプレート
+  - テキスト､画像の変換
+  - RDBMS/Cacheとの接続
+  - N+1問題
 
 #### 参考文献
 - https://blog.yuuk.io/entry/web-operations-isucon
@@ -73,6 +100,23 @@
 
 ### 1. リソース利用率の把握とログの確認
 - リソース消費量を把握しておくことはボトルネック特定のヒントになる
+- ここを参考にしてまとめた
+  - https://blog.yuuk.io/entry/linux-server-operations
+- iperfを使ったベンチマーク
+  - https://blog.yuuk.io/entry/linux-networkstack-tuning-rfs
+- ここで紹介していない色々なコマンドが載っている
+  - https://netflixtechblog.com/linux-performance-analysis-in-60-000-milliseconds-accc10403c55
+
+- あとでまとめるコマンド
+  - 異常を発見したあとのオペレーション
+    - strace...システムコールレベルでアプリケーション動作確認
+    - gdb...デバッガ
+    - tcpdump...通信内容のキャプチャ
+  - サーバ負荷の確認(どれかに使い慣れる)
+    - top
+    - iftop: Network
+    - iotop: Disk I/O
+    - dstat
 
 ### 1-1. ログインしたら確認すること
 #### 1-1-1. 他にログインしている人がいるか確認（w）
@@ -245,7 +289,40 @@ tcp        0      0 10.0.0.10:3306         10.0.0.15:34839        ESTABLISHED 38
 - 一番、よくみるのは、このホストはどのホストから接続されているか
   - なぜか本番サーバなのに、ステージングサーバから接続されているというようなことがわかったりすることもある
 
-- 他にも、単にやたらと接続が多いなとかざっくりした見方もする。そのときに、TCPのステートでESTABLISHED以外がやたらと多くないかなどをみたりします。
+- 他にも、単にやたらと接続が多いなとかざっくりした見方もする
+  - そのときに、TCPのステートでESTABLISHED以外がやたらと多くないかなどをみたりする
+
+### 1-3. ログ調査
+- いうまでもなくログ調査は重要
+- ログをみるためには、OSや、各種ミドルウェア、アプリケーションが吐くログがどこに吐かれているかを知る必要がある
+- **基本的には`/var/log`以下を眺めてそれっぽいものをみつけて`tail`**
+- **自分が担当して開発しているシステムのログの位置は確認しておいたほうがよい**
+
+#### 1-3-1. /var/log/messages or /var/log/syslog
+- まずはここを見る。カーネルやOSの標準的なプロセスのログをみることができる。
+- 他にもcron実行するコマンドの標準出力や標準エラー出力を明示的に`logger`にパイプしている場合などはここにログが流れる
+
+#### 1-3-2. /var/log/secure
+- ssh 接続の情報がみれる
+- 他の人がssh接続しているのに接続できない場合、ここに吐かれているログをみると原因がわかることがある
+
+#### 1-3-3. /var/log/cron
+- cronが実行されたかどうかがわかる
+- ただし、cronが実行したコマンドの標準出力または標準エラー出力が`/var/log/cron`に出力されるわけではなく、あくまでcronのスケジューラが動いたかどうかがわかるだけ
+- cronが実行したコマンドの標準出力または標準エラー出力はどこに出力されるか決まっているわけではなく、crontab内でloggerコマンドにパイプしたり、任意のログファイルにリダイレクトしたりすることになる
+
+#### 1-3-4. /var/log/nginx, /var/log/httpd, /var/log/mysql
+- ミドルウェアのログは`/var/log/{ミドルウェア名}`以下にあることが多い
+- 特によくみるのはリバースプロキシのアクセスログやDBのスロークエリログ
+- 自分が開発しているシステムのログの位置は確認しておいたほうがよい
+
+#### 1-3-5. /etc
+- `/var/log`以下にログを吐くというのは強制力があるものではないので、ログがどこにあるのか全くわからんということがある
+- ログファイルのパスは設定ファイルに書かれていることもある。設定ファイルは`/etc`以下にあることが多いので、`/etc/{ミドルウェア名}`あたりをみて、設定ファイルの中身を`cat`してログファイルのファイルパスがないかみてみる
+
+#### 1-3-6. lsof
+- `/etc`をみてもわからんというときは最終手段で、`lsof`を使う。`ps`や`top`でログをみたいプロセスのプロセスIDを調べて、`lsof -p <pid>`を打つと、そのプロセスが開いたファイルディスクリプタ情報がみえるので、ログを書き込むためにファイルを開いていれば、出力からログのファイルパスがわかる
+- 他には例えば`daemontools`を使っていると、`/service`、もしくは`/etc/service`以下に`multilog`が吐かれているなど、使用しているスーパーバイザによっては、特殊なディレクトリを使っている可能性があります。
 
 <br></br>
 
@@ -274,17 +351,32 @@ SELECT table_name, engine, table_rows, avg_row_length, floor((data_length+index_
 
 <br></br>
 
-### 5. チューニング
-#### 5-1. 静的ファイルのReverse Proxyで配信
+### 5. アプリケーションのプロファイリング
+
+<br></br>
+
+### 6. チューニング（大雑把に）
+- Webサーバの選択
+  - Apache v. Nginx
+  - Nginx v. h2o
+    - Nginx: プロセス､設定は色々できる
+    - h2o: スレッド､コンテキストスイッチが有利
+- わかりやすい重い処理をチューニングする
+  - 外部プロセス起動
+  - HTMLテンプレート
+  - テキスト､画像の変換
+  - RDBMS/Cacheとの接続
+  - N+1問題
+#### 6-1. 静的ファイルのReverse Proxyで配信
 - Reverse Proxyは画像,CSS,JSを返す役割がある
-#### 5-2. nginx化
+#### 6-2. nginx化
 - Webサーバ
 - 高速に動作
 - メモリ使用量が少ない
 
 ![2020-12-08 13 12のイメージ](https://user-images.githubusercontent.com/53253817/101439040-042e1900-3957-11eb-952c-65287a50cd51.jpeg)
 
-#### 5-3. UNIXドメインソケット化
+#### 6-3. UNIXドメインソケット化
 - 一つのサーバにミドルウェアが同居している場合に使える
   - 実務では分けると思うから使えないかな？？
 - 「proxy <-> app <-> db」をTCPでやるのは無駄が多い
@@ -293,16 +385,16 @@ SELECT table_name, engine, table_rows, avg_row_length, floor((data_length+index_
 
 ![2020-12-08 13 20のイメージ](https://user-images.githubusercontent.com/53253817/101439659-50c62400-3958-11eb-9767-01f6b8ea7f21.jpeg)
 
-#### 5-4. 外部プロセスの高速化
+#### 6-4. 外部プロセスの高速化
 - 外部プロセスはメインのプロセス以外のプロセスのこと(多分)
 - どのような外部プロセスを起動しているかを調べて、その外部プロセスを高速化するモジュールはないか調べる
   - 例えばmarkdownのparserを外部プロセスとして呼んでいたら、そのプロセスを高速化できるモジュールを調べて置き換えてみる
 
-#### 5-5. N+1クエリ問題の解消
+#### 6-5. N+1クエリ問題の解消
 - SQLのログや実際のコードを見て無駄にfor文でSQLが発行されていないかを調べる
 - https://qiita.com/massaaaaan/items/4eb770f20e636f7a1361
 
-#### 5-6. index
+#### 6-6. index
 - 値ごとに分岐していくようなB-Treeを構築して走査を高速化する手法(多分)
 - indexを張るというのは、このことだと思う
 
@@ -315,3 +407,140 @@ SELECT table_name, engine, table_rows, avg_row_length, floor((data_length+index_
 
 #### 参考文献
 - https://www.slideshare.net/kazeburo/isucon-summerclass2014action2final
+
+<br></br>
+
+### 7. 詳細なチューニング（Nginxのパフォーマンステストの方法とチューニング）
+#### 7-1. テストツールの種類と特徴
+
+| テストツール | 説明                                                                    | 
+| ------------ | ----------------------------------------------------------------------- | 
+| httperf      | HPが開発した有名なオープンソース(Linux専用)                             | 
+| Autobench    | httperfのラッパー。テストのメカニズムや詳細レポートの作りを改良している | 
+| OpenWebLoad  | windowsもサポートしている小規模なオープンソース                         | 
+
+#### 7-2. 利用するテストツール
+- Autobenchを利用する
+  - Autobenchはグラフで結果を確認することができるので見やすい
+  - サーバが飽和状態になるまでリクエストを送り続けてくれる
+  - テスト結果を.tsvファイルにエクスポートできる
+
+#### 7-3. Autobenchを導入する
+- Autobenchはhttperfのラップしてる為httperfを導入する
+
+```bash
+# httperfの導入
+$ sudo wget http://httperf.googlecode.com/files/httperf-0.9.0.tar.gz
+$ tar zxf httperf-0.9.0.tar.gz
+$ cd httperf-0.9.0
+$ ./configure
+$ make
+$ sudo make install
+```
+
+```bash
+# Autobenchの導入
+$ wget http://www.xenoclast.org/autobench/downloads/autobench-2.1.2.tar.gz
+$ tar zxf autobench-2.1.2.tar.gz
+$ cd autobench-2.1.2
+$ make
+$ sudo make install
+```
+
+#### 7-4. Autobenchの使い方
+- autobenchのあとにスイッチを記述していく
+- スイッチの値を変えながらサーバに負荷をかけてパフォーマンスを計測し改善する
+- 主なスイッチは以下
+
+| スイッチ    | 意味                                           | 
+| ----------- | ---------------------------------------------- | 
+| --host1     | テストしたいwebサイトのホスト名                | 
+| --uri       | ダウンロードされるファイルパス                 | 
+| --quiet     | 画面にhttperfの情報を出さない                  | 
+| --low_rate  | テストの最初の段階での1秒あたりの接続数        | 
+| --high_rate | テストの終わりの段階での1秒あたりの総接続数    | 
+| --rate_step | 毎回のテスト後に増やす接続数                   | 
+| --num_call  | 1つの接続あたりいくつのリクエストを送るか      | 
+| --num_conn  | 接続総数                                       | 
+| --timeout   | リクエストが失われたとされる秒数               | 
+| --file      | 指定したファイルに結果をエクスポートする(.tsv) | 
+
+#### 7-5. デフォルトのパフォーマンスを計測してみる
+- 以下サンプルのスイッチを付けて計測を開始する
+
+```bash
+$ autobench --single_host --host1 192.168.33.11 --uri1 /index.html --quiet --low_rate 20 --high_rate 200 --rate_step 20 --num_call 10 --num_conn 5000 --timeout 5 --file ~/results.tsv
+```
+
+- 待つこと数分`results.tsv`に計測結果が記録されていく
+
+#### 7-6. results.tsvの見方
+
+![2020-12-08 19 27のイメージ](https://user-images.githubusercontent.com/53253817/101472269-bd0e4b00-398b-11eb-8a92-f953ae87995a.jpeg)
+
+#### 7-7. 実際に結果を見てみる
+
+![2020-12-08 19 28のイメージ](https://user-images.githubusercontent.com/53253817/101472270-bda6e180-398b-11eb-90fd-5ce4b0c644d2.jpeg)
+
+- どんなに性能上げてもエラーがあれば意味なさそうなので気をつけたい
+- 以上がデフォルトのNginxのパフォーマンステストの方法
+
+#### 7-8. Autobenchの何がいいか
+- httperfより見やすい
+- tsvで結果が作られるのでグラフ化することもできるので良い
+- httperfをラップしているので信頼度が高い
+
+#### 7-9. Nginxをチューニングする際に覚えておくこと
+- 以下を変更しながらチューニングするといいらしい
+
+![2020-12-08 19 29のイメージ](https://user-images.githubusercontent.com/53253817/101472272-bed80e80-398b-11eb-9554-d76dc6a682a3.jpeg)
+
+#### 7-10. メモ
+
+```
+cat /usr/include/linux/posix_types.h
+#ifndef _LINUX_POSIX_TYPES_H
+#define _LINUX_POSIX_TYPES_H
+
+#include <linux/stddef.h>
+
+/*
+ * This allows for 1024 file descriptors: if NR_OPEN is ever grown
+ * beyond that you'll have to change this too. But 1024 fd's seem to be
+ * enough even for such "real" unices like OSF/1, so hopefully this is
+ * one limit that doesn't have to be changed [again].
+ *
+ * Note that POSIX wants the FD_CLEAR(fd,fdsetp) defines to be in
+ * <sys/time.h> (and thus <linux/time.h>) - but this is a more logical
+ * place for them. Solved by having dummy defines in <sys/time.h>.
+ */
+
+/*
+ * This macro may have been defined in <gnu/types.h>. But we always
+ * use the one here.
+ */
+#undef __FD_SETSIZE
+#define __FD_SETSIZE    1024
+
+typedef struct {
+    unsigned long fds_bits[__FD_SETSIZE / (8 * sizeof(long))];
+} __kernel_fd_set;
+
+/* Type of a signal handler.  */
+typedef void (*__kernel_sighandler_t)(int);
+
+/* Type of a SYSV IPC key.  */
+typedef int __kernel_key_t;
+typedef int __kernel_mqd_t;
+
+#include <asm/posix_types.h>
+
+#endif /* _LINUX_POSIX_TYPES_H */
+```
+
+#### 参考文献
+- http://raichel.hatenablog.com/entry/2015/11/23/Nginxのパフォーマンステストの方法とチューニング
+
+<br></br>
+
+### 8. 
