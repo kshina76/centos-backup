@@ -59,3 +59,48 @@
 
 # cssの記法
 - cssの記法はタグ名やidやclassを指定して、そのブロックに余白や色などを指定するだけ。簡単。
+
+---
+
+<br></br>
+
+## まとめ
+### 聖杯レイアウト
+- これは絶対見た方がいい
+- https://www.youtube.com/watch?v=XrFD_0Pr6Nc
+### rem、em、%、pxの使い分け
+#### 単位の説明
+- emはフォントサイズを基準にする相対値を指定します。
+- remはルートのフォントサイズを基準にする相対値を指定する
+- %は、ボックスサイズを基準に相対指定したいところに。
+- pxは何にも影響されずにガッチリとサイズを決めたい所に使います。
+- https://qiita.com/masarufuruya/items/bb40d7e39f56e6c25f0d
+#### 意見1
+- font size : remで指定
+- 文字の周りのmargin,padding : remで指定
+- 画像や領域の幅など : %で指定
+- https://teratail.com/questions/158874
+#### 意見2
+- 文字まわりはremかemを使うといいという意見
+- 単位とかについてもわかりやすい記事だった
+- https://haniwaman.com/percent-em/
+#### 意見3
+- ボックスの padding や margin : em/rem
+- ボックスのサイズ指定（特に width） : %で指定
+- borderの幅、サイトのメインボックスの幅を固定することもある : pxで指定
+    - メディアクエリで切り替えをする
+    - 親のボックスがパーセントで作られていたら、それに従って子のボックスも変更されるからpxでいいとかかな？
+- http://honttoni.blog74.fc2.com/blog-entry-221.html?sp
+#### 意見4
+- font sizeはremだけにするとremで完結できるからremでいい
+- https://www.web-ma.co.jp/column/css/1445.html
+#### 意見5
+- メディアクエリ → em
+- font-size → em / rem
+- borderなど常に見た目が変わらない → px
+- それ以外 → em / rem
+- https://note.com/takamoso/n/nde1275183086#41ojS
+#### 闇雲なremはよくない
+- font-sizeに関してはpxで指定していいのではないかという意見
+- remを使うのにhtmlのfont-sizeを0.625で固定するのはダメ。デフォルトの値を使うこと
+- https://to.camp/lesson?v=syr7IVIVoL7ZIoPVuHps
