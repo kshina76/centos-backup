@@ -424,3 +424,19 @@
 - 「オブジェクト指向でなぜ作るのか」にクラスの抽出のコツの話があったかもしれない
 
 ---
+
+## ゲームなどのbanの種類
+- ゲームなどのbanの種類をまとめる
+  - IP ban
+    - グローバルIPアドレスを元にban
+  - アカウント ban
+    - アカウントに紐づいている住所など情報からban
+  - HW ban
+    - マザーボード、SSD、Memory、CPU、GraphicCard、NICなどのUUID(ユニークな個体識別番号)を元にbanする
+    - 一番厳しいban
+  - 参考文献
+    - http://blog.livedoor.jp/unvirus/archives/1737228.html
+    - https://linustechtips.com/topic/327713-hardware-banned/
+    - https://ameblo.jp/ws003sh070/entry-12462117038.html
+    - https://okwave.jp/qa/q8986617.html
+    - http://extstrg.asabiya.net/pukiwiki/index.php?BIOS%A4%CEGUID%28UUID%29%A4%F2%CA%D1%B9%B9%20%28AMIDMI.EXE%29
