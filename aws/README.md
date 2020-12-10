@@ -26,6 +26,21 @@
 
 # 疑問解消
 
+## OSI参照モデルを実際のAWSのサービスに当てはめると何になるのか？
+- トラブルシューティングするときなどに役に立つかも
+- AWSサービスのトラブルシューティングの手順(OSI参照モデルの3層からトラブルシューティング)
+  1. 簡単にpingなどでそれぞれの層で原因を探る
+  2. 1で解決しなかった場合は、AWSのCloudWatchLogsなどに記述されているログを解析する
+  3. 2でも解決しなかった場合は、Linuxサーバに入って原因を調査する
+    - Linuxのlogのディレクトリ内に記述されている内容
+    - nginxなどのミドルウェアのログの確認
+    - リソースが枯渇していないかなど
+    - 詳しくはISUCONの方にまとめてある
+- https://qiita.com/manamin0521/items/1df1ec65637ad1620329
+
+## OSI参照モデルの実際の機能に当てはめる
+- http://mya3306.blogspot.com/2016/04/osi.html
+
 ## CloudFrontで圧縮できるものできないもの
 - https://dev.classmethod.jp/articles/cloudfront-hls-compress-objects-automatically/
 
