@@ -313,4 +313,4 @@ P102-113の画像をまとめる
 - https://www.cisco.com/c/dam/global/ja_jp/training-events/es/cy11/pdf/cisco3-20110610interop.pdf
 
 ### ネットワーク層、トランスポート層のトラブルシューティング(ネットワークのトラブルシューティング)
-https://made.livesense.co.jp/entry/2016/05/10/083000
+- https://made.livesense.co.jp/entry/2016/05/10/083000

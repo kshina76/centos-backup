@@ -5,14 +5,21 @@
 ## 直近todo
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - 本論(1/29~2/6)
-- 11日の質問内容とパワポを考える
 - real world http(12/18までに)
 - Web API Good Parts(12/19,20で)
 - 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」と「chromeのdevtool」を使ってwebapi開発(12/21から始めたい)
+- real world httpのgolang実装とかcurlをやってみる
+- LINE式コードの可読性をまとめる
+  - https://engineering.linecorp.com/ja/blog/tag/codereadability/
 - Lambdaの書籍とデザインパターンをまとめる
 - READMEの統合
   - 社会人としてやっていく際のノウハウなどもまとめたい
-  - 新しい技術を学ぶ際の情報収集のやり方など
+  - 新しい技術を学ぶ際の情報収集のやり方など(下の方にまとめているからあとでどっかに移行する)
+    - 日課でまとめる練習をするために、Qiitaにアップするといいかも(aws developers blogの最新記事とか)
+      - 他のエンジニアブログを色々見て、紹介する際のテンプレートを作成しておくといいかも(READMEにmarkdownでまとめておいて、すぐに引き出せるように)
+      - 自分の思考順にまとめるといい文章になるかも
+      - どのような題材に取り組んだか->パフォーマンス計測->どこに問題があったか->どのような方針で行くことに決めたか->方法の詳細->結果
+      - https://note.com/licodeenar/n/n0e87fb648342
 - モチベーションにプラスになる動画
   - https://www.youtube.com/watch?v=RO3gGJokzdg
 - vscodeショートカット
@@ -85,6 +92,9 @@
     - 誰に聞いても同じ答えが返ってくる質問はするべきではない
     - 相手を活用するような質問をする
   5. ググればわかる質問
+
+## 新しい技術を学んでいく方法
+- https://aws.amazon.com/jp/blogs/developer/
 
 ## 研修課題
 - いろいろな企業のテックブログで紹介しているだろうから調べる
