@@ -3,15 +3,23 @@
 ## 残り110日(12/11更新)
 
 ## 直近todo
+- 題目・概要の確認(sgsotは1/8まで、教員は1/9)
+- 本論(1/29~2/6)
 - 11日の質問内容とパワポを考える
 - real world http(12/18までに)
 - Web API Good Parts(12/19,20で)
-- 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」を使ってwebapi開発(12/21から始めたい)
+- 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」と「chromeのdevtool」を使ってwebapi開発(12/21から始めたい)
 - Lambdaの書籍とデザインパターンをまとめる
 - READMEの統合
   - 社会人としてやっていく際のノウハウなどもまとめたい
   - 新しい技術を学ぶ際の情報収集のやり方など
-
+- モチベーションにプラスになる動画
+  - https://www.youtube.com/watch?v=RO3gGJokzdg
+- vscodeショートカット
+  - 移動系
+  - 実行
+- tmux
+  - https://qiita.com/nl0_blu/items/9d207a70ccc8467f7bab
 
 ## 入社前todo
 - AWSを使いながらWebアプリケーションのAPI開発

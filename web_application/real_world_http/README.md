@@ -460,20 +460,40 @@ $ curl --http1.0 -F title="hello" -F author="shina" -F attachment-file=@test.txt
     - 選択できるプロトコルはIANAで管理されている(ex. http/1.1,spty/1,turn,h2,webrtc,ftp,...)
     - RFC上は識別子をUTF-8でエンコードするとされており、日本語や絵文字が入っても問題ない
 - TLSが守るのは通信経路であってそれ以外の情報の秘匿は行わない
-- PUTメソッドとDELETEメソッドの標準化
-  - HTMLのウェブフォームから送信することはできず、XMLHttpRequestを使う必要がある
-- OPTIONS、TRACE、CONNECTメソッドの追加
-  - OPTIONS:サーバが受け取り可能なメソッド一覧を返す(nginxを含む多くのWebサーバでデフォルトOFF)
-  - TRACE(TRACK):Content-Typeにmessage/httpを設定し200 OKで返す(XST脆弱性があり使われていない)
-  - CONNECT:HTTPのプロトコル上に、他のプロトコルのパケットを流せるようにする
-- プロトコルのアップグレード
-  - HTTP以外のプロトコルへのアップグレードができるようになった(ex. HTTP->TLS,HTTP->WebSocket,HTTP->HTTP/2)(RFC2817)
-  - ただし、TLSへはセキュリティが守られない問題、HTTP/2ではこの機能が削除されており、現在はほぼWebSocket用
-- バーチャルホストのサポート
-  - HTTP/1.0では1台のWebサーバでひとつのドメインのみを扱う前提だったが、HTTP/1.1では複数のサービスを扱えるようになった
-  - Hostヘッダに、リクエストを贈りたいサーバ名を記述することが義務付けられた
-- チャンク
-  - データ全体を一括で送信するのではなく小分けにして送信する方式 Trunsfer-Encoding: chunked
+#### 4-6-3. PUTメソッドとDELETEメソッドの標準化
+- HTMLのウェブフォームから送信することはできず、XMLHttpRequestを使う必要がある
+#### 4-6-4. OPTIONS、TRACE、CONNECTメソッドの追加
+- OPTIONS:サーバが受け取ることができるメソッドの一覧を返す(nginxを含む多くのWebサーバでデフォルトOFF)
+- TRACE(TRACK):Content-Typeにmessage/httpを設定し200 OKで返す(XST脆弱性があり使われていない)
+  - リクエストをそのままレスポンスとして返すオウム返しのメソッド
+- CONNECT:HTTPのプロトコル上に、他のプロトコルのパケットを流せるようにする
+  - プロキシを挟んでWebサーバのHTTPSと通信する際に、443番ポートにつなぎたいのに、プロキシは80番ポートでリッスンしている場合に80番ポートに異なるプロトコルであるHTTPS(443)をの通信を流さないといけない。そのような場合に、CONNECTメソッドを使うとプロキシは馬鹿正直にWebサーバに通信を流すことができる。
+  - 問題点としては、馬鹿正直に通信を流してしまうため、25番ポートに流してという命令でも送信してしまうことが問題
+    - プロキシでフィルタリングして443ポートの時だけ流すとかの対処が必要
+  - http://sweeksky.blog.jp/archives/1074089046.html
+
+#### 4-6-5. プロトコルのアップグレード
+- HTTP以外のプロトコルへのアップグレードができるようになった(ex. HTTP->TLS,HTTP->WebSocket,HTTP->HTTP/2)(RFC2817)
+- ただし、TLSへはセキュリティが守られない問題、HTTP/2ではこの機能が削除されており、現在はほぼWebSocket用
+  - WebSocketは双方向通信を可能にしたもの。HTTPはクライアントからしかリクエストは送れなくて、サーバからは送れない。
+  - https://qiita.com/chihiro/items/9d280704c6eff8603389
+- HTTPのサービスをTLSに301リダイレクトすればHTTPSに移行することができる
+#### 4-6-6. バーチャルホストのサポート
+- バーチャルホストとは一つのWebサーバで複数のサービスを提供する方法
+  - AWSをとApacheを使った方法も紹介されている
+  - https://dev.classmethod.jp/articles/build-virtual-host-on-ec2-using-alb-and-acm-and-apache/
+- HTTP/1.0では1台のWebサーバでひとつのドメインのみを扱う前提だったが、HTTP/1.1では複数のサービスを扱えるようになった
+- Hostヘッダに、リクエストを贈りたいサーバ名を記述することが義務付けられた
+#### 4-6-7. チャンク
+- データ全体(ボディの部分)を一括で送信するのではなく小分けにして送信する方式 Trunsfer-Encoding: chunked
+  - 小分けにして送信することをストリームという
+  - ヘッダとボディを分割して、ボディをさらに小分けにして送信する
+- HTTP/2.0では他の方法で実現しているので、runsfer-Encoding: chunkedはなくなった
+  - HEADERフレームとDATAフレームに分けて送信するという方法を取っている
+- チャンクの機能を使って高速に通信するようなことを行っている
+  - https://www.slideshare.net/shibukawa/chunked-encoding
+#### 4-6-8. URIスキーム
+- data:application/json,{"message","Hello"} をブラウザのURL欄に入力すると{"message","Hello"}が表示される
 
 ## 5章 HTTP/1.1のセマンティクス：広がるHTTPの用途
 ファイルをダウンロードした後でローカルに保存

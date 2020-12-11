@@ -751,6 +751,36 @@ typedef int __kernel_mqd_t;
 #### 参考文献
 - http://raichel.hatenablog.com/entry/2015/11/23/Nginxのパフォーマンステストの方法とチューニング
 
+---
+
 <br></br>
 
-### 8. 
+## トラブルシューティング
+### トラブルシューティング手法6パターン
+#### 1.トップダウン方式...OSI参照モデルの上位レイヤから調査
+#### 2. ボトムアップ方式...OSI参照モデルの下位レイヤから調査
+#### 3. 分割統治方式...OSI参照モデルの中位レイヤから調査
+- ネットワーク層から徐々に上の層(トランスポート層、セッション層...)を調査していく
+- 例えばpingやtracerouteコマンドを用いた場合
+  - 問題がない => トランスポート層を調べていく
+  - 問題がある => ネットワーク層、データリンク層、物理層のいずれかで起きている障害
+- 参考文献
+  - http://eno0514.hatenadiary.jp/entry/20150507/1430934856
+#### 4. トラフィックパス追跡方式...どこからどこまでつながっているかを調査
+- 問題の切り分けの流れ
+
+![nwts12m](https://user-images.githubusercontent.com/53253817/101201367-fe141000-36aa-11eb-8b6c-87d4fc5e38df.png)
+
+- 参考文献
+  - https://www.itbook.info/network/trableshooting03.html
+#### 5. 設定比較方式...他の正常な機器と設定を比較、過去の正常な状態での設定と比較
+#### 6. コンポーネント交換方式...ケーブルなどを交換してみる
+#### 参考文献
+- https://www.cisco.com/c/dam/global/ja_jp/training-events/es/cy11/pdf/cisco3-20110610interop.pdf
+
+### ネットワーク層、トランスポート層のトラブルシューティング(ネットワークのトラブルシューティング)
+- https://made.livesense.co.jp/entry/2016/05/10/083000
+
+### Webサーバのトラブルシューティング
+- curlコマンドがよく使われるが、telnetやnmapもかなり便利
+  - https://www.itbook.info/network/http03.html

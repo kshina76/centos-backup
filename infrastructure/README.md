@@ -311,3 +311,6 @@ P102-113の画像をまとめる
 #### 6. コンポーネント交換方式...ケーブルなどを交換してみる
 #### 参考文献
 - https://www.cisco.com/c/dam/global/ja_jp/training-events/es/cy11/pdf/cisco3-20110610interop.pdf
+
+### ネットワーク層、トランスポート層のトラブルシューティング(ネットワークのトラブルシューティング)
+https://made.livesense.co.jp/entry/2016/05/10/083000
