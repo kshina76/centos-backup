@@ -11,29 +11,66 @@
 ## システムデザイン
 - https://github.com/donnemartin/system-design-primer
 
+<br></br>
+
 ## 開発をするときの鉄則
 1. ある一つの作業をする時に複数のことをやらない
   - 人間は複数のことを行おうとすると混乱してしまう
 2. 作業はなるべく小さく分割する（数をこなす）
   - トラブルシューティングがしやすい
+3. まずはORM、問題があるところは生SQL
+  - まず全てORMで書いてみてから、クエリを解析してN+1問題といった問題が起きていたらそこを生のSQLで書いて直す(ORMを工夫できるならそれでも可能)
+  - ここでSQLチューニングの知識が必要になる
+  - ORMと生SQLどっちもかけるフレームワークだと良い
 
-## 前準備
-### 技術選定
-- Python
-  - 小規模、中規模ならflask
-    - APIとか簡単にサクッと開発できる
-    - 中規模になったらblueprintでディレクトリ分割
-    - https://qiita.com/gold-kou/items/00e265aadc2112b0f56a
-  - 綺麗なドキュメントも生成できるFastAPI
-    - https://note.com/navitime_tech/n/nc0381517d067?magazine_key=mdafce2b0ebe1
-  - 大規模ならDjango
-    - https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
-- Golang
-  - Echo, Gin, Gormなどといったフレームワークを組み合わせる
-    - routingはGinでORMにGormとか
-    - Golangのsqlの標準ライブラリは書くのが面倒
-  - フレームワーク一覧
-    - https://qiita.com/yumin/items/5de33b068ead564ebcbf
+## 技術選定
+### 一般的な考え方
+#### Webアプリケーションに必要な機能を抑えているフレームワークかどうか
+- https://logmi.jp/tech/articles/322694
+#### マイクロフレームワークかフルスタックフレームワークか
+- Lambdaのように一つの機能を実装して、複数のLambdaを組み合わせて一つのサービスを構築するというパターンなら、マイクロフレームワークを組み合わせるのがいいと思う
+  - マイクロサービス的な考え
+  - それぞれのマイクロ
+- モノリスなサービスの場合は、フルスタックフレームワークを使うべきだと思う。
+#### パフォーマンス
+- Lambdaの場合はフレームワークのファイルサイズが大きくなるかどうかを見るといいかも。Lambdaのコールドスタートのせいで、ファイルサイズが大きいのは不利になるから。
+#### AWS LambdaのようなFaaSを使う際のフレームワークは？
+- https://aws.amazon.com/jp/builders-flash/202003/chalice-api/
+- https://qiita.com/massa142/items/c59275237979fd939791
+### プログラミング言語別
+#### Python
+- 小規模、中規模ならflask
+  - APIとか簡単にサクッと開発できる
+  - 中規模になったらblueprintでディレクトリ分割
+  - https://qiita.com/gold-kou/items/00e265aadc2112b0f56a
+- 綺麗なドキュメントも生成できるFastAPI
+  - https://note.com/navitime_tech/n/nc0381517d067?magazine_key=mdafce2b0ebe1
+- 大規模ならDjango
+  - https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
+- Djangoでもflaskでも以下の機能はサードパーティのライブラリが必要
+  - OpenAPI
+  - JSON Schema
+  - GraphQL
+  - WebSocket
+  - タイプヒントを使ったバリデーション
+  - 非同期処理
+  - CORS の設定
+  - リバースプロキシとの連携サポート
+- フレームワーク一覧
+  - https://www.acrovision.jp/career/?p=1897
+- Pythonにおける技術選定(絶対見たほうがいい)
+  - https://logmi.jp/tech/articles/322694
+  - https://logmi.jp/tech/articles/322697
+#### Golang
+- Echo, Gin, Gormなどといったフレームワークを組み合わせる
+  - routingはGinでORMにGormとか
+  - Echoは結構パワフルな機能が揃っているのでフルスタックに分類されるかも
+  - Golangのsqlの標準ライブラリは書くのが面倒
+- フレームワーク一覧
+  - https://qiita.com/yumin/items/5de33b068ead564ebcbf
+- golangにおけるフレームワーク選定
+  - https://www.pospome.work/entry/2020/04/27/153059
+  - 上記のURLとpospomeさんの書籍をみる(アーキテクチャの部分)
 
 <br></br>
 
