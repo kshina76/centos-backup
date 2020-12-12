@@ -3,11 +3,27 @@
 ## 残り110日(12/11更新)
 
 ## 直近todo
+- 以下のことについてまとめる
+  - ISUCONのREADEMEに表示に関する最適化手法をまとめる
+    - https://qiita.com/zaru/items/51ee8a5be22b75a42927
+    - https://capitalp.jp/2016/12/29/http2/
+    - https://qiita.com/saboyutaka/items/1f528ec3ce85476d7561
+    - https://note.com/airis0/m/m7c39abf9072a
+    - webapiの最適化を探して学ぶ
+  - どこかに基礎知識(かなり重要)をまとめたREADMEを作って、以下の内容をまとめる(勉強の仕方なども同じとこにまとめていいかも)
+    - https://qiita.com/yamadar/items/bfdfc58cec49bf2690e1
+    - devops,バックエンドのロードマップをまとめる
+      - https://qiita.com/poly_soft/items/fb649573c19b7a5c0227
+      - https://qiita.com/poly_soft/items/8dd105341869f93b129c
+  - エンジニアとしてのキャリアまとめ
+    - https://qiita.com/poly_soft/items/dbca28f166d07070e8eb
+
 - WebAPIをOOPで開発するってことはあるのか？
   - flask_restfulとかflask_classみたいなライブラリはあった
   - プレゼンテーション層がHTMLではなくてJSONに変わっても同じ。というような記事を見たことがあった気がするから開発することはあるのかなと思った
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - 本論(1/29~2/6)
+- 信号処理特論(12/17まで)
 - real world http(12/18までに)
 - Web API Good Parts(12/19,20で)
 - 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」と「chromeのdevtool」を使ってwebapi開発(12/21から始めたい)

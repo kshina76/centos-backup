@@ -259,4 +259,15 @@ fetch('api.json', {
 ### 4-6.Strict
 - https://analogic.jp/use-strict/
 
+---
+
 <br></br>
+
+## 5. addEventListener、onclick
+### 5-1. onclickは古い方法なので、addEventListenerの引数にonclickを渡す方法で行う
+- https://qiita.com/KKKarin/items/ccb8ed361ab9acd1f9cf
+- https://developer.mozilla.org/ja/docs/Learn/JavaScript/Building_blocks/Events
+- https://developer.mozilla.org/ja/docs/Web/Events
+### 5-2. JavaScriptのeventは以下の公式ドキュメントを読めば理解と網羅できる
+- https://developer.mozilla.org/ja/docs/Learn/JavaScript/Building_blocks/Events
+- https://developer.mozilla.org/ja/docs/Web/Events
