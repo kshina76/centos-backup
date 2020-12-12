@@ -12,6 +12,11 @@
 - Webサービスのパフォーマンスに関する考え方まとめ
   - https://qiita.com/kenjiszk/items/b33d0900e9cbf9fa60c0
 
+## ブロッキングIO、ノンブロッキングIO、同期IO、非同期IOの違い
+- https://wa3.i-3-i.info/word1618.html
+- https://blog.takanabe.tokyo/2015/03/ノンブロッキングi/oと非同期i/oの違いを理解する/
+
+
 ## 手法一時待避所
 ### ディスクI/O
 1. CPU、メモリ、ディスクI/O、ネットワーク帯域などのハードウェアリソースを見る
@@ -139,7 +144,7 @@
 
 ### 5. OS
 #### 5-1. チューニング
-- SELinuxを切る! (石川さんごめんなさい ※業界の慣習)
+- SELinuxを切る
 - ほか、だいたい途中で必要になる系
   - ソケット再利用間隔の設定など sysctl系
   - プロセスがopenできるディスクリプタ数など limits.conf系
