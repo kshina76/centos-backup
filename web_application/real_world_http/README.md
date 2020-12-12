@@ -595,6 +595,21 @@ $ curl --http1.0 -F title="hello" -F author="shina" -F attachment-file=@test.txt
 4章、5章の内容をGoで書いてみる(省略)
 
 ## 7章 HTTP/2のシンタックス：プロトコルの再定義
+### 7-1. HTTP/2の改善点
+
+#### 7-1-1. バイナリプロトコル
+
+![http1-http2-02](https://user-images.githubusercontent.com/53253817/101975022-bd556180-3c7d-11eb-841d-85e7a42751ea.jpeg)
+
+#### 7-1-2. ストリームが多重化
+
+![http1-http2-03](https://user-images.githubusercontent.com/53253817/101975033-bdedf800-3c7d-11eb-8ae8-3dbded724ec2.jpeg)
+
+#### 7-1-3. 優先度の制御やサーバサイドプッシュの実装
+- サーバサイドプッシュとは、サーバサイドから通信を行うこと
+  - 従来のHTTPではクライアントからサーバに向けてしかリクエストを行うことができなかった
+#### 7-1-4. ヘッダーの圧縮
+
 HTTP/2
 HTTP.1.1までとはデータ表現が大きく異なるが、通信アプリケーションから見れば大差はない
 ストリームによる通信の高速化
