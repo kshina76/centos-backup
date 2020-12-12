@@ -17,15 +17,25 @@
       - https://qiita.com/poly_soft/items/8dd105341869f93b129c
   - エンジニアとしてのキャリアまとめ
     - https://qiita.com/poly_soft/items/dbca28f166d07070e8eb
-
+  - linux系のこと
+    - Linuxパフォーマンス調査などで使うコマンドメモ
+      - https://qiita.com/toshihirock/items/0e0b20064730469e93e6
+    - いまさら聞けないLinuxとメモリの基礎＆vmstatの詳しい使い方
+      - https://qiita.com/kunihirotanaka/items/70d43d48757aea79de2d
+  - ガチ勢のwebアプリケーションチューニング
+    - https://www.prime-strategy.co.jp/resource/pdf/DevelopersSummit2020.pdf
 - WebAPIをOOPで開発するってことはあるのか？
   - flask_restfulとかflask_classみたいなライブラリはあった
   - プレゼンテーション層がHTMLではなくてJSONに変わっても同じ。というような記事を見たことがあった気がするから開発することはあるのかなと思った
+
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - 本論(1/29~2/6)
 - 信号処理特論(12/17まで)
 - real world http(12/18までに)
 - Web API Good Parts(12/19,20で)
+- ハイパフォーマンスpythonを以下をベースにまとめる
+  - 2015年の本なので、古い書き方に注意。調べながら
+  - https://showa-yojyo.github.io/notebook/gorelick14.html
 - 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」と「chromeのdevtool」を使ってwebapi開発(12/21から始めたい)
 - real world httpのgolang実装とかcurlをやってみる
 - LINE式コードの可読性をまとめる

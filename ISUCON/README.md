@@ -11,6 +11,11 @@
   - https://tagomoris.hatenablog.com/entry/2018/10/26/150228
 - Webサービスのパフォーマンスに関する考え方まとめ
   - https://qiita.com/kenjiszk/items/b33d0900e9cbf9fa60c0
+- Linuxパフォーマンス調査などで使うコマンドメモ
+  - https://qiita.com/toshihirock/items/0e0b20064730469e93e6
+- いまさら聞けないLinuxとメモリの基礎＆vmstatの詳しい使い方
+  - https://qiita.com/kunihirotanaka/items/70d43d48757aea79de2d
+- ガチ勢のWebアプリケーションチューニング
 
 ## ブロッキングIO、ノンブロッキングIO、同期IO、非同期IOの違い
 - https://wa3.i-3-i.info/word1618.html
@@ -238,6 +243,16 @@
 - そういった無駄を省くことで、アプリケーションの処理効率がよくなり、結果としてレスポンスタイムが良くなることはある
 ### 頻度とレスポンス時間
 - ｢重たいところが優先｣とは限らない
+### 高速なWebサーバアプリケーションを構築するための6つの経験則
+1. 時期尚早な最適化を回避する
+  - とりあえずアプリケーションを組んでみてから、あとでプロファイラを使って最適化する
+  - 「二重引用符で囲んだ文字列は単一引用符で囲んだ文字列より遅いのか?」などという、くだらないことを心配する必要は一旦しない
+2. 最小限の作業で問題を解決する
+3. 今すぐやらなくてもいい作業は延期する
+4. 使えるときはキャッシュを使う
+5. リレーショナルデータベースのN+1問題を理解し、回避する
+6. 可能ならアプリケーションに水平スケーラビリティをもたせる
+- https://postd.cc/6-rules-of-thumb-to-build-blazing-fast-web-server-applications/
 
 ---
 
@@ -262,6 +277,9 @@
 - **「計測 -> 改善」のサイクルを回し続けるのが重要**
 - とりあえずベンチマークを動かしてから深掘りしていく
 - ベンチマークはnginxとかapacheでリクエストを大量送れるのでそういったものを使う
+- まずは以下のチューニングに沿って行ってみる
+  - https://www.prime-strategy.co.jp/resource/pdf/DevelopersSummit2020.pdf
+  - https://postd.cc/6-rules-of-thumb-to-build-blazing-fast-web-server-applications/
 ### 0-1. ボトルネック解析
 #### 0-1-1. リソース利用率の把握とログの確認
 - nginxでアクセスログを解析
