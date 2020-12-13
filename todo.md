@@ -33,6 +33,8 @@
 - 信号処理特論(12/17まで)
 - real world http(12/18までに)
 - Web API Good Parts(12/19,20で)
+- golangまたはPythonでwebに関連するもの全てをフルスクラッチで書いてみる(real world httpを参考に)
+  - HTTP/1.1、HTTP/2、HTML5、ロードバランサー
 - ハイパフォーマンスpythonを以下をベースにまとめる
   - 2015年の本なので、古い書き方に注意。調べながら
   - https://showa-yojyo.github.io/notebook/gorelick14.html
