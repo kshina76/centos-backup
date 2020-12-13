@@ -110,7 +110,21 @@ if __name__ == "__main__":
 
 ## Flaskを使ったWebAPI開発
 ### 1. 題材
-- WebApiの事例を調べる
+- とりあえず以下の機能を持ったTechBlogのWebAPIを開発する
+  - User
+    - 一般ユーザのサインアップ、ログイン、ログアウト機能
+    - adminユーザのサインアップ、ログイン、ログアウト機能
+    - 一般ユーザの投稿、編集、削除機能
+    - adminユーザの投稿、編集、削除機能
+    - ユーザのプロフィール取得、作成、編集機能
+    - ユーザ退会機能
+  - Post
+    - タグ、カテゴリ機能
+    - Postを件数指定で取得
+    - ユーザを指定して、Postを取得(userのsearch機能)
+    - 特定のキーワードのsearch機能
+
+- TechBlogが終わったら、「個人Webサイト」の紹介WebAPIを作成
 
 ### 2. アーキテクチャ、ディレクトリ構成
 - pospomeさんのpdfに書いてある、縦割りのディレクトリで、機能ごとにMVCを作るといった方針
@@ -118,7 +132,6 @@ if __name__ == "__main__":
 - その他のディレクトリ構成
   - https://teratail.com/questions/138820
   - http://www.morita-it-lab.jp/document/develop/PG-Language/Python/library/Flask/directory.md
-  - 
 
 ### 3. 使用フレームワーク、ライブラリ
 - Awesome Flask
@@ -133,12 +146,28 @@ if __name__ == "__main__":
   - https://www.sukerou.com/2019/04/sqlalchemysqlsql.html
 - 簡易なORM...dataset
   - https://dev.classmethod.jp/articles/python-orm-dataset/
-- interface
+- interface...ABCなんとか
+- Unittest
+  - DBなどの外部サービスのテストはモックではなくてDockerで行う
 
 ### to do
-- 上記に沿って開発を進める
+- 上記に沿って開発を進める。テストを書きつつ開発を進める。API定義はSwaggerを使って進める
+  - とりあえずモノリシックに
+- セキュリティの懸念点を埋める
+- 認証・認可に関して考える
+- CI/CDツール(CircleCI)でテストを自動化する
+- nginxの設定や使い方を学んで載せてみる
+- Kubernetesに載せ替えてみる。macのローカルにインストールする
+- 「入門　監視」を読んで監視の仕方を学ぶ。CloudWatchLogsでは足りない場面が出てくるので、Datalogなどのサードパーティを使う必要もある
 - 開発が終わったらLambdaに載せ替えてみる
   - Lambdaのデザインパターンの書籍やサイトを読むべきかも
   - 複数のLambdaを使うときのパターンがいまいちわからないし
 - マイクロサービス化もしてみる
   - オライリーの書籍を読むべきかも
+- SQL関連の書籍を読んで、設計をし直す
+- DBマイグレーションの自動化
+  - VPC lambdaを使う方法
+  - CodeBuildを使う方法
+
+- 参考文献
+  - https://qiita.com/poly_soft/items/fb649573c19b7a5c0227
