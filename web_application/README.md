@@ -39,6 +39,10 @@
 - https://qiita.com/massa142/items/c59275237979fd939791
 ### プログラミング言語別
 #### Python
+- Awesome Flask
+  - https://github.com/humiaozuzu/awesome-flask
+- Awesome Python
+  - https://qiita.com/hatai/items/34c91d4ee0b54bd7cb8b
 - 小規模、中規模ならflask
   - APIとか簡単にサクッと開発できる
   - 中規模になったらblueprintでディレクトリ分割
@@ -56,6 +60,10 @@
   - 非同期処理
   - CORS の設定
   - リバースプロキシとの連携サポート
+- DjangoかFlaskか
+  - モノリシックなWebアプリならDjango
+  - マイクロサービスのようにWebAPIならFlaskで、フロントがReactの構成がよく使われる
+  - https://www.youtube.com/watch?v=ogXfNQxA2LE
 - フレームワーク一覧
   - https://www.acrovision.jp/career/?p=1897
 - Pythonにおける技術選定(絶対見たほうがいい)

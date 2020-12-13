@@ -14,11 +14,17 @@
 
 ![https---qiita-image-store s3 ap-northeast-1 amazonaws com-0-234396-1ef837ac-7d97-e04c-4e73-04df56ed1a34](https://user-images.githubusercontent.com/53253817/100833545-86c55d00-34ad-11eb-9d83-97570cb246af.png)
 
+### AWSを使ったモダンなアーキテクチャ
+- https://d1.awsstatic.com/whitepapers/ja_JP/modern-application-development-on-aws.pdf
+
 ## AWSでのHTTPS化全パターン
 - https://recipe.kc-cloud.jp/archives/11067
 
 ## Nginx、CloudFrontを使った負荷分散パターン
 - https://dev.classmethod.jp/articles/nginx-cdn-redirect-cloudfront-custom-origin/
+
+## AWS Lambdaのディレクトリ構成
+- https://dev.classmethod.jp/articles/aws-lamda-deploy-package/
 
 ---
 

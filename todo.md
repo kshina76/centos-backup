@@ -17,6 +17,8 @@
       - https://qiita.com/poly_soft/items/8dd105341869f93b129c
   - エンジニアとしてのキャリアまとめ
     - https://qiita.com/poly_soft/items/dbca28f166d07070e8eb
+  - LINE式コードの可読性をまとめる
+    - https://engineering.linecorp.com/ja/blog/tag/codereadability/
   - linux系のこと
     - Linuxパフォーマンス調査などで使うコマンドメモ
       - https://qiita.com/toshihirock/items/0e0b20064730469e93e6
@@ -31,7 +33,6 @@
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - 本論(1/29~2/6)
 - 信号処理特論(12/17まで)
-- real world http(12/18までに)
 - Web API Good Parts(12/19,20で)
 - golangまたはPythonでwebに関連するもの全てをフルスクラッチで書いてみる(real world httpを参考に)
   - HTTP/1.1、HTTP/2、HTML5、ロードバランサー
@@ -39,7 +40,6 @@
   - 2015年の本なので、古い書き方に注意。調べながら
   - https://showa-yojyo.github.io/notebook/gorelick14.html
 - 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」と「chromeのdevtool」を使ってwebapi開発(12/21から始めたい)
-- real world httpのgolang実装とかcurlをやってみる
 - LINE式コードの可読性をまとめる
   - https://engineering.linecorp.com/ja/blog/tag/codereadability/
 - Lambdaの書籍とデザインパターンをまとめる

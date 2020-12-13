@@ -101,36 +101,44 @@ if __name__ == "__main__":
 
 <br></br>
 
-
-## to do
-### まず日課の競プロ
-### flaskでアプリを書いてみる(HTMLは流用するが、templateエンジンが変わっているから注意)
-### pythonのファイル分割を学ぶ
-### pythonの各種ライブラリ
-- https://qiita.com/ynakayama/items/2cc0b1d3cf1a2da612e4
-- https://qiita.com/hoto17296/items/0ca1569d6fa54c7c4732
-- https://www.sukerou.com/2019/04/sqlalchemysqlsql.html
-- https://qiita.com/kotamatsuoka/items/a95faf6655c0e775ee22
 ### pythonでレイヤードアーキテクチャをやってみる(各種ライブラリの使い方は学びながら。techblogでいいかな)
 - https://qiita.com/yu-sa/items/e0033ae312669256cd8a
-- 疑問点
-  - DIはどこで行う？
-    - if mainのところで行う
-  - golangでいうハンドラ関数はどこで定義するの？
-    - pythonだとflaskでURLルーティングと一緒に書くことになる
-  - interfaceはどうするの？
-    - ABCなんたらでできる
-- プレゼンテーション層
-  - View(テンプレートエンジン)...jinja2
-  - Controller(urlルーティンングとハンドラ)...flask
-- ユースケース層
-- インフラ層
-  - SQL...psycopg2
-    - https://qiita.com/hoto17296/items/0ca1569d6fa54c7c4732
-  - ORM...flask-SQLAlchemy
-    - ORMでも生のSQLでもどっちでもかけるらしい
-    - https://www.sukerou.com/2019/04/sqlalchemysqlsql.html
-  - 簡易なORM...dataset
-    - https://dev.classmethod.jp/articles/python-orm-dataset/
-### SQLをブラウザ上でサクッとテスト
-- http://sqlfiddle.com
+
+---
+
+<br></br>
+
+## Flaskを使ったWebAPI開発
+### 1. 題材
+- WebApiの事例を調べる
+
+### 2. アーキテクチャ、ディレクトリ構成
+- pospomeさんのpdfに書いてある、縦割りのディレクトリで、機能ごとにMVCを作るといった方針
+  - User機能、Posts機能の二つならMVCが二つできるイメージ(P110参照)
+- その他のディレクトリ構成
+  - https://teratail.com/questions/138820
+  - http://www.morita-it-lab.jp/document/develop/PG-Language/Python/library/Flask/directory.md
+  - 
+
+### 3. 使用フレームワーク、ライブラリ
+- Awesome Flask
+  - https://github.com/humiaozuzu/awesome-flask
+  - https://qiita.com/ynakayama/items/2cc0b1d3cf1a2da612e4
+- Awesome Python
+  - https://qiita.com/hatai/items/34c91d4ee0b54bd7cb8b
+- SQL...psycopg2
+  - https://qiita.com/hoto17296/items/0ca1569d6fa54c7c4732
+- ORM...flask-SQLAlchemy
+  - ORMでも生のSQLでもどっちでもかけるらしい
+  - https://www.sukerou.com/2019/04/sqlalchemysqlsql.html
+- 簡易なORM...dataset
+  - https://dev.classmethod.jp/articles/python-orm-dataset/
+- interface
+
+### to do
+- 上記に沿って開発を進める
+- 開発が終わったらLambdaに載せ替えてみる
+  - Lambdaのデザインパターンの書籍やサイトを読むべきかも
+  - 複数のLambdaを使うときのパターンがいまいちわからないし
+- マイクロサービス化もしてみる
+  - オライリーの書籍を読むべきかも
