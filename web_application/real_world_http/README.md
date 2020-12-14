@@ -1075,7 +1075,41 @@ $ curl --http1.0 -F title="hello" -F author="shina" -F attachment-file=@test.txt
 - Content-Security-Policy: upgrade-insecure-request
 #### 14-3-3. クロスオリジンリソースシェアリング(CORS)
 - クライアントからサーバにアクセスする直前までの権限確認プロトコル
-- ドメインをまたいだリソースにXMLHttpRequestやFetch APIでアクセスする
+- ドメインをまたいだリソースにXMLHttpRequestやFetch APIでアクセスできるようにするためにCORSというものがある
+- CORSはJavascriptのXMLHttpRequestやfetchなどフロントエンド側で発生する。サーバサイド同士の通信では起きない
+- SPAは「ブラウザ -> SPA -> ブラウザ -> API」のように通信が流れていくが、FetchAPIなどでブラウザからAPIを叩く時にクロスドメインになるから拒否される。これを許可してもらうようにするのがCORSの設定
+- SPAはCORSの設定をするというよりかはCloudFrontでこの問題を解決している
+  - https://dev.classmethod.jp/articles/spa-cloudfront-and-api-gateway-voiding-cors/
+- クロスドメインでのアクセスを実現する3つの方法
+  - XDM
+    - iframeなどを使うらしい
+  - CORS
+    - 一般的な方法
+  - JSONP
+    - セキュリティが必要になるサイトでは使ってはいけない。JavaScriptを無理やり実行させる感じなので
+- 参考文献
+  - https://tsmatz.wordpress.com/2011/06/24/jsonp-cross-domain/
+  - https://javascript.keicode.com/newjs/what-is-cors.php
+  - https://dev.classmethod.jp/articles/cors-cross-origin-resource-sharing-cross-domain/
+  - https://developer.yukimonkey.com/article/20200227/
+#### 14-3-4. Preflight
+- レスポンスヘッダのオリジンとリクエスト送信元オリジンが一致しないとブラウザは通信を失敗させるが、「リクエスト送信前」と「レスポンス受信後」の２パターンの失敗がある
+
+  ![2020-12-14 18 20のイメージ](https://user-images.githubusercontent.com/53253817/102063234-19181a00-3e39-11eb-9ea9-cc2ceca45899.jpeg)
+
+- 一つ目の失敗が「リクエスト送信前」の失敗で、Preflightリクエストという
+- Preflightリクエストは「単純なリクエスト」の時以外に飛ぶリクエスト(以下を満たすものは単純なリクエスト)
+  - HTTPメソッドが HEAD, GET, POST のいずれかである
+  - 特定のHTTPリクエストヘッダが含まれない
+    - 詳細は以下を参照 
+      - 単純リクエスト - オリジン間リソース共有 (CORS) - HTTP | MDN
+      - Fetch Standard
+  - Content-Type が 以下の場合
+    - application/x-www-form-urlencoded
+    - multipart/form-data
+    - text/plain
+- 参考文献
+  - https://note.crohaco.net/2019/http-cors-preflight/
 ### 14-4. 中間者攻撃
 - プロキシサーバが通信を中継するときに通信内容を抜きとられることで情報が漏洩する
 #### 14-4-1. 対策
