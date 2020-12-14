@@ -1,5 +1,28 @@
 # Web API The Good Parts 書籍メモ
 
+## 0. 自分のメモ
+### Swagger
+- OpenAPIとSwagger
+  - OpenAPIとは、RESTful APIを記述するためのフォーマットのこと
+  - Swaggerとは、OpenAPIを用いてREST APIを設計する際に使用するツールセットのこと
+  - つまり、Swaggerというツール群を使用することで、OpenAPIの仕様に則ったドキュメントを作成できるということ
+  - Swaggerはドキュメントだけでなくて、サーバとクライアントのコードを生成することもできる
+
+  ![2020-11-30 23 49のイメージ](https://user-images.githubusercontent.com/53253817/102111962-636dbb00-3e7a-11eb-9d7e-cdb2c48ef8da.jpeg)
+
+- スキーマ駆動開発
+  - Swaggerを利用すると、スキーマ駆動開発といってURI設計やデータを決めてからドキュメントから自動でAPIのコードを生成するという順番で開発をしていくことができる
+
+#### Swaggerの便利ツール
+- yamlを書かなくてもよくなったり色々
+- https://future-architect.github.io/articles/20191008/
+- https://future-architect.github.io/articles/20200630/
+
+#### 参考文献
+- swaggerの紹介
+  - https://www.slideshare.net/TakuroWada/openapipythonweb
+  - https://qiita.com/teinen_qiita/items/e440ca7b1b52ec918f1b
+
 ## 1.Web APIとは何か
 ### Web API
 - HTTPプロトコルを利用してネットワーク越しに呼び出すAPI

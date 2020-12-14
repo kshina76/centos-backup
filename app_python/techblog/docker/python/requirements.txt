@@ -1,4 +1,8 @@
 flask
+SQLAlchemy
+flask-sqlalchemy
+flask-restful
 psycopg2
+elasticsearch
 black
 flake8

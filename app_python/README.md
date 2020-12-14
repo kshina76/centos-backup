@@ -29,6 +29,17 @@ ENV LANG en_US.UTF-8
 COPY ./project/data/*.sql /docker-entrypoint-initdb.d/
 ```
 
+- elasticserchコンテナ
+
+```dockerfile
+FROM elasticsearch:7.10.1
+RUN elasticsearch-plugin install analysis-kuromoji
+```
+
+```bash
+$ curl -X GET "localhost:9200/_cat/health?v&pretty"
+```
+
 ### 2.python
 #### pythonバージョン
 - python3.9.0
@@ -99,6 +110,15 @@ if __name__ == "__main__":
   - https://www.macky-studio.com/entry/2019/07/04/152323
   - https://qiita.com/tsu_0514/items/2d52c7bf79cd62d4af4a
 
+### 4.ElasticSearch
+- 今回は開発ようなのでシングルノードで起動させる
+- 環境構築
+  - https://qiita.com/kiyokiyo_kzsby/items/344fb2e9aead158a5545
+  - https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html
+  - https://qiita.com/romiogaku/items/ad82180cf2cbc280c10e
+- 日本語の設定
+  - https://qiita.com/shin_hayata/items/41c07923dbf58f13eec4
+
 <br></br>
 
 ### pythonでレイヤードアーキテクチャをやってみる(各種ライブラリの使い方は学びながら。techblogでいいかな)
@@ -134,6 +154,16 @@ if __name__ == "__main__":
   - http://www.morita-it-lab.jp/document/develop/PG-Language/Python/library/Flask/directory.md
 
 ### 3. 使用フレームワーク、ライブラリ
+- flask-restful
+  - クラスでかけるから、blueprintと合わせてMVCの分割とかできそう
+  - https://cloudpack.media/44413
+- flask-SQLAlchemy
+  - sqlalchemyもインストールする必要あり
+- psycopg2
+  - pythonからpostgresqlに接続するためのもの
+- elasticsearch
+
+#### 3-1. 参考文献
 - Awesome Flask
   - https://github.com/humiaozuzu/awesome-flask
   - https://qiita.com/ynakayama/items/2cc0b1d3cf1a2da612e4
@@ -149,19 +179,30 @@ if __name__ == "__main__":
 - interface...ABCなんとか
 - Unittest
   - DBなどの外部サービスのテストはモックではなくてDockerで行う
+- ElasticSearch
+  - ブログ記事の内容から単語を検索してくるといったAPIを作りたい場合に、全文検索エンジンというのが使われる。その際のクエリパラメータはqを使って、サーバに投げて、qのクエリパラメータを全文検索エンジンに渡して、その結果をサーバからレスポストして返すといった感じ。elastic searchを使うが、サーバを立てたりするのでらdockerで組み込んでおく。実務ならAWSでElasticServiceというものがある。
+  - https://agency-star.co.jp/column/elasticsearchとは？基礎と使い方をわかりやすく解説！デ/
+  - https://qiita.com/nskydiving/items/1c2dc4e0b9c98d164329
+  - https://www.slideshare.net/mobile/recruitcojp/elasticsearch-56355817
 
 ### 4. エンドポイントの設計(URI設計)
 
 ### 5. レスポンスデータの設計
+- ステータスコードの設計も
+  - https://qiita.com/NagaokaKenichi/items/eb85b5fbb719d60c6627
+
+### 6. エラーの設計
 
 ### to do
-- 上記に沿って開発を進める。テストを書きつつ開発を進める。API定義はSwaggerを使って進める
+- 上記に沿って開発を進める。テストを書きつつ開発を進める。
   - とりあえずモノリシックに
   - URI設計
   - レスポンスデータの設計
   - ステータスコードの設計
   - Flaskのサンプル
     - https://qiita.com/tchnkmr/items/26d271886b46c4e52dc1
+- 検索機能のためにelasticsearchを学ぶ
+- swaggerで載せ替えてみる
 - セキュリティの懸念点を埋める
 - 認証・認可に関して考える
 - CI/CDツール(CircleCI)でテストを自動化する

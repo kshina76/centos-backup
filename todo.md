@@ -26,6 +26,10 @@
       - https://qiita.com/kunihirotanaka/items/70d43d48757aea79de2d
   - ガチ勢のwebアプリケーションチューニング
     - https://www.prime-strategy.co.jp/resource/pdf/DevelopersSummit2020.pdf
+  - dockerの全体像の解説(networkなども込みでかなり詳しい)をまとめる
+    - https://qiita.com/etaroid/items/b1024c7d200a75b992fc
+    - https://qiita.com/etaroid/items/88ec3a0e2d80d7cdf87a
+    - https://qiita.com/etaroid/items/40106f13d47bfcbc2572
 - WebAPIをOOPで開発するってことはあるのか？
   - flask_restfulとかflask_classみたいなライブラリはあった
   - プレゼンテーション層がHTMLではなくてJSONに変わっても同じ。というような記事を見たことがあった気がするから開発することはあるのかなと思った
@@ -34,6 +38,10 @@
 - 本論(1/29~2/6)
 - 信号処理特論(12/17まで)
 - Web API Good Parts(12/19,20で)
+- 認証・認可周りの本を読む(OAuth、OpenID Connect、AWS Cognite)
+  - https://booth.pm/ja/items/1550861
+  - https://booth.pm/ja/items/1296585
+  - https://booth.pm/ja/items/1560273
 - golangまたはPythonでwebに関連するもの全てをフルスクラッチで書いてみる(real world httpを参考に)
   - HTTP/1.1、HTTP/2、HTML5、ロードバランサー
 - ハイパフォーマンスpythonを以下をベースにまとめる

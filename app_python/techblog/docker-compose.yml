@@ -27,3 +27,17 @@ services:
       - "8080:8080" # ホストコンピュータとコンテナをポートフォワードするので、localhost:8080で接続できるようになる
     volumes:
       - ./project:/usr/src/app # マウントディレクトリ指定
+
+  es01:
+    container_name: es01
+    build:
+      context: .
+      dockerfile: ./docker/elastic_search/Dockerfile
+    tty: true
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+    volumes:
+      - ./project/data/es_data:/usr/share/elasticsearch/data
