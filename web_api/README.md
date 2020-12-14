@@ -180,28 +180,29 @@ http://api.example.com/v1/friends/12345
 - 「あるデータの集合」と「個々のデータ」の二種類に分類して、HTTPメソッドを適用していく
   - DBでいうとテーブルとレコードの関係を意識する
   - 以下の例だと、エンドポイントが二種類に分類できていることがわかる
+- バージョンはURIに含めてしまうのがいい
 
 | 目的                     | エンドポイント                      | メソッド  | 
 | ------------------------ | ----------------------------------- | --------- | 
-| ユーザ一覧取得           | http://api.example.com_v1/users     | GET       | 
-| ユーザの新規登録         | http://api.example.com_v1/users     | POST      | 
-| 特定のユーザの情報の取得 | http://api.example.com_v1/users/:id | GET       | 
-| ユーザの情報の更新       | http://api.example.com_v1/users/:id | PUT/PATCH | 
-| ユーザの情報の削除       | http://api.example.com_v1/users/:id | DELETE    | 
+| ユーザ一覧取得           | http://api.example.com/v1/users     | GET       | 
+| ユーザの新規登録         | http://api.example.com/v1/users     | POST      | 
+| 特定のユーザの情報の取得 | http://api.example.com/v1/users/:id | GET       | 
+| ユーザの情報の更新       | http://api.example.com/v1/users/:id | PUT/PATCH | 
+| ユーザの情報の削除       | http://api.example.com/v1/users/:id | DELETE    | 
 
 | 目的                 | エンドポイント                                  | メソッド | 
 | -------------------- | ----------------------------------------------- | -------- | 
-| ユーザの友達一覧取得 | http://api.example.com_v1/users/:id/friends     | GET      | 
-| 友達の追加           | http://api.example.com_v1/users/:id/friends     | POST     | 
-| 友達の削除           | http://api.example.com_v1/users/:id/friends/:id | DELETE   | 
+| ユーザの友達一覧取得 | http://api.example.com/v1/users/:id/friends     | GET      | 
+| 友達の追加           | http://api.example.com/v1/users/:id/friends     | POST     | 
+| 友達の削除           | http://api.example.com/v1/users/:id/friends/:id | DELETE   | 
 
 | 目的                   | エンドポイント                                      | メソッド | 
 | ---------------------- | --------------------------------------------------- | -------- | 
-| 近況の編集             | http://api.example.com_v1/updates/:id               | PUT      | 
-| 近況の削除             | http://api.example.com_v1/updates/:id               | DELETE   | 
-| 近況の投稿             | http://api.example.com_v1/updates                   | POST     | 
-| 特定ユーザの近況の取得 | http://api.example.com_v1/users/:id/updates         | GET      | 
-| 友達の近況一覧の取得   | http://api.example.com_v1/usres/:id/friends/updates | GET      | 
+| 近況の編集             | http://api.example.com/v1/updates/:id               | PUT      | 
+| 近況の削除             | http://api.example.com/v1/updates/:id               | DELETE   | 
+| 近況の投稿             | http://api.example.com/v1/updates                   | POST     | 
+| 特定ユーザの近況の取得 | http://api.example.com/v1/users/:id/updates         | GET      | 
+| 友達の近況一覧の取得   | http://api.example.com/v1/usres/:id/friends/updates | GET      | 
 
 #### 2-4-1. エンドポイント設計の注意点
 - 複数系の名詞に気を付ける
@@ -220,12 +221,15 @@ http://api.example.com/v1/friends/12345
   - キャメルケース
     - profileImage
 
-#### 2-4-2. CRUD の概念にフィットしないようなアクションについてどうするか
+#### 2-4-2. CRUDの概念にフィットしないようなアクションについてどうするか
+- 参考文献
+  - https://qiita.com/mserizawa/items/b833e407d89abd21ee72
+
 > 1つは、アクションをリソースの項目の1つとして扱う方法で、これはアクションがパラメータを取らない場合に有効です。例えば、何かをアクティベートするようなアクションであれば、対象となる boolean 項目をサブリソースとして扱って、そこに対して PATCH リクエストを投げると考えます。GitHub API の例を見てみましょう。Gist にスターをつけるアクションを PUT /gists/:id/star としていて、スターを解除するアクションを DELETE /gists/:id/star としています。
 
 > 一方で、REST の構造にマッチさせられないアクションもあると思います。例えば、複数のリソースを横断的に検索するようなアクションについては、特定リソースのエンドポイントに紐付けるのは、なんとも無理やりな感じがします。このような場合は、/search というエンドポイントを作ることで解決します。ちょっとルール違反な気もしますが、API 利用者から見ておかしくなく、混乱がないようにドキュメントにしっかりと書かれていれば問題ないのです。
 
-### 2-5.検索とクエリパラメータの設計(P42)
+### 2-5.検索とクエリパラメータの設計
 
 #### 1.取得数と取得位置のクエリパラメータ...ページネーションの仕組みを提供するため
 - page/per_page...自由度が低い
@@ -311,7 +315,42 @@ end
 - 参考文献
   - https://qiita.com/sakuraya/items/6f1030279a747bcce648
 
-### 2-6.ログインとOAuth2.0
+### 2-6. フィルタ・ソート・検索はリクエストパラメータでやろう
+ベースとなる URL はできるだけシンプルにしておくのが良いです。フィルタやソート、検索といった機能はリクエストパラメータで制御するのが良いです（もっとも、これは単一リソースに対するものに限ります）。これらについて、細かく見ていきましょう。
+#### 2-6-1. フィルタリング
+各フィールドに対して、フィルタリングをするためのパラメータを用意しましょう。例えば、`/tickets`でチケットのリストを取得する際に、state が open のものだけに絞りたいことがあると思います。このような要望は`GET /tickets?state=open`のようにして実現させましょう。リソースの項目である`state`をそのまま、フィルタするためのリクエストパラメータとするのです。
+#### 2-6-2. ソート
+並び順の指定については、`sort`パラメータを用意して処理するようにしましょう。複雑なソートにも応えられるように、ソート対象とする項目をカンマ区切りで指定して、かつ、昇順・降順をネガポジで指定するようにします。いくつか例を挙げてみます。
+`GET /tickets?sort=-priority` - チケットのリストを priority の降順で取得する
+`GET /tickets?sort=-priority,created_at` - チケットのリストを priority の降順、かつ created_at の昇順で取得する
+#### 2-6-3. 検索
+フィルタクエリでは事足りず、全文検索が必要になることもあると思います。おそらく、ElasticSearch や他の Lucene ベースの検索エンジンを使うことになると思いますが、特定リソースに対して投げるクエリには、q パラメータを使いましょう。検索クエリはそのまま全文検索エンジンに伝えられ、API のアウトプットは普段と変わらない形式となります。
+- 以上を組み合わせてみると、以下のような感じでリクエストパラメータが構築できます。
+`GET /tickets?sort=-updated_at` - 最近更新されたチケットを取得する
+`GET /tickets?state=closed&sort=-updated_at` - 最近クローズされたチケットを取得する
+`GET /tickets?q=return&state=open&sort=-priority,created_at` - オープン状態で優先度の高いチケットのうち、「return」という単語を含むものを返す
+#### 2-6-4. よく使うクエリのエイリアス
+API の UX をより良くするために、よく使われる検索クエリは REST のパスにしてしまうことを考えましょう。例えば、「最近クローズされたチケット」を取得するクエリは、以下のような URL にまとめることができます。
+`GET /tickets/recently_closed`
+
+### 2-7. レスポンスのフィールドを絞れるようにしよう
+- API 利用者は、常にリソースの全項目を必要としているわけではない
+- レスポンスのフィールドを絞る手段を用意することは、API 利用者のネットワーク負荷を下げ、通信速度を向上させることに貢献する
+- そのために、出力したいフィールドをカンマ区切りで指定できるパラメータを用意する
+  - 例えば、以下のリクエストではオープン状態のチケットを更新日付順で並べて表示するのに必要な、最低限の情報のみを返す
+`GET /tickets?fields=id,subject,customer_name,updated_at&state=open&sort=-updated_at`
+#### 2-7-1. レスポンスグループ
+- レスポンスのフィールドをまとめて提供する方法
+- AmazonのProduct Advertising APIはSmall,Medium,Largeの3つに分けてそれぞれが取得できるフィールドの範囲を決めて提供している
+
+### 2-8. 作成・更新の後は変更後の情報をフルで返そう
+- POST, PATCH, PUT リクエストのレスポンスには変更後のリソースの情報を含める
+  - API利用者が作成・更新後のリソース情報を取得するためにもう一度 API を叩くのは大変だから
+- created_at や updated_at といった項目は、こちらが明示的に指定するものではなく、作成・更新の際にサーバが自動で挿入するもの
+- なお、POST で新しくリソースを作成した際には、ステータスコード 201 を返し、Location ヘッダに作成されたリソースへの URL を含めるのが良い
+  - Locationヘッダはリダイレクトに使うもの
+
+### 2-9.ログインとOAuth2.0
 - P49-57とqiitaとかを参考にして載せる
   - oauthにも色々な種類がある？あとで本からまとめる
 
@@ -342,15 +381,16 @@ end
 - 参考文献
   - https://qiita.com/TakahikoKawasaki/items/e37caf50776e00e733be
 
-### 2-7.適切なホスト名
+### 2-10.適切なホスト名
 - api.example.com
 
-### 2-8.SSKDsとAPIデザイン
+### 2-11.SSKDsとAPIデザイン
 - 誰が使うかわからない公開するAPIはきれいに作る必要がある
 - モバイルアプリのバックエンドといった、内部の開発者しか使わない場合は綺麗さより、ユーザ体験を優先するべき
   - 例えば、「新着の商品」「人気の商品」「ログイン中のユーザ情報」などといったものを個別で用意するのではなくて、「初期画面」というAPIを作って一回のAPI通信で取得できるようにしたほうが、画面を一気に描画できるし、速度も上がってユーザ体験が上がる。
 
-### 2-9.HATEOASとREST LEVEL3 API
+### 2-12.HATEOASとREST LEVEL3 API
+- HATEOASの導入は少し待つ
 
 | 目的        | エンドポイント                              | 
 | ----------- | ------------------------------------------- | 
@@ -366,7 +406,7 @@ end
 ### 3-1.データフォーマット
 - JSON、XMLなど
 
-#### データフォーマットの指定方法
+#### 3-1-1. データフォーマットの指定方法
 1. クエリパラメータを使う方法
   - 一番わかりやすい方法で、一番採用されている
 
@@ -398,3 +438,11 @@ Accept: application.json
 - P69~74に解説が書いてある
 #### 3-2-1. JSONPをサポートするべきか？
 - セキュリティ的にリスクがあるからしなくてもいい
+
+### 3-3. データの内部構造の考え方
+- 友達の一覧を取得するときにIDの一覧だけを返してしまうと、利便性に欠ける
+  - IDを使ってもう一回リクエストを送って詳細を取得するなどをすることになるが、複数回のリクエストが発生することによって通信のトラフィックが増大してしまうのでよくない
+- id,name,profile_icon...のように全ての情報を返してあげるといい
+- 「2-7」で紹介したように、レスポンスのフィールドは絞れるようにした設計が一番いい
+  - fieldsで指定して、省略されていたら全て返すという設計
+  - `GET /tickets?fields=id,subject,customer_name,updated_at&state=open&sort=-updated_at`
