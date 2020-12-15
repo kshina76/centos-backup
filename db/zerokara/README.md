@@ -155,6 +155,10 @@ COMMIT;
 
 ## 2. 検索の基本
 - FROMを省略するとダミーデータを作ることができる(テクニック)
+- 記述順序
+  - SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY
+- SELECT文の内部的な実行順序
+  - FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY
 ### 2-1. 基礎となる検索
 
 ```sql
@@ -383,4 +387,55 @@ SELECT hanbai_tanka, COUNT(*)
     - WHERE句は行に対する条件指定
     - HAVING句はグループに対する条件指定
 
-## 3-4. ORDER BY: 検索結果を並べ替える
+## 3-4. ORDER BY: 検索結果を並べ替える(ソート)
+- カラム名を指定して、指定されたカラムを基準に昇順降順で並び替える
+- 複数のキーを指定すると、左から優先的に並び替えられる。優先されたキーが同じだったら二つ目以降のキーの判定が行われる
+- ソートキーにNULLがあったら、末尾にまとめて表示される
+- 実行順序的に、SELECTにASで名前を付けれる
+- 集約関数も使える
+- ORDER BYは列番号を指定してソートできるが、見にくいのでやってはいけない
+- 記述順序
+  - SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY
+- SELECT文の内部的な実行順序
+  - FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY
+
+```sql
+SELECT <カラム名1>, <カラム名2>, ...
+  FROM <テーブル名>
+  ORDER BY <並び替えの基準となる列1>, <並び替えの基準となる列2>, ...
+```
+
+- ASC: 昇順
+  - 省略可
+
+```sql
+SELECT *
+FROM shohin
+ORDER BY hanbai_tanka;
+```
+
+- DESC: 降順
+
+```sql
+SELECT *
+FROM shohin
+ORDER BY hanbai_tanka DESC;
+```
+
+- 複数のキー
+
+```sql
+SELECT *
+FROM shohin
+ORDER BY hanbai_tanka, shiire_tanka DESC;
+```
+
+- 集約関数を使う
+
+```sql
+SELECT *, COUNT(*)
+FROM shohin
+ORDER BY COUNT(*) DESC;
+```
+
+## 4. データの更新

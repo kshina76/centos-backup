@@ -1,7 +1,5 @@
 SELECT *
 FROM shohin;
-SELECT hanbai_tanka,
-  COUNT(*)
+SELECT *
 FROM shohin
-GROUP BY hanbai_tanka
-HAVING COUNT(*) = 2;
+ORDER BY hanbai_tanka DESC;
