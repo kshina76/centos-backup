@@ -159,3 +159,13 @@
 ### 4. インフラ構築
 - AWS
 - terraform
+
+---
+
+<br></br>
+
+# WebAPIの開発
+- リソース指向アーキテクチャの設計手順で行う
+  - webを支える技術に手順が書いてあった
+- RESTの設計
+  - https://www.slideshare.net/pospome/rest-api-57207424

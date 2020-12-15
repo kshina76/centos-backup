@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "database": "app_db",
+      "driver": "PostgreSQL",
+      "name": "postgres_test",
+      "password": "password",
+      "port": 5432,
+      "previewLimit": 50,
+      "server": "postgres_test",
+      "username": "app_user"
+    }
+  ]
+}

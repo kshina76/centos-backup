@@ -23,6 +23,10 @@
   - https://www.slideshare.net/TakuroWada/openapipythonweb
   - https://qiita.com/teinen_qiita/items/e440ca7b1b52ec918f1b
 
+### 0-2. WebAPIは公開していなくても解析されてバレる
+- WebAPIがどのようなものか知っていたら簡単にバレる
+- https://note.com/plusl/n/n52a673b95a1f
+
 ## 1.Web APIとは何か
 ### Web API
 - HTTPプロトコルを利用してネットワーク越しに呼び出すAPI

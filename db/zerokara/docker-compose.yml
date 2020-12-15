@@ -1,0 +1,16 @@
+version: '3'
+services:
+  postgres_test:
+    container_name: postgres_test
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    tty: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app_db
+    volumes:
+      - ./data:/var/lib/postgresql/data
