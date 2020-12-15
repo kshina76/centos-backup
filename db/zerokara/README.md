@@ -349,3 +349,38 @@ SELECT shiire_tanka, COUNT(*)
     WHERE COUNT(*) = 2
     GROUP BY shohin_bunrui;
   ```
+
+### 3-3. HAVING: 集約した結果に条件を指定する
+- GROUP BYしたものを一回表示してテーブルの状態を確認してから、HAVINGで条件を絞るとわかりやすい
+
+```sql
+SELECT <カラム名1>, <カラム名2>...
+  FROM <テーブル名>
+  GROUP BY <カラム名2>, <カラム名2>...
+  HAVING <グループの値に対する条件>
+```
+
+- GROUP BYした結果でcountが2のものを表示する
+
+```sql
+SELECT hanbai_tanka, COUNT(*)
+  FROM shohin
+  GROUP BY hanbai_tanka
+  HAVING COUNT(*) = 2;
+```
+
+#### 3-3-1. HAVING句を使うときの注意点
+- HAVING句に書ける要素
+  - 定数
+  - 集約関数
+  - GROUP BY句で指定した列名
+
+#### 3-3-2. WHERE句とHAVING句の使い分け
+- 集約関数だけはどちらで書いても処理できるが、使い分けはどうするか
+- 集約キーに対する処理はWHEREで書くべき理由二つ
+  - 実行速度の問題
+  - 責務が違うから
+    - WHERE句は行に対する条件指定
+    - HAVING句はグループに対する条件指定
+
+## 3-4. ORDER BY: 検索結果を並べ替える
