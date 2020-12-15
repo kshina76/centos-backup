@@ -1,5 +1,6 @@
 SELECT *
 FROM shohin;
-SELECT *
+SELECT shohin_bunrui,
+  COUNT(*)
 FROM shohin
-ORDER BY hanbai_tanka DESC;
+GROUP BY shohin_bunrui;

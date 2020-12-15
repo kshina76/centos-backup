@@ -3,6 +3,8 @@
 ## 残り106日(12/15更新)
 
 ## 直近todo
+- 色々な技術のチートシートがまとめられている
+  - https://wikiwiki.jp/bankura/IT系/チートシート・コマンド集
 - 以下のことについてまとめる
   - ISUCONのREADEMEに表示に関する最適化手法をまとめる
     - https://qiita.com/zaru/items/51ee8a5be22b75a42927

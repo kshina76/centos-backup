@@ -438,4 +438,267 @@ FROM shohin
 ORDER BY COUNT(*) DESC;
 ```
 
+---
+
+<br></br>
+
 ## 4. データの更新
+- ()で囲われたものをリストという
+### 4-1. データの登録
+- カラムリストと値リストの数は一致しないとエラーになる
+- NULLを挿入したい場合は、NULLと書いて挿入すればいいだけ
+
+```sql
+INSERT INTO <テーブル名> (カラム名1, カラム名2, ...) VALUES (値1, 値2, ...)
+```
+
+#### 4-1-1. カラムリストの省略
+  - テーブルの左のカラムから順に挿入される
+
+```sql
+INSERT INTO <テーブル名> VALUES (値1, 値2, ...)
+```
+
+#### 4-1-2. 複数行INSERT
+
+```sql
+INSERT INTO <テーブル名> VALUES (値1, 値2, ... , 値n), 
+                              (値n+1, 値n+2, ...)
+```
+
+#### 4-1-3. DEFAULT
+- 明示的な方法と暗黙的な方法の二つがあるが、明示的な方法で書くべきなので、その方法だけ書く
+- create tableの時にDEFAULT制約を使っていることが前提
+
+```sql
+INSERT INTO <テーブル名> (値1, 値2, 値3, ...)
+  VALUES (値1, DEFAULT, 値3, ...)
+```
+
+#### 4-1-4. 他のテーブルからデータをコピー
+
+```sql
+INSERT INTO ShohinCopy (shohin_id, shohin_mei, shohin_bunrui, hanbai_tanka, shiire_tanka, torokubi) 
+  SELECT shohin_id, shohin_mei, shohin_bunrui, hanbai_tanka, shiire_tanka, torokubi 
+    FROM shohin;
+```
+
+- GROUP BYとかも組み合わせることができる
+
+```sql
+INSERT INTO ShohinCopy (shohin_bunrui, hanbai_tanka_sum) 
+  SELECT shohin_bunrui, SUM(hanbai_tanka)
+    FROM shohin
+    GROUP BY shohin_bunrui
+```
+
+### 4-2. データの削除
+- 大きく分けて二種類ある
+  1. DROP TABLEでテーブルごと削除
+  2. DELETEでテーブルは残したまま、中のカラムを削除する
+
+#### 4-2-1. テーブルの中のカラムを空っぽにする
+
+```sql
+DELETE FROM <テーブル名>;
+```
+
+#### 4-2-2. 削除対象を制限したDELETE
+- WHEREを使って制限する
+
+```sql
+DELETE FROM <テーブル名>
+  WHERE <条件>;
+```
+
+```sql
+DELETE FROM shohin
+  WHERE hanbai_tanka > 1000;
+```
+
+#### 4-2-3. TRUNCATE: 高速に全カラムを削除する
+- DELETEと違って高速に動作させることができる
+- デメリットもある可能性があるので、製品のドキュメントをよく見るようにする
+
+```sql
+TRUNCATE <テーブル名>
+```
+
+### 4-3. データの更新
+- WHEREで指定しない場合はカラムが全て同じ値で置き換えられる
+- 式にNULLを指定するとNULLで更新できる
+
+
+```sql
+UPDATE <テーブル名>
+  SET <カラム> = <式>;
+```
+
+#### 4-3-1. 条件を指定したUPDATE
+
+```sql
+UPDATE <テーブル名>
+  SET <カラム> = <式>
+  WHERE <条件>;
+```
+
+#### 4-3-2. まとめて更新
+
+- 方法1
+
+```sql
+UPDATE <テーブル名>
+  SET <カラム名1> = <式1>,
+      <カラム名2> = <式2>
+  WHERE <条件>
+```
+
+- 方法2
+  - リストでまとめる
+
+```sql
+UPDATE <テーブル名>
+  SET (カラム名1, カラム名2, ...) = (式1, 式2, ...)
+  WHERE <条件>
+```
+
+### 4-4. トランザクション
+- トランザクションとは、セットで実行されるべき1つ以上の更新処理の集まりのこと
+  - DML文はINSERT,UPDATE,DELETE
+- COMMITしてTトランザクションを確定すると、前の状態には戻せないのでよく考えてから行う
+
+```sql
+BEGIN TRANSACTION;
+  DML文1;
+  DML文2;
+  DML文3;
+  ...
+COMMIT;
+```
+
+- COMMITで保存してトランザクションを終了
+
+```sql
+BEGIN TRANSACTION;
+  UPDATE shohin
+    SET hanbai_tanka = hanbai_tanka - 1000
+    WHERE shohin_mei = 'カッターシャツ';
+  
+  UPDATE shohin
+    SET hanbai_tanka = hanbai_tanka + 1000
+    WHERE shohin_mei = 'Tシャツ';
+COMMIT;
+```
+
+- ROLLBACKで保存しないでトランザクションを終了
+
+```sql
+BEGIN TRANSACTION;
+  UPDATE shohin
+    SET hanbai_tanka = hanbai_tanka - 1000
+    WHERE shohin_mei = 'カッターシャツ';
+  
+  UPDATE shohin
+    SET hanbai_tanka = hanbai_tanka + 1000
+    WHERE shohin_mei = 'Tシャツ';
+COMMIT;
+```
+
+#### 4-4-1. ACID特性: DBMSが守らなければいけないルール
+- 原子性(Atomicity)
+  - トランザクションが全て実行されるか、全て実行されないかのどちらかという意味
+  - 片方のUPDATEしか行われないといったことが無いように保証する特性
+- 一貫性、整合性(Consistency)
+  - トランザクション内に記述した複数のDMLのうち一つでも違反な動きがあったらロールバックされるという特性
+  - 例えば、NOT NULLのところにNULLが代入されるとか
+- 独立性(Isolation)
+  - トランザクション同士が干渉しないという特性
+  - トランザクションAを実行していたら、トランザクションBはテーブルの中身を見れないといったもの
+  - また、トランザクションが入れ子になることがないというもの
+- 永続性(Durability)
+  - 耐久性といった特性
+  - システム障害があっても何らかの手段でデータを復旧しないといけない
+  - トランザクションの履歴のログから復旧するといった手法が取られる
+
+---
+
+<br></br>
+
+## 5. 複雑な問い合わせ
+### 5-1. テーブルとビュー
+- テーブルは実際に記憶装置に保存するから、保存場所を取る
+- ビューはSELECT文自体を保存するので、保存場所を取らない（メモリに保存するのかな？？）
+- ビューのメリット
+  - 保存容量の問題
+  - 繰り返しクエリを書かなくていい(サブルーチンみたいな役割)
+
+#### 5-1-1. CREATE VIEW: ビューの作成
+- VIEWの列1はSELECTの列1のように対応する
+- VIEWはTABLEと同じようにFROMに書くことができる
+- VIEWからVIEWを作ることも可能
+  - パフォーマンスの低下を招くからやめたほうがいい
+
+```sql
+CREATE VIEW <ビュー名> (<ビューの列名1>, <ビューの列名2>, ...)
+AS
+<SELECT文>
+```
+
+```sql
+CREATE VIEW ShohinSum (shohin_bunrui, shohin_sum)
+AS
+SELECT shohin_bunrui, COUNT(*)
+```
+
+```sql
+CREATE VIEW ShohinSum (shohin_bunrui, shohin_sum)
+AS
+SELECT shohin_bunrui, COUNT(*)
+  FROM shohin
+  GROUP BY shohin_bunrui;
+
+SELECT shohin_bunrui, shohin_sum
+FROM ShohinSum;
+```
+
+#### 5-1-2. ビューの制限
+1. ビュー定義にORDER BYは使えない
+2. ビューに対する更新は、かなり厳しい制約の元で可能
+  - 複雑なので、使うときに調べる
+
+#### 5-1-3. ビューの削除
+
+```sql
+DROP VIEW <ビュー名>
+```
+
+### 5-2. サブクエリ
+- 使い捨てのビュー。SELECT文の実行終了後に破棄される
+- サブクエリはその場で破棄されるけど、AS ShohinSumのように名前はつけないといけない
+- 実行順序としては、サブクエリが実行されてから、メインのSELECTが実行されるという感じ
+- サブクエリをさらにネストするのは、可読性の面とパフォーマンスの面でやめたほうがいい
+
+```sql
+SELECT shohin_bunrui, shohin_sum
+  FROM (
+    SELECT shohin_bunrui, COUNT(*) AS shohin_sum
+      FROM shohin
+      GROUP BY shohin_bunrui
+  ) AS ShohinSum;
+```
+
+#### 5-2-1. スカラサブクエリ
+- スカラサブクエリとは、一行一列(すなわちただの値)を返すサブクエリのこと
+- WHERE句では集約関数は使えないので、サブクエリで先に実行させることで使えるようにする技
+- スカラサブクエリは定数や列名が書けるところにはどこにでも書ける
+- スカラサブクエリの注意点としては、必ず単一の値を返すようにすること。そうしないと「<, >」といったもので比較できなくなってしまうから
+
+```sql
+SELECT shohin_id, shohin_mei, shohin_tanka
+  FROM shohin
+  WHERE shohin_tanka > (SELECT AVG(shohin_tanka) FROM shohin)
+```
+
+### 5-3. 相関サブクエリ
+- 小分けにしたグループ内での比較をするときに使う
+- GROUP BYと同じように相関サブクエリも集合をカットするといった動作をする
