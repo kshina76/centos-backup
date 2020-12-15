@@ -35,6 +35,7 @@
 ![12216_07](https://user-images.githubusercontent.com/53253817/102182295-5c34c480-3eef-11eb-973d-ed930dbd5439.jpeg)
 
 ### 1-3. SQLの概要
+- SQLは句の順番が決まっていて、「WHEREを使うときはFROMより後にこなければいけない」といったルールがあることに注意する
 #### 1-3-1. DDL : データベースやテーブル自体を作成したり削除したりするもの
 - CREATE...データベースやテーブルを作成する
 - DROP...データベースやテーブルを削除する
@@ -147,3 +148,204 @@ INSERT INTO shohin VALUES ('0008', 'ボールペン', '事務用品', 100, NULL,
 
 COMMIT;
 ```
+
+---
+
+<br></br>
+
+## 2. 検索の基本
+- FROMを省略するとダミーデータを作ることができる(テクニック)
+### 2-1. 基礎となる検索
+
+```sql
+SELECT <カラム名> from <テーブル名>;
+```
+
+### 2-2. カラムに別名をつけて検索結果を表示
+
+```sql
+SELECT <カラム名> AS <カラムの別名> FROM <テーブル名>;
+```
+
+### 2-3. 定数を出力
+- レコードの数だけ同じ定数で埋められて出力される
+
+```sql
+SELECT shohin_id AS id, '包丁' AS shohin_name, 1000 AS price FROM <テーブル名>;
+```
+
+### 2-4. カラム内で重複しているところを排除して表示する
+- DISTINCTに複数のカラムを指定した場合は、二つのカラムどちらも一致している場合に排除する
+
+```sql
+SELECT DISTINCT <カラム名> FROM <テーブル名>;
+```
+
+### 2-5. WHERE句で条件つき検索
+- 条件式なので、等価を表す「=」を使ったり、大小関係を表す「<, >」を使う。特殊なのは「<>」で`!=`を表す
+- charやvarcharを比較する際は、辞書順で比較される
+- ANDやORなどの優先順位を変えたかったらプログラミング言語と同じで「()」を付ければいい
+- ANDやORでNULLを判定すると`真`でも`偽`でもない`不明`という値になるので注意
+  - テーブル定義でNOT NULLを使う理由にはこのような理由がある
+
+#### 2-5-1. 構文
+
+```sql
+SELECT <カラム名> FROM <テーブル名> WHERE <条件式>;
+```
+
+#### 2-5-2. 例
+
+```sql
+SELECT * FROM shohin WHERE shohin_tanka < 1000
+```
+
+- `AND句`や`OR句`を使うと複数の条件を書ける
+
+```sql
+SELECT * FROM shohin
+WHERE hanbai_tanka > 1000 
+AND shohin_bunrui = 'キッチン用品';
+```
+
+- `NOT句`で否定できる
+
+```sql
+SELECT * FROM shohin
+WHERE NOT hanbai_tanka > 1000;
+```
+
+- 条件式には計算式を書くこともできる
+
+```sql
+SELECT * FROM shohin WHERE shohin_tanka - 200 < 1000
+```
+
+- NULLの判定は、`IS NULL`または`IS NOT NULL`で行う
+
+```sql
+SELECT *
+FROM shohin
+WHERE torokubi IS NULL;
+```
+
+### 2-6. 算術演算子
+- SELECT句には定数だけでなくて、計算式も書ける
+- ASで`""`を使ったり使っていないのは、「*」を文字としてみなしたいときに囲っている
+
+```sql
+SELECT hanbai_tanka, hanbai_tanka * 2 AS hanbai_tanka2
+FROM shohin;
+```
+
+```sql
+SELECT hanbai_tanka, hanbai_tanka * 2 AS "hanbai_tanka*2"
+FROM shohin;
+```
+
+---
+
+<br></br>
+
+## 3. 集約と並べ替え
+- 集約は「複数の行を一つの行にまとめる」という意味がある
+### 3-1. テーブルを集約して検索する
+- SQLでデータに対して何らかの操作や計算を行うには「集約関数」というものを用いる
+- 集約関数は並べると複数表示できる「SUM(A), SUM(B)」
+
+#### 3-1-1. COUNT: テーブルの行数を数える
+- NULLはカウントされない
+- NULLを以外のところをカウントしたかったら、NULLを含むカラムを選択することでカウントできる
+  - NULLはカウントされないから
+- 「*」を指定できるのは集約関数の中でもCOUNTだけ
+
+```sql
+SELECT COUNT(*) FROM shohin;
+```
+
+#### 3-1-2. SUM: 合計を求める
+- NULLは計算式に含めないので気にしなくていい
+
+```sql
+SELECT SUM(hanbai_tanka)
+FROM shohin;
+```
+
+#### 3-1-3. AVG: 平均値を求める
+- NULLは数に含まれないので注意
+
+```sql
+SELECT AVG(hanbai_tanka)
+FROM shohin;
+```
+
+#### 3-1-4. MAX, MIN: 最大値・最小値
+- MAX,MINは日付型や文字列型にも使用できる
+
+```sql
+SELECT MAX(hanbai_tanka),
+  MIN(hanbai_tanka)
+FROM shohin;
+```
+
+#### 3-1-5. DISTINCT: 重複値を除外して集約関数を使用
+
+```sql
+SELECT AVG(DISTINCT hanbai_tanka)
+FROM shohin;
+```
+
+### 3-2. GROUP BY: テーブルをグループに切り分ける
+- GROUP BYで指定したものを基準にグループ分けをする
+- NULLもグループ分けされる
+
+#### 3-2-1. 構文
+
+```sql
+SELECT <カラム名1>, <カラム名2>...
+  FROM <テーブル名>
+  GROUP BY <カラム名1>, <カラム名2>;
+```
+
+#### 3-2-2. 商品の種類ごとにカウントをして表示
+
+```sql
+SELECT shohin_bunrui, COUNT(*)
+  FROM shohin
+  GROUP BY shohin_bunrui;
+```
+
+#### 3-2-3. WHEREと一緒に使うことも可
+
+```sql
+SELECT shiire_tanka, COUNT(*)
+  FROM shohin
+  WHERE shohin_bunrui = '衣服'
+  GROUP BY shiire_tanka;
+```
+
+#### 3-2-4. 集約関数とGROUP BYを使うときの注意点
+- GROUP BYを使った時にはSELECTに以下のものしか書けない
+  1. 定数
+  2. 集約関数
+  3. GROUP BYで指定した列名
+- SELECTでASを使って別名にしたものをGROUP BYで使ってはいけない
+  - GROUP BYがSELECTより先に実行されるから
+
+  ```sql
+  SELECT shohin_bunrui AS sb, COUNT(*)
+    FROM shohin
+    GROUP BY sb;
+  ```
+
+- GROUP BYの結果はソートされているわけではなく、ランダム
+
+- WHERE句に集約関数を書いてはいけない
+  - 集約関数をかける場所は「SELECT, HAVING, ORDER BY」だけ
+
+  ```sql
+  SELECT shohin_bunrui, COUNT(*)
+    FROM shohin
+    WHERE COUNT(*) = 2
+    GROUP BY shohin_bunrui;
+  ```
