@@ -706,3 +706,135 @@ SELECT shohin_id, shohin_mei, shohin_tanka
 ### 5-3. 相関サブクエリ
 - 小分けにしたグループ内での比較をするときに使う
 - GROUP BYと同じように相関サブクエリも集合をカットするといった動作をする
+- 手続き型では繰り返し構文で書くが、SQLだと相関サブクエリで書くといった感じ
+  - https://gihyo.jp/dev/serial/01/sql_academy2/000902
+
+#### 5-3-1. スカラサブクエリにするために相関サブクエリを使用する
+- 「<テーブル名>.<カラム名>」でテーブルの中の指定したカラムに限定するという動きをする
+- サブクエリのスコープに注意する。S1は全体だけど、S2はネストしたところが範囲なので注意
+
+```sql
+SELECT shohin_bunrui, shohin_mei, hanbai_tanka
+FROM shohin AS S1
+WHERE hanbai_tanka > (
+    SELECT AVG(hanbai_tanka)
+    FROM shohin AS S2
+    WHERE S1.shohin_bunrui = S2.shohin_bunrui
+    GROUP BY shohin_bunrui
+  );
+```
+
+## 6. 関数、述語、CASE式
+
+---
+
+<br></br>
+
+## 7. 集合演算
+- 2つのテーブルにあるレコードを集めた結果や、共通するレコードを集めた結果、片方のテーブルに集めた結果を得たりする
+
+### 7-0. 集合演算の注意事項
+1. カラム数を同じにする
+2. カラム名(データ型)を同じにする
+3. ORDER BYは最後に一つだけ
+
+### 7-1. テーブルの足し算と引き算(テーブルを行方向に増減させる)
+
+#### 7-1-1. チートシート
+- テーブルの足し算引き算
+  - UNION: オレンジ + 青 + (重複を除いた緑)
+
+![phA2q](https://user-images.githubusercontent.com/53253817/102315882-43441600-3fb8-11eb-9d0b-5139d2c42171.jpeg)
+
+#### 7-1-2. UNION: テーブルの足し算(和集合)
+- 集合論において、和集合は重複しているところを排除して、全体を網羅するように表示するもの
+
+```sql
+SELECT shohin_id, shohin_mei
+  FROM shohin
+UNION
+SELECT shihin_id, shohin_mei
+  FROM shohin2;
+```
+
+- 重複行を残したい場合
+  - ALLをつけるだけ
+
+```sql
+SELECT shohin_id, shohin_mei
+  FROM shohin
+UNION ALL
+SELECT shohin_id, shohin_mei
+  FROM shohin2;
+```
+
+#### 7-1-3. INTERSECT: テーブルの共通部分の選択
+- 書き方はUNIONと全く同じ。ALLについても同じ
+
+```sql
+SELECT shohin_id, shohin_mei
+  FROM shohin
+INTERSECT
+SELECT shohin_id, shohin_mei
+  FROM shohin2;
+```
+
+#### 7-1-4. EXCEPT: レコードの引き算
+- 書き方は同じだが、引く方向を気を付ける。4-2と2-4の答えが違うのと一緒
+
+```sql
+SELECT shohin_id, shohin_mei
+  FROM shohin
+EXCEPT
+SELECT shohin_id, shohin_mei
+  FROM shohin2;
+```
+
+### 7-2. 結合(テーブルを列方向に連結する)
+- 7-1とは違って列方向(横)に連結する演算
+- ネストして3つのテーブルを結合することもできる
+
+#### 7-2-0. 結合のチートシート
+- OUTERは省略されて記述されている
+
+![Visual_SQL_JOINS_orig](https://user-images.githubusercontent.com/53253817/102320370-89e93e80-3fbf-11eb-805b-b01c135c62b7.jpeg)
+
+#### 7-2-1. INNER JOIN: 内部結合
+- ONは結合キーといって、どのレコードとどのレコードを横に並べるかという重要な役割を担う
+  - だから、プライマリーキーとは別に商品識別キーをデータベースに定義する必要があるのか！！
+- ONはFROMとWHEREの間に書く
+- 内部結合の動作としては、両方に存在しているレコードだけ抽出される
+- 内部結合のポイント3つ
+  1. FROMで二つのテーブルを記述
+  2. ONで結合キーを指定
+  3. SELECTでは<テーブルの別名>.<カラム名>のように明示してわかりやすく書く
+
+```sql
+SELECT TS.tenpo_id, TS.tenpo_mei, TS.shohin_id, S.shohin_mei
+  FROM TenpoShohin AS TS INNER JOIN ShohinAS S
+    ON TS.shohin_id = S.shohin_id
+```
+
+#### 7-2-2. OUTER JOIN: 外部結合
+- 内部結合と違って、片方に存在していなくても出力される
+- どちらか一方に存在しているなら欠けないで表示される
+- OUTERは省略できる
+
+```sql
+SELECT TS.tenpo_id, TS.tenpo_mei, TS.shohin_id, S.shohin_mei
+  FROM TenpoShohin AS TS RIGHT OUTER JOIN ShohinAS S
+    ON TS.shohin_id = S.shohin_id
+```
+
+#### 7-2-3. CROSS JOIN: クロス結合
+- 実務で使うことはない
+- 集合論における直積を行うものなので、全ての組み合わせを出力する
+
+---
+
+<br></br>
+
+## 8. SQLで高度な処理を行う
+### 8-1. ウィンドウ関数
+- ウィンドウ関数はOLAP関数とも呼ばれていて、データベースを使ってリアルタイムにデータ分析を行うもの
+### 8-2. GROUPING演算子
