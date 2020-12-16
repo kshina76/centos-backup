@@ -22,6 +22,13 @@
   - まず全てORMで書いてみてから、クエリを解析してN+1問題といった問題が起きていたらそこを生のSQLで書いて直す(ORMを工夫できるならそれでも可能)
   - ここでSQLチューニングの知識が必要になる
   - ORMと生SQLどっちもかけるフレームワークだと良い
+4. 綺麗なアーキテクチャを作るのにinterfaceは別に必須ではない(依存方向をしっかりすればいい)
+  - pospomeの書籍でもinterfaceを使っているのはクリーンアーキテクチャくらいだった
+  - https://shinyorke.hatenablog.com/entry/fastapi
+  - http://blog.fujimisakari.com/web_application_architecture_pattern/
+5. マイクロフレームワークでもclassを使ったほうがいいのかもしれない(多分)
+  - FastAPIのclass based view
+  - https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/
 
 ## 技術選定
 ### 一般的な考え方
@@ -64,6 +71,17 @@
   - モノリシックなWebアプリならDjango
   - マイクロサービスのようにWebAPIならFlaskで、フロントがReactの構成がよく使われる
   - https://www.youtube.com/watch?v=ogXfNQxA2LE
+- FlaskかFastAPIか
+  - https://zenn.dev/satto_sann/articles/b405ca8961d70fac99ff
+  - https://qiita.com/bee2/items/75d9c0d7ba20e7a4a0e9
+- SPAやMicroServiceの影響でFlaskやFastAPIやChaliceといったフレームワークが勢い付いてきている
+  - https://python.ms/web/#_0-その前に
+- FastAPI(Flaskよりこっちが流行ってきているかも)
+  - https://qiita.com/bee2/items/75d9c0d7ba20e7a4a0e9
+  - FastAPIのディレクトリ構成
+    - https://note.com/yusugomori/n/n9f2c0422dfcd
+  - FastAPIでアプリケーションを作っている(結構ちゃんとしているもの)
+    - https://shinyorke.hatenablog.com/entry/fastapi
 - フレームワーク一覧
   - https://www.acrovision.jp/career/?p=1897
 - Pythonにおける技術選定(絶対見たほうがいい)

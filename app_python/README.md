@@ -59,6 +59,7 @@ black == 20.8b1
 ```
 
 #### flask
+- https://python.ms/view/
 - 以下テストコード
 
 ```python
@@ -162,7 +163,12 @@ if __name__ == "__main__":
 - psycopg2
   - pythonからpostgresqlに接続するためのもの
 - elasticsearch
-
+- FastAPI(Flaskよりこっちが流行ってきているかも)
+  - https://qiita.com/bee2/items/75d9c0d7ba20e7a4a0e9
+  - FastAPIのディレクトリ構成
+    - https://note.com/yusugomori/n/n9f2c0422dfcd
+  - FastAPIでアプリケーションを作っている(結構ちゃんとしているもの)
+    - https://shinyorke.hatenablog.com/entry/fastapi
 #### 3-1. 参考文献
 - Awesome Flask
   - https://github.com/humiaozuzu/awesome-flask
@@ -184,6 +190,8 @@ if __name__ == "__main__":
   - https://agency-star.co.jp/column/elasticsearchとは？基礎と使い方をわかりやすく解説！デ/
   - https://qiita.com/nskydiving/items/1c2dc4e0b9c98d164329
   - https://www.slideshare.net/mobile/recruitcojp/elasticsearch-56355817
+- SPAやMicroServiceの影響でFlaskやFastAPIやChaliceといったフレームワークが勢い付いてきている
+  - https://python.ms/web/#_0-その前に
 
 ### 4. エンドポイントの設計(URI設計)
 

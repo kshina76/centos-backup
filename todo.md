@@ -3,6 +3,9 @@
 ## 残り106日(12/15更新)
 
 ## 直近todo
+- 入社後の日課
+  - 英語(TOEFL)
+  - atcoder, leetcode
 - 入社前の最低限の勉強
   - git
     - SourceTreeなどのクライアントツールについても
@@ -61,10 +64,13 @@
     - https://qiita.com/etaroid/items/b1024c7d200a75b992fc
     - https://qiita.com/etaroid/items/88ec3a0e2d80d7cdf87a
     - https://qiita.com/etaroid/items/40106f13d47bfcbc2572
+  - FastAPIでアプリケーションを作っている(結構ちゃんとしているもの)
+    - https://shinyorke.hatenablog.com/entry/fastapi
 - WebAPIをOOPで開発するってことはあるのか？
   - flask_restfulとかflask_classみたいなライブラリはあった
   - プレゼンテーション層がHTMLではなくてJSONに変わっても同じ。というような記事を見たことがあった気がするから開発することはあるのかなと思った
 
+- とりあえずFlaskでやろう。あとでFastAPIでやればいい
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - SEATUC(1/15に合格かどうかがくる)
 - 本論(1/29~2/6)
@@ -93,6 +99,14 @@
       - https://note.com/licodeenar/n/n0e87fb648342
 - モチベーションにプラスになる動画
   - https://www.youtube.com/watch?v=RO3gGJokzdg
+- 海外転職の情報
+  - https://www.youtube.com/watch?v=n2p1GVyTdg8
+  - アメリカのビザ
+    - https://medium.com/@sakamoto.kazuki/2017-12-demystifying-us-visa-f596529701a3
+    - https://www.jinmei.org/blog/2008/10/19/474
+    - https://qiita.com/hellokenta/items/427fe0602cc3418bbfac
+  - 米国の大学院
+    - https://tnanjo.net/2017/07/14/how-to-prepare-for-study-abroad.html
 - vscodeショートカット
   - 移動系
   - 実行
