@@ -209,6 +209,7 @@ if __name__ == "__main__":
   - ステータスコードの設計
   - Flaskのサンプル
     - https://qiita.com/tchnkmr/items/26d271886b46c4e52dc1
+  - Chromeのネットワークタブなどでリクエストとレスポンスの中身を覗きながら開発してHTTPの理解も深める
 - 検索機能のためにelasticsearchを学ぶ
 - swaggerで載せ替えてみる
 - セキュリティの懸念点を埋める
