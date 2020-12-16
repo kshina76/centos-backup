@@ -3,6 +3,35 @@
 ## 残り106日(12/15更新)
 
 ## 直近todo
+- 入社前の最低限の勉強
+  - git
+    - SourceTreeなどのクライアントツールについても
+    - 日頃の開発からgitでブランチ切って、マージをするなどしたほうがいいかも
+  - HTTPなどのIT知識
+    - 暇な時に色々本を読んでおくといいかな
+  - Linux
+  - SQL
+    - ミックの書籍を3冊読む
+    - できるならばアンチパターンも
+    - クライアントツール
+  - Docker
+  - markdownでの文書作成
+  - AWSで簡単にネットワークを組んで、サブネット分割して環境を整える練習とかLambdaとかの本とか
+    1. 図解即戦力　Amazon Web Services
+      - 借りた
+    2. Amazon Web Servicesインフラサービス活用大全
+      - 借りた
+    3. Amazon Web Services 基礎からのネットワーク＆サーバー構築　改訂3版 
+      - kindleにある
+    4. 基礎から学ぶサーバレス設計開発
+      - 借りた
+    5. Amazon Web Serviceネットワーク入門
+      - kindleにある
+      - もう一回読む
+    6. 実践terraform
+      - kindleにある
+- ソニーはマイクロサービスを構築しているらしい
+  - https://aws.amazon.com/jp/solutions/case-studies/sony/
 - 色々な技術のチートシートがまとめられている
   - https://wikiwiki.jp/bankura/IT系/チートシート・コマンド集
 - 以下のことについてまとめる

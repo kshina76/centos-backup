@@ -1,6 +1,37 @@
 # AWSまとめ
 
+## todo
+- 一からAWSでサービスを構築する手順を学ぶ
+  1. 設計
+    - ネットワークの設計
+    - 色々なデザインパターンを見つつ最適な設計をする
+  2. 設計に沿ってAWSのコンソールで確認しつつ構築
+    - AZ, VPC, Subnetなどのネットワークの設定
+    - サーバ, DB, 各種ミドルウェアの設定
+  3. terraformなどでコード化
+  
+---
+
+<br></br>
+
 ## 学習教材
+### 書籍
+1. 図解即戦力　Amazon Web Services
+  - 借りた
+2. Amazon Web Servicesインフラサービス活用大全
+  - 借りた
+3. Amazon Web Services 基礎からのネットワーク＆サーバー構築　改訂3版 
+  - kindleにある
+4. Amazon Web Serviceネットワーク入門
+  - kindleにある
+  - もう一回読む
+5. 実践terraform
+  - kindleにある
+  - もう一回読む
+6. 基礎から学ぶサーバレス設計開発
+  - 借りた
+
+
 ### 【AWS初心者向け】AWS学習方法まとめ【15時間で達成できる】
 - https://qiita.com/toma_shohei/items/b7a001d26bd988d52021
 

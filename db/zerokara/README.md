@@ -4,6 +4,10 @@
 - アプリケーションを開発しながらSQLのクエリを試すといったことがあると思うが、そのような時に使える
 - 実際のアプリケーション開発では、remote containerのdevcontainerに以下の拡張機能を選んで入れて使う
 - postgresqlのdockerコンテナが、なぜかpythonなどと繋がないとSQLToolsで接続できなかった。なぜか。
+- vscodeではなくて、専用のクライアントアプリを使ったほうがいいかも
+  - MySQLならSequel ProとSequel Ace
+  - PostgreSQLなら以下
+    - https://qiita.com/fukayatsu/items/0a0befefcf026de80773
 ### 0-1. vscodeのプラグイン
 #### 0-1-1. SQLTools(mtxr.sqltools)
 - vscodeをSQLクライアントとして、様々な種類のDBMS(DBのサーバ)に接続するプラグイン
