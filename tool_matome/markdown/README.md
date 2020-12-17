@@ -8,7 +8,7 @@
 
 
 ```
-docker run --rm -v $(pwd -W):/data frozenbonito/pandoc-eisvogel-ja:plantuml \
+$ docker run --rm -v $(pwd -W):/data frozenbonito/pandoc-eisvogel-ja:plantuml \
     --listings \
     -N \
     --toc \

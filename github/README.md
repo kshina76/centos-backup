@@ -1,5 +1,35 @@
 # GitHub書籍メモ
 
+## gitでの開発フローまとめ
+1. 最新のdevelopからチケット番号でブランチを切る
+2. チケット番号ブランチで開発した機能をコミット、プッシュする
+3. 終わったらdevelopにプルリクエストを送り、レビューの後マージされる
+4. ステージング環境に最新のdevelopを出して確認する
+5. 問題なければdevelopをmasterにマージしタグ付け、 本番に最新のタグをデプロイする
+
+### リジェクトとコンフリクト
+- pushが拒否される二つの理由
+  - リジェクト: 異なるファイルに変更を加えた場合
+  - コンフリクト: 同一のファイルに変更を加えた場合
+- リジェクトの対処法
+  - いったん「git pull」（git fetchとgit merge）を実行してから再度「git push」を試みる
+  - git fetchでリモートリポジトリの最新の情報をローカルリポジトリに取り込む
+  - git mergeで他のブランチやコミットの内容を現在のブランチに取り込む
+- コンフリクトの対処法
+  - https://www.atmarkit.co.jp/ait/articles/2005/22/news028.html
+
+- https://qiita.com/te2u/items/c23f82ec84cf65564554
+- https://www.atmarkit.co.jp/ait/articles/2005/22/news028.html
+
+### 参考文献
+- https://note.com/gure_ko/n/n6af09ab69adf
+- https://gist.github.com/yousan/b147f14d0c1d697dde6f4d4d6c857fb8
+- https://techracho.bpsinc.jp/morimorihoge/2020_09_09/16856
+- https://cloudsmith.co.jp/blog/efficient/2020/08/1534208.html
+
+
+---
+
 - Notification
   - 「@ユーザ名」...ユーザにメンションを送ってメッセージを送信できる
   - 「@組織名」...組織全体にメンションを送信できる
