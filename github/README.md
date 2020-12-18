@@ -1,11 +1,82 @@
 # GitHub書籍メモ
 
 ## gitでの開発フローまとめ
+- commit前はとりあえず`git status`と`git diff`でステータスと差分を確認する
+- commit後はとりあえず`git hist`でコミットログを確認してコミットされているかを確認
+- 参考文献
+  - https://www.youtube.com/watch?v=1kThUbSdlro
+### 事前準備
+1. モジュールのインストール
+  - commitizenのインストール
+    - gitのcommitメッセージを対話形式で簡単に作成することができるツール
+  - peco
+    - エイリアスの`git df`で必要
+    - https://qiita.com/reireias/items/fd96d67ccf1fdffb24ed
+  - tig
+    - コミットログを綺麗なフォーマットで表示できるツール
+    - `git df`や`git hist`のエイリアスが要らなくなるかも
+    - https://qiita.com/suino/items/b0dae7e00bd7165f79ea
+  - hub
+    - `hub browse`でコマンドラインからgithubのサイトを開くことができる
+    - https://dev.classmethod.jp/articles/hub/
+2. エイリアスの設定
+  - `git df`
+    - コミットのログを表示してくれて、任意のコミットを選択するとdiffを表示してくれる(どんな変更を加えたかの表示)
+    - 17分〜
+  - `git hist`
+    - コミットのログを表示
+  - `git ps`
+    - pushのエイリアス
+    - pushするときに作業しているブランチをオプションで選択する必要がなくなるので便利
+    - `git push origin HEAD`をエイリアスにしている。HEADを指定するとブランチ名を指定しなくてもカレントブランチをリモートにpushできる
+  - `git pl`
+    - pullのエイリアス
+    - 理由はpsと同じ
+  - https://github.com/craftzdog/dotfiles-public
+
+### リポジトリの作成〜イニシャルコミット
+1. プロジェクトディレクトリの作成
+  - DjangoやFlaskなどそれぞれに合わせた方法を調べて作成する
+2. リポジトリの作成
+  - github上で作成
+  - すでに作成してある場合は、`git clone`をすれば`git init`などもされている状態になる
+3. プロジェクトディレクトリの初期化
+  - `git init`
+4. git remote add origin git@github.com/example
+  - リモート追跡にリモートリポジトリを登録
+5. リモート追跡に登録されたか確認
+  - `git remote -v`
+6. ステータスを確認
+  - `git status`
+  - コマンドを打つ度に確認していいと思う
+7. ステージングに反映
+  - `git add .`
+  - 最初のコミットは`git add .`でも問題ないが二回目以降は目的のファイルだけをステージングにあげるようにしたほうがいいと思う
+8. ステータスを確認
+  - `git status`
+9. 差分を確認
+  - `git diff`
+10. ローカルリポジトリに反映: commitizienを使う
+  - `git cz`or`git cz -a`
+  - コミットメッセージをインタラクティブに入力する
+11. コミットログを確認
+  - `git hist`
+
+### ブランチを切る〜masterにマージ
 1. 最新のdevelopからチケット番号でブランチを切る
 2. チケット番号ブランチで開発した機能をコミット、プッシュする
 3. 終わったらdevelopにプルリクエストを送り、レビューの後マージされる
 4. ステージング環境に最新のdevelopを出して確認する
 5. 問題なければdevelopをmasterにマージしタグ付け、 本番に最新のタグをデプロイする
+
+### PRからマージ
+1. PushしたブランチからGitHub上でPRを作る
+2. PR用のテンプレート設定されているなら、それに入力
+3. Reviewersからレビューして欲しい人を選択
+4. PRのコメントに「close #issue番号(またはissueのURL)」を入力して、PRがマージされた際にissueも同時にcloseするようにする
+5. レビューを受けて承認をもらう
+6. 自分でマージする(普通は権限を持っている人がマージする)
+7. featureブランチを削除する
 
 ### リジェクトとコンフリクト
 - pushが拒否される二つの理由

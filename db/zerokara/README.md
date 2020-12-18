@@ -822,7 +822,7 @@ SELECT TS.tenpo_id, TS.tenpo_mei, TS.shohin_id, S.shohin_mei
 
 ```sql
 SELECT TS.tenpo_id, TS.tenpo_mei, TS.shohin_id, S.shohin_mei
-  FROM TenpoShohin AS TS RIGHT OUTER JOIN ShohinAS S
+  FROM TenpoShohin AS TS RIGHT OUTER JOIN Shohin AS S
     ON TS.shohin_id = S.shohin_id
 ```
 

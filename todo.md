@@ -1,11 +1,19 @@
 # todo
 
-## 残り106日(12/15更新)
+## 残り103日(12/18更新)
 
 ## 直近todo
 - 入社後の日課
   - 英語(TOEFL)
   - atcoder, leetcode
+  - 入社1,2年目で意識すること、やること
+    - https://qiita.com/rf_p/items/34f92d4e9d4398f2f969
+    - https://qiita.com/cocoa_dahlia/items/2e6b25e166058936eceb
+    - https://qiita.com/musclemikiya/items/8d7befa6f7fade842a2a
+    - https://qiita.com/shunsuke227ono/items/36723b9c19c25d545aa1
+    - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
+    - https://qiita.com/enta0701/items/a6faabbecd6786642d76
+    - https://qiita.com/hand12/items/89f62ad51a51f596d259
 - キーボード操作を効率化(vim形式でできるのかな？？)
   - 移動キーの割り当て
   - 定義を表示
