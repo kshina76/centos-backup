@@ -9,7 +9,18 @@
     - AZ, VPC, Subnetなどのネットワークの設定
     - サーバ, DB, 各種ミドルウェアの設定
   3. terraformなどでコード化
-  
+
+---
+
+<br></br>
+
+## AWSに登録したらやること
+- セキュリティの設定
+  - https://qiita.com/tmknom/items/303db2d1d928db720888
+- git secretsの設定
+  - https://qiita.com/pottava/items/4c602c97aacf10c058f1
+
+
 ---
 
 <br></br>

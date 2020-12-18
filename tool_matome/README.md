@@ -40,5 +40,19 @@
   - 拡張子の表示
   - finderの表示項目の設定
 
+## 4. 開発系
+- commitizen
+  - gitのコミットメッセージを楽々書ける便利ツール
+  - `npm install -g commitizen`または`npx git-cz`
+- peco
+  - githubのREADMEを参照
+  - `brew install peco`
+- tig
+  - gitのCUIクライアントツール
+  - `brew install tig`
+- hub
+  - githubの便利ツール
+  - `brew install hub`
+
 ### 参考文献
 - https://www.youtube.com/watch?v=9x5kLB5WirI
