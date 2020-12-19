@@ -27,6 +27,8 @@
 - Commitizenをカスタマイズしてチームごとの雛形を作る
   - https://tyankatsu.hatenablog.com/entry/2018/09/13/232540
   - https://github.com/tyankatsu0105/cz-format-extension
+- プルリクエストなどの雛形
+  - https://www.wantedly.com/companies/kurashicom/post_articles/92756
 
 ---
 
@@ -166,10 +168,13 @@
   - 英語か日本語か
   - プログラムのコメントも英語か日本語か
   - commitzen使って問題ないか
-- プルリクエストのルール
+- プルリクエストコメントのルール
   - 多分テンプレートがあると思う
+  - テンプレートがない場合は以下を参照
+    - https://www.wantedly.com/companies/kurashicom/post_articles/92756
 - レビュアーのルール
   - 誰にレビューをしてもらうか
+- Issueを書くかどうか
 #### 1-2. その他
 - コーディングルールの確認
   - スペースの入れ方
@@ -179,51 +184,77 @@
   - 戻り値のポリシー
 
 ### 2. Github運用ルール
-#### 2-1. ケース別の具体的なgit運用
-- `git pull`の頻度
-  - コミット前には必ずpullするようにする。コンフリクトの解消などが長くなると面倒だから
-- ローカルのfeatureブランチの開発フロー
-  1. `git add <自分が修正したファイル>`
-  2. `git commit`or`git cz`
-    - コミットメッセージに関しては以下を参照
-      - https://qiita.com/suzuki-hoge/items/cc91877ce69527ced692
-  3. `git status`
-  4. `git push`
-  5. 一つの機能が完成するまで繰り返し...
-  6. `git push`
-  7. featureブランチからdevelopブランチ(またはmaster)にPRを送る
-    - PRのメッセージはチームのテンプレートに従う
-    - テンプレートがない場合は、https://www.wantedly.com/companies/kurashicom/post_articles/92756
-- PRからマージ
-  1. PushしたブランチからGitHub上でPRを作る
-  2. PR用のテンプレート設定されているなら、それに入力
-  3. Reviewersからレビューして欲しい人を選択
-  4. PRのコメントに「close #issue番号(またはissueのURL)」を入力して、PRがマージされた際にissueも同時にcloseするようにする
-  5. レビューを受けて承認をもらう(approve機能でマージがブロックされていと思うから)
-  6. PRの画面で自分でマージする
-  7. featureブランチを削除する
-- レビュー後に直す必要がある場合(チームによって方針が異なるので聞く。プルリクのレビュー結果がなくなってしまったりするので)
-  1. 修正する
-  2. ローカルで`git add` -> `git commit`
-  3. `git rebase -i`でコミットを一つにまとめる
-    - 何回も修正しているとコミットログが溜まってくるから
-  4. `git push -f origin HEAD`
-    - `-f`っていいんだっけ？？
-    - rebaseした後は`-f`を付けないとpushできないっぽい
-- マージ完了後から次のタスクに備える
-  1. `git checkout master`または`git checkout develop`
-  2. `git pull origin master`または`git pull origin develop`
-- 別のブランチで別のタスクに対応する
-  - `git stash`コマンドを使うのでよく調べておく
-  - ブランチを切り換えるためにコミット
-- プルリク・マージ待ちの時に、新しいブランチで作業
-  - 待っている内容が次の実装に必要な場合
-  - 待っている内容が次の実装にいらない場合
-  - https://teratail.com/questions/203799
-- 直前のaddやcommitを取り消す
-  - `git reset`コマンドを使うのでよく調べておく
-- コンフリクトの発生は自分で発生させてみて、対処を覚えておく
+#### 2-0. issueからPRまでの全体の流れ(とりあえずこれを参考にして、適宜2-1以降を見る)
+- issueは目的とかtodoとかを書いて、それを埋めていくといった運用方法をするのかな？
+- https://qiita.com/NAKKA-K/items/072e28c3f3ad7178f3a4
+- https://qiita.com/ryotakodaira/items/e860396ae44942dcca5e
+#### 2-1. git pullの頻度
+- コミット前には必ずpullするようにする。コンフリクトの解消などが長くなると面倒だから
+#### 2-2. ローカルのfeatureブランチの開発フロー
+1. `git add <自分が修正したファイル>`
+  - 自分が変更した覚えがないファイルはaddするな！！(他の人のファイルをいじっていることになるから)
+  - 色々なaddがあるので以下を参照
+    - https://yuzu441.hateblo.jp/entry/2014/07/24/234840
+2. `git commit`or`git cz`
+  - コミットメッセージに関しては以下を参照
+    - https://qiita.com/suzuki-hoge/items/cc91877ce69527ced692
+3. `git status`
+4. `git push`
+5. 一つの機能が完成するまで繰り返し...
+6. 1~3を実行して、`git push`
+7. featureブランチからdevelopブランチ(またはmaster)にPRを送る
+  - PRのメッセージはチームのテンプレートに従う
+  - テンプレートがない場合は、https://www.wantedly.com/companies/kurashicom/post_articles/92756
+#### 2-3. PRからマージ
+1. PushしたブランチからGitHub上でPRを作る
+2. PR用のテンプレート設定されているなら、それに入力
+3. Reviewersからレビューして欲しい人を選択
+4. PRのコメントに「close #issue番号(またはissueのURL)」を入力して、PRがマージされた際にissueも同時にcloseするようにする
+5. レビューを受けて承認をもらう(approve機能でマージがブロックされていと思うから)
+6. PRの画面で自分でマージする
+7. featureブランチを削除する
+#### 2-4. レビュー後に直す必要がある場合(チームによって方針が異なるので聞く。プルリクのレビュー結果がなくなってしまったりするので)
+1. 修正する
+2. ローカルで`git add` -> `git commit`
+3. `git rebase -i`でコミットを一つにまとめる
+  - 何回も修正しているとコミットログが溜まってくるから
+4. `git push -f origin HEAD`
+  - `-f`っていいんだっけ？？
+  - rebaseした後は`-f`を付けないとpushできないっぽい
+#### 2-5. マージ完了後から次のタスクに備える
+1. `git checkout master`または`git checkout develop`
+2. `git pull origin master`または`git pull origin develop`
+#### 2-6. 別のブランチで別のタスクに対応する
+- `git stash`コマンドを使うのでよく調べておく
+- ブランチを切り換えるためにコミット
+#### 2-7. プルリク・マージ待ちの時に、新しいブランチで作業
+- 待っている内容が次の実装に必要な場合
+- 待っている内容が次の実装にいらない場合
+- https://teratail.com/questions/203799
+#### 2-8. 直前のaddやcommitを取り消す
+- `git reset`コマンドを使うのでよく調べておく
+#### 2-9. pullした際のコンフリクトの解消
+1. statusでコンフリクトしたファイル特定
+2. ファイル修正
+3. もっかいadd
+4. rebase続きから
+- コンフリクトする理由
+  1. pull = 他の環境での変更を取り込む
+  2. 自分が変更してたやつが、他の環境でも変更されてた
+  3. Gitさんが上手いこと折り合いをつけようとしてくれる(いいひと！
+  4. 互いの変更が被ってなければセーフ、被ってたらコンフリクト
 - https://www.youtube.com/watch?v=wlY8YG-eB8E
+#### 2-10. コミットは作業ログではない！
+- ある程度の粒度でコミットする
+  - **1ファイルを編集するとcommit、1ファイルの変更が多くなる場合は1機能ごとにcommit**
+- コミットをまとめる方法
+  - stash
+  - amend
+  - rebase -i
+- https://qiita.com/suzuki-hoge/items/cc91877ce69527ced692
+#### 参考文献
+- https://lealog.hateblo.jp/entry/2012/12/22/023547
+
 ### 3. 使用するツール
 - コミュニケーション...Slack
 - リモート会議...Teams
