@@ -11,6 +11,12 @@
 ## システムデザイン
 - https://github.com/donnemartin/system-design-primer
 
+## オブジェクト指向って結局なんなの？？
+- 変数と関数をひとまとめにしたクラスを作るプログラミングの手法
+- それぞれのクラスは、同じ変数や関数を共有するオブジェクトを作るのに使う
+- WebAPIをオブジェクト指向で書くと、カプセル化がされてわかりやすくなる例が以下のFastAPIのドキュメント
+- https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/
+
 ---
 
 <br></br>
@@ -254,7 +260,6 @@
 - https://qiita.com/suzuki-hoge/items/cc91877ce69527ced692
 #### 参考文献
 - https://lealog.hateblo.jp/entry/2012/12/22/023547
-
 ### 3. 使用するツール
 - コミュニケーション...Slack
 - リモート会議...Teams
