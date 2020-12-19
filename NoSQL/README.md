@@ -1,0 +1,11 @@
+- 「RDB技術者のためのNoSQLガイド」を読んで
+  - https://fatherofikura.hatenablog.com/entry/book/2019_18
+- 色々なNoSQLの紹介とRDBとNoSQLの違い
+  - https://www.slideshare.net/recruitcojp/rdbnosqlnosql
+- DynamoDB
+  - https://www.ragate.co.jp/blog/articles/2436
+- AWSとRDBMSの相性が悪い理由
+  - 最大同時接続数の問題(コネクションプール問題)
+  - https://www.keisuke69.net/entry/2017/06/21/121501
+- コネクションプール問題解決！？
+  - https://dev.classmethod.jp/articles/lambda-support-rds-proxy-beta/

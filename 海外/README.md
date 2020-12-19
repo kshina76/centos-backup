@@ -1,0 +1,8 @@
+- 海外転職の情報
+  - https://www.youtube.com/watch?v=n2p1GVyTdg8
+  - アメリカのビザ
+    - https://medium.com/@sakamoto.kazuki/2017-12-demystifying-us-visa-f596529701a3
+    - https://www.jinmei.org/blog/2008/10/19/474
+    - https://qiita.com/hellokenta/items/427fe0602cc3418bbfac
+  - 米国の大学院
+    - https://tnanjo.net/2017/07/14/how-to-prepare-for-study-abroad.html

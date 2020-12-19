@@ -1,6 +1,6 @@
 # todo
 
-## 残り103日(12/18更新)
+## 残り102日(12/19更新)
 
 ## 直近todo
 - 入社後の日課
@@ -34,6 +34,7 @@
     - ミックの書籍を3冊読む
     - できるならばアンチパターンも
     - クライアントツール
+  - NoSQL
   - Docker
   - markdownでの文書作成
   - AWSで簡単にネットワークを組んで、サブネット分割して環境を整える練習とかLambdaとかの本とか
@@ -87,11 +88,10 @@
   - flask_restfulとかflask_classみたいなライブラリはあった
   - プレゼンテーション層がHTMLではなくてJSONに変わっても同じ。というような記事を見たことがあった気がするから開発することはあるのかなと思った
 
-- とりあえずFlaskでやろう。あとでFastAPIでやればいい
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - SEATUC(1/15に合格かどうかがくる)
 - 本論(1/29~2/6)
-- 信号処理特論(12/17まで)
+- 信号処理特論(12/22まで)
 - Web API Good Parts(12/19,20で)
 - 認証・認可周りの本を読む(OAuth、OpenID Connect、AWS Cognite)
   - https://booth.pm/ja/items/1550861
@@ -116,14 +116,6 @@
       - https://note.com/licodeenar/n/n0e87fb648342
 - モチベーションにプラスになる動画
   - https://www.youtube.com/watch?v=RO3gGJokzdg
-- 海外転職の情報
-  - https://www.youtube.com/watch?v=n2p1GVyTdg8
-  - アメリカのビザ
-    - https://medium.com/@sakamoto.kazuki/2017-12-demystifying-us-visa-f596529701a3
-    - https://www.jinmei.org/blog/2008/10/19/474
-    - https://qiita.com/hellokenta/items/427fe0602cc3418bbfac
-  - 米国の大学院
-    - https://tnanjo.net/2017/07/14/how-to-prepare-for-study-abroad.html
 - vscodeショートカット
   - 移動系
   - 実行
@@ -231,10 +223,7 @@
 ## 書籍
 - JavaScriptの本全般
   - 4種類くらい予約したからつまみ学習していく
-- real world httpを買って読む
-- web api good partsを読む
 - pospomeさんのアーキテクチャを読んでまとめる
-- インフラエンジニアの教科書2を読む
 - AWS Lambdaを読む
 - フロントエンドパフォーマンスチューニング
   - https://www.amazon.co.jp/dp/B0728K5JZV/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1
