@@ -46,7 +46,10 @@
   - https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/
 
 ## 技術選定
-### 一般的な考え方
+### 共通の考え方
+#### 基本的には,以下のREADMEを見て判断する
+- https://github.com/kshina76/centos-backup/tree/master/web_application/framework選定
+- https://qiita.com/tmknom/items/08b69594e32a92bccee5
 #### Webアプリケーションに必要な機能を抑えているフレームワークかどうか
 - https://logmi.jp/tech/articles/322694
 #### マイクロフレームワークかフルスタックフレームワークか
