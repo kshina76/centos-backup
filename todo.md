@@ -2,21 +2,57 @@
 
 ## 残り101日(12/20更新)
 
-## 仕事を任せられるエンジニアとは
-- https://tech.tabechoku.com/entry/2019/05/02/182457
-
-## 直近todo
+## 入社後の日課
 - 入社後の日課
   - 英語(TOEFL)
   - atcoder, leetcode
-  - 入社1,2年目で意識すること、やること
-    - https://qiita.com/rf_p/items/34f92d4e9d4398f2f969
-    - https://qiita.com/cocoa_dahlia/items/2e6b25e166058936eceb
-    - https://qiita.com/musclemikiya/items/8d7befa6f7fade842a2a
-    - https://qiita.com/shunsuke227ono/items/36723b9c19c25d545aa1
-    - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
-    - https://qiita.com/enta0701/items/a6faabbecd6786642d76
-    - https://qiita.com/hand12/items/89f62ad51a51f596d259
+
+## エンジニアとしてやるべきこと 
+- 仕事を任せられるエンジニアとは
+  - https://tech.tabechoku.com/entry/2019/05/02/182457
+- エンジニアのスタートダッシュ、習慣など
+  - https://qiita.com/suy0n9/items/d1bfbd823d8b6dc562be
+- 読むべき本
+  - https://qiita.com/tmknom/items/67dbfcf5194aee5c6e61
+  - https://qiita.com/JunyaShibato/items/3aa5f7f3fc991de17f3f
+- 入社1,2年目で意識すること
+  - https://qiita.com/rf_p/items/34f92d4e9d4398f2f969
+  - https://qiita.com/cocoa_dahlia/items/2e6b25e166058936eceb
+  - https://qiita.com/musclemikiya/items/8d7befa6f7fade842a2a
+  - https://qiita.com/shunsuke227ono/items/36723b9c19c25d545aa1
+  - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
+  - https://qiita.com/enta0701/items/a6faabbecd6786642d76
+  - https://qiita.com/hand12/items/89f62ad51a51f596d259
+- 50代以降のキャリアに備える
+  - https://qiita.com/poly_soft/items/dbca28f166d07070e8eb
+
+## エンジニア情報収集まとめ
+- https://qiita.com/nesheep5/items/e7196ba496e59bb2aa28
+
+## 次に気になっている本(https://qiita.com/JunyaShibato/items/3aa5f7f3fc991de17f3f)
+- プログラミング関連
+  - Webアプリケーション設計・実装のためのフレームワーク活用の技術
+  - レガシーコード改善ガイド (Object Oriented SELECTION)
+- ネットワーク関連
+  - ネットワーク仮想化～基礎からすっきりわかる入門書～
+  - 3分間NetWorking　＊書籍ではなくWebサイトです。 
+    - http://www5e.biglobe.ne.jp/%257eaji/3min/
+- Linux関連
+  - https://linuc.org/textbooks/security/
+  - 試して理解Linuxのしくみ ~実験と図解で学ぶOSとハードウェアの基礎知識
+- AWS
+  - Amazon Web Services パターン別構築・運用ガイド 改訂第2版
+  - Amazon Web Services 業務システム設計・移行ガイド (Informatics&IDEA)
+- データ分析
+  - データ解析の実務プロセス入門
+    - データ分析の手法を実際に実務で使うにはどうすればいいのかといったところの説明
+    - データ分析を実務で使う上での全体像などの最初の一歩に良い
+- 仕事関連
+  - ロジカル・シンキング (Best solution) 
+  - 報・連・相の技術がみるみる上達する!
+
+
+## 直近todo
 - キーボード操作を効率化(vim形式でできるのかな？？)
   - 移動キーの割り当て
   - 定義を表示
@@ -71,8 +107,6 @@
     - devops,バックエンドのロードマップをまとめる
       - https://qiita.com/poly_soft/items/fb649573c19b7a5c0227
       - https://qiita.com/poly_soft/items/8dd105341869f93b129c
-  - エンジニアとしてのキャリアまとめ
-    - https://qiita.com/poly_soft/items/dbca28f166d07070e8eb
   - LINE式コードの可読性をまとめる
     - https://engineering.linecorp.com/ja/blog/tag/codereadability/
   - linux系のこと
