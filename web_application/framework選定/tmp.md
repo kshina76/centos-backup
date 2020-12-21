@@ -1,6 +1,6 @@
 # フレームワークを選定する時、勉強する時のポイント
 - 例外ハンドリング
-  - 例外をアプリケーションのコードないでtry-catchするのはダメ
+  - 例外をアプリケーションのコード内でtry-catchするのはダメ
     - フレームワークに備わっているエラーハンドリングのモジュールを使うようにする
 - 入力値のバリデーション
   - POSTされたときなどのリクエストボディの入力値のバリデーション
@@ -10,11 +10,19 @@
   - GET method
     - path parameterの取得
     - query parameterの取得
-    - validation
+    - 「path parameter」と「query parameter」のvalidation
   - POST method
     - request bodyの取得
-    - validation
+    - 「request body」のvalidation
 - ディレクトリ構成
+  - 公式のドキュメントに記されていることが多い
+  - プロジェクトを生成するボイラーテンプレートを公開している人もいる
+- データベース
+  - マイグレーション
+    - サードパーティのマイグレーションライブラリを使うのか、組み込まれているのか
+  - ORM
+  - クエリビルダ
+    - ORMの他にSQLを書くことができるのか
 
 <br></br>
 
