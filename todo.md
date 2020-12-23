@@ -1,6 +1,6 @@
 # todo
 
-## 残り99日(12/22更新)
+## 残り98日(12/23更新)
 
 # to do
 - フレームワークの勉強をするときに、それぞれのトピックを頭に入れておくと、やるべきことがわかる気がする(dockerで報告書のテンプレを作っておくと後々楽かもしれない)
@@ -20,6 +20,7 @@
 - webapiの開発フローをまとめる
   - 技術選定
     - 選定理由をテンプレートを使って埋める
+    - https://github.com/kshina76/centos-backup/blob/master/web_application/framework選定/tmp.md
   - 設計
     - DB設計
     - エンドポイント設計(URI設計)
@@ -61,8 +62,29 @@
     - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
 ## 入社後の日課
 - 入社後の日課
+  - 自己嫌悪に陥らないようにマインドを保つ方法
+    - https://engineer.dena.com/posts/2020.07/20-new-graduates-training-retrospective-5/
   - 英語(TOEFL)
   - atcoder, leetcode, kaggle
+  - 日本語と英語で書評ブログ(読書感想ブログ)を運営してみる
+    - newtonとか読むのがいいかも
+  - エンジニアの情報収集
+    - https://qiita.com/nesheep5/items/e7196ba496e59bb2aa28
+  - 定期購読
+    - WEB+DB PRESS
+      - webアプリケーションエンジニアに一番近い情報を連載しているかも
+      - これ読んでみたい
+    - Software Design
+      - 同じくwebアプリケーションエンジニアに一番近い情報を連載しているかも
+      - これ読んでみたい
+    - 日経Network
+      - これ読んでみたい
+    - 日経ソフトウェア
+    - 日経Linux
+    - Newton
+      - 知的好奇心を満たす
+    - 参考文献
+      - https://qiita.com/kusokamayarou/items/ff7e835b80e52957113f
 
 ## エンジニアとしてやるべきこと 
 - 仕事を任せられるエンジニアとは
@@ -90,6 +112,8 @@
 - プログラミング関連
   - Webアプリケーション設計・実装のためのフレームワーク活用の技術
   - レガシーコード改善ガイド (Object Oriented SELECTION)
+- インフラ関連
+  - Webエンジニアが知っておきたいインフラの基本
 - ネットワーク関連
   - ネットワーク仮想化～基礎からすっきりわかる入門書～
   - 3分間NetWorking　＊書籍ではなくWebサイトです。 
