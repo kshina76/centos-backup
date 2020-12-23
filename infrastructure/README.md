@@ -41,7 +41,8 @@
 ## さらに細かい手順(1,3の手順)
 
 ## さらに細かい手順(4~5の手順)
-- https://github.com/kshina76/centos-backup/tree/master/infrastructure/ISUCON
+- このページで網羅していないものは以下を参照
+  - https://github.com/kshina76/centos-backup/tree/master/infrastructure/ISUCON
 - 前提条件として、大まかな手順の1~3でCPUでボトルネックが発生していることを見つけおく
 ### CPUボトルネック
 - **待ち行列でのボトルネック問題**
