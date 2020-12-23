@@ -1,6 +1,6 @@
 # todo
 
-## 残り101日(12/20更新)
+## 残り99日(12/22更新)
 
 # to do
 - フレームワークの勉強をするときに、それぞれのトピックを頭に入れておくと、やるべきことがわかる気がする(dockerで報告書のテンプレを作っておくと後々楽かもしれない)
@@ -22,11 +22,22 @@
     - 選定理由をテンプレートを使って埋める
   - 設計
     - DB設計
-    - URI設計
+    - エンドポイント設計(URI設計)
+    - ルーティング設計
+      - 大きいアプリケーションになった時にエンドポイントを階層化して分けることで、分割できるようにするもの
+      - URI毎にディレクトリを分けて階層化することでルーティングを管理する感じかな
+        - articlesのURIならarticlesディレクトリに
+        - usersのURIならusersディレクトリに
+      - https://qiita.com/tmknom/items/08b69594e32a92bccee5#ルーティング定義とエンドポイント設計
+      - https://fastapi.tiangolo.com/tutorial/bigger-applications/
     - クエリ設計
     - レスポンスデータ設計
     - ステータスコード設計
-      - エラーハンドリングの設計
+    - 例外設計
+      - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
+      - https://nekogata.hatenablog.com/entry/2015/04/11/135231
+    - ロギング設計
+      - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
     - HTTPヘッダー設計
     - ディレクトリ設計
       - https://note.com/yusugomori/n/n9f2c0422dfcd
