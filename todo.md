@@ -1,8 +1,10 @@
 # todo
 
-## 残り98日(12/23更新)
+## 残り97日(12/24更新)
 
 # to do
+- 知らないセキュリティ関連の知識
+  - https://speakerdeck.com/kurochan/ca20xin-zu-yan-xiu-sekiyuriteibian?slide=44
 - フレームワークの勉強をするときに、それぞれのトピックを頭に入れておくと、やるべきことがわかる気がする(dockerで報告書のテンプレを作っておくと後々楽かもしれない)
   - フレームワークで実現されているかのチェック項目のテンプレートを作って、新たに学ぶ時はそのテンプレートにサンプルを埋めるようにして、開発中のリファレンスに使うと便利かもしれない。上司に技術選定の資料を送るときにも、このテンプレートは有用になると思うので用意しておくといい。目次をつけて気になるところにすぐ飛べるようにするのも便利だし、喜ばれそう
     - セッション管理はどのように書くのか
@@ -66,6 +68,10 @@
     - https://engineer.dena.com/posts/2020.07/20-new-graduates-training-retrospective-5/
   - 英語(TOEFL)
   - atcoder, leetcode, kaggle
+  - システム設計をよく読んで、アーキテクトの知見を取り入れる
+    - https://github.com/donnemartin/system-design-primer/blob/master/README-ja.md
+  - ソースコードリーディング
+    - https://developers.freee.co.jp/entry/how-to-read-source-code-of-middleware
   - 日本語と英語で書評ブログ(読書感想ブログ)を運営してみる
     - newtonとか読むのがいいかも
   - エンジニアの情報収集
@@ -210,7 +216,6 @@
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - SEATUC(1/15に合格かどうかがくる)
 - 本論(1/29~2/6)
-- 信号処理特論(12/22まで)
 - Web API Good Parts(12/19,20で)
 - 認証・認可周りの本を読む(OAuth、OpenID Connect、AWS Cognite)
   - https://booth.pm/ja/items/1550861
@@ -313,6 +318,42 @@
 - いろいろな企業のテックブログで紹介しているだろうから調べる
 - インフラの負荷を削減できるとコストを減らせるという目標を立てても面白いかも
   - https://www.slideshare.net/kazeburo/isucon-yapcasia-tokyo-2015
+- DeNAで行われた研修
+  - CS基礎（加算器 → レジスタ → CPU → アセンブリ → C）
+  - Go
+  - Flutter
+  - AWS
+  - システムデザイン
+  - チーム開発(インフラ、サーバ、クライアントの設計から実装までを行う)
+  - テックトーク(各々が技術トピックについて調べて発表をする)
+  - https://engineer.dena.com/posts/2020.07/20-new-graduates-training-retrospective/
+- BFF(Backend for Frontend)
+  - https://kamihikouki.hatenablog.com/entry/2018/07/20/134307
+  - https://engineer.dena.com/posts/2020.07/20-new-graduates-techtalk/
+- ウェブ会議システムをAWSで作ってみる(動画が無理なら音声だけでも)
+  - コロナネタとクラウドサービスを組み合わせると面白そう
+  - webRTCという技術が必要らしい
+  - https://engineer.dena.com/posts/2020.07/20-new-graduates-techtalk/
+- 会社のサービスをDDoS攻撃からまもる
+  - ファイアーウォールで弾く(WAF)
+  - ブラックホールルーティング
+  - AWS CloudFrontを使う方法
+  - https://speakerdeck.com/kurochan/ca20xin-zu-yan-xiu-sekiyuriteibian?slide=28
+  - https://engineer.dena.com/posts/2020.07/20-new-graduates-techtalk/
+- 従来のWebアプリ開発をさらに効率よく進める方法
+  - フロントエンドが主体で開発を進められる
+  - https://engineer.dena.com/posts/2020.07/20-new-graduates-techtalk/
+- AWSアカウント作成自動化
+  - https://engineer.dena.com/posts/2020.03/improved-public-cloud-accounts-creation/
+- マイクロサービスの次に来るもの
+  - https://www.infoq.com/jp/news/2020/04/multi-runtime-microservices/
+- HTTP3の凄さ
+  - https://www.urban-project.jp/blog/recommended/1551/
+  - https://http3-explained.haxx.se/ja/why-quic
+- Slackをつかったサーバレスのマイクロサービス監視アプリケーション
+  - https://www.cview.co.jp/cvcblog/2020.08.20.QmzQcRnZpnnmd-Dnx-fIo
+- AWS資格3冠達成
+  - https://dev.classmethod.jp/articles/new-grads-ojt-korean/
 
 ## 競プロ
 - ライブラリを駆使するのではなくて、まず自分で考察を進めて解くことを意識する

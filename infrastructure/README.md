@@ -1,4 +1,6 @@
 # システムのパフォーマンスチューニング
+- とりあえず以下のREADMEを見ると、システムの設計についてなんでも書いてある。チューニングでもスケーリングでも
+  - https://github.com/donnemartin/system-design-primer/blob/master/README-ja.md
 ## コンピュータの事前知識で必要なこと
 - HDDやSSDにもマイコン(CPU)が内蔵されていて、そのマイコンがI/Oの処理を行うので、サーバのCPUがI/Oの処理を行っているわけではない(windowsのディスク使用率がそのマイコンの負荷)
   - プロセスがI/O待ちになって、CPU使用率が上がらないのは、HDDヤSSD内臓のマイコン(CPU)が処理をしているのを待っていることが原因
@@ -35,8 +37,24 @@
 - まずはインフラレベルの問題を解決すればボトルネックを解決できるのか、アプリケーションの実装の問題を解決すればボトルネックを解決できるのかを考えないといけない
 - Webサーバの負荷が一箇所に集中してしまっているなら、ロードバランサーのアルゴリズムの変更を考えるとか
 - ユーザのアクセス数を減らす流量制御という方法をとるとか
-- 冗長化を網羅した記事は(https://github.com/kshina76/centos-backup/blob/master/infrastructure/ITインフラの仕組み/README.md)
-- キャッシングを網羅した記事は()
+- 冗長化を網羅した記事は
+  - https://github.com/donnemartin/system-design-primer/blob/master/README-ja.md#ロードバランサー
+  - https://github.com/kshina76/centos-backup/blob/master/infrastructure/ITインフラの仕組み/README.md
+- キャッシングを網羅した記事は(https://github.com/kshina76/centos-backup/tree/master/infrastructure/cache)
+  - クライアントキャッシング
+  - CDNキャッシング
+  - Webサーバキャッシング
+  - データベースキャッシング
+  - アプリケーションキャッシング
+    - データベースクエリレベルでのキャッシング
+    - オブジェクトレベルでのキャッシング
+- DBのスケーリング手法の記事は(https://github.com/donnemartin/system-design-primer/blob/master/README-ja.md#データベース)
+  - マスター・スレーブ レプリケーション
+  - マスター・マスター レプリケーション
+  - federation
+  - シャーディング
+  - 非正規化
+  - SQL チューニング
 
 ## さらに細かい手順(1,3の手順)
 
