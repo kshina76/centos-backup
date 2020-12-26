@@ -10,6 +10,10 @@
 - go言語のフォーマッターやタブの設定(基本2tabにして、goの時に4tabにする設定)
     - https://casualdevelopers.com/tech-tips/how-to-setup-vscode-with-golang/
 
+## setting.json
+- ツリーのインデントを深くする
+    - `"workbench.tree.indent": 20`
+
 ## 入れるプラグイン(ローカル)
 - Japanese Language Pack
     - 日本語化

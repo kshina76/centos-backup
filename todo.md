@@ -3,6 +3,10 @@
 ## 残り97日(12/24更新)
 
 # to do
+- コードリーディングを読み、実践をする
+  - vscodeにはdebugpyというプラグインが最近出たらしい
+  - fastapiのデバッグはuvicornをコード内で走らせてからvscodeのデバッグツールを動かすらしい
+    - https://fastapi.tiangolo.com/tutorial/debugging/
 - 知らないセキュリティ関連の知識
   - https://speakerdeck.com/kurochan/ca20xin-zu-yan-xiu-sekiyuriteibian?slide=44
 - フレームワークの勉強をするときに、それぞれのトピックを頭に入れておくと、やるべきことがわかる気がする(dockerで報告書のテンプレを作っておくと後々楽かもしれない)
@@ -25,7 +29,16 @@
     - https://github.com/kshina76/centos-backup/blob/master/web_application/framework選定/tmp.md
   - 設計
     - DB設計
-    - エンドポイント設計(URI設計)
+    - エンドポイント設計(URL設計)
+      1. 対象となるデータを認識する
+      2. 対象となるデータをリソースに分ける
+      3. リソースにURLで名前を付ける
+      4. URLに対してPOST,GET,PUT,DELETEを付ける
+    - ディレクトリ設計と依存設計
+      - 依存設計は、ディレクトリ同士がどのような依存関係になっているかを図示する(クラス設計みたいなもの)
+        - 自分がバカだからこれがないと混乱する
+      - https://note.com/yusugomori/n/n9f2c0422dfcd
+      - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
     - ルーティング設計
       - 大きいアプリケーションになった時にエンドポイントを階層化して分けることで、分割できるようにするもの
       - URI毎にディレクトリを分けて階層化することでルーティングを管理する感じかな
@@ -33,18 +46,22 @@
         - usersのURIならusersディレクトリに
       - https://qiita.com/tmknom/items/08b69594e32a92bccee5#ルーティング定義とエンドポイント設計
       - https://fastapi.tiangolo.com/tutorial/bigger-applications/
-    - クエリ設計
-    - レスポンスデータ設計
-    - ステータスコード設計
-    - 例外設計
+    - リクエスト設計: ユーザからの入力に対しての設計
+      - クエリパラメータ、リクエストボディ、パスパラメータの設計と使い分け
+        - https://github.com/kshina76/centos-backup/tree/master/web_application/web_api#2-5検索とクエリパラメータの設計
+        - https://github.com/kshina76/centos-backup/tree/master/web_application/web_api#2-6-フィルタソート検索はリクエストパラメータでやろう
+        - https://github.com/kshina76/centos-backup/tree/master/web_application/web_api#2-7-レスポンスのフィールドを絞れるようにしよう
+      - HTTPヘッダの設計
+    - レスポンス設計
+      - レスポンスボディの設計
+      - ステータスコード設計
+      - HTTPヘッダの設計
+    - 正常系の設計
+    - 異常系の設計(例外設計)
       - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
       - https://nekogata.hatenablog.com/entry/2015/04/11/135231
     - ロギング設計
       - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
-    - HTTPヘッダー設計
-    - ディレクトリ設計
-      - https://note.com/yusugomori/n/n9f2c0422dfcd
-      - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
   - 開発
     - Docker環境構築
       - DBコンテナのセットアップ
@@ -62,6 +79,8 @@
       - djangoのadminページを作るような感じかな
     - APIの実装
     - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
+  - 全体の参考文献
+    - https://www.slideshare.net/t_wada/restful-web-design-review
 ## 入社後の日課
 - 入社後の日課
   - 自己嫌悪に陥らないようにマインドを保つ方法
@@ -76,6 +95,10 @@
     - newtonとか読むのがいいかも
   - エンジニアの情報収集
     - https://qiita.com/nesheep5/items/e7196ba496e59bb2aa28
+  - Udemy
+    - 酒井さんのPythonの講座
+    - 酒井さんのデータ構造とアルゴリズムとコードテスト対策のやつ
+    - vigneshのOSの講座
   - 定期購読
     - WEB+DB PRESS
       - webアプリケーションエンジニアに一番近い情報を連載しているかも
