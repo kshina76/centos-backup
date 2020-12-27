@@ -9,6 +9,8 @@
     - https://marketplace.visualstudio.com/items?itemName=qinjia.seti-icons
 - go言語のフォーマッターやタブの設定(基本2tabにして、goの時に4tabにする設定)
     - https://casualdevelopers.com/tech-tips/how-to-setup-vscode-with-golang/
+- ファイルツリーを見やすくする
+    - https://qiita.com/toriiico/items/3070bac14946168be1ce
 
 ## setting.json
 - ツリーのインデントを深くする
