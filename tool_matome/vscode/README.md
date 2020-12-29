@@ -42,3 +42,21 @@
 # トラブルシューティング
 ## ms-python.pythonという拡張機能をインストールしたら自動補完が効かなくなった
 - 左のメニューバーからextensionを開いて、ms-python.pythonをdisabledにした。workspaceだけではなくて、全体に適用した。
+
+## ショートカットキー
+- 画面分割
+    - https://mittaniblog.com/vscode-editor-split/
+- 基本的に以下のキーを覚えるのがいい
+    - https://skillhub.jp/blogs/234
+- 定義に飛ぶ
+    - `fn+F12`
+- 定義を表示
+    - `Option+fn+F12`
+- 定義を横に表示
+    - `cmd+K`からの`fn+F12`
+- 一気に行の後ろまで飛んだり、一行を全削除したり
+
+- 置換
+    - `Option+cmd+F`
+- 正規表現
+    - `Option+cmd+R`

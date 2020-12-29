@@ -3,6 +3,11 @@
 ## 残り92日(12/29更新)
 
 # to do
+- OSのマイクロカーネルの実装
+  - https://seiya.me/microkernel-book.pdf
+- OSの実装
+  - https://booth.pm/ja/items/1056349
+  - https://www.amazon.co.jp/30日でできる-OS自作入門-川合-秀実-ebook/dp/B00IR1HYI0
 - 色々なプロジェクトからプログラミングを学ぶ
   - https://github.com/tuvtran/project-based-learning#python
 - コードリーディングを読み、実践をする
@@ -186,15 +191,6 @@
 
 
 ## 直近todo
-- キーボード操作を効率化(vim形式でできるのかな？？)
-  - 移動キーの割り当て
-  - 定義を表示
-  - 定義に飛ぶ
-  - 画面分割
-  - 一気に行の後ろまで飛んだり、一行を全削除したり
-  - ファイラ関連
-    - コマンドでファイルを新たに作成したり、簡単に削除できたり
-  - 置換とか、正規表現で検索したり
 - 入社前の最低限の勉強
   - git
     - SourceTreeなどのクライアントツールについても
@@ -224,22 +220,20 @@
       - もう一回読む
     6. 実践terraform
       - kindleにある
-- ソニーはマイクロサービスを構築しているらしい
-  - https://aws.amazon.com/jp/solutions/case-studies/sony/
 - 色々な技術のチートシートがまとめられている
   - https://wikiwiki.jp/bankura/IT系/チートシート・コマンド集
+- vanill-jsでDOM操作とajaxを学びつつ、バックエンドのAPIを拡張機能として開発する(flaskとかでwebAPIを作る)
+  - https://vanillawebprojects.com
+  - https://github.com/bradtraversy/vanillawebprojects
+  - https://qiita.com/katsunory/items/9bf9ee49ee5c08bf2b3d
 - 以下のことについてまとめる
   - ISUCONのREADEMEに表示に関する最適化手法をまとめる
     - https://qiita.com/zaru/items/51ee8a5be22b75a42927
     - https://capitalp.jp/2016/12/29/http2/
     - https://qiita.com/saboyutaka/items/1f528ec3ce85476d7561
     - https://note.com/airis0/m/m7c39abf9072a
-    - webapiの最適化を探して学ぶ
   - どこかに基礎知識(かなり重要)をまとめたREADMEを作って、以下の内容をまとめる(勉強の仕方なども同じとこにまとめていいかも)
     - https://qiita.com/yamadar/items/bfdfc58cec49bf2690e1
-    - devops,バックエンドのロードマップをまとめる
-      - https://qiita.com/poly_soft/items/fb649573c19b7a5c0227
-      - https://qiita.com/poly_soft/items/8dd105341869f93b129c
   - LINE式コードの可読性をまとめる
     - https://engineering.linecorp.com/ja/blog/tag/codereadability/
   - linux系のこと
@@ -253,11 +247,6 @@
     - https://qiita.com/etaroid/items/b1024c7d200a75b992fc
     - https://qiita.com/etaroid/items/88ec3a0e2d80d7cdf87a
     - https://qiita.com/etaroid/items/40106f13d47bfcbc2572
-  - FastAPIでアプリケーションを作っている(結構ちゃんとしているもの)
-    - https://shinyorke.hatenablog.com/entry/fastapi
-- WebAPIをOOPで開発するってことはあるのか？
-  - flask_restfulとかflask_classみたいなライブラリはあった
-  - プレゼンテーション層がHTMLではなくてJSONに変わっても同じ。というような記事を見たことがあった気がするから開発することはあるのかなと思った
 
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - SEATUC(1/15に合格かどうかがくる)
@@ -286,9 +275,6 @@
       - https://note.com/licodeenar/n/n0e87fb648342
 - モチベーションにプラスになる動画
   - https://www.youtube.com/watch?v=RO3gGJokzdg
-- vscodeショートカット
-  - 移動系
-  - 実行
 - tmux
   - https://qiita.com/nl0_blu/items/9d207a70ccc8467f7bab
 
@@ -400,57 +386,6 @@
   - https://www.cview.co.jp/cvcblog/2020.08.20.QmzQcRnZpnnmd-Dnx-fIo
 - AWS資格3冠達成
   - https://dev.classmethod.jp/articles/new-grads-ojt-korean/
-
-## 競プロ
-- ライブラリを駆使するのではなくて、まず自分で考察を進めて解くことを意識する
-- ライブラリは理解したものしか使わない
-
-## ISUCON
-- Webアプリケーションのチューニング大会
-- コンピュータの色々な知識が必要になるから勉強になる
-- 「入門　監視」を読む
-  - https://a-mochan.hatenablog.com/entry/2020/01/19/223030
-  - https://qiita.com/tsurumiii/items/27f22b38215e37518c7c
-- 監視ツールを学ぶ
-  - netdataとか
-  - https://blog.adachin.me/archives/3446
-- 色々な監視ツールをdockerにまとめて作っておくといいかも
-- ISUCONチートシートをまとめる
-  - https://gist.github.com/south37/d4a5a8158f49e067237c17d13ecab12a
-- 学習ロードマップにあるlinuxのコマンドを学習する(nmapとか色々あった)
-- 以下の動画を見てまとめる
-  - https://www.youtube.com/watch?v=vl1mYTq1ZYI&t=1604s
-  - https://www.slideshare.net/kazeburo/isucon-yapcasia-tokyo-2015
-- 各プログラミング言語のプロファイリングツールをまとめる
-- goで学ぶISUCONの書籍をまとめる
-- ISUCONで有効だった方法を学ぶ(調べれば出る)
-- AWS Lambdaのパフォーマンスチューニング手法
-
-## 書籍
-- JavaScriptの本全般
-  - 4種類くらい予約したからつまみ学習していく
-- pospomeさんのアーキテクチャを読んでまとめる
-- AWS Lambdaを読む
-- フロントエンドパフォーマンスチューニング
-  - https://www.amazon.co.jp/dp/B0728K5JZV/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1
-- 超速！ Webページ速度改善ガイド
-- HTMLコーダー＆ウェブ担当者のための Webページ高速化超入門
-
-## サイト
-- システム設計を学ぶ
-  - https://github.com/donnemartin/system-design-primer/blob/master/README-ja.md
-- エンジニアの勉強法
-  - https://ne-tabase.com/freelance/704
-- バックエンドエンジニアに必要な知識
-  - https://blog.innotamago.com/entry/2018/01/12/150347
-
-## 個人開発
-- vanill-jsでDOM操作とajaxを学びつつ、バックエンドのAPIを拡張機能として開発する(flaskとかでwebAPIを作る)
-  - https://vanillawebprojects.com
-  - https://github.com/bradtraversy/vanillawebprojects
-  - https://qiita.com/katsunory/items/9bf9ee49ee5c08bf2b3d
-
-- FlaskでTechBlog開発
 
 ## 今後やらないといけないこと
 - 英語
