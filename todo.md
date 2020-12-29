@@ -1,8 +1,10 @@
 # todo
 
-## 残り94日(12/27更新)
+## 残り92日(12/29更新)
 
 # to do
+- 色々なプロジェクトからプログラミングを学ぶ
+  - https://github.com/tuvtran/project-based-learning#python
 - コードリーディングを読み、実践をする
   - vscodeにはdebugpyというプラグインが最近出たらしい
   - fastapiのデバッグはuvicornをコード内で走らせてからvscodeのデバッグツールを動かすらしい
