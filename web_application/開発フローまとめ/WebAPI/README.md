@@ -53,6 +53,9 @@
     - https://postd.cc/choosing-an-http-status-code/
 - HTTPヘッダの設計
 ### 例外設計: どのようにエラーをハンドリングするかの設計
+- とりあえず以下を見て設計してみる
+  - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
+  - https://nekogata.hatenablog.com/entry/2015/04/11/135231
 - try-catchやtry-exceptで結果をreturnする処理は呼び出し元のルートに実装する。呼び出し元のルート以外では、returnではなくて、try-exceptのexcept内でraiseを使ってエラーを伝搬させる
 - pythonっぽいエラーハンドリングをする方法
   - https://pybit.es/pythonic-exceptions.html
@@ -77,15 +80,16 @@
   - フレームワークを使わないで自作の例外ハンドラを作るパターン
     - pythonなら`Exceptクラス`を継承して、そのクラスをraiseする
     - try-exceptでキャッチしてreturnする
-- とりあえず以下を見て設計してみる
-  - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
-  - https://nekogata.hatenablog.com/entry/2015/04/11/135231
+
 ### テスト設計: テストの工程でどのようなデータでテストをするかの設計
 - 正常系の設計
 - 準正常系の設計
 - (真の)異常系の設計
 - https://swqa.qa-kobe.com/uncategorized/semi-normal-test
 ### ロギング設計
+- とりあえず以下を見て設計してみる
+  - https://qiita.com/tmknom/items/08b69594e32a92bccee5#ロギング
+  - https://qiita.com/nanasess/items/350e59b29cceb2f122b3
 - except内でloggingを使用してraiseで呼び出し元にエラーを伝搬させれば、関数内のローカル変数をログに出力を行い、呼び出し元で別のログ出力することができる
   - この方法で全てをロギングしてはいけない。なぜかと言うと、何回も同じログがロギングされてしまうから。これを避ける簡単な方法は、呼び出し元のルートまで伝搬させ続けて、ルートでロギングの処理を書けばいい。
   - https://code.tutsplus.com/tutorials/professional-error-handling-with-python--cms-25950
@@ -97,9 +101,6 @@
   - 業務ロジック内で発生した例外のメッセージ: catch句
   - 業務ロジックの終了メッセージ: finally句
 - ロギングを呼び出すのは、呼び出し元のルートで呼び出す。いろいろなところでロギングすると汚いコードになってしまうので避ける
-- とりあえず以下を見て設計してみる
-  - https://qiita.com/tmknom/items/08b69594e32a92bccee5#ロギング
-  - https://qiita.com/nanasess/items/350e59b29cceb2f122b3
 
 <br></br>
 
