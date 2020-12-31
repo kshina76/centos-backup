@@ -1,8 +1,14 @@
 # todo
 
-## 残り92日(12/29更新)
+## 残り90日(12/31更新)
 
 # to do
+- テストに関するサイト、本
+  - https://yoshikiito.net/blog/archives/546/
+  - https://qiita.com/zaramme/items/f6b825c9b72b8eb9502b
+  - マインドマップから始めるソフトウェアテスト
+  - はじめて学ぶソフトウェアのテスト技法
+  - ソフトウェアテスト技法練習帳 ~知識を経験に変える40問~
 - OSのマイクロカーネルの実装
   - https://seiya.me/microkernel-book.pdf
 - OSの実装
@@ -30,82 +36,7 @@
       - トランザクションの管理はどうするのか
     - etc
     - https://qiita.com/tmknom/items/08b69594e32a92bccee5
-- webapiの開発フローをまとめる
-  - 技術選定
-    - 選定理由をテンプレートを使って埋める
-    - https://github.com/kshina76/centos-backup/blob/master/web_application/framework選定/tmp.md
-  - 設計
-    - DB設計
-    - エンドポイント設計(URL設計)
-      1. 対象となるデータを認識する
-      2. 対象となるデータをリソースに分ける
-      3. リソースにURLで名前を付ける
-      4. URLに対してPOST,GET,PUT,DELETEを付ける
-    - ディレクトリ設計と依存設計
-      - ディレクトリ設計はフレームワーク毎にベストプラクティスがあるから、色々なサンプルを見て決める
-      - 依存設計は、ディレクトリ同士がどのような依存関係になっているかを図示する(クラス設計みたいなもの)
-        - 自分がバカだからこれがないと混乱する
-      - 依存設計は、さらにコンポーネント(関数)がどのような依存関係になるかも図示しないと混乱する
-        - 以下の図みたいに
-          - https://fastapi.tiangolo.com/tutorial/dependencies/sub-dependencies/
-      - 依存設計の手順としては、
-        1. とりあえずディレクトリの構成を考える
-        2. ディレクトリをレイヤーに分ける(依存関係はできるだけ上位レイヤーから下位レイヤーに一方向になるように)
-        3. コンポーネントをディレクトリに配置していく(レイヤーの依存関係が一方向になるように配置)
-        4. 3で依存関係がおかしくなりそうなら、2に戻ってディレクトリの構成を考え直してみる
-        - https://qiita.com/wm3/items/2c90bfd9e973d368ebd8
-      - よく記事で書かれているレイヤードアーキテクチャのディレクトリ構造を「参考にする」程度に留めて、柔軟にディレクトリを設計して、依存方向を保つように設計すればいい感じになるのかなと思った
-        - https://qiita.com/wm3/items/2c90bfd9e973d368ebd8
-      - https://note.com/yusugomori/n/n9f2c0422dfcd
-      - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
-    - ルーティング設計
-      - 大きいアプリケーションになった時にエンドポイントを階層化して分けることで、分割できるようにするもの
-      - URI毎にディレクトリを分けて階層化することでルーティングを管理する感じかな
-        - articlesのURIならarticlesディレクトリに
-        - usersのURIならusersディレクトリに
-      - https://qiita.com/tmknom/items/08b69594e32a92bccee5#ルーティング定義とエンドポイント設計
-      - https://fastapi.tiangolo.com/tutorial/bigger-applications/
-    - リクエスト設計: ユーザからの入力に対しての設計
-      - クエリパラメータ、リクエストボディ、パスパラメータの設計と使い分け
-        - https://github.com/kshina76/centos-backup/tree/master/web_application/web_api#2-5検索とクエリパラメータの設計
-        - https://github.com/kshina76/centos-backup/tree/master/web_application/web_api#2-6-フィルタソート検索はリクエストパラメータでやろう
-        - https://github.com/kshina76/centos-backup/tree/master/web_application/web_api#2-7-レスポンスのフィールドを絞れるようにしよう
-      - HTTPヘッダの設計
-    - レスポンス設計
-      - レスポンスボディの設計
-      - ステータスコード設計
-        - ステータスコードのフローチャートに沿って使用するステータスコードを決める
-          - https://postd.cc/choosing-an-http-status-code/
-      - HTTPヘッダの設計
-    - 正常系の設計
-    - 異常系の設計(例外設計)
-      - 例外のアンチパターン
-        - https://www.slideshare.net/t_wada/exception-design-by-contract
-      - if文とtry(例外)の使い分けは、「例外は、呼び出す側が契約条件を満たしたが呼び出された側が契約を履行できなかったときに投げるもの」と覚えておく
-        - 要は条件分岐はif文を使って、それ以外は例外
-      - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
-      - https://nekogata.hatenablog.com/entry/2015/04/11/135231
-    - ロギング設計
-      - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
-  - 開発
-    - Docker環境構築
-      - DBコンテナのセットアップ
-      - APIコンテナのセットアップ
-    - モデルの実装
-      - DBのコネクションのコード実装
-      - ORMのモデルを定義
-        - リレーションの設定はどのように行うのか(many to manyの実現方法は)
-    - マイグレーションの設定
-      - FastAPIの場合は、`alembic`というライブラリを使ってマイグレーションを行う
-      - その他は`SQLAlchemy-Migrate`というライブラリもある
-    - シードの設定
-      - シードとはデータベースにあらかじめ入れておくデータのこと
-      - ブログならadminを設定しておくのがいいと思う
-      - djangoのadminページを作るような感じかな
-    - APIの実装
-    - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
-  - 全体の参考文献
-    - https://www.slideshare.net/t_wada/restful-web-design-review
+
 ## 入社後の日課
 - 入社後の日課
   - 自己嫌悪に陥らないようにマインドを保つ方法
@@ -248,6 +179,7 @@
     - https://qiita.com/etaroid/items/88ec3a0e2d80d7cdf87a
     - https://qiita.com/etaroid/items/40106f13d47bfcbc2572
 
+- 学位記の締め切り(1/8)
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - SEATUC(1/15に合格かどうかがくる)
 - 本論(1/29~2/6)

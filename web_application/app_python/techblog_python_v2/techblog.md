@@ -265,7 +265,7 @@
     - https://qiita.com/zaburo/items/16ac4189d0d1c35e26d1
   - Swagger Inspector
     - https://news.mynavi.jp/itsearch/article/devsoft/4034
-  - Prism(マックサーバ)
+  - Prism(モックサーバ)
     - https://future-architect.github.io/articles/20191008/
 
 ### CircleCIを使ったWebAPIのテスト
