@@ -53,19 +53,53 @@
     - https://postd.cc/choosing-an-http-status-code/
 - HTTPヘッダの設計
 ### 例外設計: どのようにエラーをハンドリングするかの設計
+- try-catchやtry-exceptで結果をreturnする処理は呼び出し元のルートに実装する。呼び出し元のルート以外では、returnではなくて、try-exceptのexcept内でraiseを使ってエラーを伝搬させる
+- pythonっぽいエラーハンドリングをする方法
+  - https://pybit.es/pythonic-exceptions.html
+- 例外処理をする場所
+  - https://codezine.jp/article/detail/1581
 - 例外のアンチパターン
   - https://www.slideshare.net/t_wada/exception-design-by-contract
 - if文とtry(例外)の使い分けは、「例外は、呼び出す側が契約条件を満たしたが呼び出された側が契約を履行できなかったときに投げるもの」と覚えておく
   - 要は条件分岐はif文を使って、それ以外は例外
-- https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
-- https://nekogata.hatenablog.com/entry/2015/04/11/135231
+- try-exceptのexceptにはエラーのロギング処理とraiseでエラーを伝搬させる処理を書けばいい
+- pythonの`raise`は呼び出し元に例外を発生させるもの、または伝搬させるもの
+- webアプリ開発において例外をraiseするパターン
+  - フレームワークで用意されている例外をraiseするパターン
+    - フレームワークで例外があらかじめ用意されていて、その例外をraiseする
+    - 呼び出し元のルートまでraiseで例外が伝搬されてくると、例外メッセージがクライアントにreturnされる
+    - このパターンはフレームワークの例外の実装に例外メッセージをreturnする処理が書かれていて、raiseしてルートに到着すると自動的にクライアントに例外メッセージがレスポンスとして返されるようになっている
+    - FastAPIにおける`呼び出し元のルート`は`@app.get()`などのフレームワーク内で実装されている部分に当たるので、returnの処理は自分で書く必要はない。
+  - フレームワークにカスタムの例外を定義してraiseするパターン
+    - FastAPIの場合は`@add.exception_handler`の中にクライアントに例外メッセージをreturnする処理を書くことで、例外ハンドラがフレームワークに追加される
+    - 例外を発生させたい場所で、そのハンドラをraiseすると呼び出し元に例外が伝搬される
+    - 呼び出し元のルート(@app.get()など)まで例外が伝搬されてくると、クライアントに例外メッセージが返るようになる
+  - フレームワークを使わないで自作の例外ハンドラを作るパターン
+    - pythonなら`Exceptクラス`を継承して、そのクラスをraiseする
+    - try-exceptでキャッチしてreturnする
+- とりあえず以下を見て設計してみる
+  - https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
+  - https://nekogata.hatenablog.com/entry/2015/04/11/135231
 ### テスト設計: テストの工程でどのようなデータでテストをするかの設計
 - 正常系の設計
 - 準正常系の設計
 - (真の)異常系の設計
 - https://swqa.qa-kobe.com/uncategorized/semi-normal-test
 ### ロギング設計
-- https://qiita.com/tmknom/items/08b69594e32a92bccee5#例外ハンドリング
+- except内でloggingを使用してraiseで呼び出し元にエラーを伝搬させれば、関数内のローカル変数をログに出力を行い、呼び出し元で別のログ出力することができる
+  - この方法で全てをロギングしてはいけない。なぜかと言うと、何回も同じログがロギングされてしまうから。これを避ける簡単な方法は、呼び出し元のルートまで伝搬させ続けて、ルートでロギングの処理を書けばいい。
+  - https://code.tutsplus.com/tutorials/professional-error-handling-with-python--cms-25950
+  - https://qiita.com/Kento75/items/b0f43943d300d0ed9586
+- ロギングを定義する場所
+  - https://codezine.jp/article/detail/1581
+- ログを取る場所
+  - 業務ロジックの開始メッセージ: try句の先頭
+  - 業務ロジック内で発生した例外のメッセージ: catch句
+  - 業務ロジックの終了メッセージ: finally句
+- ロギングを呼び出すのは、呼び出し元のルートで呼び出す。いろいろなところでロギングすると汚いコードになってしまうので避ける
+- とりあえず以下を見て設計してみる
+  - https://qiita.com/tmknom/items/08b69594e32a92bccee5#ロギング
+  - https://qiita.com/nanasess/items/350e59b29cceb2f122b3
 
 <br></br>
 
