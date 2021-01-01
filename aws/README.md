@@ -58,6 +58,9 @@
 
 ### AWSを使ったモダンなアーキテクチャ
 - https://d1.awsstatic.com/whitepapers/ja_JP/modern-application-development-on-aws.pdf
+### AWS-CDKのアーキテクチャパターン
+- https://dev.classmethod.jp/articles/cdk-patterns-introduction/
+
 
 ## AWSでのHTTPS化全パターン
 - https://recipe.kc-cloud.jp/archives/11067

@@ -125,3 +125,41 @@ GraphQLパターンの場合は必要に応じてREST APIを追加できるの�
 - 以下を読んでまとめる
   - https://dev.classmethod.jp/articles/introduction-serverless-pattern/
   - https://aws.amazon.com/jp/serverless/patterns/pattern-design-examples/
+
+<br></br>
+
+## Apex/upとTerraformでLambdaを管理
+### AWS Lambdaを定義するのに必要な4つのこと
+1. AWSのオブジェクト管理（Lambda Function、IAM、triggerのためのCloudWatch Eventsなど）
+2. Lambda関数のソースコード
+3. Lambda関数のソースコードに依存するライブラリたち
+4. ソースコードとライブラリを固めたzip
+### Apex/upで2~4を定義
+- S3にzipをuploadしないで直接Lambdaにuploadする
+- これによってarchiveしたzipを入れるS3の管理や、zipファイルをterraformで管理する必要がなくなる
+### Terraformで1を定義
+- `apex infra`というTerraformのラッパーコマンドで使える
+- LambdaのIAMの設定やCloudWatch EventsなりS3のEventなり好きなTriggerをこれまたtfファイルに書いてapex infraコマンドで適用するだけ
+- zipはApex/upで管理してくれるので問題ない
+### Terraformだけで管理することの大変さ
+- インフラの状態を定義するツールであるTerraformで上記4点を管理すると、applyのたびにnpm installなりを実行せなばならず、意図せぬ差分が発生しやすい。
+- これはequal意図して変更していないコードのデプロイとなり、applyするのが恐ろしい状況になってしまう。
+- それを回避するためにライブラリ(node_modulesやgem等)とzipをgit上にあげて差分が発生しない状況をつくっていたが数千ファイルを超える依存ライブラリや、バイナリであるzipをガンガン突っ込んでいくとFileChangesが6000とかになってかなり辛い・・
+### Apexの代替案
+1. Apexはメンテナンスされていないので、後継のApex/upを使うか、日本製のlambrollを使うかどちらかになる
+  - https://github.com/fujiwara/lambroll
+  - https://sfujiwara.hatenablog.com/entry/lambroll
+2. terraformとAWS Lambda Layerを使う方法
+  - https://dev.classmethod.jp/articles/terraform-lambda-deployment/
+  - https://micpsm.hatenablog.com/entry/2019/12/08/120000
+3. サーバレスまわりだけAWS-CDKを使う方法
+  - Lambdaを使うときだけはCDKで他の部分はTerraformを使用するとか
+  - https://kotamat.com/post/compare-cdk-with-terraform/
+4. pulumiを使う方法
+  - pulumiはAWS-CDKを色々なクラウドに対応させたものといった感じ
+  - https://qiita.com/sirotosiko/items/91490b22aa39b9705b0a
+- terraform vs pulumi
+  - https://kari-marttila.medium.com/terraform-vs-pulumi-experiences-c41a8774b637
+  - https://qiita.com/kenseitogari1/items/0c16f2434a3b7178b7bb
+### 参考文献
+- https://tech.recruit-mp.co.jp/infrastructure/post-16931/

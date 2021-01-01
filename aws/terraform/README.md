@@ -55,6 +55,21 @@
 
 <br></br>
 
+## TerraformとAnsibleの違いと使い分け
+### 違い
+- Terraform: OS以下のインフラを管理するツール
+- Ansible: OSより上の構成を管理するツール
+### 使い分け
+- Terraform: EC2やRDSやELBやポリシーやLambdaといったインフラを定義して管理するのに使用
+- Ansible: Webサーバ(Nginx)やAPサーバ(ASGI)などのインストール、設定をするのに使用
+### 注意点
+- terraformとansibleは競合しあうツールではなく、互いに補完し合う関係にある
+### 参考文献
+- https://www.mpon.me/entry/2017/07/07/194459
+- https://www.haneca.net/how-to-distinguish-terraform-and-ansible/
+
+<br></br>
+
 ## terraformに関連したプロジェクト
 - terraformとCI連携で役に立ちそうな記事
   - https://zenn.dev/honmarkhunt/articles/2f03cba1ffe966
