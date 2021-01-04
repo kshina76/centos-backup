@@ -2,6 +2,12 @@
 - プログラミング言語に標準で用意されている組み込み関数とかに渡せる引数はパターンを覚えるのではなくて、公式のドキュメントを見て判断するようにする
   - 例えばmap関数なら、第一引数にクラスとか関数とかを渡すことができるが、第一引数はcallableということを覚えておくだけで、クラスとか関数が渡せるのだなと判断することができる
 
+## Pythonのアンダーバーまとめ
+- https://qiita.com/kiii142/items/6879cb065ad4c5f0b901
+
+## Pythonの特殊メソッドまとめ
+- http://www.ops.dti.ne.jp/ironpython.beginner/method.html
+
 ## lambdaの使いかた
 - https://qiita.com/nagataaaas/items/531b1fc5ce42a791c7df
 - `lambda 引数: 返り値`で定義する
@@ -19,6 +25,63 @@ lambda n: n * 2
 ## mapの正しい使い方
 - https://qiita.com/conf8o/items/0cb02bc504b51af09099
 
+## クラス変数とインスタンス変数
+- クラス変数はクラス直下に`self`を付けずに宣言する
+- クラス変数はクラス自体に結びついているので、「クラス.クラス変数」のように呼び出す
+- クラス変数にアクセスする場合は、特別な理由がない限り「インスタンス.クラス変数」や「self.クラス変数」のようにアクセスすることは避けるべき
+
+```python
+class MyClass:
+    value = "abc"             # クラス変数を宣言
+ 
+if __name__ == "__main__":
+    print MyClass.value       # abc
+```
+
+- インスタンス変数は`__init__()`の中で`self`をつけて宣言する
+
+```python
+class MyClass:
+    def __init__(self, text): # 初期化： インスタンス作成時に自動的に呼ばれる
+        self.value = text     # インスタンス変数 value を宣言する
+
+if __name__ == "__main__":
+    a = MyClass("123")        # インスタンス a を作成
+    b = MyClass("abc")        # インスタンス b を作成
+    
+    print(a.value)            # 123
+    print(b.value)            # abc
+```
+
+## 静的メソッドとクラスメソッド 
+- https://qiita.com/motoki1990/items/376fc1d1f3d59c960f5c
+
+## 文字列、リスト、タプル、辞書、集合の定義
+- リストとタプルの使い分け
+  - 内容を変更する可能性があるものはリスト、可能性がないものはタプル
+  - タプルの方が速度が速い
+- https://www.atmarkit.co.jp/ait/articles/2001/21/news012.html
+
+![2021-01-04 23 32のイメージ](https://user-images.githubusercontent.com/53253817/103545714-4b231600-4ee5-11eb-8e20-2ee5edfdafe8.jpeg)
+
+## 最速でリスト生成
+- よく見る内包記法の`[i for i in range(num)]`より`list(iter(range(num)))`で生成した方が速い
+
+```python
+num = 10000000
+start = time.time()
+list(iter(range(num)))
+end = time.time() - start
+print(end)  # 0.5557906627655029
+
+start = time.time()
+[i for i in range(num)]
+end = time.time() - start
+print(end)  # 0.7848813533782959
+```
+
+<br></br>
+
 ## プログミング用語
 ### Iterator
 - next関数を使って次の要素を取得することができるインタフェース
@@ -33,7 +96,7 @@ lambda n: n * 2
 ### Iterable
 - イテレータになれるオブジェクトのこと
   - イテレータはfor文で回せるオブジェクトのこと
-- list、tuple、dict、str、ジェネレータ、mapオブジェクト、fileオブジェクト、...
+- list、tuple、dict、str、ジェネレータ、mapオブジェクト、fileオブジェクト、rangeオブジェクト...
 - イテレータとiterableの違い
   - next関数を使って次の要素を取得することができるものをイテレータ
   - iter関数でイテレータに変換することができるのがiterable
@@ -42,6 +105,20 @@ lambda n: n * 2
 - listにgenericsでstrを指定すると、listに格納できる型をstrに制限することができる
 - ListだけではなくMap、Set、自作のクラスやメソッドなどでも使える
 - https://qiita.com/taumax/items/2af451a2c331e8ded892
+### ミュータブルとイミュータブル
+- ミュータブル: 可変
+- イミュータブル: 不変
+### シャローコピー(浅いコピー)とディープコピー(深いコピー)
+- シャローコピー
+  - オブジェクトを複製する際に、コピー元のオブジェクトとコピー先のオブジェクトがメモリ上の同じデータ(インスタンス変数)を参照
+- ディープコピー
+  - オブジェクトのみのコピーではなく、オブジェクトとメモリ上のデータ(インスタンス変数)の両方をコピー
+  - 二つのオブジェクトが参照しているデータは別のもの
+### コンストラクタとデストラクタ
+- コンストラクタ: インスタンスが生成された時に実行されるメソッド
+  - pythonだと`__init__()`で実装
+- デストラクタ: インスタンスが削除される時に実行されるメソッド
+  - pythonだと`__del__()`で実装
 ### 第一級オブジェクト
 - その言語で値として扱えるデータのこと
 - 値として扱えるというのは、代入できたり関数の引数にできたり、戻り値にできたりするという意味
