@@ -157,7 +157,48 @@
     - https://fastapi.tiangolo.com/tutorial/cors/
 - dependenciesで定義したものは、全てルーティングのDependsで呼び出している。dependenciesという名前だしDependsに定義するのも不思議なことではない
   - https://github.com/nsidnev/fastapi-realworld-example-app/blob/master/app/api/routes/users.py
+- alembicでテーブル定義の変更をした時のフロー
+  - `__init__.py`にモデルを追加
+  - `alembic revision --autogenerate -m '<message>'`
+  - `alembic upgrade head`
+- pythonで自作モジュールがimportできないときのよくあるエラーとして、予約語をimportしてしまっている時がある。
+  - この場合はモジュール名を変更する必要があるので注意する
+- SQLalchemy特有のエラーはどうするのか(またはFastAPI以外のライブラリから返されるエラー)
+  - 多分exceptにはpython標準のExceptionクラスを指定する
+    - SQLAlchemy特有のエラーをキャッチして、HTTPのエラーとして返すようにしないと、どんなエラーでも同じエラー文が返ってきてしまうからよくないかも
+  - 結局APIはHTTPのエラー(Json型のレスポンス)として返さないといけないから、FastAPI標準のHTTPExceptionとかで返せばいいと思う
 
+  ```python
+  try:
+      db_user = get_user(db, user.email, user.hashed_password)
+  except Exception:
+      raise HTTPException(status_code=404, detail=strings.USER_DOES_NOT_EXIST_ERROR)
+  ```
+
+- クッキーはexpiresなどが設定されていないと、デフォルトでブラウザがシャットダウンしたらなくなるっぽい
+  - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+- fastapiでpydanticを使用している意味としては、swaggerで返り値とか引数とかを表示されるようにするため
+  - response_modelとかを定義しないと、swagger上だとnullになってしまう
+- pydanticのschemaやormのmodelの返り値から値を取得する時はjsonにアクセスするようにしても取得できない。あくまでもオブジェクトで返されるので、フィールドにアクセスするように値を取得する
+
+  ```python
+  # 良い例
+  post = create_posts(
+      db, check_session.user_name, post_schema.title, post_schema.text
+  )
+
+  # ダメな例
+  post = create_posts(
+      db, check_session["user_name"], post_schema["title"], post_schema["text"]
+  )  
+  ```
+
+- プログラミングでメソッドや関数を実装していく順番を以下のようにコアな部分から実装するように心がけるとスラスラと書ける
+  - 依存関係の中で一番下のコアなレイヤー: fastapiの場合だとdependenciesディレクトリの中のものから実装していく
+  - メソッド(関数)の中身: 中身を実装しつつ、判明した引数をそのメソッドの引数に書いていく。
+    - いきなり全ての引数を書こうとしてしまうと、マルチタスクになってわからなくなってしまうので、とりあえず中身の実装を進めつつ、適宜判明した引数を書いていけばいい
+
+- fastapiにおいて、ヘッダーを扱うにはResponseとRequestを使う
 
 ## 全体の方針
 1. Stoplight StudioというAPI仕様を記載するためのGUIエディタで、Swaggerに沿ったドキュメントを作る

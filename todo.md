@@ -1,8 +1,10 @@
 # todo
 
-## 残り90日(12/31更新)
+## 残り87日(1/3更新)
 
 # to do
+- 漫画でわかるプログラミング用語辞典
+  - https://codezine.jp/article/corner/452
 - テストに関するサイト、本
   - https://yoshikiito.net/blog/archives/546/
   - https://qiita.com/zaramme/items/f6b825c9b72b8eb9502b
@@ -39,6 +41,12 @@
 
 ## 入社後の日課
 - 入社後の日課
+  - 朝の日課
+    - 朝に嫌なことを考えてはいけない
+    - 朝にコーヒーは飲むな
+    - タンパク質多めの朝食を取る
+    - 自転車通勤をする。電車通勤はストレスレベルがヤバイ
+    - 朝に簡単なタスクを行ってはいけない
   - 自己嫌悪に陥らないようにマインドを保つ方法
     - https://engineer.dena.com/posts/2020.07/20-new-graduates-training-retrospective-5/
   - モチベが下がったら「上の人」を見る

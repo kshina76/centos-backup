@@ -102,6 +102,8 @@
 - ログのフォーマット
   - https://qiita.com/nanasess/items/350e59b29cceb2f122b3
   - https://qiita.com/tmknom/items/08b69594e32a92bccee5#ロギング
+  - https://qiita.com/__init__/items/91e5841ed53d55a7895e
+  - https://medium.com/@PhilippeGirard5/fastapi-logging-f6237b84ea64
 - 秘匿情報のマスキング
   - パスワードやEmail
   - アプリケーションの内部構造がわかってしまうものは出力しない
@@ -127,7 +129,6 @@
 - Docker環境構築
   - DBコンテナのセットアップ
   - APIコンテナのセットアップ
-    
 - モデルの実装
   - DBのコネクションのコード実装
   - ORMのモデルを定義
@@ -140,8 +141,12 @@
   - ブログならadminを設定しておくのがいいと思う
   - djangoのadminページを作るような感じかな
 - APIの実装
-- https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
-
+  - APIの実装は最後に行うようにする
+    - モデルより先に実装してしまうと、認証の機能などが後回しになってしまって面倒だから
+- docstringの記述
+  - https://qiita.com/simonritchie/items/49e0813508cad4876b5a
+- 参考文献
+  - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
 <br></br>
 
 ## テスト
