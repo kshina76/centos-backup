@@ -1,8 +1,21 @@
 # todo
 
-## 残り87日(1/3更新)
+## 残り85日(1/5更新)
 
-# to do
+## 明日やること
+- web関連の全まとめから一つ一つ調べてREADMEにまとめる
+  - https://github.com/dexteryy/spellbook-of-modern-webdev
+- gitおすすめ学習サイト
+  - https://qiita.com/thinkalot/items/b3c2e9060f46f5d4ea46
+- 可読性まとめ
+  - コードの命名をしてくれるサイト
+    - https://codic.jp
+  - LINE式コードの可読性
+    - https://engineering.linecorp.com/ja/blog/author/munetoshi-ishikawa/
+- ブログのリポジトリ
+  - https://github.com/miguelgrinberg/microblog
+
+## to do
 - 漫画でわかるプログラミング用語辞典
   - https://codezine.jp/article/corner/452
 - テストに関するサイト、本
@@ -187,7 +200,6 @@
     - https://qiita.com/etaroid/items/88ec3a0e2d80d7cdf87a
     - https://qiita.com/etaroid/items/40106f13d47bfcbc2572
 
-- 学位記の締め切り(1/8)
 - 題目・概要の確認(sgsotは1/8まで、教員は1/9)
 - SEATUC(1/15に合格かどうかがくる)
 - 本論(1/29~2/6)
