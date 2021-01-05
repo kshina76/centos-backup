@@ -1,8 +1,13 @@
 # todo
 
-## 残り85日(1/5更新)
+## 残り84日(1/6更新)
 
 ## 明日やること
+- 問題解決の書籍
+  - 問題解決 ― あらゆる課題を突破する ビジネスパーソン必須の仕事術
+  - イシューからはじめよ ― 知的生産の「シンプルな本質」
+  - 問題解決力を高める「推論」の技術
+  - プログラマの考え方が面白いほど身に付く本
 - web関連の全まとめから一つ一つ調べてREADMEにまとめる
   - https://github.com/dexteryy/spellbook-of-modern-webdev
 - gitおすすめ学習サイト
@@ -12,8 +17,12 @@
     - https://engineering.linecorp.com/ja/blog/author/munetoshi-ishikawa/
 - ブログのリポジトリ
   - https://github.com/miguelgrinberg/microblog
+- vanilla-jsのバックエンドを実装してみる
+  - https://vanillawebprojects.com
 
 ## to do
+- ネットワーク関連の知識がわかりやすく解説している動画がいっぱい
+  - https://www.youtube.com/channel/UCRDj3fsO4eEwh1yHgRoRiww/videos
 - 漫画でわかるプログラミング用語辞典
   - https://codezine.jp/article/corner/452
 - テストに関するサイト、本
@@ -52,6 +61,8 @@
 
 ## 入社後の日課
 - 入社後の日課
+  - 勉強の日課
+    - https://www.youtube.com/watch?v=12EgQvwsS-c
   - 朝の日課
     - 朝に嫌なことを考えてはいけない
     - 朝にコーヒーは飲むな
