@@ -8,9 +8,7 @@
 - gitおすすめ学習サイト
   - https://qiita.com/thinkalot/items/b3c2e9060f46f5d4ea46
 - 可読性まとめ
-  - コードの命名をしてくれるサイト
-    - https://codic.jp
-  - LINE式コードの可読性
+  - LINE式コードの可読性(次は第2章から)
     - https://engineering.linecorp.com/ja/blog/author/munetoshi-ishikawa/
 - ブログのリポジトリ
   - https://github.com/miguelgrinberg/microblog
