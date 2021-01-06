@@ -8,3 +8,4 @@ elasticsearch
 black
 flake8
 alembic
+librosa
