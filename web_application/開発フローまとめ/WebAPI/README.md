@@ -8,6 +8,7 @@
 
 ## 設計
 ### DB設計
+- 設計の本を読んでから書く
 ### エンドポイント設計(URL設計)
 1. 対象となるデータを認識する
 2. 対象となるデータをリソースに分ける
@@ -92,7 +93,6 @@
 - 例外のアンチパターン
   - https://www.slideshare.net/t_wada/exception-design-by-contract
   - 要は条件分岐はif文を使って、それ以外は例外
-
 ### テスト設計: テストの工程でどのようなデータでテストをするかの設計
 - 正常系の設計
 - 準正常系の設計
@@ -120,7 +120,8 @@
   - この方法で全てをロギングしてはいけない。なぜかと言うと、何回も同じログがロギングされてしまうから。これを避ける簡単な方法は、呼び出し元のルートまで伝搬させ続けて、ルートでロギングの処理を書けばいい。
   - https://code.tutsplus.com/tutorials/professional-error-handling-with-python--cms-25950
   - https://qiita.com/Kento75/items/b0f43943d300d0ed9586
-
+### セキュリティ項目の設計
+- 詳しくはフレームワーク選定のテンプレートに沿って設計していく
 
 
 <br></br>
@@ -147,6 +148,7 @@
   - https://qiita.com/simonritchie/items/49e0813508cad4876b5a
 - 参考文献
   - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
+
 <br></br>
 
 ## テスト
@@ -175,7 +177,7 @@
 ### 参考文献
 - https://quesqa.com/now-is-the-time-to-do-api-testing/
 
-### データベースを含めてたテスト
+### データベースを含めたテスト
 - テスト方法
   - pytest-dockerでデータベースをフィクスチャする方法
     - https://qiita.com/hkato/items/6d137ee49f6eb2f8c426

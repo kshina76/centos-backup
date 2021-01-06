@@ -362,12 +362,72 @@
 <br></br>
 
 ## セキュリティ
-- CORSの設定方法
-- OAuthの実現方法
+### CORSの設定方法
+- WebAPIの開発で必要になるCORSの設定
+  - https://qiita.com/tomoyukilabs/items/81698edd5812ff6acb34
+  - https://qiita.com/rooooomania/items/4d0f6275372f413765de
+- プリフライトリクエストの設定
+- 認証情報を含む場合のリクエストの設定
+  - Access-Control-Allow-Credentialsをtrueにする
 
 ```python
 
 ```
+
+### OAuthの実現方法
+
+```python
+
+```
+
+### 入力値のバリデーション
+- 以下の項目がサポートされているのか、自分で正規表現などを使用して実装するのか
+  - 文字エンコーディングの妥当性チェック
+  - 文字エンコーディングの変換機能
+  - 入力値の妥当性
+
+
+```python
+
+```
+
+### XSS対策
+
+
+### SQLインジェクション対策
+- 入力値の検証のサポート
+- プレースホルダによってSQLを組み立てる方法のサポート
+  - 静的プレースホルダ: RDBMSで行う方法
+  - 動的プレースホルダ: アプリケーションのライブラリで行う方法
+
+```python
+
+```
+
+### CSRF対策
+- 対策
+  - CSRF対策の必要なページを区別する
+  - 利用者の意図したリクエストであることを確認する
+  - 「重要な処理」の実行後に登録済みメールアドレスに通知メールを送信
+- 「利用者の意図したリクエストであることを確認する」方法の種類(以下の機能をサポートしているかを確認)
+  - 秘密情報(トークン)の埋め込み
+  - パスワード再入力
+  - Refererのチェック
+- https://html-coding.co.jp/knowhow/security/csrf/
+
+```python
+
+```
+
+### クリックジャッキング対策
+- X-Frame-Optionsヘッダ
+- https://itsakura.com/python-bottle-clickjacking
+
+```python
+
+```
+
+### ヌルバイト攻撃対策
 
 <br></br>
 
