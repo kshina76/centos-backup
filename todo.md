@@ -1,8 +1,18 @@
 # todo
 
-## 残り83日(1/7更新)
+## 残り81日(1/9更新)
 
 ## 明日やること
+- audio_apiの開発を進める
+  - alembicのチュートリアルを見つつ最初から
+- テスト技法についてまとめる
+  - マインドマップとテスト技法を組み合わせれば、いい感じのテストを書けそう
+- 色々なテンプレ置き場(ディレクトリ)を作ってそこにテンプレを投げ込んでいく
+  - 例えば、質問をするときのフォーマットやフレームワーク選定のフォーマットなどなんでも
+- 仕事をするときに重要なことまとめ
+  - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
+- flaskのセキュリティ対策まとめ
+  - https://www.simonsnote.com/entry/flask_security
 - ログインのセッション管理まとめ
   - https://qiita.com/shota_matsukawa_ga/items/a21c5cf49a1de6c9561a
 - 問題解決の書籍
@@ -74,6 +84,7 @@
     - タンパク質多めの朝食を取る
     - 自転車通勤をする。電車通勤はストレスレベルがヤバイ
     - 朝に簡単なタスクを行ってはいけない
+    - atcoderとかプロジェクトオイラーの問題を2,3問解いて頭の体操をする
   - 自己嫌悪に陥らないようにマインドを保つ方法
     - https://engineer.dena.com/posts/2020.07/20-new-graduates-training-retrospective-5/
   - モチベが下がったら「上の人」を見る
@@ -218,10 +229,6 @@
 - SEATUC(1/15に合格かどうかがくる)
 - 本論(1/29~2/6)
 - Web API Good Parts(12/19,20で)
-- 認証・認可周りの本を読む(OAuth、OpenID Connect、AWS Cognite)
-  - https://booth.pm/ja/items/1550861
-  - https://booth.pm/ja/items/1296585
-  - https://booth.pm/ja/items/1560273
 - golangまたはPythonでwebに関連するもの全てをフルスクラッチで書いてみる(real world httpを参考に)
   - HTTP/1.1、HTTP/2、HTML5、ロードバランサー
 - ハイパフォーマンスpythonを以下をベースにまとめる
@@ -316,6 +323,8 @@
 - いろいろな企業のテックブログで紹介しているだろうから調べる
 - インフラの負荷を削減できるとコストを減らせるという目標を立てても面白いかも
   - https://www.slideshare.net/kazeburo/isucon-yapcasia-tokyo-2015
+- OAuthをフルスクラッチで実装
+- SSL/TLSを実装
 - DeNAで行われた研修
   - CS基礎（加算器 → レジスタ → CPU → アセンブリ → C）
   - Go

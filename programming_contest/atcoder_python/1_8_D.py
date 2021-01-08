@@ -24,19 +24,5 @@ def str_count(text):
     return sorted(dic.items())  # keyでソートして返す. valueでソートしたい場合はlambdaで.
 
 
-s = str(input())
-p = str(input())
-
-for i in range(len(s)):
-    flag = True
-    s = s[1:len(s)]+s[0]  # 先頭の一文字を末尾に配置
-    for j in range(len(p)):
-        if s[j] != p[j] and flag:
-            flag = False
-    if flag:
-        break
-
-if flag:
-    print("Yes")
-else:
-    print("No")
+# a = str(input())
+# b = str(input())

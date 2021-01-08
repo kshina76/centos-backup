@@ -1,5 +1,8 @@
 # pythonでatcoder
 
+## atcoder進捗状況
+- AtCoder Beginner Contest
+  - 187のA~Dまで
 
 ## pythonを使う理由
 - 業務で使うから
@@ -103,6 +106,17 @@ x = [int(c) for c in str(input())]
 ```
 
 ### mapの使い方
+
+### setを使用した有無判定の高速化
+- setを使うと重複を除いた集合を作成できる
+- pythonにおける`set`は`hashset`という要素の重複を許可しない集合構造を表す
+- https://atcoder.jp/contests/abc187/tasks/abc187_c
+
+### 「Aの数 vs Bの数」でAを勝たせたい時
+- Aが勝ちに近くには、以下の方法で近く
+  - Aを増やす
+  - Bを減らす
+- https://atcoder.jp/contests/abc187/editorial/486
 
 ### アルファベットだけ抽出
 - ^a-zA-Z_ はアルファベット以外を表す

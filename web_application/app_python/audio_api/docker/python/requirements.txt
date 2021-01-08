@@ -1,0 +1,12 @@
+SQLAlchemy
+sqlalchemy_utils
+psycopg2
+fastapi
+uvicorn
+pytest
+elasticsearch
+black
+flake8
+alembic
+librosa
+scipy
