@@ -1,7 +1,8 @@
 import sys  # input、exti用
 import re  # 正規表現
 import collections
-
+import itertools
+import math
 
 # 入力の高速化
 def input():
@@ -24,5 +25,19 @@ def str_count(text):
     return sorted(dic.items())  # keyでソートして返す. valueでソートしたい場合はlambdaで.
 
 
-# a = str(input())
-# b = str(input())
+# 10進数 -> n進数変換
+def encode(value, base):
+    if value > base:
+        yield from encode(value // base, base)
+    yield value % base
+
+
+n, x = map(int, input().split())
+s = input()
+for i in range(n):
+    if s[i] == "o":
+        x += 1
+    elif x != 0 and s[i] == "x":
+        x -= 1
+
+print(x)

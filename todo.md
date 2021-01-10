@@ -1,25 +1,94 @@
 # todo
 
-## 残り81日(1/9更新)
+## 残り80日(1/10更新)
 
-## 明日やること
+## 明日やること(テンプレ作成->本->api->atcoder)
 - audio_apiの開発を進める
   - alembicのチュートリアルを見つつ最初から
+- 徳丸本
 - テスト技法についてまとめる
   - マインドマップとテスト技法を組み合わせれば、いい感じのテストを書けそう
 - 色々なテンプレ置き場(ディレクトリ)を作ってそこにテンプレを投げ込んでいく
   - 例えば、質問をするときのフォーマットやフレームワーク選定のフォーマットなどなんでも
+  - コンサル一年目が学ぶやつ
+  - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
+  - フレームワーク選定、技術選定
+  - webapi開発フロー
+  - テスト設計フローや例外設計フローなど設計のフローまとめ
+  - 仕事を任せられるエンジニアとは
+    - https://tech.tabechoku.com/entry/2019/05/02/182457
+  - エンジニアのスタートダッシュ、習慣など
+    - https://qiita.com/suy0n9/items/d1bfbd823d8b6dc562be
+  - 入社1,2年目で意識すること
+    - https://qiita.com/rf_p/items/34f92d4e9d4398f2f969
+    - https://qiita.com/cocoa_dahlia/items/2e6b25e166058936eceb
+    - https://qiita.com/musclemikiya/items/8d7befa6f7fade842a2a
+    - https://qiita.com/shunsuke227ono/items/36723b9c19c25d545aa1
+    - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
+    - https://qiita.com/enta0701/items/a6faabbecd6786642d76
+    - https://qiita.com/hand12/items/89f62ad51a51f596d259
+  - エンジニア情報収集
+    - https://qiita.com/nesheep5/items/e7196ba496e59bb2aa28
+  - 新しい技術を学んでいく方法
+    - https://aws.amazon.com/jp/blogs/developer/
+  - エンジニアの文章の書き方
+    - https://note.com/licodeenar/n/n0e87fb648342
+  - エンジニアの多種多様なドキュメント作成スキル
+    -https://qiita.com/yasuoyasuo/items/1eb7298f91a44dce7abc
+
+  - バカがバレる質問
+    1. 目的がない質問
+      - それ聞いてどうなるの？ってなる質問
+      - 「〜〜を明らかにする質問なのですが」という前置きをするとか
+    2. ザックリしすぎている
+      - 仮想通貨ってどうですか？だったり
+      - 不動産投資ってどうですか？のような質問
+    3. 前置きが長い
+      - 質問をする前に近況報告が始まったり
+      - 自分の聞きたいことを整理してから質問をする
+    4. 聞く相手を間違えている
+      - 誰に聞いても同じ答えが返ってくる質問はするべきではない
+      - 相手を活用するような質問をする
+    5. ググればわかる質問
+  - 一週間ごとのルーティーンを意識する
+    - 毎日同じルーティーンで行うと生産性は下がる
+    - 月曜日は軽い仕事
+      - 事務作業とか
+    - 火曜、水曜
+      - 多くの人が仕事モード
+      - 一番厳しい仕事を入れる
+    - 木曜
+      - 午後からエネルギーが後退し始める
+      - 夜は仕事を詰めすぎない
+      - ミーティング、会食多め
+    - 金曜
+      - かなり疲れている状態
+      - 重い仕事は入れない
+    - 土日
+      - 仕事を忘れてエネルギーをチャージする
+      - 本を読むとかでもいいかも
+
+- 読む書籍
+  - SSL/TLS関連
+    - 食べるSSL
+      - kindleに入っている
+      - https://dev.classmethod.jp/articles/bookreview-ssl-getting-started/
+    - SSLをはじめよう
+      - 技術書典 買った
+    - https://takuan-osho.hatenablog.com/entry/2017/11/26/book-review-of-japanese-translation-of-bulletproof-ssl-and-tls
+  - インフラエンジニアの教科書2
+  - webを支える技術
+  - 問題解決の書籍
+    - 問題解決 ― あらゆる課題を突破する ビジネスパーソン必須の仕事術
+    - イシューからはじめよ ― 知的生産の「シンプルな本質」
+    - 問題解決力を高める「推論」の技術
+    - プログラマの考え方が面白いほど身に付く本
 - 仕事をするときに重要なことまとめ
   - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
 - flaskのセキュリティ対策まとめ
   - https://www.simonsnote.com/entry/flask_security
 - ログインのセッション管理まとめ
   - https://qiita.com/shota_matsukawa_ga/items/a21c5cf49a1de6c9561a
-- 問題解決の書籍
-  - 問題解決 ― あらゆる課題を突破する ビジネスパーソン必須の仕事術
-  - イシューからはじめよ ― 知的生産の「シンプルな本質」
-  - 問題解決力を高める「推論」の技術
-  - プログラマの考え方が面白いほど身に付く本
 - web関連の全まとめから一つ一つ調べてREADMEにまとめる
   - https://github.com/dexteryy/spellbook-of-modern-webdev
 - gitおすすめ学習サイト
@@ -27,12 +96,11 @@
 - 可読性まとめ
   - LINE式コードの可読性(次は第2章から)
     - https://engineering.linecorp.com/ja/blog/author/munetoshi-ishikawa/
-- ブログのリポジトリ
-  - https://github.com/miguelgrinberg/microblog
 - vanilla-jsのバックエンドを実装してみる
   - https://vanillawebprojects.com
 
 ## to do
+- アプリケーションの設計と同じようにクラウドやインフラの設計を知りたい
 - ネットワーク関連の知識がわかりやすく解説している動画がいっぱい
   - https://www.youtube.com/channel/UCRDj3fsO4eEwh1yHgRoRiww/videos
 - 漫画でわかるプログラミング用語辞典
@@ -43,11 +111,6 @@
   - マインドマップから始めるソフトウェアテスト
   - はじめて学ぶソフトウェアのテスト技法
   - ソフトウェアテスト技法練習帳 ~知識を経験に変える40問~
-- OSのマイクロカーネルの実装
-  - https://seiya.me/microkernel-book.pdf
-- OSの実装
-  - https://booth.pm/ja/items/1056349
-  - https://www.amazon.co.jp/30日でできる-OS自作入門-川合-秀実-ebook/dp/B00IR1HYI0
 - 色々なプロジェクトからプログラミングを学ぶ
   - https://github.com/tuvtran/project-based-learning#python
 - コードリーディングを読み、実践をする
@@ -56,20 +119,7 @@
     - https://fastapi.tiangolo.com/tutorial/debugging/
 - 知らないセキュリティ関連の知識
   - https://speakerdeck.com/kurochan/ca20xin-zu-yan-xiu-sekiyuriteibian?slide=44
-- フレームワークの勉強をするときに、それぞれのトピックを頭に入れておくと、やるべきことがわかる気がする(dockerで報告書のテンプレを作っておくと後々楽かもしれない)
-  - フレームワークで実現されているかのチェック項目のテンプレートを作って、新たに学ぶ時はそのテンプレートにサンプルを埋めるようにして、開発中のリファレンスに使うと便利かもしれない。上司に技術選定の資料を送るときにも、このテンプレートは有用になると思うので用意しておくといい。目次をつけて気になるところにすぐ飛べるようにするのも便利だし、喜ばれそう
-    - セッション管理はどのように書くのか
-    - POST, GETされたデータのバリデーションはどうするのか
-    - ディレクトリ分割
-    - DBのマイグレーションはどうするのか
-      - マイグレーションの機能としては、初期のテーブルを定義したり、テーブルの定義が変更になった時もマーグレーションを行えば、テーブル定義のバージョン管理もできるようになる
-      - Djangoでは組み込まれているが、FastAPIではAldemicというライブラリをインストールすることになっている
-    - DB操作はどうするのか
-      - ORMを使う場合はどうするのか、クエリビルダを使う場合にはどうするのか
-      - コネクションの管理はどうするのか
-      - トランザクションの管理はどうするのか
-    - etc
-    - https://qiita.com/tmknom/items/08b69594e32a92bccee5
+
 
 ## 入社後の日課
 - 入社後の日課
@@ -183,20 +233,6 @@
     - DynamoDBを使っていたから
   - Docker
   - markdownでの文書作成
-  - AWSで簡単にネットワークを組んで、サブネット分割して環境を整える練習とかLambdaとかの本とか
-    1. 図解即戦力　Amazon Web Services
-      - 借りた
-    2. Amazon Web Servicesインフラサービス活用大全
-      - 借りた
-    3. Amazon Web Services 基礎からのネットワーク＆サーバー構築　改訂3版 
-      - kindleにある
-    4. 基礎から学ぶサーバレス設計開発
-      - 借りた
-    5. Amazon Web Serviceネットワーク入門
-      - kindleにある
-      - もう一回読む
-    6. 実践terraform
-      - kindleにある
 - 色々な技術のチートシートがまとめられている
   - https://wikiwiki.jp/bankura/IT系/チートシート・コマンド集
 - vanill-jsでDOM操作とajaxを学びつつ、バックエンドのAPIを拡張機能として開発する(flaskとかでwebAPIを作る)
@@ -211,8 +247,6 @@
     - https://note.com/airis0/m/m7c39abf9072a
   - どこかに基礎知識(かなり重要)をまとめたREADMEを作って、以下の内容をまとめる(勉強の仕方なども同じとこにまとめていいかも)
     - https://qiita.com/yamadar/items/bfdfc58cec49bf2690e1
-  - LINE式コードの可読性をまとめる
-    - https://engineering.linecorp.com/ja/blog/tag/codereadability/
   - linux系のこと
     - Linuxパフォーマンス調査などで使うコマンドメモ
       - https://qiita.com/toshihirock/items/0e0b20064730469e93e6
@@ -235,8 +269,6 @@
   - 2015年の本なので、古い書き方に注意。調べながら
   - https://showa-yojyo.github.io/notebook/gorelick14.html
 - 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」と「chromeのdevtool」を使ってwebapi開発(12/21から始めたい)
-- LINE式コードの可読性をまとめる
-  - https://engineering.linecorp.com/ja/blog/tag/codereadability/
 - Lambdaの書籍とデザインパターンをまとめる
 - READMEの統合
   - 社会人としてやっていく際のノウハウなどもまとめたい
@@ -250,74 +282,6 @@
   - https://www.youtube.com/watch?v=RO3gGJokzdg
 - tmux
   - https://qiita.com/nl0_blu/items/9d207a70ccc8467f7bab
-
-## 入社前todo
-- AWSを使いながらWebアプリケーションのAPI開発
-  - フロントエンドはとりあえず後回し
-  - 少なくともLambdaのパターンは色々やっておく
-  - トラブルシューティングは手当たり次第ではなく、体系的な方法で行うようにする。
-  - アプリケーションの最適化を行う(ISUCONの手法を洗練させていく)
-  - ユニットテスト書けるように
-  - ついでにライブラリやフレームワークの知識を付けていく
-- DB関連の勉強
-  - SQLの書き方
-  - RDBMSのCRUDなど
-  - NoSQLのCRUDなど
-  - Redis
-- ミドルウェアの知識
-  - RDBMS、Nginxなどの設定知識
-  - 負荷試験
-  - 監視　入門
-  - 監視ツール
-- セキュアプログラミングの知識
-  - 徳丸本
-- git
-- Linuxコマンドのまとめ(開発に集中できない時に都度行う)
-- その他気になる部分の書籍
-
-## 日課
-- 昼寝
-  - 午後1時〜午後3時の間で30分
-- 一週間ごとのルーティーンを意識する
-  - 毎日同じルーティーンで行うと生産性は下がる
-  - 月曜日は軽い仕事
-    - 事務作業とか
-    - 
-  - 火曜、水曜
-    - 多くの人が仕事モード
-    - 一番厳しい仕事を入れる
-  - 木曜
-    - 午後からエネルギーが後退し始める
-    - 夜は仕事を詰めすぎない
-    - ミーティング、会食多め
-  - 金曜
-    - かなり疲れている状態
-    - 重い仕事は入れない
-  - 土日
-    - 仕事を忘れてエネルギーをチャージする
-    - 本を読むとかでもいいかも
-- マルチタスクをやめる
-  - 人間の脳はマルチタスクができないようになっている
-  - todoリストを作って、一つずつやっていく
-  - スマホが気になってしまうこともマルチタスクを行っているからやめる
-  - どうしても集中できないならレンタルルームに必要なものだけを持って行って作業する
-- バカがバレる質問
-  1. 目的がない質問
-    - それ聞いてどうなるの？ってなる質問
-    - 「〜〜を明らかにする質問なのですが」という前置きをするとか
-  2. ザックリしすぎている
-    - 仮想通貨ってどうですか？だったり
-    - 不動産投資ってどうですか？のような質問
-  3. 前置きが長い
-    - 質問をする前に近況報告が始まったり
-    - 自分の聞きたいことを整理してから質問をする
-  4. 聞く相手を間違えている
-    - 誰に聞いても同じ答えが返ってくる質問はするべきではない
-    - 相手を活用するような質問をする
-  5. ググればわかる質問
-
-## 新しい技術を学んでいく方法
-- https://aws.amazon.com/jp/blogs/developer/
 
 ## 研修課題
 - いろいろな企業のテックブログで紹介しているだろうから調べる
@@ -361,6 +325,3 @@
   - https://www.cview.co.jp/cvcblog/2020.08.20.QmzQcRnZpnnmd-Dnx-fIo
 - AWS資格3冠達成
   - https://dev.classmethod.jp/articles/new-grads-ojt-korean/
-
-## 今後やらないといけないこと
-- 英語
