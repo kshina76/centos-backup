@@ -3,6 +3,7 @@ import re  # 正規表現
 import collections
 import itertools
 import math
+import time
 
 # 入力の高速化
 def input():
@@ -32,12 +33,12 @@ def encode(value, base):
     yield value % base
 
 
-n, x = map(int, input().split())
-s = input()
-for i in range(n):
-    if s[i] == "o":
-        x += 1
-    elif x != 0 and s[i] == "x":
-        x -= 1
-
-print(x)
+# 「10進数 -> 2進数変換」を行う。ただしbit全探索用のものなので、左からつめて表示される
+# 例えば、10を変換すると、「0101000...」のような二進数に変換される
+# value: 変換したい10進数の値, num_array: 2進数の長さ(長さ分0で埋めてくれる)
+def bit_array(value, num_array):
+    bit = [0] * num_array
+    for i in range(num_array):
+        div = 1 << i
+        bit[i] = int(value / div) % 2
+    return bit

@@ -1,24 +1,5 @@
 # WebAPI開発フロー
 
-## 仕様の把握
-- 以下のテンプレに沿って理解していく
-  - 目的
-  - ユースケース（網羅性）
-  - 必要な機能
-
-<br></br>
-
-## タスク分解・見積もり
-- タスク分解
-- タスクの見積もり
-- タスクのTODOを共有
-  - 「SlackのTODOチャンネル」または「GitHubのissueメンション付きで報告」
-- 詳細は以下にまとめてある
-  - https://github.com/kshina76/centos-backup/tree/master/タスク管理
-  - https://qiita.com/soyanchu/items/d1cb9785fc211941a009
-
-<br></br>
-
 ## 技術選定
 - 選定理由をテンプレートを使って埋める
   - https://github.com/kshina76/centos-backup/blob/master/web_application/framework選定/tmp.md

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    image: kaggle/python:latest
+    container_name: kaggle_container
+    volumes:
+      - .:/work
+    working_dir: /work

@@ -16,20 +16,32 @@ class Model:
 
     def fit(self, tr_x, tr_y, va_x, va_y):
         # ハイパーパラメータの設定
-        params = {'objective': 'binary', 'seed': 71, 'verbose': 0, 'metrics': 'binary_logloss'}
+        params = {
+            "objective": "binary",
+            "seed": 71,
+            "verbose": 0,
+            "metrics": "binary_logloss",
+        }
         # インスタンスに渡されたparamsで更新する。空辞書の場合は、何も更新されない。
         params.update(self.params)
         num_round = 10
         lgb_train = lgb.Dataset(tr_x, tr_y)
         lgb_eval = lgb.Dataset(va_x, va_y)
-        categorical_features = ['product', 'medical_info_b2', 'medical_info_b3']
-        self.model = lgb.train(params, lgb_train, num_boost_round=num_round,
-                              categorical_feature=categorical_features,
-                              valid_names=['train', 'valid'], valid_sets=[lgb_train, lgb_eval])
+        categorical_features = ["product", "medical_info_b2", "medical_info_b3"]
+        self.model = lgb.train(
+            params,
+            lgb_train,
+            num_boost_round=num_round,
+            categorical_feature=categorical_features,
+            valid_names=["train", "valid"],
+            valid_sets=[lgb_train, lgb_eval],
+        )
+
     def predict(self, x):
         data = lgb.Dataset(x)
         pred = self.model.predict(data)
         return pred
+
 
 # -----------------------------------
 # Stratified K-Fold
