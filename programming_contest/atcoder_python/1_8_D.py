@@ -2,6 +2,7 @@ import sys  # input、exti用
 import re  # 正規表現
 import collections
 import itertools
+import bisect
 import math
 import time
 
@@ -42,3 +43,8 @@ def bit_array(value, num_array):
         div = 1 << i
         bit[i] = int(value / div) % 2
     return bit
+
+
+arr = [1, 2, 3, 3, 4, 5, 8, 10]
+bisect.bisect_left(arr, 3)
+print(arr)
