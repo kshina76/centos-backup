@@ -31,8 +31,11 @@
 		"python.formatting.provider": "black",
 		"editor.formatOnSave": true,
 		"editor.formatOnPaste": false,
-		"editor.tabSize": 4,
+		"editor.tabSize": 2,
 		"editor.insertSpaces": true,
+		"[python]": {
+			"editor.tabSize": 4
+		}
 	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
