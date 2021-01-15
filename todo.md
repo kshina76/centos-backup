@@ -255,7 +255,8 @@
     - https://qiita.com/etaroid/items/88ec3a0e2d80d7cdf87a
     - https://qiita.com/etaroid/items/40106f13d47bfcbc2572
 
-- 題目・概要の確認(sgsotは1/8まで、教員は1/9)
+- ポスターセッション(1/22締め切り)
+- 信学会(1/25締め切り)
 - SEATUC(1/15に合格かどうかがくる)
 - 本論(1/29~2/6)
 - Web API Good Parts(12/19,20で)
