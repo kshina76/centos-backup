@@ -20,6 +20,36 @@
 
   ![2021-01-12 0 44のイメージ](https://user-images.githubusercontent.com/53253817/104203427-71116300-546f-11eb-8158-da79823e70b3.jpeg)
 
+### OAuth認証を使っていい場合
+- リソースサーバ(バックエンド)と認可サーバが同じアプリケーションサーバの中で構築されている場合
+  - SPAでアプリケーションを構築するときのユーザ認証をトークンベースの認証で行いたい場合に使う
+  - 「フロントエンド -> バックエンド(リースサーバ) 兼 認可サーバ」の構成
+  - 要は、リソースサーバがフロントエンドのためだけのAPIならこの方法でトークンベース認証を作ればいいっぽい
+- 要は、GoogleとかFaceBookなどを使ったユーザのログインではOAuthを使ってはいけなくて、OpenID Connectを使わないといけない
+- FastAPIでOAuthと名前がついているものは、OAuthのロールで出てくる認可サーバを作るものだが、トークンベースの認証として使っているのはいいのかな、、、？？
+  - jwtを使ったトークン認証のライブラリはアドオンで提供している人がいるくらいだし
+    - https://indominusbyte.github.io/fastapi-jwt-auth/
+    - https://github.com/IndominusByte/fastapi-jwt-auth
+    - https://ichi.pro/angular-oyobi-fastapi-de-no-roguin-shisutemu-no-sakusei-175755820999689
+  - この疑問に関しての理解
+    - `OAuth2PasswordBearer`はBearer認証のフォーマットに沿ってトークンの形を整えるだけのものっぽいので、これをユーザログインにも使えるってだけっぽい
+    - `OAuth2PasswordRequestForm`は認可サーバがリソースオーナーに「許可しますか？」という画面を出すためのものっぽい
+- 認可サーバをGoogleの認可サーバやGitHubの認可サーバを使うのもいいし、FastAPIを使って認可サーバを自前で構築することもできる
+- 結論
+  - ユーザのログイン機能をトークンベースで組みたかったら、OAuthのを使うのではなくて、アドオンのjwt認証とかのライブラリを使ったほうがいいっぽい
+  - 認可サーバを自作したかったらFastAPIのOAuthのライブラリを使えばいい
+- 参考文献
+  - ここのディスカッションは外部のOAuthを使うにはどうしたらいいのかという議論をしていて、有用
+    - https://github.com/tiangolo/fastapi/issues/12
+  - fastapiでトークンベースのユーザ認証を実装している
+    - https://github.com/umentu/fastapi_bearer
+    - https://fabeee.co.jp/blog/mattsun01/
+  - ユーザ認証フローのまとめ
+    - https://blog.fujimisakari.com/user_authentication_flow/
+  - https://qiita.com/naoya_matsuda/items/a7ff1be7905d45b530c1
+  - djangoの教科書でもjwt認証という言葉を使っている
+    - https://www.amazon.co.jp/現場で使える-Django-Framework-（Django-の教科書シリーズ）-ebook/dp/B07XWL8FPM
+
 <br></br>
 
 ## 第1章 はじめに

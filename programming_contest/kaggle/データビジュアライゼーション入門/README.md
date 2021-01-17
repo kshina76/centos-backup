@@ -45,8 +45,10 @@
 
 <br></br>
 
-## seabornチートシート
+## データ可視化フロー
+- seabornチートシート
 - 比較，分布，構成，関係，の4種類
+- https://github.com/kshina76/centos-backup/blob/master/programming_contest/kaggle/データビジュアライゼーション入門/seaborn_CheatSheet.md
 
 <img width="965" alt="68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3130383732392f38333332653831372d393261302d373834382d366438332d3339376230346630633735662e706e67" src="https://user-images.githubusercontent.com/53253817/104796927-c944be00-57fd-11eb-86fa-f4ea177e60d0.png">
 
