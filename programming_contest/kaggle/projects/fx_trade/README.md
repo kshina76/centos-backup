@@ -62,6 +62,10 @@
   - https://qiita.com/aaatsushi_bb/items/0b605c0f27493f005c88
 - XGBoostのパラメータ解説
   - https://qiita.com/FJyusk56/items/0649f4362587261bd57a
+- talibライブラリの返り値がnanだらけになる理由
+  - C言語ベースのライブラリで、そのような仕様だから。`[-1]`として最後の値を取得すればいい
+  - https://github.com/mrjbq7/ta-lib/issues/17
+
 
 <br></br>
 
@@ -105,3 +109,5 @@
 - ライブラリ
   - oandapyV20
   - ta-lib
+- GPU関連
+  - https://github.com/Kaggle/docker-python

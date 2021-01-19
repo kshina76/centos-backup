@@ -16,6 +16,7 @@ from sklearn.metrics import (
 )
 from sklearn.model_selection import GridSearchCV
 
+
 # APIキー、environmentはデモか本番か
 oanda_api = API(access_token=access_token, environment="practice")
 
@@ -72,7 +73,6 @@ class DataFromOanda:
 # cur_posは本日を表す。
 def get_ma(price_arr, cur_pos, period=20):
     if cur_pos <= period:
-        # s = 0
         return 0
     else:
         s = cur_pos - period + 1
@@ -84,7 +84,6 @@ def get_ma(price_arr, cur_pos, period=20):
 
 def get_rsi(price_arr, cur_pos, period=40):
     if cur_pos <= period:
-        # s = 0
         return 0
     else:
         s = cur_pos - period + 1
@@ -96,32 +95,39 @@ def get_rsi(price_arr, cur_pos, period=40):
 
 def get_ma_kairi(price_arr, cur_pos, period=None):
     ma = get_ma(price_arr, cur_pos)
-    return ((price_arr[cur_pos] - ma) / ma) * 100.0
+    if ma != 0:
+        return ((price_arr[cur_pos] - ma) / ma) * 100.0
     return 0
 
 
+# 1シグマのボリンジャーバンド、middlebandは1シグマでも2シグマでも同じ値
 def get_bb_1(price_arr, cur_pos, period=40):
     if cur_pos <= period:
-        # s = 0
         return 0
     else:
         s = cur_pos - period + 1
     tmp_arr = price_arr[s : cur_pos + 1]
     # tmp_arr.reverse()
     prices = np.array(tmp_arr, dtype=float)
-    return ta.BBANDS(prices, timeperiod=period)[0][-1]
+    upperband, middleband, lowerband = ta.BBANDS(
+        prices, timeperiod=period, nbdevup=1, nbdevdn=1
+    )
+    return [upperband[-1], middleband[-1], lowerband[-1]]
 
 
+# 2シグマのボリンジャーバンド
 def get_bb_2(price_arr, cur_pos, period=40):
     if cur_pos <= period:
-        # s = 0
         return 0
     else:
         s = cur_pos - period + 1
     tmp_arr = price_arr[s : cur_pos + 1]
     # tmp_arr.reverse()
     prices = np.array(tmp_arr, dtype=float)
-    return ta.BBANDS(prices, timeperiod=period)[2][-1]
+    upperband, middleband, lowerband = ta.BBANDS(
+        prices, timeperiod=period, nbdevup=2, nbdevdn=2
+    )
+    return [upperband[-1], middleband[-1], lowerband[-1]]
 
 
 def get_ema(price_arr, cur_pos, period=20):
@@ -131,7 +137,7 @@ def get_ema(price_arr, cur_pos, period=20):
     else:
         s = cur_pos - period + 1
     tmp_arr = price_arr[s : cur_pos + 1]
-    tmp_arr.reverse()
+    # tmp_arr.reverse()
     prices = np.array(tmp_arr, dtype=float)
     return ta.EMA(prices, timeperiod=period)[-1]
 
@@ -145,10 +151,10 @@ def get_cci(price_arr, cur_pos, period=None):
 
 
 def get_mo(price_arr, cur_pos, period=20):
-    if cur_pos <= (period + 1):
+    if cur_pos <= period:
         return 0
     else:
-        s = cur_pos - period + 1
+        s = cur_pos - period  # +1があると全部nanになってしまった
     tmp_arr = price_arr[s : cur_pos + 1]
     # tmp_arr.reverse()
     prices = np.array(tmp_arr, dtype=float)
@@ -192,6 +198,7 @@ def get_dmi(price_arr, cur_pos, period=None):
 #    return np.std(tmp_arr)
 
 
+# macd[-1] > macdsignal[-1]の部分でゴールデンクロス判定している
 def get_macd(price_arr, cur_pos, period=100):
     if cur_pos <= period:
         # s = 0
@@ -214,7 +221,7 @@ def get_macd(price_arr, cur_pos, period=100):
 if __name__ == "__main__":
     # データ取得に使う定数
     COUNT = 5000  # 一度に取得するデータ数(max:5000)
-    NB_ITR = 3  # count * NB_ITR 分データを取得
+    NB_ITR = 20  # count * NB_ITR 分データを取得
     GRANULARITY = "M15"
     INSTRUMENT = "USD_JPY"
     SKIP = 500  # 学習データの最初を何個読み飛ばすか。テクニカルを計算するときに過去の値を使うから読み飛ばさないと計算できない
@@ -254,12 +261,15 @@ if __name__ == "__main__":
                         close_price[i],
                         get_ma(close_price, i),
                         get_ma_kairi(close_price, i),
-                        # get_bb_1(close_price, i),
-                        # get_bb_2(close_price, i),
+                        get_bb_1(close_price, i)[0],  # bbシグマ1のupper
+                        get_bb_1(close_price, i)[1],  # bbのmiddle
+                        get_bb_1(close_price, i)[2],  # bbシグマ1のlower
+                        get_bb_2(close_price, i)[0],  # bbシグマ2のupper
+                        get_bb_2(close_price, i)[2],  # bbシグマ2のlower
                         get_ema(close_price, i),
-                        # get_mo(close_price, i),
-                        # get_po(close_price, i),
-                        # get_macd(close_price, i),
+                        get_mo(close_price, i),
+                        # get_po(close_price, i), # うまく動作しないから外している
+                        get_macd(close_price, i),
                     ]
                 )
                 # TARGET_OFFSET足後が上昇していたら1、していなかったら0
@@ -270,7 +280,7 @@ if __name__ == "__main__":
                 break
             data_y.append(high_or_low)
 
-        print(len(data_x), len(data_y))
+        # print(len(data_x), len(data_y))
 
         # 学習データとテストデータに分割
         X_train, X_test, Y_train, Y_test = train_test_split(
