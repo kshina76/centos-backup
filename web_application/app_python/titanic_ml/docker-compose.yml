@@ -12,7 +12,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./projects/persistence:/data/db
+      - ./projects/persistence/mongodb:/data/db
 
   mongo-express:
     image: mongo-express
@@ -32,5 +32,6 @@ services:
       dockerfile: ./docker/python/Dockerfile
     ports:
       - 8080:8080
+    tty: true
     volumes:
-      - ./app:
+      - ./projects:/usr/src/app

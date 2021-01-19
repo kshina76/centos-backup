@@ -1,0 +1,4 @@
+TA-LIB
+oandapyV20
+fastapi
+uvicorn
