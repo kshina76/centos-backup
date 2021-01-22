@@ -5,6 +5,10 @@
   - https://qiita.com/hkthirano/items/12e046b3e02961d8460d
   - https://data-bunseki.com/2019/08/19/kaggle%EF%BC%9Ahouse-price-%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%ABeda%E6%8E%A2%E7%B4%A2%E7%9A%84%E3%83%87%E3%83%BC%E3%82%BF%E8%A7%A3%E6%9E%90/#i-10
 
+- 尺度の変換方法(kaggle本)
+- 時系列データの解析
+- seabornのcheatsheetから有用なものを抜粋
+
 ## TOOD
 - 単変量、二変量、多変量の解説と種類など色々まとまっている
   - https://www.intage.co.jp/glossary/056/
@@ -83,12 +87,12 @@
 
 ## 2. 単変量解析
 ### 2-1. データ確認
-1. データの型を調べる(floatとかintとかobjectとか)
+1. データの特徴をざっと調べる
   
   ```python
   '''以下の情報を表示する
   カラム名 / カラムごとのユニーク値数 / 最も出現頻度の高い値 / 最も出現頻度の高い値の出現回数 /
-  欠損損値の割合 / 最も多いカテゴリの割合 / dtypes
+  欠損損値の割合 / 最も多いカテゴリの割合 / dtypes(floatとかintとかobjectとか)
   '''
   def show_feature_describe(train):
     stats = []
@@ -112,62 +116,165 @@
   - Coordinates
   - 質的変数か量的変数かの判断は「質問の仕方による」
     - http://www.rikkyo.ne.jp/web/ymatsumoto/socdata09/socdata0901.pdf
+  - カテゴリデータ
+    - カテゴリデータは数値で測定することができないデータなので四則演算を行うことは出来ません。性別の「男性/女性」、評価などの「0:良い/1:普通/2:悪い」のようにデータの値に意味があり、分類や種類を区別するデータのこと
+  - 数値データ
+    - 数値によって計測、集計、分析が可能なデータのことで、数値として意味があり四則演算が可能なデータです。また時間や気温のように連続する値を連続データ、人数や個数のように1,2,3のようにとびとび、1と2の間は無いようなデータを離散データという
+
 3. データタイプごとにカラム名をリストにまとめておく
   - あとで使うと思う
   - 一気にプロットしたいときなどに便利
     - ユニークな値が多すぎるとプロットできないので、1で調べた変数からあたりをつけておく
-### 2-2. 数値変数の可視化
+
+### 2-2. ターゲット変数の可視化: 数値変数
+1. describeでありえない数字が入っていないかを最小値などを見て調べる
+  
+  ```python
+  df_train["target"].describe()
+  ```
+
+  - 見るところ
+    - マイナスを取らないはずなのに取っていないか？
+
+2. ヒストグラムで可視化する
+  
+  ```python
+  sns.distplot(df_train["target"])
+  print(f"Skewness: {df_train["target"].skew()}")
+  print(f"Kurtosis: {df_train["target"].kurt()}")
+  ```
+
+  - 見るところ
+    - 正規分布からずれていないか？
+    - 正の歪度か？、負の歪度か？
+      - 正の歪度はヒストグラムが左にずれている。負は右
+    - 尖度(ピーク)はどのくらいか？
+
+### 2-3. ターゲット変数の可視化: カテゴリ変数
+1. describeでありえない数字が入っていないかを最小値などを見て調べる
+  
+  ```python
+  df_train["target"].describe()
+  ```
+
+  - 見るところ
+    - マイナスを取らないはずなのに取っていないか？
+
+2. カウントプロットで可視化する
+
+  ```python
+  sns.countplot(y="target", data=df_train)
+  ```
+
+  - 見るところ
+    - 分布が偏っていないか？
+    - 何個のクラスに分類するのか？
+
+### 2-3. 説明変数の可視化: 数値変数
 - ヒストグラム
 - etc
 
-### 2-3. カテゴリカル変数の可視化
+### 2-3. 説明変数の可視化: カテゴリ変数
 - 棒グラフ(カウントプロット)
 - etc
 
+- 日付データ
+  - 年ごとのデータ数カウント
+    - どの年にデータが集中しているかわかる
+  - 月ごとのデータ数カウント
+    - 季節の観点からデータを見ることができる
+  - 日ごとのデータ数カウント
+    - 月、年単位でどのように推移しているか見ることができる
+    - 横軸が多くなるので折れ線グラフで見た方がいいかも
+  - 1時間ごとのデータ数カウント
+    - 0~23時のそれぞれのデータ数がわかる
+    - つまり1日のうちどの時間帯に集中しているかなどがわかる
+  - 曜日ごとのデータ数カウント
+    - 週間のデータの推移を見ることができる
+
 <br></br>
 
-## 3. 可視化: 期待が高い変数のみを深掘り
-### 3-1. ターゲット変数についての可視化
-1. describeでありえない数字が入っていないかを最小値などを見て調べる
-  - `df_train["target"].describe()`
-2. ヒストグラム
-  - `sns.distplot(df_train["target"])`
-  - `print("Skewness: %f" % df_train["target"].skew())`
-  - `print("Kurtosis: %f" % df_train["target"].kurt())`
-  - 正規分布からずれていないか？
-  - 正の歪度か？、負の歪度か？
-    - 正の歪度はヒストグラムが左にずれている。負は右
-  - 尖度(ピーク)はどのくらいか？
-  - https://bellcurve.jp/statistics/course/17950.html
-### 3-2. ターゲット変数と数値変数の関係
-- `data = pd.concat([df_train["target"], df_train["relation"]], axis=1)`
-- `data.plot.scatter(x="relation", y="target", ylim=(0,800000))`
-- どのような相関があるか？
-- 線形的か？指数的か？
-### 3-3. ターゲット変数とカテゴリカル変数の関係
-- pairplotやboxplotで相関や規則性や傾向を見る
+## 3. 二変量解析: 深く広く
+
+### 3-1. 「ターゲット(カテゴリ) と 説明(数値)」または「ターゲット(数値) と 説明(カテゴリ)」
+- ターゲット変数の水準が少ない場合: ヒストグラム
+  - 重ねて表示するのがポイント
+
+  ```python
+  # Ageの分布
+  sns.distplot(train_age_omit[train_age_omit['Survived']==1]['Age'],kde=True,rug=False,bins=10,label='Survived')
+  sns.distplot(train_age_omit[train_age_omit['Survived']==0]['Age'],kde=True,rug=False,bins=10,label='Death')
+  plt.legend()
+  ```
+  
+  ![20181216_04](https://user-images.githubusercontent.com/53253817/105465943-ee8e6c00-5cd6-11eb-9308-570109618680.jpeg)
+
+- ターゲット変数の水準が多い場合: 箱ヒゲ図、バイオリンプロット
+  - バイオリンプロットは分布図が表示されるので、箱ヒゲよりいいかも
+
+  ```python
+  #box plot overallqual/saleprice
+  var = 'OverallQual'
+  data = pd.concat([df_train['SalePrice'], df_train[var]], axis=1)
+  f, ax = plt.subplots(figsize=(8, 6))
+  fig = sns.boxplot(x=var, y="SalePrice", data=data)
+  fig.axis(ymin=0, ymax=800000)
+  ```
+
+  ![f3cd6ec84b47032c400f563e80cdca34](https://user-images.githubusercontent.com/53253817/105173918-1231a500-5b65-11eb-8643-08005449ac81.png)
+
+  ```python
+  var = 'YearBuilt'
+  data = pd.concat([df_train['SalePrice'], df_train[var]], axis=1)
+  f, ax = plt.subplots(figsize=(16, 8))
+  fig = sns.boxplot(x=var, y="SalePrice", data=data)
+  fig.axis(ymin=0, ymax=800000)
+  plt.xticks(rotation=90)
+  ```
+
+  ![3ce436f04ca45fafceefeb757daa9c7b](https://user-images.githubusercontent.com/53253817/105173922-12ca3b80-5b65-11eb-88b1-d15f1b8795bb.png)
+
+- 見るところ
+  - 水準ごとにどのような分布をしているか？
+  - 水準ごとに特定の数値の範囲だけ違う分布になっている部分はあるか？
+
+### 3-2. ターゲット(カテゴリ) と 説明(カテゴリ)
+- 水準の組み合わせが少ない場合: カウントプロット(棒グラフ)
+  - 説明変数の水準ごとにターゲット変数のカウントプロットをプロットしてみる
+
+  ```python
+  sns.countplot('Sex',hue='Survived',data=df_train)
+  ```
+
+  ![2021-01-22 17 10のイメージ](https://user-images.githubusercontent.com/53253817/105464378-da496f80-5cd4-11eb-955a-d6c3f1f6581a.jpeg)
+
+- 水準の組み合わせが多い場合: ヒートマップ
+  - カウント数が多ければ多いほど色が濃くなる
+  - ここでは相関のヒートマップではないので注意
+
+  ```python
+  plt.figure(figsize=(12, 9))
+  sns.heatmap(df_flights_pivot, annot=True, fmt='g', cmap='Blues')
+  ```
+
+  ![https---qiita-image-store s3 amazonaws com-0-68432-390fc30d-9541-807e-11a0-b10a6412c85d](https://user-images.githubusercontent.com/53253817/105467646-547bf300-5cd9-11eb-85e6-879b3411d61c.png)
+
+- 見るところ
+  - 特定の水準だけ極端に多いなどの偏った分布はあるか？
+
+### 3-3. ターゲット(数値) と 説明(数値)
+- 散布図
 
 ```python
-#box plot overallqual/saleprice
-var = 'OverallQual'
-data = pd.concat([df_train['SalePrice'], df_train[var]], axis=1)
-f, ax = plt.subplots(figsize=(8, 6))
-fig = sns.boxplot(x=var, y="SalePrice", data=data)
-fig.axis(ymin=0, ymax=800000)
+data = pd.concat([df_train["target"], df_train["relation"]], axis=1)
+data.plot.scatter(x="relation", y="target", ylim=(0,800000))
 ```
 
-![f3cd6ec84b47032c400f563e80cdca34](https://user-images.githubusercontent.com/53253817/105173918-1231a500-5b65-11eb-8643-08005449ac81.png)
-
-```python
-var = 'YearBuilt'
-data = pd.concat([df_train['SalePrice'], df_train[var]], axis=1)
-f, ax = plt.subplots(figsize=(16, 8))
-fig = sns.boxplot(x=var, y="SalePrice", data=data)
-fig.axis(ymin=0, ymax=800000)
-plt.xticks(rotation=90)
-```
-
-![3ce436f04ca45fafceefeb757daa9c7b](https://user-images.githubusercontent.com/53253817/105173922-12ca3b80-5b65-11eb-88b1-d15f1b8795bb.png)
+- 見るところ
+  - 正の相関、負の相関があるのかどうか？
+  - 相関があるならその強弱は？
+  - 外れ値は？
+  - 線形的か？指数的か？
 
 ### 3-4. その他
 - カテゴリをcountplotで出現回数を可視化  
@@ -183,9 +290,9 @@ plt.xticks(rotation=90)
 
 <br></br>
 
-## 4. 可視化: 期待が低い変数も含めてまとめて
+## 4. 二変量解析: 浅く広く
 - 大まかな手順
-  - pairplotやscatterplotを使って二変数間の散布図を確認
+  - pairplotを使って二変数間の散布図を確認
     - 外れ値があった場合は相関がおかしくなるので散布図も確認する必要がある
     - 例えば、せっかく相関があるのに、外れ値のせいで相関がないと判定されるケースがある
   - 相関行列により全体の相関性を把握
@@ -249,8 +356,15 @@ plt.show()
 
 <br></br>
 
-## 5. 可視化: 期待が低いから高いに変更された変数
-- あとでまとめる
+## 5. スライシング
+- カテゴリ変数の水準を軸にさらに条件を絞ってプロットしていくこと
+- データを様々な軸、様々な水準で区切り、層別にすることによって、全体をぼんやりみるのではなく、意味付けされた層の特徴を理解することが出来る
+
+- やり方
+  - カテゴリ変数に注目して、ロジックツリーを作っていくとアイデアが結構出てきそう
+
+![2021-01-22 18 08のイメージ](https://user-images.githubusercontent.com/53253817/105470418-e0434e80-5cdc-11eb-8708-8da027b4c88a.jpeg)
+
 
 <br></br>
 
@@ -287,7 +401,7 @@ missing_data.head(20)
 ## 7. 多変量解析できるかどうかの確認
 - ここからはターゲット変数に対して多変量解析を適用することができるかを確認していく
   - 多変量解析とは、要はモデルを学習して予測させるということ
-### 7-1. 検証するべき4つの仮定
+### 7-1. 検証するべき4つの仮定(多分線形モデルだけ？？)
 - 正規性
   - データが正規分布にしたがっているように見えるかどうか
   - したがっていなかったら対数変換をするとか
@@ -522,6 +636,12 @@ res = stats.probplot(df_train['SalePrice'], plot=plt)
 
 ### 分布型の確認と正規性の検定
 - https://qiita.com/uri/items/e656f90e9dda342c54bb
+
+### 正規分布にしたがっているからといって線形性があるとは限らない
+- 目的変数が正規分布にしたがっているかは、ヒストグラムを見るとわかる
+- 残差が正規分布にしたがっているかは、QQプロットを見るとわかる
+- 線形性に関しては、目的変数と説明変数の散布図を見ればわかる
+- 散布図は二変数の図なので、正規分布かどうかは読み取ることはできない(当たり前だが)
 
 ### 離散型確率変数と連続型確率変数の違い
 - 離散型は1,2,3...のように飛び飛びの値
