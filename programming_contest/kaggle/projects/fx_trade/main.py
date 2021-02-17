@@ -17,6 +17,10 @@ from sklearn.metrics import (
 from sklearn.model_selection import GridSearchCV
 
 
+accountID = "101-009-17701910-001"
+access_token = "37e74db6605da64aeb23ec4105187cb9-6cb80b7e58440f6cac193f567e80c6c3"
+
+
 # APIキー、environmentはデモか本番か
 oanda_api = API(access_token=access_token, environment="practice")
 
