@@ -1,6 +1,6 @@
 # todo
 
-## 残り44日(2/15更新)
+## 残り42日(2/17更新)
 
 ## 明日やること(テンプレ作成->本->api->atcoder)
 - 英語や文章題の解き方
@@ -11,9 +11,6 @@
   - モビリティ関連のアプリは5Gを使うにしても速度が大事そう -> 少しでもアプリケーション側はパフォーマンスを追求したほうが良さそう -> ISUCON的な何か
 - 「難しいことはわかりませんが、お金の増やし方を教えてください！」という本を読む。積立NISAでインデックスファンドを買うといいらしい
 - seabornの可視化をクラスとして作成しておく
-- PUBGデータを終わらせる
-- FXのアイデアを適用
-- 論理的なやつの書籍
 - 機械学習のアプリを作る本を進める
 - とりあえず一気にデータ分析と機械学習を学んでおく
 - 作りたいソフトウェア(クラウドサービス)のテーマを考えてみる
@@ -22,9 +19,6 @@
   - テーマ研修でソフトウェアの設計から開発まで一連して行ったという記事があったから
 - 全探索をマスターする
   - https://qiita.com/e869120/items/25cb52ba47be0fd418d6#パターン-3-答えを全探索する
-- ロジックツリーの使い方
-- audio_apiの開発を進める
-  - alembicのチュートリアルを見つつ最初から
 - 読み途中の本
   - OAuthの本を2冊
   - 食べるSSL
@@ -91,8 +85,6 @@
     - イシューからはじめよ ― 知的生産の「シンプルな本質」
     - 問題解決力を高める「推論」の技術
     - プログラマの考え方が面白いほど身に付く本
-  - 仮説思考の書籍
-    - 問題解決力を高める「推論」の技術
   - 文章の読み方の書籍: 本を読むときにもコンサル1年目が学ぶことに書いてあるように論理的に整理しながら読めばいい気はする
   - 地頭力の系の書籍
     - 地頭力を鍛える 問題解決に活かす「フェルミ推定」
@@ -145,56 +137,6 @@
 - 知らないセキュリティ関連の知識
   - https://speakerdeck.com/kurochan/ca20xin-zu-yan-xiu-sekiyuriteibian?slide=44
 
-
-## 入社後の日課
-- 入社後の日課
-  - 仕事の日課
-    - 朝は難しいタスク(実装とか設計とか)を行う
-    - 後半は調査タスクを進めて、明日のタスクに備える(人間は夕方に集中することができないから)
-  - 勉強の日課
-    - https://www.youtube.com/watch?v=12EgQvwsS-c
-  - 朝の日課
-    - 朝に嫌なことを考えてはいけない
-    - 朝にコーヒーは飲むな
-    - タンパク質多めの朝食を取る
-    - 自転車通勤をする。電車通勤はストレスレベルがヤバイ
-    - 朝に簡単なタスクを行ってはいけない
-    - atcoderとかプロジェクトオイラーの問題を2,3問解いて頭の体操をする
-  - 自己嫌悪に陥らないようにマインドを保つ方法
-    - https://engineer.dena.com/posts/2020.07/20-new-graduates-training-retrospective-5/
-  - モチベが下がったら「上の人」を見る
-    - 自分のモチベが下がる要因は「もう完璧に近いのではないか？」という思いが出てくること
-    - なので、すごい人のtwitterや動画を見ることで、自分はまだまだという思いにさせるとやる気が出る
-  - 英語(TOEFL)
-  - atcoder, leetcode, kaggle
-  - システム設計をよく読んで、アーキテクトの知見を取り入れる
-    - https://github.com/donnemartin/system-design-primer/blob/master/README-ja.md
-  - ソースコードリーディング
-    - https://developers.freee.co.jp/entry/how-to-read-source-code-of-middleware
-  - 日本語と英語で書評ブログ(読書感想ブログ)を運営してみる
-    - newtonとか読むのがいいかも
-  - エンジニアの情報収集
-    - https://qiita.com/nesheep5/items/e7196ba496e59bb2aa28
-  - Udemy
-    - 酒井さんのPythonの講座
-    - 酒井さんのデータ構造とアルゴリズムとコードテスト対策のやつ
-    - vigneshのOSの講座
-  - 定期購読
-    - WEB+DB PRESS
-      - webアプリケーションエンジニアに一番近い情報を連載しているかも
-      - これ読んでみたい
-    - Software Design
-      - 同じくwebアプリケーションエンジニアに一番近い情報を連載しているかも
-      - これ読んでみたい
-    - 日経Network
-      - これ読んでみたい
-    - 日経ソフトウェア
-    - 日経Linux
-    - Newton
-      - 知的好奇心を満たす
-    - 参考文献
-      - https://qiita.com/kusokamayarou/items/ff7e835b80e52957113f
-
 ## エンジニアとしてやるべきこと 
 - 仕事を任せられるエンジニアとは
   - https://tech.tabechoku.com/entry/2019/05/02/182457
@@ -214,29 +156,7 @@
 - 50代以降のキャリアに備える
   - https://qiita.com/poly_soft/items/dbca28f166d07070e8eb
 
-## エンジニア情報収集まとめ
-- https://qiita.com/nesheep5/items/e7196ba496e59bb2aa28
-
 ## 次に気になっている本(https://qiita.com/JunyaShibato/items/3aa5f7f3fc991de17f3f)
-- プログラミング関連
-  - Webアプリケーション設計・実装のためのフレームワーク活用の技術
-  - レガシーコード改善ガイド (Object Oriented SELECTION)
-- インフラ関連
-  - Webエンジニアが知っておきたいインフラの基本
-- ネットワーク関連
-  - ネットワーク仮想化～基礎からすっきりわかる入門書～
-  - 3分間NetWorking　＊書籍ではなくWebサイトです。 
-    - http://www5e.biglobe.ne.jp/%257eaji/3min/
-- Linux関連
-  - https://linuc.org/textbooks/security/
-  - 試して理解Linuxのしくみ ~実験と図解で学ぶOSとハードウェアの基礎知識
-- AWS
-  - Amazon Web Services パターン別構築・運用ガイド 改訂第2版
-  - Amazon Web Services 業務システム設計・移行ガイド (Informatics&IDEA)
-- データ分析
-  - データ解析の実務プロセス入門
-    - データ分析の手法を実際に実務で使うにはどうすればいいのかといったところの説明
-    - データ分析を実務で使う上での全体像などの最初の一歩に良い
 - 仕事関連
   - ロジカル・シンキング (Best solution) 
   - 報・連・相の技術がみるみる上達する!
@@ -284,29 +204,6 @@
     - https://qiita.com/etaroid/items/88ec3a0e2d80d7cdf87a
     - https://qiita.com/etaroid/items/40106f13d47bfcbc2572
 
-- ポスターセッション(1/22締め切り)
-- SEATUC(1/15に合格かどうかがくる)
-- 本論(1/29~2/6)
-- Web API Good Parts(12/19,20で)
-- golangまたはPythonでwebに関連するもの全てをフルスクラッチで書いてみる(real world httpを参考に)
-  - HTTP/1.1、HTTP/2、HTML5、ロードバランサー
-- ハイパフォーマンスpythonを以下をベースにまとめる
-  - 2015年の本なので、古い書き方に注意。調べながら
-  - https://showa-yojyo.github.io/notebook/gorelick14.html
-- 「新しいpythonの書き方」と「ハイパフォーマンスpython」と「AWS Lambda」と「chromeのdevtool」を使ってwebapi開発(12/21から始めたい)
-- Lambdaの書籍とデザインパターンをまとめる
-- READMEの統合
-  - 社会人としてやっていく際のノウハウなどもまとめたい
-  - 新しい技術を学ぶ際の情報収集のやり方など(下の方にまとめているからあとでどっかに移行する)
-    - 日課でまとめる練習をするために、Qiitaにアップするといいかも(aws developers blogの最新記事とか)
-      - 他のエンジニアブログを色々見て、紹介する際のテンプレートを作成しておくといいかも(READMEにmarkdownでまとめておいて、すぐに引き出せるように)
-      - 自分の思考順にまとめるといい文章になるかも
-      - どのような題材に取り組んだか->パフォーマンス計測->どこに問題があったか->どのような方針で行くことに決めたか->方法の詳細->結果
-      - https://note.com/licodeenar/n/n0e87fb648342
-- モチベーションにプラスになる動画
-  - https://www.youtube.com/watch?v=RO3gGJokzdg
-- tmux
-  - https://qiita.com/nl0_blu/items/9d207a70ccc8467f7bab
 
 ## 研修課題
 - いろいろな企業のテックブログで紹介しているだろうから調べる
