@@ -64,3 +64,13 @@ output
 #     tmp = []
 #
 # print(result)
+
+
+"""
+数字が大きすぎて誤差が出てしまう場合は、文字列として処理する
+"""
+# x = input()
+# if "." in x:
+#     print(x.split(".")[0])
+# else:
+#     print(x)
