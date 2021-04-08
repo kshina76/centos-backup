@@ -1,12 +1,13 @@
 # TypeScriptでアプリ開発
 
 ## 準備
-- JavaScript
-- npm
-- Node.js
-- TypeScript
-- axios
-- TSyringe
+- [ ]Docker
+- [ ]JavaScript
+- [ ]npm
+- [ ]Node.js
+- [ ]TypeScript
+- [ ]axios
+- [ ]TSyringe
 
 ## 開発手順
 - 主に以下にまとめてある
