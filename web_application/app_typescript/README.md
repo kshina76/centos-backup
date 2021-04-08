@@ -34,12 +34,26 @@
 - [package.jsonの使い方](https://qiita.com/righteous/items/e5448cb2e7e11ab7d477)
 - [dockerでpackage.jsonを使ったNode.jsのパッケージ環境構築](https://qiita.com/niwasawa/items/9673d31ee2a6c532dc5b)
 
+### npm, npxまとめ
+- 「Node Package Manager」の略
+  - Node.jsのパッケージ（Package）を管理する（Manager）ツール
+- [npmの基本的な使い方](https://techacademy.jp/magazine/16105)
+  
+  ```bash
+  # インストール
+  $ npm install express
+  # バージョン指定をしてインストール
+  $ npm install express@4.16.3
+  # グローバルにインストールするとパスの設定がいらない
+  $ npm install -g パッケージ名
+  ```
+
 ### yarn
 - npmと同じようにNode.jsのパッケージを管理するもの
 - npmと同じくpackage.jsonで管理
 - 速度が改善されており、速い
 
-## 4/9-4/12のTODO
+### 4/9-4/12で準備に関するTODO
 - [ ] node.jsとnpmの設定
   - https://qiita.com/nt_naito/items/972a40ee56a67f2a74cb
   - [既存のnpmを削除してnodebrewをインスト](https://nabewakashi.com/how-to-switch-to-nodebrew)
@@ -58,10 +72,14 @@
 - [ ] 確定拠出年金を決定する
 - [ ] 飲み会での話のネタ
 
-## 4/14,15でやること
+<br></br>
+
+## 実践
+
+### 4/14,15での目標
 - TypeScriptでのWebAPIの開発がどのように進むのかの雰囲気を掴むことが目標
 
-## 調べること
+### 調べること
 - [ ] TypeScriptでWebAPIを開発していくにはどのような手順がベストプラクティスなのか
 - [ ] PythonでのWebAPIの開発と比べる
   - expressとaxiosを使っていたみたいなので、調べる
@@ -80,27 +98,14 @@
 - [ ] kotlinでandroidアプリのフロントエンドを開発
 - [ ] kotlin+expressの連携をしてandroidアプリの完成
 
-### npm, npxまとめ
-- 「Node Package Manager」の略
-  - Node.jsのパッケージ（Package）を管理する（Manager）ツール
-- [npmの基本的な使い方](https://techacademy.jp/magazine/16105)
-  
-  ```bash
-  # インストール
-  $ npm install express
-  # バージョン指定をしてインストール
-  $ npm install express@4.16.3
-  # グローバルにインストールするとパスの設定がいらない
-  $ npm install -g パッケージ名
-  ```
 
-## 開発手順
+### 開発手順
 - 主に以下にまとめてある
   - [WebAPI開発フロー](https://github.com/kshina76/centos-backup/tree/master/web_application/開発フローまとめ/WebAPI)
 - 追加項目
   - swaggerでAPI定義をしてから実装に入る
 
-## テーマ
+### テーマ
 - 今走っている周りの店舗のクーポン情報の一覧をナビから取得して表示
   - 不況の時は、クーポンとかディスカウントとかが流行る
 - 店の予約や何かしらの予約を車のタッチパネルからササッと行えると便利そう
@@ -109,13 +114,15 @@
 
 <br></br>
 
-## TODO
+## JavaScriptのフレームワークまとめ
+
+### TODO
 - BFFとはなにか調べる
 - kotlinでandroidのクライアントサイドを開発する方法を調べる。フレームワークはないのか？とか
 - モビリティの本を読んでテーマを考える
   - チームとしてはandroidのアプリを一気通貫で
 
-## フロントエンドフレームワーク
+### フロントエンドフレームワーク
 - React.js
 - vue.js
   - JavaScriptのフレームワーク
@@ -125,7 +132,7 @@
   - Reactをベースにしたフレームワーク
 - Angular
 
-## バックエンドフレームワーク
+### バックエンドフレームワーク
 - express
   - Node上で動くフレームワーク
   - シェアナンバーワン
@@ -145,4 +152,4 @@
 - 以下にかなり良くまとまっている
  https://www.wantedly.com/companies/company_3239475/post_articles/179467
 
-## android開発のフレームワーク
+### android開発のフレームワーク
