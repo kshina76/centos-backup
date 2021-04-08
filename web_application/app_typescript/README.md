@@ -1,7 +1,7 @@
 # TypeScriptでアプリ開発
 
 ## 準備
-- [ ] Docker
+- [x] Docker
 - [ ] JavaScript
 - [ ] npm
 - [ ] Node.js
