@@ -74,3 +74,17 @@ output
 #     print(x.split(".")[0])
 # else:
 #     print(x)
+
+a = list(map(int, input().split()))
+w = int(input())
+
+def saiki(i, w):
+    # ベースケース
+    if i == 0:
+        if w == 0:
+            return True
+        else:
+            return False
+
+    saiki(i - 1, w - a[i]) # a[i]を選んだ場合
+    saiki(i - 1, w)  # a[i]を選ばなかった場合
