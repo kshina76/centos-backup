@@ -10,7 +10,7 @@
 - [x] yarn
 - [ ] Node.js
 - [ ] TypeScript
-- [ ] axios: WebAPI開発
+- [ ] axios: APIを叩くクライアント
 - [ ] TSyringe: 軽量DIコンテナ
 - [ ] swagger: ブラウザ上で使えるAPIスキーム定義
 
@@ -64,6 +64,7 @@
   - おすすめとかも調べつつ
   - vscode
   - homebrew
+  - nodebrew
   - zsh
   - シェルの設定
   - ブラウザの設定
@@ -94,6 +95,7 @@
   - 関数型やオブジェクト指向なども確認
   - 基本文法はザッと。開発していれば嫌でも覚える
 - [ ] expressを勉強とexpressで簡単なAPIを作る
+  - [expressでAPI開発](https://qiita.com/k-penguin-sato/items/5d0db0116843396946bd)
 - [ ] kotlinを勉強
 - [ ] kotlinでandroidアプリのフロントエンドを開発
 - [ ] kotlin+expressの連携をしてandroidアプリの完成
@@ -111,6 +113,8 @@
 - 店の予約や何かしらの予約を車のタッチパネルからササッと行えると便利そう
 - 既存のモビリティ向けスマホアプリを車のandroidにのっけるだけで便利になりそう
 
+### 気づいたこと
+- システムアーキテクチャのところに、ディレクトリ構成とファイル構成を書いた図を用意しておくと、開発の最中にどこに何を書くか迷うことはなくなる気がする
 
 <br></br>
 
