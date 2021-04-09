@@ -1,18 +1,38 @@
 # TypeScriptでアプリ開発
 
 ## 準備
-- [ ] Docker
+- [x] Docker
 - [ ] JavaScript
-- [ ] npm
-  - [ ] package.json
-  - [ ] nodebrew
-  - [ ] dockerでの構築
+- [x] npm
+  - [x] package.json
+  - [x] nodebrew
+  - [x] dockerでの構築
 - [x] yarn
-- [ ] Node.js
+- [x] Node.js
 - [ ] TypeScript
+  - [ ] tsconfig.json
+  - [ ] ts-loader
+  - [x] webpack
+  - [ ] ts-node
+  - [ ] gulp: タスクランナー
+  - [x] tsoa: コードからswaggerのドキュメントを生成するもの(とりあえず使わない)
 - [ ] axios: APIを叩くクライアント
 - [ ] TSyringe: 軽量DIコンテナ
-- [ ] swagger: ブラウザ上で使えるAPIスキーム定義
+- [x] swagger: ブラウザ上で使えるAPIスキーム定義
+
+### DockerでTypeScript+express構成
+- [dockerで構築](https://ichi.pro/typescript-swagger-ui-dockercompose-o-sonaeta-express-js-bakku-endo-272065836223432)
+- 方針
+  - ローカルでpackage.jsonを作って、色々ライブラリを構築する
+  - package.jsonをコンテナにコピーする
+  - コンテナ内でpackage.jsonを`npm install`する
+
+### JavaScript
+
+```bash
+# サーバサイドのJSを実行
+$ node test.js
+```
 
 ### Node.js
 - インストール方法: [ここを参照](https://liginc.co.jp/513122)
@@ -24,6 +44,9 @@
   - dockerではNode.jsを直接インストールして、ローカルで作成したpackage.jsonをベースに環境を構築する
   - package.jsonをコンテナ作成時に実行するようにしておけば、dockerでNode.jsの環境構築が楽になりそう
 - [macにNode.jsをインスト](https://qiita.com/kyosuke5_20/items/c5f68fc9d89b84c0df09)
+
+### nodebrew
+- npmとnode.jsのバージョン管理を行ってくれる
 
 ### npm
 - Node.jsのパッケージを管理するもの
@@ -48,10 +71,52 @@
   $ npm install -g パッケージ名
   ```
 
+### package.jsonの書き方
+- [npmとpackage.jsonの使い方](https://qiita.com/righteous/items/e5448cb2e7e11ab7d477)
+- [dependenciesの使い分け](https://qiita.com/cognitom/items/acc3ffcbca4c56cf2b95)
+  - `--save-dev`や`--save`などの使い分け
+
+```bash
+# プロジェクトのディレクトリに移動
+$ cd /path/to/project/dir
+
+# package.jsonの初期化
+$ npm init -y
+
+# package.jsonにライブラリを書き込みつつ、ローカルにライブラリをインストール
+$ npm install --save express
+```
+
+- `npm install <指定なし>`を実行するのは、Githubからcloneしてきたばかりでローカルにライブラリなどがインストされていない時などに行う
+  - Dockerを使うときにもローカルでpackage.jsonを作って、コンテナにpackage.jsonを渡して`npm install`をする
+
 ### yarn
 - npmと同じようにNode.jsのパッケージを管理するもの
 - npmと同じくpackage.jsonで管理
 - 速度が改善されており、速い
+
+### TypeScript
+- [TypeScriptの環境構築](https://qiita.com/ochiochi/items/efdaa0ae7d8c972c8103)
+  - `npm install typescript`でpackage.jsonに追加しつつローカルにインストールできる
+- [TypeScript+expressでrest](https://zenn.dev/tsuboi/articles/c679afd75be97b)
+- [Typescript + Express + Webpack](https://qiita.com/isihigameKoudai/items/4b790b5b2256dec27d1f)
+- [tsconfigの基礎](https://marsquai.com/a70497b9-805e-40a9-855d-1826345ca65f/1dc3824a-2ab9-471f-ad58-6226a37245ce/b5ce5f32-2afa-41f5-9fae-a3979f5c13df/)
+
+### Webpack
+- Webpack とは様々な形式のファイル、JavaScript や CSS、また png, jpeg などの画像ファイルなどをモジュールとして扱い、JavaScript ファイルにまとめる（bundleする）ためのツールでモジュールバンドラーとも呼ばれている
+- まとめられたリソース、CSSや画像ファイルなどは、JavaScript からアクセスが可能になる
+- [webpackを使ったリソースへのアクセス](https://wk-partners.co.jp/homepage/blog/hpseisaku/javascript/typescript/)
+- [webpackってどんなもの？](https://qiita.com/kamykn/items/45fb4690ace32216ca25)
+
+```typescript
+//Webpackを使うと、jsやts内からcssなどをimportするだけで扱えるようになる
+import $ from "jquery";
+import './style.css';
+$(".hoge").addClass("active");
+```
+
+### swagger
+- [swaggerをウェブ上で使える](https://editor.swagger.io)
 
 ### 4/9-4/12で準備に関するTODO
 - [ ] node.jsとnpmの設定
@@ -82,6 +147,8 @@
 
 ### 調べること
 - [ ] TypeScriptでWebAPIを開発していくにはどのような手順がベストプラクティスなのか
+  - [ ] TypeScript + express + Webpack のディレクトリ構成
+  - [ ] 構成のジェネレーターみたいなものがあるかどうか
 - [ ] PythonでのWebAPIの開発と比べる
   - expressとaxiosを使っていたみたいなので、調べる
 - [ ] データの受け渡しはDTOで行い、「Controller -> Service -> Data」の構成をinterfaceなどを使って疎結合に保ち、DIコンテナを使って依存注入を行う
@@ -119,6 +186,7 @@
 <br></br>
 
 ## JavaScriptのフレームワークまとめ
+- WebAPI開発に使うフレームワークを調べたかったら、「言語 REST API」でググると出てくる
 
 ### TODO
 - BFFとはなにか調べる
