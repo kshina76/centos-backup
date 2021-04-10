@@ -13,7 +13,7 @@
 - [ ] JavaScript
   - [ ] インデントの扱い
   - [ ] 変数の命名規則
-  - [ ] letとvarの使い分け
+  - [x] letとvarの使い分け
   - [ ] セミコロンの有無
 - [x] npm
   - [x] package.json
@@ -21,6 +21,7 @@
   - [x] dockerでの構築
 - [x] yarn
 - [x] Node.js
+  - [ ] Node.jsとブラウザのjsの違い
 - [ ] TypeScript
   - [ ] tsc
   - [ ] tsconfig.json
@@ -63,6 +64,13 @@ $ node test.js
   - dockerではNode.jsを直接インストールして、ローカルで作成したpackage.jsonをベースに環境を構築する
   - package.jsonをコンテナ作成時に実行するようにしておけば、dockerでNode.jsの環境構築が楽になりそう
 - [macにNode.jsをインスト](https://qiita.com/kyosuke5_20/items/c5f68fc9d89b84c0df09)
+- [Node.jsとブラウザのjsの違い](https://www.hypertextcandy.com/modern-javascript)
+  - 環境特有の機能が追加されているかどうかの違い。言語仕様は同じ
+    - ブラウザでいうと、DOMを操作するgetElementByIdや、音声や動画を再生する機能など。これらの機能は、ブラウザ上で実行するからこそ必要な機能。
+    - サーバーでいうと、サーバー内のファイルの読み込み機能などが特徴的。ブラウザの実行環境には、セキュリティ上の理由からユーザーのコンピュータ内のファイルを読み込む機能はない
+
+  <img width="722" alt="fig-node-01" src="https://user-images.githubusercontent.com/53253817/114272546-918e9080-9a51-11eb-978d-80eaf3cb0840.png">
+
 
 ### nodebrew
 - npmとnode.jsのバージョン管理を行ってくれる
