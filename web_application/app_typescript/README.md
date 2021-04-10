@@ -8,6 +8,34 @@
 
 <br></br>
 
+## 環境構築
+- [ここを参考にした](https://www.youtube.com/watch?v=qSHlXcSces8)
+### Homebrew
+- Homebrew
+  - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`: インスト
+  - `brew --version`: バージョン確認
+### Node.js
+- nodebrew
+  - `brew install nodebrew`: インスト
+  - `nodebrew ls`: インストされているNode.jsの一覧
+  - `nodebrew install stable`: 安定版のインスト
+  - `nodebrew use <バージョン>`: Node.jsを有効にする
+  - `node -v`: Node.jsのバージョン確認
+  - `npm -v`: npmのバージョン確認(nodeを入れれば入る)
+- docker
+### TypeScript
+- `mkdir <開発用ディレクトリ>`: 開発用ディレクトリの作成と移動もしておく
+- `npm init`: npmの初期化
+- `npm install --save-dev typescript ts-loader webpack webpack-cli webpack-dev-server`: 関連パッケージのインストール
+  - 開発環境でしか使わないパッケージは、`save-dev`オプションをつける
+- [webpack.config.jsの作成と設定](https://www.youtube.com/watch?v=qSHlXcSces8) の19:40~
+- `tsc --init`: tsconfig.jsonの作成と設定
+
+  ![2021-04-11 0 28のイメージ](https://user-images.githubusercontent.com/53253817/114275275-dff55c80-9a5c-11eb-9fa0-b5cb2a24638f.jpg)
+
+
+<br></br>
+
 ## 準備
 - [x] Docker
 - [ ] JavaScript
@@ -42,6 +70,33 @@
   - `npm init -y`: ライブラリをローカルにインストするための準備
   - `npm install <パッケージ>`: ローカルにライブラリをインスト
   - `import <名前> from <ライブラリ名>`: コード内でライブラリを使用
+- タスクランナー
+  - `package.json`の`scriptsオプション`にシェルスクリプトを書く
+    - 予約語(test, build, start, restart, など)以外は、productionとして記述する
+    - テストしたかったら`npm run test`
+    - ビルドしたかったら`npm run build`
+    - サーバを立てたかったら`npm run start`
+
+      ```json
+      {
+        "scripts": {
+          "test": "eslint *.js ./components/*.js ./example/*/*.js",
+          "build": "webpack --mode=production",
+          "start": "webpack-cli serve --mode development",
+          "production": "NODE_ENV=production node app.js"
+        }
+      }
+      ```
+  
+  - あとは、`npm run test`や`npm run build`や`npm run start`を使って実行して開発を進めていくイメージ
+- モジュールビルダー
+  - webpack, webpack-cliを使用する
+
+- tsconfigの設定
+
+  ![2021-04-11 0 28のイメージ](https://user-images.githubusercontent.com/53253817/114275275-dff55c80-9a5c-11eb-9fa0-b5cb2a24638f.jpg)
+
+- package.jsonの設定
 
 ### DockerでTypeScript+express構成
 - [dockerで構築](https://ichi.pro/typescript-swagger-ui-dockercompose-o-sonaeta-express-js-bakku-endo-272065836223432)
@@ -107,6 +162,7 @@ $ node test.js
 - [npmとpackage.jsonの使い方](https://qiita.com/righteous/items/e5448cb2e7e11ab7d477)
 - [dependenciesの使い分け](https://qiita.com/cognitom/items/acc3ffcbca4c56cf2b95)
   - `--save-dev`や`--save`などの使い分け
+- `--save-dev`は、開発環境でしか使わないパッケージをインストする場合に使う
 
 ```bash
 # プロジェクトのディレクトリに移動
@@ -157,6 +213,9 @@ $ npm install --save express
   - そのあとは`node <test.js>`を実行するとプログラムが走る
 - 型や使い方が間違っていたときには、tscコマンドでトランスパイルしたときに
 
+### ts-loader
+- webpackと連動して、バンドルする前にTypeScriptコンパイラを起動する。コンパイルでTSをJSにした後に、webpackが起動してバンドルするという流れ
+
 ### ts-node
 - TypeScriptをJavaScriptに手動でトランスパイルをしなくても、そのまま実行できるようにするもの
 - ts-loaderとの違いとしては、こちらのts-nodeはサーバサイド用で、ts-loaderはクライアントサイドといった感じかな？
@@ -178,9 +237,17 @@ import './style.css';
 $(".hoge").addClass("active");
 ```
 
+### webpack-cli
+- コマンドラインでwebpackを使う
+
+### webpack-dev-server
+- 開発環境で使うもの
+- 開発環境でwebpackのビルド, 開発用webサーバの起動, ホットリロード(ファイル保存時などに、ファイル変更の自動検知と再読み込み)
+
 ### gulp
 - Sassを編集すればコンパイルを実行し、画像を編集すれば画像を圧縮するというように多くの手間がかかる作業を自動化するもの
 - Sassは現在rubyをインストして使う人は少なく、Node.jsとgulpで使うのがほとんどらしい
+- いまどきは、npm-scriptsの方を使う
 - [gulpの解説1](https://www.codegrid.net/articles/2014-gulp-1/)
 - [gulpの解説2](https://ics.media/entry/3290/)
 
@@ -198,6 +265,77 @@ gulp.task('default', ['hello']);
 実践的には、sassに変更があるかを監視して、変更があったら自動でコンパイルをして、該当するディレクトリにコンパイル後のファイルを吐き出すといった処理をする
 */
 ```
+
+### npm-scripts
+- いまどきはのタスクランナーはgulpではなくて、npm-scriptsを使う
+  - [脱gulp](https://hibi-update.org/javascript/npm-scripts/#Frontend_Developer_Roadmap_2020)
+  - [npm-scriptsを使ってみる](https://qiita.com/tminasen/items/986feac7150ed74e13d8)
+- 手順や動作
+  - `package.json`の`scriptsオプション`にシェルスクリプトを書く
+    - 予約語(test, build, start, restart, など)以外は、productionとして記述する
+    - テストしたかったら`npm run test`
+    - ビルドしたかったら`npm run build`
+    - サーバを立てたかったら`npm run start`
+
+      ```json
+      {
+        "scripts": {
+          "test": "eslint *.js ./components/*.js ./example/*/*.js",
+          "build": "webpack --mode=production",
+          "start": "webpack-cli serve --mode development",
+          "production": "NODE_ENV=production node app.js"
+        }
+      }
+      ```
+  
+  - あとは、`npm run test`や`npm run build`や`npm run start`を使って実行して開発を進めていくイメージ
+
+- 直列実行
+  - 2つのscriptsを直列実行したいときは、`run-s {コマンド1} {コマンド2}`でコマンド1の結果を待ってコマンド2を実行できる。
+  - 例えばビルドして結果をどこかにコピーしたいとき。
+  
+  ```json
+  "script": {
+    "all": "run-s build copy"
+    , "build": "ng build"
+    , "copy": "cpx ./dist/* ../server/"
+  }
+  ```
+
+- 並列実行
+  - 2つの複数のスクリプトを走らせたいときは、`run-p {コマンド1} {コマンド2}`でコマンド1と2を同時に実行できる。
+  - パッと用途が思いつかなかった。下記例だと、2種類のビルドを同時に実行している。
+
+  ```json
+  "script": {
+    "parallel": "run-p build:tsc build:angular"
+    , "build:tsc": "tsc test.ts"
+    , "build:angular": "ng build"
+  }
+  ```
+
+- 監視
+  - ファイルの変更検知して自動でビルドしたいときは、`npm run watch {コマンド} {監視対象}`で監視対象の変更を検知してコマンドを実行できる。
+  - 使い方としては、開発中にホットデプロイのようなことをしたい場合。
+  - ローカルで開発中にいちいちビルドと再起動を行わなくて済むので便利。
+  - 下記例はビルドからサーバにファイルを配置、サーバを起動ということをしている。
+
+  ```json
+  "script": {
+    "watch": "watch \"npm run start:app\" ./src",
+    "start:app": "run-s build boot:server",
+    "boot:server": "nodemon ./app.js",
+    "build": "run-s build:app copy",
+    "build:app": "ng build",
+    "copy": "cpx ./dist ../server/"
+  }
+  ```
+
+- 予約語
+  - `start`, `stop`, `restart`, `test`
+- 個人的に使いたい命名
+  - `build`: コンパイルとかのビルド作業
+  - `clean`: 環境を綺麗にする作業。rmコマンドとか仕込むと良さそう
 
 ### swagger
 - APIの定義をyamlで記述してドキュメントとして作成できるもの。これに沿って実装していくことになる
@@ -248,13 +386,14 @@ gulp.task('default', ['hello']);
   - [Node.jsとは](https://qiita.com/non_cal/items/a8fee0b7ad96e67713eb)
 - [ ] typescriptを勉強
   - 関数型やオブジェクト指向なども確認
-  - 基本文法はザッと。開発していれば嫌でも覚える
-  - [ ] インデントの扱い
-  - [ ] 変数の命名規則
-  - [ ] letとvarとconstの使い分け
-  - [ ] セミコロンの有無
-  - [ ] コールバック関数とアノテーションに関して
-  - [ ] unknown型
+  - [ ] 基本文法はザッと。開発していれば嫌でも覚える
+    - [ ] インデントの扱い
+    - [ ] 変数の命名規則
+    - [ ] letとvarとconstの使い分け
+    - [ ] セミコロンの有無
+    - [ ] コールバック関数とアノテーションに関して
+    - [ ] unknown型
+  - [ ] [tsconfig,webpackの使い方](https://www.youtube.com/watch?v=qSHlXcSces8)
 - [ ] expressを勉強とexpressで簡単なAPIを作る
   - [expressでAPI開発](https://qiita.com/k-penguin-sato/items/5d0db0116843396946bd)
 - [ ] kotlinを勉強
