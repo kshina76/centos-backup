@@ -1,8 +1,20 @@
 # TypeScriptでアプリ開発
 
+## 勉強の仕方
+1. 「環境構築の方法」を調べる
+2. 「エコシステム」を調べる
+3. 「フレームワーク」を調べる
+4. youtubeで言語やフレームワークの基礎を学ぶ
+
+<br></br>
+
 ## 準備
 - [x] Docker
 - [ ] JavaScript
+  - [ ] インデントの扱い
+  - [ ] 変数の命名規則
+  - [ ] letとvarの使い分け
+  - [ ] セミコロンの有無
 - [x] npm
   - [x] package.json
   - [x] nodebrew
@@ -10,6 +22,7 @@
 - [x] yarn
 - [x] Node.js
 - [ ] TypeScript
+  - [ ] tsc
   - [ ] tsconfig.json
   - [x] ts-loader
   - [x] ts-node
@@ -19,6 +32,12 @@
 - [ ] axios: APIを叩くクライアント
 - [ ] TSyringe: 軽量DIコンテナ
 - [x] swagger: ブラウザ上で使えるAPIスキーム定義
+
+### 全体的な流れ
+- 新しくライブラリを使用する際
+  - `npm init -y`: ライブラリをローカルにインストするための準備
+  - `npm install <パッケージ>`: ローカルにライブラリをインスト
+  - `import <名前> from <ライブラリ名>`: コード内でライブラリを使用
 
 ### DockerでTypeScript+express構成
 - [dockerで構築](https://ichi.pro/typescript-swagger-ui-dockercompose-o-sonaeta-express-js-bakku-endo-272065836223432)
@@ -96,12 +115,27 @@ $ npm install --save express
 - 速度が改善されており、速い
 
 ### TypeScript
+- なぜTypeScriptを使用するのか？
+  - ドキュメントとしての側面を利用するため
+    - 型の情報がコードに明示されていることで、わかりやすい
+    - vscodeなどで、functionやclassの上で`cmd+クリック`をすると、定義にジャンプできるが、その際に型の情報があるとコードが読みやすいという側面がある
+    - チームで開発をするときに定義にジャンプする際に、そのコードの挙動がわかりやすい
+  - Linterとしての側面を利用するため
+    - 型情報があることで、間違った書き方をしたときに教えてくれる
+  - ES5へのコンパイラとしての側面を利用するため
+    - ブラウザによってES6に対応していないものもあるので、ES3やES5のコードに変換されるようになっている
 - [TypeScriptの環境構築](https://qiita.com/ochiochi/items/efdaa0ae7d8c972c8103)
   - `npm install typescript`でpackage.jsonに追加しつつローカルにインストールできる
 - [TypeScriptの最低限の環境構築](https://blog.tilfin.net/2019/04/19/introduce-typescript-for-nodejs-app/)
 - [TypeScript+expressでrest](https://zenn.dev/tsuboi/articles/c679afd75be97b)
 - [Typescript + Express + Webpack](https://qiita.com/isihigameKoudai/items/4b790b5b2256dec27d1f)
 - [tsconfigの基礎](https://marsquai.com/a70497b9-805e-40a9-855d-1826345ca65f/1dc3824a-2ab9-471f-ad58-6226a37245ce/b5ce5f32-2afa-41f5-9fae-a3979f5c13df/)
+
+### tsc
+- TypeScriptをJavaScriptにトランスパイルするコマンド
+  - `tsc <test.ts>`を実行すると、`test.js`ファイルが作成される
+  - そのあとは`node <test.js>`を実行するとプログラムが走る
+- 型や使い方が間違っていたときには、tscコマンドでトランスパイルしたときに
 
 ### ts-node
 - TypeScriptをJavaScriptに手動でトランスパイルをしなくても、そのまま実行できるようにするもの
@@ -158,7 +192,9 @@ gulp.task('default', ['hello']);
   - [dockerでpackage.jsonを使ったNode.jsのパッケージ環境構築](https://qiita.com/niwasawa/items/9673d31ee2a6c532dc5b)
 - [ ] macの設定
   - おすすめとかも調べつつ
-  - vscode
+  - [ ] vscode
+    - [ ] dockerのリモートコンテナ
+    - [ ] codeコマンド
   - homebrew
   - nodebrew
   - zsh
@@ -192,6 +228,12 @@ gulp.task('default', ['hello']);
 - [ ] typescriptを勉強
   - 関数型やオブジェクト指向なども確認
   - 基本文法はザッと。開発していれば嫌でも覚える
+  - [ ] インデントの扱い
+  - [ ] 変数の命名規則
+  - [ ] letとvarとconstの使い分け
+  - [ ] セミコロンの有無
+  - [ ] コールバック関数とアノテーションに関して
+  - [ ] unknown型
 - [ ] expressを勉強とexpressで簡単なAPIを作る
   - [expressでAPI開発](https://qiita.com/k-penguin-sato/items/5d0db0116843396946bd)
 - [ ] kotlinを勉強
@@ -256,3 +298,251 @@ gulp.task('default', ['hello']);
  https://www.wantedly.com/companies/company_3239475/post_articles/179467
 
 ### android開発のフレームワーク
+
+<br></br>
+
+## TypeScriptメモ
+- [ここを参考に勉強した](https://www.youtube.com/watch?v=F9vzRz6jyRk)
+  - tsconfigに関しては、2:30:30~
+- [いまどきのJavaScriptの書き方](https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9)
+- 「アノテーション」と「型推論」の使い分け
+  - 「アノテーション」は型推論がうまくされないとき
+    - タプルを使うときなど
+  - 「型推論」を基本的に使用する
+- var,let,constの使い分け
+  - varは使わない
+  - とりあえずconstを使う
+  - 上書きが必要なところはletを使う
+    - for文とか
+
+### 基本の型
+- オブジェクト
+  - 構造体のことかな
+
+  ```ts
+  const person = {
+    name: {
+      first: 'Jack',
+      last: 'Smith'
+    },
+    age: 21
+  }
+
+  // アクセスするには、person.name.first のようにする
+  ```
+
+- 配列
+
+  ```ts
+  //アノテーションする場合
+  const fruit: string[] = ['Apple', 'Banana', 'Grape'];
+  ```
+
+- タプル
+  - タプルはアノテーションしないとダメ
+  - 第一引数はstring、第二引数はnumber、...のように決めたい場合にタプルを使う
+
+  ```ts
+  //アノテーションする場合
+  const book: [string, number, boolean] = ['businnes', 1500, false];
+  ```
+
+- enum
+  - 列挙型
+
+  ```ts
+  enum CoffeSize {
+    SHORT = 'SHORT',
+    TALL = 'TALL',
+    GRANDE = 'GRANDE',
+    VENTI = 'VENTI'
+  }
+
+  //イコールで明示的に書かない場合は、上から0,1,2,...と代入される
+  enum CoffeSize {
+    SHORT,
+    TALL,
+    GRANDE,
+    VENTI
+  }
+
+  ```
+
+- any型
+  - なんでも代入できる型
+  - 基本的に使わない
+
+- union型
+  - 型における「or」の役割
+
+  ```ts
+  //number型かstring型のどちらかを代入できる
+  let unionType: number | string = 10
+  //number型かsting型を代入できる配列
+  let unionTypes: (number | string)[] = [21, 'hello']
+  ```
+
+- リテラル型
+  - 定数
+
+  ```ts
+  //アノテーションする場合
+  const apple = 'apple';
+  const clothSize: 'small' | 'medium' | 'large' = 'large';
+  ```
+
+- タイプエイリアス
+  - 別名をつける
+
+- 関数
+  - 関数を簡易に書けるようにしたものが無名関数
+  - 無名関数を簡易に書けるようにしたものがアロー関数
+
+  ```ts
+  //関数の場合は、引数と返り値にアノテーションした方が良い
+  function add(num1: number, num2: number): number {
+    return num1 + num2
+  }
+
+  //voidの場合。undifiendというものもあるが、基本的にはvoidで
+  function sayHello(): void {
+    console.log('Hello');
+  }
+
+  //関数自体を変数に代入する方法
+  //アノテーションする際に、「:」を2回使うのは変なので、返り値に限って「=>」というものを使用する
+  //引数のアノテーションは「()」の中に書く
+  const anotherAdd: (n1: number, n2: number) => number = add
+
+  //無名関数
+  const anotherAdd: (n1: number, n2: number) => number = function(num1: number, num2: number): number {
+    return num1 + num2;
+  }
+  //無名関数における型推論
+  const anotherAdd: (n1: number, n2: number) => number = function(num1, num2){
+    return num1 + num2
+  }
+
+  //アロー関数でのアノテーション方法1
+  const doubleNumber = (num: number): number => num * 2;
+  //アロー関数でのアノテーション方法2
+  const doubeleNumber: (num: number) => number = num => num * 2;
+  ```
+
+- unknown型
+  - anyより少し厳しい型
+
+  ```ts
+  let unknownInput: unknown;
+  ```
+
+- never型
+  - 決して何も返さないもの
+
+  ```ts
+  //エラーを投げるときは返り値がneverになっている
+  function error(message: string): never {
+    throw new Error(message);
+  }
+  ```
+
+### class
+- 昔はprototypeを使って表現していたが、今は必ずclassを使う
+
+  ```ts
+  class SmallAnimal extends Parent {
+    constructor() {
+      this.animalType = "ポメラニアン";
+    }
+
+    say() {
+      console.log(`${this.animalType}だけどMSの中に永らく居たBOM信者の全身の毛をむしりたい`);
+    }
+  }
+  ```
+
+- オブジェクト指向は「モデル化すること」と考えると良いかも
+
+  ![2021-04-10 22 33のイメージ](https://user-images.githubusercontent.com/53253817/114271550-e5e34180-9a4c-11eb-89c4-058687988131.jpg)
+
+
+### いまどきはアロー関数のみ
+
+```ts
+//古い関数定義
+function name(引数) {
+    本体
+}
+
+//いまどきの関数定義
+const name = (引数) => {
+  本体;
+}
+```
+
+### 即時関数を排除する
+- なぜ即時関数というものがあるのか？
+- [即時関数を排除する](https://qiita.com/raccy/items/310b4353a757296f797f)
+
+### 非同期処理
+- コールバック関数
+- promise
+- async/await
+- [ここを参照](https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9#非同期処理)
+
+### 繰り返し処理
+- for
+  - 今は使わないらしい
+- for..of
+  - 現在はこれを使う
+  - pythonのfor..inと同じ
+
+  ```ts
+  let array = [1,2,3,4,5];
+
+  for (let val of array) {
+    console.log(val);  // 1,2,3,4,5
+  }
+  ```
+
+- for..in
+  - for..ofのインデックスを使うバージョン
+
+### コンパイラをカスタマイズ(tsconfig)
+
+- tsconfig.json
+  - typescriptの設定ファイルのこと
+  - `tsc --init`でtsconfig.jsonの作成
+  - tsconfig.jsonを参照して実行したい場合は`tsc <オプション>`という使い方になる
+    - 逆にtsconfig.jsonに沿って実行したくない場合は`tsc <指定ファイル> <オプション>`のように明示的にファイルを指定する
+
+- watchモード
+  - `tsc index.ts --watch`で起動
+  - `tsc --watch`で全てのtsファイルをwatchモード対象にできる
+  - ターミナル上にエラーをリアルタイムに表示してくれる
+
+- 一気にコンパイルする方法
+  - `tsc --init`で設定ファイルを作る
+  - `tsc`で一気にコンパイルできる
+
+- exclude
+  - コンパイルから外したものを設定する
+  - デフォルトだと`node_modules`ディレクトリは外されている
+    - `node_modules`はライブラリのコードとか
+  - 上書きした場合は`node_modules`を必ず加えること
+
+- include
+  - コンパイル対象にするものを設定する
+  - デフォルトだと全てになっている
+  - includeして、excludeされたものがコンパイル対象になる
+
+- compilerOptions
+  - target
+    - どのバージョンのJSにトランスパイルするかの設定
+  - lib
+    - 型の定義ファイルを指定するもの
+    - とりあえずコメントアウトしておけば良さそう
+    - `ES6`: toUpperCaseなどのライブラリが定義されているもの
+    - `DOM`: console.logなどのライブラリが定義されているもの
+  - allowJs
+    - JavaScriptのファイルもコンパイル対象に含める
