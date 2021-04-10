@@ -104,7 +104,10 @@ $ npm install --save express
 
 ### Webpack
 - Webpack とは様々な形式のファイル、JavaScript や CSS、また png, jpeg などの画像ファイルなどをモジュールとして扱い、JavaScript ファイルにまとめる（bundleする）ためのツールでモジュールバンドラーとも呼ばれている
+- Webpackを使わないと、CSSや画像をmetaタグでインポートする記述をHTML内で行わないといけないが、その必要がなくなり、該当するJSファイルだけを読み込めばよくなる
 - まとめられたリソース、CSSや画像ファイルなどは、JavaScript からアクセスが可能になる
+- [Webpackの完全ガイド](https://qiita.com/soarflat/items/28bf799f7e0335b68186)
+  - [消されたとき用]()
 - [webpackを使ったリソースへのアクセス](https://wk-partners.co.jp/homepage/blog/hpseisaku/javascript/typescript/)
 - [webpackってどんなもの？](https://qiita.com/kamykn/items/45fb4690ace32216ca25)
 
