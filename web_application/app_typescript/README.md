@@ -22,6 +22,7 @@
 - [x] yarn
 - [x] Node.js
   - [ ] Node.jsとブラウザのjsの違い
+- [ ] Babel
 - [ ] TypeScript
   - [ ] tsc
   - [ ] tsconfig.json
@@ -29,9 +30,11 @@
   - [x] ts-node
   - [x] webpack
   - [x] gulp: タスクランナー
+  - [ ] npm-scripts
   - [x] tsoa: コードからswaggerのドキュメントを生成するもの(とりあえず使わない)
 - [ ] axios: APIを叩くクライアント
 - [ ] TSyringe: 軽量DIコンテナ
+- [ ] Jest: JavaScriptのテストライブラリ
 - [x] swagger: ブラウザ上で使えるAPIスキーム定義
 
 ### 全体的な流れ
@@ -84,6 +87,8 @@ $ node test.js
 - [package.jsonの使い方](https://qiita.com/righteous/items/e5448cb2e7e11ab7d477)
 - [dockerでpackage.jsonを使ったNode.jsのパッケージ環境構築](https://qiita.com/niwasawa/items/9673d31ee2a6c532dc5b)
 
+<img width="620" alt="fig-npm-01" src="https://user-images.githubusercontent.com/53253817/114272598-c7cc1000-9a51-11eb-8fe4-d07ebe36319b.png">
+
 ### npm, npxまとめ
 - 「Node Package Manager」の略
   - Node.jsのパッケージ（Package）を管理する（Manager）ツール
@@ -121,6 +126,13 @@ $ npm install --save express
 - npmと同じようにNode.jsのパッケージを管理するもの
 - npmと同じくpackage.jsonで管理
 - 速度が改善されており、速い
+
+### Babel
+- ある構文の JavaScript を、別の構文の JavaScript に変換するツール
+  - IEなどポンコツなブラウザでも動くようにES2015(ES6)以降の構文をあえて古い物に変換するための物
+- TypeScriptのtsconfigで設定すれば、古いJavaScriptに変換できるからBabelはいらないのでは？？
+
+<img width="658" alt="fig-babel-01" src="https://user-images.githubusercontent.com/53253817/114272662-f944db80-9a51-11eb-906d-1bfd55ce87bb.png">
 
 ### TypeScript
 - なぜTypeScriptを使用するのか？
@@ -203,6 +215,7 @@ gulp.task('default', ['hello']);
   - [ ] vscode
     - [ ] dockerのリモートコンテナ
     - [ ] codeコマンド
+    - [ ] prettierの使い方
   - homebrew
   - nodebrew
   - zsh
@@ -312,7 +325,8 @@ gulp.task('default', ['hello']);
 ## TypeScriptメモ
 - [ここを参考に勉強した](https://www.youtube.com/watch?v=F9vzRz6jyRk)
   - tsconfigに関しては、2:30:30~
-- [いまどきのJavaScriptの書き方](https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9)
+- [いまどきのJavaScriptの書き方1](https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9)
+- [いまどきのJavaScriptの書き方2](https://dev.classmethod.jp/articles/2020-javascript/)
 - 「アノテーション」と「型推論」の使い分け
   - 「アノテーション」は型推論がうまくされないとき
     - タプルを使うときなど
