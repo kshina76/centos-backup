@@ -11,10 +11,10 @@
 - [x] Node.js
 - [ ] TypeScript
   - [ ] tsconfig.json
-  - [ ] ts-loader
+  - [x] ts-loader
+  - [x] ts-node
   - [x] webpack
-  - [ ] ts-node
-  - [ ] gulp: タスクランナー
+  - [x] gulp: タスクランナー
   - [x] tsoa: コードからswaggerのドキュメントを生成するもの(とりあえず使わない)
 - [ ] axios: APIを叩くクライアント
 - [ ] TSyringe: 軽量DIコンテナ
@@ -98,9 +98,15 @@ $ npm install --save express
 ### TypeScript
 - [TypeScriptの環境構築](https://qiita.com/ochiochi/items/efdaa0ae7d8c972c8103)
   - `npm install typescript`でpackage.jsonに追加しつつローカルにインストールできる
+- [TypeScriptの最低限の環境構築](https://blog.tilfin.net/2019/04/19/introduce-typescript-for-nodejs-app/)
 - [TypeScript+expressでrest](https://zenn.dev/tsuboi/articles/c679afd75be97b)
 - [Typescript + Express + Webpack](https://qiita.com/isihigameKoudai/items/4b790b5b2256dec27d1f)
 - [tsconfigの基礎](https://marsquai.com/a70497b9-805e-40a9-855d-1826345ca65f/1dc3824a-2ab9-471f-ad58-6226a37245ce/b5ce5f32-2afa-41f5-9fae-a3979f5c13df/)
+
+### ts-node
+- TypeScriptをJavaScriptに手動でトランスパイルをしなくても、そのまま実行できるようにするもの
+- ts-loaderとの違いとしては、こちらのts-nodeはサーバサイド用で、ts-loaderはクライアントサイドといった感じかな？
+- [ts-node で TypeScript + node をサクッと実行する](https://qiita.com/mangano-ito/items/75e65071c9c482ddc335)
 
 ### Webpack
 - Webpack とは様々な形式のファイル、JavaScript や CSS、また png, jpeg などの画像ファイルなどをモジュールとして扱い、JavaScript ファイルにまとめる（bundleする）ためのツールでモジュールバンドラーとも呼ばれている
@@ -118,7 +124,29 @@ import './style.css';
 $(".hoge").addClass("active");
 ```
 
+### gulp
+- Sassを編集すればコンパイルを実行し、画像を編集すれば画像を圧縮するというように多くの手間がかかる作業を自動化するもの
+- Sassは現在rubyをインストして使う人は少なく、Node.jsとgulpで使うのがほとんどらしい
+- [gulpの解説1](https://www.codegrid.net/articles/2014-gulp-1/)
+- [gulpの解説2](https://ics.media/entry/3290/)
+
+```javascript
+var gulp = require('gulp');
+
+gulp.task('hello', function() {
+  console.log('Hello gulp!');
+});
+
+gulp.task('default', ['hello']);
+
+/*
+「Hello gulp!」が実行された後に、「hello」が実行されるといった感じでパイプ処理されていく
+実践的には、sassに変更があるかを監視して、変更があったら自動でコンパイルをして、該当するディレクトリにコンパイル後のファイルを吐き出すといった処理をする
+*/
+```
+
 ### swagger
+- APIの定義をyamlで記述してドキュメントとして作成できるもの。これに沿って実装していくことになる
 - [swaggerをウェブ上で使える](https://editor.swagger.io)
 
 ### 4/9-4/12で準備に関するTODO
