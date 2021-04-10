@@ -6,10 +6,52 @@
 3. 「フレームワーク」を調べる
 4. youtubeで言語やフレームワークの基礎を学ぶ
 
+## TODO
+- ESLintとPrettierの設定
+  - https://www.youtube.com/watch?v=R35LJL6a-p0
+- interfaceとtype aliasの違い
+  - https://www.youtube.com/watch?v=J2vox52T4W8
+- ジェネリック型とポリモーフィズム
+  - https://www.youtube.com/watch?v=5JYZzB7MMvo
+- 関数の使い方
+  - https://www.youtube.com/watch?v=obdbskaarVQ
+- type aliasの使い方
+  - https://www.youtube.com/watch?v=2DoYdw-rvL0
+- 非同期処理の完了を待つ方法！Promise＆async/await
+  - https://www.youtube.com/watch?v=Vhnz1V-v1cU
+  - https://www.youtube.com/watch?v=7BCC4psJXqQ
+- DOM
+  - https://www.youtube.com/watch?v=dZyYqVOnrBg
+- 即時関数
+  - https://www.youtube.com/watch?v=1VyEfy03NTg
+- 基本の型
+  - https://www.youtube.com/watch?v=KQhyHHQrcic
+- expressでAPI作成
+  - 環境構築とhello world
+    - https://www.youtube.com/watch?v=DrxcoMMgZKg
+  - リソース設計とDB設計
+    - https://www.youtube.com/watch?v=x4ZrmnqoS1Y
+  - GET用APIのハンズオン開発
+    - https://www.youtube.com/watch?v=dURpu7Bjr_Y
+  - HTMLのフォームからAPIを実行しよう
+    - https://www.youtube.com/watch?v=pRoIxvhFbow
+  - CRUDなAPIを開発しよう
+    - https://www.youtube.com/watch?v=GffwSIY_7xE
+  - ユーザー作成フォームとAPIを繋げよう
+    - https://www.youtube.com/watch?v=ye5hs_ZBhcM
+  - ユーザーの編集と削除を操作しよう
+    - https://www.youtube.com/watch?v=QO39f8Ztc1E
+  - ステータスコードを使った適切なエラーハンドリング
+    - https://www.youtube.com/watch?v=faCCTvt1_Ic
+  - 実務レベルのAPI設計と実装
+    - https://www.youtube.com/watch?v=agtHuqHrhKA
+- API入門
+  - https://www.youtube.com/watch?v=GbHWlUs9AoE
+
 <br></br>
 
-## 環境構築
-- [ここを参考にした](https://www.youtube.com/watch?v=qSHlXcSces8)
+## 環境構築(フロントエンド)
+- [ここを参考にして環境構築〜HelloWorld](https://www.youtube.com/watch?v=qSHlXcSces8)
 ### Homebrew
 - Homebrew
   - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`: インスト
@@ -30,9 +72,61 @@
   - 開発環境でしか使わないパッケージは、`save-dev`オプションをつける
 - [webpack.config.jsの作成と設定](https://www.youtube.com/watch?v=qSHlXcSces8) の19:40~
 - `tsc --init`: tsconfig.jsonの作成と設定
+  - baseUrl
+    - ベースのURLを指定すると、他のファイルをimportするときにわかりやすく指定できる
+    - これを指定しないと相対パスで指定することになり、どのように指定すればいいかわかりにくくなる
+    - tsconfing.jsonが置かれているところから相対パスで指定
+    - `./src`と指定すると、srcディレクトリからの絶対パスを使えるようになる
+  - allowJs
+    - JSからTSに以降する時などに便利
+  - jsx
+    - Reactで使うjsxファイルの扱い
+  - lib
+    - JSの使うライブラリを明示的にする場合
+    - 基本いじらなくて良い
+  - outDir
+    - TypeScriptをトランスパイルした時のJavaScriptのファイルをどこに吐き出すかの設定
+    - `./dist`とかに吐き出すようにしておくと良い
 
   ![2021-04-11 0 28のイメージ](https://user-images.githubusercontent.com/53253817/114275275-dff55c80-9a5c-11eb-9fa0-b5cb2a24638f.jpg)
 
+- ESLintとPrettierの設定
+  - https://www.youtube.com/watch?v=R35LJL6a-p0
+
+## 環境構築(バックエンド)
+- [ここを参考にした](https://www.youtube.com/watch?v=DrxcoMMgZKg)
+### 必要なライブラリ
+- express, sqlite3
+- body-parser
+  - HTMLフォームから送信された値をパース
+- node-dev
+  - ファイル編集を検知してサーバ再起動（ホットリロード）
+### 手順
+- `mkdir <プロジェクトディレクトリ>`
+- `npm init`
+- `npm install --save express sqlite3 body-parser`
+- `npm install -g node-dev`: なぜグローバル？？
+- package.jsonの編集
+  - `mkdir app`
+  - `touch app.js`: WebAPIのサーバを起動するコードを書くところ
+  - scriptsのところに`"start": "node-dev app/app.js"`: APIサーバを`npm run start`で立てられるように設定
+- expressの雛形
+
+  ```ts
+  const express = require('express')
+  const app = express()
+
+  //expressのテンプレート雛形
+  //URLが叩かれたら、Hello World!と返す
+  app.get('/api/v1/hello', (req, res) => {
+    res.json({"message": "Hello World!"})
+  })
+
+  //listenするポートの設定
+  const port = process.env.PORT || 3000;
+  app.listen(port)
+  console.log("Liste on port: " + port)
+  ```
 
 <br></br>
 
@@ -60,6 +154,7 @@
   - [x] gulp: タスクランナー
   - [ ] npm-scripts
   - [x] tsoa: コードからswaggerのドキュメントを生成するもの(とりあえず使わない)
+  - [] node-dev
 - [ ] axios: APIを叩くクライアント
 - [ ] TSyringe: 軽量DIコンテナ
 - [ ] Jest: JavaScriptのテストライブラリ
@@ -220,6 +315,9 @@ $ npm install --save express
 - TypeScriptをJavaScriptに手動でトランスパイルをしなくても、そのまま実行できるようにするもの
 - ts-loaderとの違いとしては、こちらのts-nodeはサーバサイド用で、ts-loaderはクライアントサイドといった感じかな？
 - [ts-node で TypeScript + node をサクッと実行する](https://qiita.com/mangano-ito/items/75e65071c9c482ddc335)
+
+### node-dev
+- ファイル編集を検知してサーバを再起動
 
 ### Webpack
 - Webpack とは様々な形式のファイル、JavaScript や CSS、また png, jpeg などの画像ファイルなどをモジュールとして扱い、JavaScript ファイルにまとめる（bundleする）ためのツールでモジュールバンドラーとも呼ばれている
@@ -393,6 +491,8 @@ gulp.task('default', ['hello']);
     - [ ] セミコロンの有無
     - [ ] コールバック関数とアノテーションに関して
     - [ ] unknown型
+    - [ ] export defaultの意味
+    - [ ] オプション引数の扱い
   - [ ] [tsconfig,webpackの使い方](https://www.youtube.com/watch?v=qSHlXcSces8)
 - [ ] expressを勉強とexpressで簡単なAPIを作る
   - [expressでAPI開発](https://qiita.com/k-penguin-sato/items/5d0db0116843396946bd)
@@ -622,10 +722,18 @@ gulp.task('default', ['hello']);
   }
   ```
 
-- オブジェクト指向は「モデル化すること」と考えると良いかも
+- 抽象クラス
+- protected, public, private, export, readonly
+
+- [オブジェクト指向は「モデル化すること」と考えると良いかも](https://www.youtube.com/watch?v=7u8o1r0LkHU)
 
   ![2021-04-10 22 33のイメージ](https://user-images.githubusercontent.com/53253817/114271550-e5e34180-9a4c-11eb-89c4-058687988131.jpg)
 
+### interfaceとtype aliasの違い
+- https://www.youtube.com/watch?v=J2vox52T4W8
+
+### ジェネリック型とポリモーフィズム
+- https://www.youtube.com/watch?v=5JYZzB7MMvo
 
 ### いまどきはアロー関数のみ
 
