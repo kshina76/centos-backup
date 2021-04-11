@@ -1,9 +1,5 @@
 # express実践入門
 
-![](https://user-images.githubusercontent.com/1703219/72898816-b0a1e500-3d1c-11ea-9fdd-62c78697f2d1.png)
-
----
-
 ## はじめに
 
 あくまで「俺が考える最強のexpress実践入門」です。  
