@@ -139,6 +139,7 @@
   - [ ] 変数の命名規則
   - [x] letとvarの使い分け
   - [ ] セミコロンの有無
+  - [ ] 正規表現
 - [x] npm
   - [x] package.json
   - [x] nodebrew
@@ -149,12 +150,12 @@
 - [ ] Babel
 - [ ] TypeScript
   - [ ] tsc
-  - [ ] tsconfig.json
+  - [x] tsconfig.json
   - [x] ts-loader
   - [x] ts-node
   - [x] webpack
   - [x] gulp: タスクランナー
-  - [ ] npm-scripts
+  - [x] npm-scripts
   - [x] tsoa: コードからswaggerのドキュメントを生成するもの(とりあえず使わない)
   - [] node-dev
 - [ ] axios: APIを叩くクライアント
@@ -262,6 +263,7 @@ $ node test.js
 - `--save-dev`は、開発環境でしか使わないパッケージをインストする場合に使う
 - package.jsonには、開発中にターミナルで使う面倒なコマンドなどを登録してしまえば良いみたい
   - データベースへの接続
+    - 開発中で、データベースにデータを用意する時などに、簡単に接続することができるコマンドを用意しておくと便利
   - コンパイル系
   - DBマイグレーション
   - サーバ起動
