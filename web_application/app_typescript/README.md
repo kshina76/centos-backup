@@ -7,46 +7,26 @@
 4. youtubeで言語やフレームワークの基礎を学ぶ
 
 ## TODO
-- ESLintとPrettierの設定
-  - https://www.youtube.com/watch?v=R35LJL6a-p0
-- interfaceとtype aliasの違い
-  - https://www.youtube.com/watch?v=J2vox52T4W8
-- ジェネリック型とポリモーフィズム
-  - https://www.youtube.com/watch?v=5JYZzB7MMvo
-- 関数の使い方
-  - https://www.youtube.com/watch?v=obdbskaarVQ
-- type aliasの使い方
-  - https://www.youtube.com/watch?v=2DoYdw-rvL0
-- 非同期処理の完了を待つ方法！Promise＆async/await
-  - https://www.youtube.com/watch?v=Vhnz1V-v1cU
+- [ ] [ESLintとPrettierの設定](https://www.youtube.com/watch?v=R35LJL6a-p0)
+- [ ] [interfaceとtype-aliasの違い](https://www.youtube.com/watch?v=J2vox52T4W8)
+- [ ] [関数の使い方](https://www.youtube.com/watch?v=obdbskaarVQ)
+- [ ] [type aliasの使い方](https://www.youtube.com/watch?v=2DoYdw-rvL0)
+- [ ] [非同期処理の完了を待つ方法！Promise＆async/await](https://www.youtube.com/watch?v=Vhnz1V-v1cU)
   - https://www.youtube.com/watch?v=7BCC4psJXqQ
-- DOM
-  - https://www.youtube.com/watch?v=dZyYqVOnrBg
-- 即時関数
-  - https://www.youtube.com/watch?v=1VyEfy03NTg
-- 基本の型
-  - https://www.youtube.com/watch?v=KQhyHHQrcic
+- [ ] [DOM](https://www.youtube.com/watch?v=dZyYqVOnrBg)
+- [ ] [即時関数](https://www.youtube.com/watch?v=1VyEfy03NTg)
+- [ ] [基本の型](https://www.youtube.com/watch?v=KQhyHHQrcic)
 - expressでAPI作成
-  - 環境構築とhello world
-    - https://www.youtube.com/watch?v=DrxcoMMgZKg
-  - リソース設計とDB設計
-    - https://www.youtube.com/watch?v=x4ZrmnqoS1Y
-  - GET用APIのハンズオン開発
-    - https://www.youtube.com/watch?v=dURpu7Bjr_Y
-  - HTMLのフォームからAPIを実行しよう
-    - https://www.youtube.com/watch?v=pRoIxvhFbow
-  - CRUDなAPIを開発しよう
-    - https://www.youtube.com/watch?v=GffwSIY_7xE
-  - ユーザー作成フォームとAPIを繋げよう
-    - https://www.youtube.com/watch?v=ye5hs_ZBhcM
-  - ユーザーの編集と削除を操作しよう
-    - https://www.youtube.com/watch?v=QO39f8Ztc1E
-  - ステータスコードを使った適切なエラーハンドリング
-    - https://www.youtube.com/watch?v=faCCTvt1_Ic
-  - 実務レベルのAPI設計と実装
-    - https://www.youtube.com/watch?v=agtHuqHrhKA
-- API入門
-  - https://www.youtube.com/watch?v=GbHWlUs9AoE
+  - [x] [環境構築とhello world](https://www.youtube.com/watch?v=DrxcoMMgZKg)
+  - [x] [リソース設計とDB設計](https://www.youtube.com/watch?v=x4ZrmnqoS1Y)
+  - [x] [GET用APIのハンズオン開発](https://www.youtube.com/watch?v=dURpu7Bjr_Y)
+  - [x] [HTMLのフォームからAPIを実行しよう](https://www.youtube.com/watch?v=pRoIxvhFbow)
+  - [x] [CRUDなAPIを開発しよう](https://www.youtube.com/watch?v=GffwSIY_7xE)
+  - [ ] [ユーザー作成フォームとAPIを繋げよう](https://www.youtube.com/watch?v=ye5hs_ZBhcM)
+  - [ ] [ユーザーの編集と削除を操作しよう](https://www.youtube.com/watch?v=QO39f8Ztc1E)
+  - [ ] [ステータスコードを使った適切なエラーハンドリング](https://www.youtube.com/watch?v=faCCTvt1_Ic)
+  - [ ] [実務レベルのAPI設計と実装](https://www.youtube.com/watch?v=agtHuqHrhKA)
+- [ ] [API入門](https://www.youtube.com/watch?v=GbHWlUs9AoE)
 
 <br></br>
 
@@ -748,6 +728,118 @@ gulp.task('default', ['hello']);
 
 ### ジェネリック型とポリモーフィズム
 - https://www.youtube.com/watch?v=5JYZzB7MMvo
+- ジェネリック型を使うことで、ポリモーフィズムを実現している
+- メリットとしては、「保守性が上がる」「何度も同じコードを書かなくてよくなる」
+
+```ts
+//型の種類は異なるが、同じデータの構造なので共通化できそう
+const stringReduce = (array: string[], initialValue: string): string => {}
+const numberReduce = (array: number[], initialValue: number): number => {}
+
+//共通化できそうなときにジェネリクスが役に立つ
+//T,U,V,Wがよく使われる
+type Reduce<T> = {
+  (array: T[], initialValue: T): T
+}
+const reduce: Reduce<string> = (array, initialValue) => {}
+```
+
+```ts
+export default function genericsSample() {
+  // ジェネリック型を使わない場合
+  const stringReduce = (array: string[], initialValue: string): string => {
+    let result = initialValue
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i]
+      result += item
+    }
+    return result
+  }
+  console.log('Generics basic sample 1:', stringReduce(['May ', 'the ', 'force ', 'be ', 'with ', 'you'], ''))
+
+  const numberReduce = (array: number[], initialValue: number): number => {
+    let result = initialValue
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i]
+      result += item
+    }
+    return result
+  }
+  console.log('Generics basic sample 2:', numberReduce([100, 200, 300], 1000))
+
+  // 型エイリアスを作るとしたら...？
+  type Reduce = {
+    (array: string[], initialValue: string): string
+    (array: number[], initialValue: number): number
+  }
+
+  // ジェネリック型でまとめる
+  type GenericReduce<T> = {
+    (array: T[], initialValue: T): T
+  }
+
+  // ジェネリック型を使った呼び出し
+  const genericStringReduce: GenericReduce<string> = (array, initialValue) => {
+    let result = initialValue
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i]
+      result += item
+    }
+    return result
+  }
+  console.log('Generics basic sample 3:', genericStringReduce(['MAKE ', 'TYPESCRIPT ', 'GREAT ', 'AGAIN'], ''))
+
+  const genericNumberReduce: GenericReduce<number> = (array, initialValue) => {
+    let result = initialValue
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i]
+      result += item
+    }
+    return result
+  }
+  console.log('Generics basic sample 4:', numberReduce([-100, -200, -300], 1000))
+
+  // いろいろなジェネリック型の定義方法
+  // 完全な呼び出しシグネチャ（個々のシグネチャにジェネリック型を割り当てる）
+  type GenericReduce2 = {
+    <T>(array: T[], initialValue: T): T
+    <U>(array: U[], initialValue: U): U
+  }
+  // 呼び出しシグネチャの省略記法
+  type GenericReduce3<T> = (array: T[], initialValue: T) => T
+  type GenericReduce4 = <T>(array: T[], initialValue: T) => T
+}
+```
+
+```ts
+//複数のジェネリクスを定義する方法
+export default function advancedSample() {
+  // map関数のシグネチャ
+  type Map<T, U> = (array: T[], fn: (item: T) => U) => U[]
+
+  const mapStringsToNumbers: Map<string, number> = (array, fn) => {
+    const result = []
+    for (let i = 0; i < array.length; i++) {
+      result[i] = fn(array[i])
+    }
+    return result
+  }
+
+  const numbers = mapStringsToNumbers(['123', '456', '001'], (item) => Number(item))
+  console.log('Generics advanced sample 1:', numbers)
+
+  const mapNumbersToStrings: Map<number, string> = (array, fn) => {
+    const result = []
+    for (let i = 0; i < array.length; i++) {
+      result[i] = fn(array[i])
+    }
+    return result
+  }
+
+  const strings = mapNumbersToStrings(numbers, (item) => String(item))
+  console.log('Generics advanced sample 2:', strings)
+}
+```
 
 ### いまどきはアロー関数のみ
 
@@ -938,7 +1030,7 @@ const name = (引数) => {
 <br></br>
 
 ## express
-- [詳しくはこっちにまとめてある]()
+- [詳しくはこっちにまとめてある](https://github.com/kshina76/centos-backup/tree/master/web_application/app_typescript/express)
 ## expressの仕組み
 
 ![](https://cloud.githubusercontent.com/assets/1703219/10810648/6b7c795c-7e46-11e5-8ef8-7d406c68607c.jpg)
