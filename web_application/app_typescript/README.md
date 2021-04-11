@@ -445,6 +445,10 @@ gulp.task('default', ['hello']);
   - `build`: コンパイルとかのビルド作業
   - `clean`: 環境を綺麗にする作業。rmコマンドとか仕込むと良さそう
 
+### axios
+- [ここを参考に](https://qiita.com/ksh-fthr/items/2daaaf3a15c4c11956e9)
+- ブラウザやnode.jsで動くPromiseベースのHTTPクライアント｡ REST-API を実行したいときなど､これを使うと実装が簡単にできる｡
+
 ### swagger
 - APIの定義をyamlで記述してドキュメントとして作成できるもの。これに沿って実装していくことになる
 - [swaggerをウェブ上で使える](https://editor.swagger.io)
