@@ -827,11 +827,16 @@ const name = (引数) => {
 <br></br>
 
 ## WebAPI開発
+- [参考リポジトリ](https://github.com/kshina76/centos-backup/tree/master/web_application/app_typescript/とらゼミ/basic-rest-api)
 - sqlite3の使い方を調べる
 - データベースのロック、トランザクションを調べる
   - 「webを支える技術」の16章くらいに書いてある
+- asyncとawaitの使いどころ
+  - 参考コードで、postのときにasyncやawaitを使っていたので
+- promiseの使い方
+  - promiseとasyncとawaitを一緒に使っているけど、どういうことだ？
 
-### リソース指向アーキテクチャ
+### リソース指向アーキテクチャ(APIを開発するフロー)
 1. Webサービスで利用するデータを特定する
   - ユーザ情報(例): ユーザID、ユーザ名、プロフィール、写真、誕生日、...etc
   - フォロー情報(例): フォロワーID、フォローID、...etc
@@ -847,11 +852,19 @@ const name = (引数) => {
 
 4. URI設計
 
-  ![2021-04-11 10 29のイメージ](https://user-images.githubusercontent.com/53253817/114289194-e44b6500-9ab0-11eb-9a4b-831610659dbc.jpg)
+  ![2021-04-11 11 59のイメージ](https://user-images.githubusercontent.com/53253817/114290835-545fe800-9abd-11eb-8256-4d1ef2a14c9a.jpg)
 
 5. リソースの表現を設計
   - json、XML、HTML、などどれなのか
   - jsonならkeyとvalueを設計する
+
+  ![2021-04-11 12 00のイメージ](https://user-images.githubusercontent.com/53253817/114291017-f207e700-9abe-11eb-9a0e-84f8f67a3061.jpg)
+
+  ![2021-04-11 12 00のイメージ (1)](https://user-images.githubusercontent.com/53253817/114291018-f3391400-9abe-11eb-8504-2277475fbfd5.jpg)
+
+  ![2021-04-11 12 11のイメージ](https://user-images.githubusercontent.com/53253817/114291026-077d1100-9abf-11eb-942c-900f587c3bdc.jpg)
+
+
 6. リンクとフォームでリソースを結びつける
   - ユーザがAPIにどのようにアクセスするかを設計する。ということかな
 7. イベントの標準的なコースを設計
@@ -860,3 +873,56 @@ const name = (引数) => {
   - エラーコードを設計
 
 ![2021-04-11 10 20のイメージ](https://user-images.githubusercontent.com/53253817/114289012-81a59980-9aaf-11eb-9ba8-6e20592f9a9c.jpg)
+
+### 開発メモ
+- Pythonのデコレータで`get`とか`post`を定義する感じで、TypeScriptでも`app.get(<URI>, <処理>)`のように書き並べていく
+- Pythonと同じように、TypeScriptにもresとreqというオブジェクトに「ヘッダーやステータスコード」のフィールドが入る
+- どちらの言語でも、`get`や`post`などの処理の初めにDB接続の処理を書いて、処理の終わりにDBクローズする処理を書いている
+  
+  ```ts
+  //DB接続
+  const db = new sqlite3.Database(dbPath)
+
+  //DBクローズ
+  db.close()
+  ```
+
+- JavaScriptのライブラリの慣習として最後の引数で、ライブラリからの返り値を引数としたアロー関数を渡している
+  - 例えば、サーバとのやりとりがあるときには、第二引数に「リクエストとレスポンスを引数とするアロー関数」を書いて、リクエストとレスポンスの値を受け取る
+  - DBのやりとりがあるときには、第二引数にDBからの返り値である、「errとrow」が引数のアロー関数を渡している
+
+  ```ts
+  //APIサーバのリクエスト、レスポンス
+  app.get('/api/v1/users/:id', (req, res) => {
+    const db = new sqlite3.Database(dbPath)
+    const id = req.params.id
+
+    db.get(`SELECT * FROM users WHERE id = ${id}`, (err, row) => {
+      if (!row) {
+        res.status(404).send({ error: "Not Found!" })
+      } else {
+        res.status(200).json(row)
+      }
+    })
+
+    db.close()
+  })
+
+  //DBサーバのリクエスト、レスポンス
+  db.get(`SELECT * FROM users WHERE id = ${id}`, (err, row) => {
+    if (!row) {
+      res.status(404).send({ error: "Not Found!" })
+    } else {
+      res.status(200).json(row)
+    }
+  })
+
+  //sqlite3の基本メソッド
+  db.all(sql, (err, rows))  //全ての結果を一度に取得
+  db.get(sql, (err, row))  //1つだけ結果を取得
+  db.run(sql, (err))  //SQLクエリを実行
+  ```
+
+- sqlite3の基本メソッド
+
+  ![2021-04-11 12 18のイメージ](https://user-images.githubusercontent.com/53253817/114291145-0ac4cc80-9ac0-11eb-994e-baba30a7b482.jpg)
