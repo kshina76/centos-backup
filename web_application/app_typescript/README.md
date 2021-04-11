@@ -937,8 +937,9 @@ const name = (引数) => {
 
 <br></br>
 
-## expressメモ
-### expressの仕組み
+## express
+- [詳しくはこっちにまとめてある]()
+## expressの仕組み
 
 ![](https://cloud.githubusercontent.com/assets/1703219/10810648/6b7c795c-7e46-11e5-8ef8-7d406c68607c.jpg)
 
@@ -946,9 +947,106 @@ const name = (引数) => {
   - 外部からのHTTP(S)リクエストに対して、内部のロジックをマッピングすること。
 - middleware
   - routingの過程で何らかの処理を差し込む仕組み。
-  - 共通処理(認証、エラーハンドリング、リクエストデータの加工、etc)を本来のロジックから分離して、コードベースを健全に保つ。
+  - クライアントとAPIサーバの間で処理をするようなものだから、ミドルウェアと呼ばれている
+  - 共通処理(認証、エラーハンドリング、ロギング、リクエストデータの加工、etc)を本来のロジックから分離して、コードベースを健全に保つ。
+  - 「パス」は省略可能で、省略すると、クライアントからのリクエストがあったときに、すべてのリクエストでミドルウェア関数が必ず実行される
+  - 「パス」に`/about`などが記述されておると、`/about`のリクエストが合った際に実行されるミドルウェア関数を設定できる
+    
+    ```ts
+    app.use([パス], ミドルウェア関数)
+    ```
 
-### ボイラーテンプレート
+## routing(1/2)
+### 基本（Route paths, method, handler）
+HTTPメソッド、Path、マッピングする内部ロジックを指定する方式。
+```js
+var app = express();
+
+// GET http://localhost:3000/
+app.get('/', (req, res) => {});
+
+// POST http://localhost:3000/books
+app.post('/books', (req, res) => {});
+
+// PUT http://localhost:3000/books/1
+app.put('/books/:id', (req, res) => {});
+
+// DELETE http://localhost:3000/books/1
+app.delete('/books/:id', (req, res) => {});
+```
+
+## routing(2/2)
+### 基本（express.Router）
+
+routing用のmiddlewareを作る仕組み。  routing部分をモジュール化（別ファイル化）することが多いため、こちらの方をよく利用します。
+
+routingをモジュール化（router.js）
+```js
+var app = express();
+var router = express.Router();
+
+router.get('/:id', (req, res) => {
+	// 何かの処理
+});
+
+module.exports = router;
+```
+
+モジュールを利用する。（app.js）
+```
+var router = require('./router');
+...
+app.use('/books', router); 
+```
+「http://localhost:3000/books/1」のroutingが有効になる
+
+## routing(Request method)
+よく利用するもの
+
+```js
+router.get('/', (req, res) => {
+	// 何かの処理
+});
+```
+- req.body
+	- request bodyのkey-valueペア(body-parser middlewareが必要)
+- req.cookies
+	- cookieのkey-valueペア(cookie-parser middlewareが必要)
+- req.params
+	- `/books/:id`で`/books/1`の場合`req.params.id` => 1
+	- url pathパラメータのkey-valueペア
+- req.query
+	- `/books?order=asc`の場合`req.query.order` => asc
+	- リクエストパラメータのkey-valueペア
+- req.get
+	- HTTPヘッダーの値を取得する
+- req.session
+	- セッションのkey-valueペア(express-session middlewareが必要)
+
+## routing(Response method)
+よく利用するもの
+
+```js
+router.get('/', (req, res) => {
+	// 何かの処理
+});
+```
+- res.cookie
+	- cookieを付与
+- res.set
+	- HTTPヘッダーを付与
+- res.redirect
+	- 指定したPathへリダイレクト
+- res.render
+	- テンプレートエンジンを利用して画面を生成して返却
+- res.sendStatus
+	- ステータスコードを返却(401, 404, 500, etc...)
+	- ex) `res.sendStatus(401).json({...})`
+- res.json
+	- jsonを返却(200)
+
+
+## ボイラーテンプレート
 - `express-generator`を使用する。[ここを参照](http://expressjs.com/en/starter/generator.html)
 
   ```bash
@@ -992,27 +1090,7 @@ const name = (引数) => {
       └── layout.jade
   ```
 
-### ミドルウェア
-- クライアント側からのHTTPリクエストを受け取ったときに、express内で共通させて行いたい処理をミドルウェアという
-  - クライアントとAPIサーバの間で処理をするようなものだから、ミドルウェアと呼ばれているのだと思う
-  - 結局のところ、毎回行うような処理を毎回書くのがアホらしいから、面倒な処理をミドルウェア関数として、expressインスタンスに登録して自動実行させるということ
-  - 例
-    - HTTPリクエストを送ってきたユーザーIDをコンソールに表示
-    - cookieを自動更新するなどの処理
-    - リクエストボディをjsonにパース
-    - ロギング
-    - エラーハンドリング
-    - ルーティング
-- ミドルウェアの記法
-  - 「パス」は省略可能で、省略すると、クライアントからのリクエストがあったときに、すべてのリクエストでミドルウェア関数が必ず実行される
-  - 「パス」に`/about`などが記述されておると、`/about`のリクエストが合った際に実行されるミドルウェア関数を設定できる
-  - app.useで設定した順でミドルウェア関数が実行される
-
-  ```ts
-  app.use([パス], ミドルウェア関数)
-  ```
-
-### 静的ファイルの設定
+## 静的ファイルの設定
 - クライアントにアクセスさせたい静的ファイルが格納されているフォルダを設定している
 - 記法
   - `__dirname`はプロジェクト全体のファイルのリンク
@@ -1023,7 +1101,7 @@ const name = (引数) => {
   app.use(express.static(__dirname + '/public'))
   ```
 
-### それぞれのフォルダの説明
+## それぞれのフォルダの説明
 - app.js
   - expressを使用してWebアプリケーションなどを作る際、最初に呼び出されるスクリプトファイル
   - このファイルに基本的な設定などを記述する
