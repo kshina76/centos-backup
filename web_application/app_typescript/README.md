@@ -109,7 +109,9 @@
 - package.jsonの編集
   - `mkdir app`
   - `touch app.js`: WebAPIのサーバを起動するコードを書くところ
-  - scriptsのところに`"start": "node-dev app/app.js"`: APIサーバを`npm run start`で立てられるように設定
+  - scriptsに記述する内容
+    - `"start": "node-dev app/app.js"`: APIサーバを`npm run start`で立てられるように設定
+    - `"connect": "sqlite3 app/db/database.sqlite3"`: データベースに`npm run connect`で接続できるように設定
 - expressの雛形
 
   ```ts
@@ -258,6 +260,12 @@ $ node test.js
 - [dependenciesの使い分け](https://qiita.com/cognitom/items/acc3ffcbca4c56cf2b95)
   - `--save-dev`や`--save`などの使い分け
 - `--save-dev`は、開発環境でしか使わないパッケージをインストする場合に使う
+- package.jsonには、開発中にターミナルで使う面倒なコマンドなどを登録してしまえば良いみたい
+  - データベースへの接続
+  - コンパイル系
+  - DBマイグレーション
+  - サーバ起動
+  - など
 
 ```bash
 # プロジェクトのディレクトリに移動
@@ -819,6 +827,9 @@ const name = (引数) => {
 <br></br>
 
 ## WebAPI開発
+- sqlite3の使い方を調べる
+- データベースのロック、トランザクションを調べる
+  - 「webを支える技術」の16章くらいに書いてある
 
 ### リソース指向アーキテクチャ
 1. Webサービスで利用するデータを特定する
@@ -828,17 +839,24 @@ const name = (引数) => {
 2. リソース設計(1を分類していく)
   - ユーザリソース
   - 検索結果リソース
-3. URI設計
+
+3. DB設計
+  - どのようなDB設計でも`created_at`と`updated_at`はほとんどの場合使うので、not nullでとりあえず設計に入れておく
+
+  ![2021-04-11 10 33のイメージ](https://user-images.githubusercontent.com/53253817/114289246-54f28180-9ab1-11eb-897e-fabe13e73ab8.jpg)
+
+4. URI設計
 
   ![2021-04-11 10 29のイメージ](https://user-images.githubusercontent.com/53253817/114289194-e44b6500-9ab0-11eb-9a4b-831610659dbc.jpg)
 
-4. リソースの表現を設計
+5. リソースの表現を設計
   - json、XML、HTML、などどれなのか
   - jsonならkeyとvalueを設計する
-5. リンクとフォームでリソースを結びつける
+6. リンクとフォームでリソースを結びつける
   - ユーザがAPIにどのようにアクセスするかを設計する。ということかな
-6. イベントの標準的なコースを設計
+7. イベントの標準的なコースを設計
   - ユーザがAPIにアクセスした後に、どのような流れで処理されるかの設計かな
-7. エラーを想定
+8. エラーを想定
+  - エラーコードを設計
 
 ![2021-04-11 10 20のイメージ](https://user-images.githubusercontent.com/53253817/114289012-81a59980-9aaf-11eb-9ba8-6e20592f9a9c.jpg)
