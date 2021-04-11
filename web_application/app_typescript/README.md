@@ -934,3 +934,112 @@ const name = (引数) => {
 - sqlite3の基本メソッド
 
   ![2021-04-11 12 18のイメージ](https://user-images.githubusercontent.com/53253817/114291145-0ac4cc80-9ac0-11eb-994e-baba30a7b482.jpg)
+
+<br></br>
+
+## expressメモ
+### expressの仕組み
+
+![](https://cloud.githubusercontent.com/assets/1703219/10810648/6b7c795c-7e46-11e5-8ef8-7d406c68607c.jpg)
+
+- routing
+  - 外部からのHTTP(S)リクエストに対して、内部のロジックをマッピングすること。
+- middleware
+  - routingの過程で何らかの処理を差し込む仕組み。
+  - 共通処理(認証、エラーハンドリング、リクエストデータの加工、etc)を本来のロジックから分離して、コードベースを健全に保つ。
+
+### ボイラーテンプレート
+- `express-generator`を使用する。[ここを参照](http://expressjs.com/en/starter/generator.html)
+
+  ```bash
+  $ npm install express-generator -g
+
+  # expressコマンドでアプリのひな形を生成します
+  $ express myapp
+
+     create : myapp
+     create : myapp/package.json
+     create : myapp/app.js
+     ...
+     create : myapp/bin
+     create : myapp/bin/www
+
+  $ cd myapp 
+  # 依存モジュールをインストールします
+  $ npm install
+  # サーバーを起動します
+  $ node bin/www # or npm run start 
+  ```
+
+  ```bash
+  # 基本最小構成
+  .
+  ├── app.js				// expressサーバーの設定
+  ├── bin
+  │   └── www				// サーバーの起動
+  ├── package.json
+  ├── public				// 静的ファイル置き場
+  │   ├── images
+  │   ├── javascripts
+  │   └── stylesheets
+  │       └── style.css
+  ├── routes				// サーバー側のコントローラ
+  │   ├── index.js
+  │   └── users.js
+  └── views					// サーバー側で画面を作成する際のテンプレート
+      ├── error.jade
+      ├── index.jade
+      └── layout.jade
+  ```
+
+### ミドルウェア
+- クライアント側からのHTTPリクエストを受け取ったときに、express内で共通させて行いたい処理をミドルウェアという
+  - クライアントとAPIサーバの間で処理をするようなものだから、ミドルウェアと呼ばれているのだと思う
+  - 結局のところ、毎回行うような処理を毎回書くのがアホらしいから、面倒な処理をミドルウェア関数として、expressインスタンスに登録して自動実行させるということ
+  - 例
+    - HTTPリクエストを送ってきたユーザーIDをコンソールに表示
+    - cookieを自動更新するなどの処理
+    - リクエストボディをjsonにパース
+    - ロギング
+    - エラーハンドリング
+    - ルーティング
+- ミドルウェアの記法
+  - 「パス」は省略可能で、省略すると、クライアントからのリクエストがあったときに、すべてのリクエストでミドルウェア関数が必ず実行される
+  - 「パス」に`/about`などが記述されておると、`/about`のリクエストが合った際に実行されるミドルウェア関数を設定できる
+  - app.useで設定した順でミドルウェア関数が実行される
+
+  ```ts
+  app.use([パス], ミドルウェア関数)
+  ```
+
+### 静的ファイルの設定
+- クライアントにアクセスさせたい静的ファイルが格納されているフォルダを設定している
+- 記法
+  - `__dirname`はプロジェクト全体のファイルのリンク
+  - `/public`は静的ファイルが格納されているフォルダ名
+  - express.static関数は、そのフォルダへのリンクを保存する
+
+  ```ts
+  app.use(express.static(__dirname + '/public'))
+  ```
+
+### それぞれのフォルダの説明
+- app.js
+  - expressを使用してWebアプリケーションなどを作る際、最初に呼び出されるスクリプトファイル
+  - このファイルに基本的な設定などを記述する
+
+- binフォルダ
+  - binフォルダの中にはwwwファイルのみが存在する
+  - app.jsが最初に呼び出される基本ファイルといったが、本当に一番最初に実行するのはwwwファイル
+  - ものすごく根幹的な処理を行って、app.jsを実行している
+
+- publicフォルダ
+  - publicフォルダの中には「html、css、javascript」という３つのフォルダが存在する
+  - クライアント側で実行したい静的ファイルをそれぞれの名前のフォルダにぶち込む
+  - この中においておけば、クライアント側からアクセスしやすいらしい
+
+- routeフォルダ
+  - routeフォルダの中には「index.js」「users.js」ファイルが入っている
+
+- viewsフォルダ
+  - viewsフォルダの中には、いわゆるテンプレートエンジンの拡張子が付いているファイルを入れる
