@@ -5,28 +5,36 @@
 2. 「エコシステム」を調べる
 3. 「フレームワーク」を調べる
 4. youtubeで言語やフレームワークの基礎を学ぶ
+5. [最新技術の追い方](https://www.youtube.com/watch?v=Hag-I2h2LwM)
 
 ## TODO
 - [ ] [ESLintとPrettierの設定](https://www.youtube.com/watch?v=R35LJL6a-p0)
 - [ ] [interfaceとtype-aliasの違い](https://www.youtube.com/watch?v=J2vox52T4W8)
 - [ ] [関数の使い方](https://www.youtube.com/watch?v=obdbskaarVQ)
+- [ ] [クロージャの使い方](https://www.youtube.com/watch?v=OY6plmd5qPE)
+  - [ ] [クロージャのありがたみ](https://www.youtube.com/watch?v=1akMrht6I7A)
 - [ ] [type aliasの使い方](https://www.youtube.com/watch?v=2DoYdw-rvL0)
 - [ ] [非同期処理の完了を待つ方法！Promise＆async/await](https://www.youtube.com/watch?v=Vhnz1V-v1cU)
   - https://www.youtube.com/watch?v=7BCC4psJXqQ
 - [ ] [DOM](https://www.youtube.com/watch?v=dZyYqVOnrBg)
+  - [ ] [わかりやすいDOM](https://www.youtube.com/watch?v=549LwYas6O4)
 - [ ] [即時関数](https://www.youtube.com/watch?v=1VyEfy03NTg)
 - [ ] [基本の型](https://www.youtube.com/watch?v=KQhyHHQrcic)
-- expressでAPI作成
+- [x] expressでAPI作成
   - [x] [環境構築とhello world](https://www.youtube.com/watch?v=DrxcoMMgZKg)
   - [x] [リソース設計とDB設計](https://www.youtube.com/watch?v=x4ZrmnqoS1Y)
   - [x] [GET用APIのハンズオン開発](https://www.youtube.com/watch?v=dURpu7Bjr_Y)
   - [x] [HTMLのフォームからAPIを実行しよう](https://www.youtube.com/watch?v=pRoIxvhFbow)
   - [x] [CRUDなAPIを開発しよう](https://www.youtube.com/watch?v=GffwSIY_7xE)
-  - [ ] [ユーザー作成フォームとAPIを繋げよう](https://www.youtube.com/watch?v=ye5hs_ZBhcM)
-  - [ ] [ユーザーの編集と削除を操作しよう](https://www.youtube.com/watch?v=QO39f8Ztc1E)
-  - [ ] [ステータスコードを使った適切なエラーハンドリング](https://www.youtube.com/watch?v=faCCTvt1_Ic)
-  - [ ] [実務レベルのAPI設計と実装](https://www.youtube.com/watch?v=agtHuqHrhKA)
+  - [x] [ユーザー作成フォームとAPIを繋げよう](https://www.youtube.com/watch?v=ye5hs_ZBhcM)
+  - [x] [ユーザーの編集と削除を操作しよう](https://www.youtube.com/watch?v=QO39f8Ztc1E)
+  - [x] [ステータスコードを使った適切なエラーハンドリング](https://www.youtube.com/watch?v=faCCTvt1_Ic)
+  - [x] [実務レベルのAPI設計と実装](https://www.youtube.com/watch?v=agtHuqHrhKA)
 - [ ] [API入門](https://www.youtube.com/watch?v=GbHWlUs9AoE)
+- アプリ開発
+  - [ ] [アプリ設計方法](https://www.youtube.com/watch?v=IBL4CTPoe4M)
+    - 要求定義や設計など
+  - [ ] [フロントエンド開発方法](https://www.youtube.com/watch?v=j9fSpoRdjWY)
 
 <br></br>
 
@@ -969,6 +977,9 @@ const name = (引数) => {
   - ユーザがAPIにアクセスした後に、どのような流れで処理されるかの設計かな
 8. エラーを想定
   - エラーコードを設計
+  - GET, POST, PUT, DELETのエラー処理を考える
+  - HTMLのエラー処理を考える
+  - [ここを参考に](https://www.youtube.com/watch?v=faCCTvt1_Ic)
 
 ![2021-04-11 10 20のイメージ](https://user-images.githubusercontent.com/53253817/114289012-81a59980-9aaf-11eb-9ba8-6e20592f9a9c.jpg)
 

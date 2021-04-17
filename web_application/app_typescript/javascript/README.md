@@ -4,14 +4,34 @@
 1. 作りたいものを考える
 2. 機能を考える
 3. 機能をさらに分割して、簡単に書ける粒度まで分割する
-4. とにかく機能を満たすような動きをするコードを書く
+4. まずは簡単な処理を書いてみる
+  - 例1: for文を回す前に、一つのデータだけに対して適用してみる
+  - 例2: 関数化する前に処理を書いてみる
+5. とにかく機能を満たすような動きをするコードを書く
   - ここでは綺麗かどうか、クラスをガチガチに定義するなどはしなくて良い
-5. リファクタリング
+6. リファクタリング
   - 共通化をする
   - 関数化する
   - クラス化する
   - 関数を分解する(1処理1関数)
   - コメントを追加する
+
+<br></br>
+
+## オブジェクト指向で作成する方法
+- 色々な「世界を定義」していって、「世界を組み合わせて」開発していく方法
+- 例(twitter)
+  - クラス
+    - Userクラス
+    - Tweetクラス
+    - Profileクラス
+    - Actionクラス
+    - etc
+  - 組み合わせ方
+    - UserクラスがTweetクラスとActionクラスとProfileクラスを持っている
+    - etc
+- 組み合わせるだけなら関数でも実現できるが、「変数と関数」のかたまりである「クラス」を組み合わせることで、よりわかりやすいプログラムを作ることができる
+- 組み合わせ方としては、プロパティに他のクラスのインスタンスを渡すといった方法などを取る
 
 <br></br>
 
@@ -208,6 +228,40 @@ console.log(f(3)(2)) //6
 - よくライブラリの関数で、引数に関数を渡しているものがあるが、それは非同期処理をしているということ。そして引数に渡される関数がコールバック関数という。
 
 ### コールバック関数とは
+- [ここを参考にする](https://www.youtube.com/watch?v=HhoUmOEAqTI)
+- `addEventListner("click", function())`のように、「クリックを待っててね！ クリックされたら`function`を実行するね！ クリックされるまで他の処理しているね！」というように、「〜したら...してね。それまで~~してるね！」というようなものをコールバック関数という
+  - プログラム上でaddEventListnerを定義しても、クリックされるまでfunctionは実行されずに、その先の処理をしている。いわゆる非同期処理
+
+### クロージャと用途
+- [ここを参考に](https://www.youtube.com/watch?v=1akMrht6I7A&t=7s)
+- クロージャとは、関数の中に変数と関数が定義されている空間のこと
+
+  ```js
+  function func(引数1) {
+    const val = 引数1;
+    return function func2() {
+      if(val < 0) {
+        return -1 * val
+      }
+    }
+  }
+  ```
+
+- クロージャを使うことで、コールバック関数を渡さないといけないライブラリをカスタマイズすることができる
+  - addEventListnerなどのように、決まった形の引数と返り値を持った、コールバック関数を引数に渡さなければいけないものでも、`val1`のように色々な引数を追加して渡せることで、柔軟性のあるコールバック関数を作成することができる
+
+  ```js
+  function func(val1) {
+    return function func2(val2) {
+      if(val1 < val2) {
+        return -1 * val1
+      }else{
+        return val2
+      }
+    }
+  }
+  addEventListner(~,~)
+  ```
 
 ### Promiseとは
 - 未来のまだ確定していない値の状態を表すオブジェクト
@@ -328,3 +382,44 @@ const getUserName = async () => {
   const res = await result.json();
 }
 ```
+
+<br></br>
+
+## export関連
+- [CommonJSのexportsの種類](https://qiita.com/senou/items/a2f7a0f717d8aadabbf7)
+- [Node.jsのexportsの種類](https://www.webdesignleaves.com/pr/jquery/node-js-module-exports.html)
+
+### 「named exports」と「exports」
+- `named exports`はCommonJS、`exports`はNode.jsでの書き方で、処理は同じ
+- どちらも、外部のファイルから参照できるようにする
+
+```js
+// named exports
+
+// user.js
+export const getName = () => {
+  return 'Foo';
+};
+
+// main.js
+import {getName} from 'user';  // pathを指定
+console.log(getName());
+```
+
+```js
+// exports
+
+// user.js
+const getName = () => {
+  return 'Foo';
+};
+exports.getName = getName;  // 外部参照できるように設定している
+
+// main.js
+import {getName} from 'user';
+console.log(getName())
+```
+
+### 「default exports」と「module.exports」
+- ファイルに一つの関数やクラスしか定義されていない場合、ファイルごとimportするような使い方をするexport
+- あまり使わない方が良さそう
