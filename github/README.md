@@ -1,4 +1,59 @@
-# GitHub書籍メモ
+# GitHub運用まとめ
+
+## vscodeを使ったgitでの開発フロー
+- 以下を参考にすれば、全てわかる
+  - [VSCodeでのGit基本操作まとめ](https://qiita.com/y-tsutsu/items/2ba96b16b220fb5913be)
+  - [gitでのチーム開発マニュアル](https://qiita.com/siida36/items/880d92559af9bd245c34)
+  - [git-fetch,git-merge,git-pullの違い](https://qiita.com/wann/items/688bc17460a457104d7d)
+  - [git-fetchを細かく解説](https://qiita.com/matsumon-development/items/d3231acccc08c8d74c21)
+  - [VSCodeでgitのコンフリクト解消](https://qiita.com/penpenta/items/08b59f4b788ca2ae1c07)
+
+### 手順
+
+![CC105070-59B0-4F35-B0B2-402736DC28BB](https://user-images.githubusercontent.com/53253817/115416769-05d7e980-a233-11eb-8d5e-ede58b6f74c0.jpeg)
+
+- 方針
+  - こまめにpull(fetch->merge)をして、`origin/master`,`master`,`origin/develop`,`develop`を最新に保つ
+  - コードを書きたくなったら、必ず`master`または`develop`にチェックアウトしてから、ブランチを切る
+    - 変なところからブランチを切ってしまうと、コミット履歴などが汚くなってしまうから
+
+- 新しくコードを書きたくなった時
+  - ローカルのmasterブランチ(またはdevブランチ)に移動
+  - fetchする
+  - mergeする
+  - featureブランチを切って移動する
+  - コードを書く
+  - commitする
+  - pushする
+  - GitHub上でプルリクを送る、masterまたはdevにマージされる
+  - リモート追跡の`origin/feature/...`ブランチをVSCodeから削除
+    - 何回かプルリクを送って、機能の開発が終わったら削除すれば良い
+  - pullをする(fetch->mergeの手順で)
+    - リモート追跡の`origin/master`ブランチに、リモートブランチの`master`または`dev`をfetch
+      - `cmd+shift+P`で`gitfetch`と検索をしてエンター
+      - `git fetch origin develop`としたら、リモートのdevelopブランチを`origin/develop`に取り込むということ
+    - ローカルのmasterブランチに移動して、`origin/master`をmergeする
+  - ローカルの`feature/...`ブランチを削除する
+
+- コンフリクトの解消
+  - Accept Both Changeを選択する
+
+### 用語
+- `origin`
+  - GitHubのリポジトリのURLを指している
+- `origin/master`
+  - masterのリモート追跡リポジトリ
+  - GitHubのmasterブランチを追跡している(pullなどをしないと最新の状態を保持できない)
+  - `pull`や`fetch->merge`をすると保存される場所
+- `origin/develop`
+  - developのリモート追跡リポジトリ
+  - GitHubのdevelopブランチを追跡している(pullなどをしないと最新の状態を保持できない)
+  - `pull`や`fetch->merge`をすると保存される場所
+
+![BF70E40B-1FB0-4E21-BD2B-CD6A497A86BC](https://user-images.githubusercontent.com/53253817/115421925-5ea98100-a237-11eb-8ae6-edd5b07b4355.jpeg)
+
+
+<br></br>
 
 ## gitでの開発フローまとめ
 - commit前はとりあえず`git status`と`git diff`でステータスと差分を確認する
