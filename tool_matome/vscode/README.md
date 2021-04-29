@@ -12,6 +12,9 @@
 - ファイルツリーを見やすくする
     - https://qiita.com/toriiico/items/3070bac14946168be1ce
 
+## VSCodeでmarkdownを書くときにやること
+- [ここを参考](https://qiita.com/tomokin966/items/7731a6337670f5de2342)
+
 ## setting.json
 - ツリーのインデントを深くする
     - `"workbench.tree.indent": 20`
